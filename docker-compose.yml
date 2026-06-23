@@ -1,0 +1,45 @@
+services:
+  echo-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: echo-universe-engine:latest
+    container_name: echo-universe-engine
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8010}:8010"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./assets:/app/assets
+      - ./bible:/app/bible
+      - ./characters:/app/characters
+      - ./factions:/app/factions
+      - ./locations:/app/locations
+      - ./timeline:/app/timeline
+      - ./technologies:/app/technologies
+      - ./relationships:/app/relationships
+      - ./stories:/app/stories
+      - ./prompts:/app/prompts
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8010/api/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # Optional future GPU worker. Enable once ComfyUI is deployed.
+  comfyui-worker:
+    profiles: ["gpu"]
+    image: echo-universe-engine:latest
+    container_name: echo-comfyui-worker
+    restart: unless-stopped
+    env_file:
+      - .env
+    command: ["python", "asset_factory/comfyui_worker.py"]
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./assets:/app/assets

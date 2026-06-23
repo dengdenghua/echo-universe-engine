@@ -1,0 +1,8 @@
+type: character_image
+character_id: "001"
+style: echo_universe_v1
+provider: flux
+prompt: "full body anime techwear cyberpunk character sheet"
+negative_prompt: "magic, fantasy, supernatural, medieval, low detail"
+size: "1024x1536"
+status: queued

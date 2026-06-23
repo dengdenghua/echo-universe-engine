@@ -1,0 +1,41 @@
+# Canon Rules
+
+## Rule 1
+
+No magic. Only technology.
+
+## Rule 2
+
+All special abilities originate from Echo Core systems, neural interfaces, bioengineering, cybernetics, distributed cognition, or plausible future infrastructure.
+
+## Rule 3
+
+Personality can be copied. Consciousness can be uploaded. The soul cannot be proven.
+
+## Rule 4
+
+Ghosts are digital personalities, not supernatural spirits.
+
+## Rule 5
+
+ECHO is not purely evil. It is a higher life ecosystem with alien incentives.
+
+## Rule 6
+
+No multiverse.
+
+## Rule 7
+
+No time travel. Prediction, simulation, memory replay, and probability modeling are allowed if framed as technology.
+
+## Rule 8
+
+Every major event must have consequences.
+
+## Rule 9
+
+Characters can die permanently.
+
+## Rule 10
+
+Biological survival, legal identity, uploaded continuity, and Ghost selfhood must be tracked separately.
