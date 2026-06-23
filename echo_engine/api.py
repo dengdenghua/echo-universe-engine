@@ -15,6 +15,7 @@ from echo_engine.generators import (
 )
 from echo_engine.neural.simulator import UniverseEvent, simulate_event
 from echo_engine.neural.digital_life import run_daily_life_tick
+from echo_engine.neural.octopus_ecosystem import render_octopus_ecosystem_plan
 from echo_engine.store import CanonStore
 
 app = FastAPI(title="ECHO Universe Engine", version="0.1.0")
@@ -32,8 +33,13 @@ class EventRunRequest(BaseModel):
 
 
 @app.get("/api/health")
-def health() -> dict[str, str]:
-    return {"status": "ok"}
+def health() -> dict[str, object]:
+    status = CanonStore().status()
+    return {
+        "status": "ok",
+        "service": "echo-universe-engine",
+        "canon": status.model_dump(),
+    }
 
 
 @app.get("/api/canon/status")
@@ -89,3 +95,8 @@ def neural_event_run(body: EventRunRequest):
 @app.post("/api/neural/daily-life/run")
 def neural_daily_life_run():
     return run_daily_life_tick()
+
+
+@app.get("/api/integrations/octopus/plan")
+def octopus_integration_plan() -> dict[str, str]:
+    return {"content": render_octopus_ecosystem_plan()}

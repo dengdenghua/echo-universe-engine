@@ -23,12 +23,41 @@ services:
       - ./relationships:/app/relationships
       - ./stories:/app/stories
       - ./prompts:/app/prompts
+      - ./integrations:/app/integrations
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8010/api/health', timeout=3)"]
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 10s
+
+  echo-scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: echo-universe-engine:latest
+    container_name: echo-universe-scheduler
+    restart: unless-stopped
+    profiles: ["scheduler"]
+    env_file:
+      - .env
+    environment:
+      ECHO_SCHEDULER_ENABLED: "true"
+    command: ["python", "-m", "echo_engine.scheduler"]
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./assets:/app/assets
+      - ./bible:/app/bible
+      - ./characters:/app/characters
+      - ./factions:/app/factions
+      - ./locations:/app/locations
+      - ./timeline:/app/timeline
+      - ./technologies:/app/technologies
+      - ./relationships:/app/relationships
+      - ./stories:/app/stories
+      - ./prompts:/app/prompts
+      - ./integrations:/app/integrations
 
   # Optional future GPU worker. Enable once ComfyUI is deployed.
   comfyui-worker:

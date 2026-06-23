@@ -16,6 +16,11 @@ class Settings(BaseSettings):
     database_path: Path = Path("data/echo.sqlite3")
     vector_backend: str = "none"
     asset_provider: str = "none"
+    scheduler_enabled: bool = False
+    scheduler_interval_seconds: int = 300
+    scheduler_run_on_start: bool = False
+    auto_git_commit: bool = False
+    git_commit_paths: str = "data,outputs,assets"
 
 
 @lru_cache

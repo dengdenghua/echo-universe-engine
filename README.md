@@ -69,10 +69,19 @@ uv run python -m echo_engine.cli export-octopus-agents
 uv run python -m echo_engine.cli octopus-ecosystem-plan
 ```
 
+Built-in scheduler:
+
+```bash
+ECHO_SCHEDULER_ENABLED=true uv run python -m echo_engine.scheduler
+```
+
+Set `ECHO_AUTO_GIT_COMMIT=true` if the scheduler should commit generated `data/`, `outputs/`, and `assets/` changes.
+
 ## Docker
 
 ```bash
 docker compose up --build
+docker compose --profile scheduler up --build -d
 ```
 
 API:
@@ -89,6 +98,9 @@ API:
 - `POST /api/agents/consistency/run`
 - `POST /api/neural/event/run`
 - `POST /api/neural/daily-life/run`
+- `GET /api/integrations/octopus/plan`
+
+Deployment notes live in `workflows/deployment.md`.
 
 ## Visual Pipeline
 

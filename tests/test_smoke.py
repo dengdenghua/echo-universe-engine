@@ -3,7 +3,9 @@ from echo_engine.neural.octopus_ecosystem import (
     ecosystem_paths,
     render_octopus_ecosystem_plan,
 )
+from echo_engine.scheduler import auto_commit, due_task_keys
 from echo_engine.store import CanonStore
+from datetime import datetime
 
 
 def test_canon_status_counts_initial_files():
@@ -24,3 +26,12 @@ def test_octopus_ecosystem_plan_loads():
     assert "Octopus Ecosystem Integration Plan" in plan
     assert "character_agents" in plan
     assert "octopus_agent" in paths
+
+
+def test_scheduler_due_task_keys():
+    due = due_task_keys(datetime(2147, 1, 1, 9, 30))
+    assert [name for name, _ in due] == ["2147-01-01:daily digital life"]
+
+
+def test_auto_commit_disabled_does_nothing():
+    auto_commit("test")
