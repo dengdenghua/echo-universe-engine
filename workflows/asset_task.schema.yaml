@@ -6,3 +6,13 @@ prompt: "full body anime techwear cyberpunk character sheet"
 negative_prompt: "magic, fantasy, supernatural, medieval, low detail"
 size: "1024x1536"
 status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"

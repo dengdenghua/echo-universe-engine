@@ -1,6 +1,7 @@
 const state = {
   status: null,
   characters: [],
+  assets: null,
   zIndex: 20,
 };
 
@@ -93,6 +94,37 @@ function renderCharacters(cards) {
     .join("");
 }
 
+function renderAssets(index) {
+  const characters = Object.entries(index?.characters || {});
+  $("#asset-count").textContent = `${characters.length} locked`;
+  $("#asset-grid").innerHTML = characters
+    .map(([id, item]) => {
+      const urls = item.urls || {};
+      const portrait = urls.front || urls.avatar;
+      return `
+        <article class="asset-card">
+          <div class="asset-preview">
+            ${portrait ? `<img src="${portrait}" alt="${item.name} front reference" />` : ""}
+          </div>
+          <div class="asset-info">
+            <div class="asset-title">
+              <span>${id}</span>
+              <strong>${item.name}</strong>
+            </div>
+            <p>${item.codename || "White Ghost Team"}</p>
+            <div class="asset-links">
+              ${["front", "side", "back", "avatar", "source_turnaround"]
+                .filter((key) => urls[key])
+                .map((key) => `<a href="${urls[key]}" target="_blank" rel="noreferrer">${key}</a>`)
+                .join("")}
+            </div>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
 function renderMemory(result) {
   if (!result?.content) return;
   const lines = result.content
@@ -112,15 +144,18 @@ function renderMemory(result) {
 async function refresh() {
   try {
     setEngineState("Syncing");
-    const [health, characters, plan] = await Promise.all([
+    const [health, characters, plan, assets] = await Promise.all([
       requestJson("/api/health"),
       requestJson("/api/canon/characters"),
       requestJson("/api/integrations/octopus/plan"),
+      requestJson("/api/assets/characters"),
     ]);
     state.status = health.canon;
     state.characters = characters;
+    state.assets = assets;
     renderMetrics(health.canon);
     renderCharacters(characters);
+    renderAssets(assets);
     $("#octopus-plan").textContent = plan.content;
     setEngineState("Online", true);
   } catch (error) {

@@ -25,6 +25,7 @@
         <button class="dock-item active" data-window="world" title="World Brain">WB</button>
         <button class="dock-item" data-window="characters" title="Character Agents">CA</button>
         <button class="dock-item" data-window="factory" title="Universe Factory">UF</button>
+        <button class="dock-item" data-window="assets" title="Asset Locks">AL</button>
         <button class="dock-item" data-window="memory" title="Memory Stream">MS</button>
         <button class="dock-item" data-window="octopus" title="Octopus Runtime">OR</button>
       </aside>
@@ -102,6 +103,17 @@
             </button>
           </div>
           <pre id="factory-output">Awaiting signal.</pre>
+        </section>
+
+        <section class="window assets-window active" data-window-panel="assets">
+          <div class="titlebar">
+            <div>
+              <span class="window-kicker">Visual Canon</span>
+              <h2>Asset Locks</h2>
+            </div>
+            <span class="window-badge" id="asset-count">0 locked</span>
+          </div>
+          <div class="asset-grid" id="asset-grid"></div>
         </section>
 
         <section class="window memory-window" data-window-panel="memory">

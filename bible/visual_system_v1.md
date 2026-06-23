@@ -165,3 +165,13 @@ dirty neon street punk, fantasy magic, medieval armor, horns, wings, wizard,
 literal demon, literal angel, steampunk, multiverse portal, time portal,
 supernatural aura, chaotic rainbow palette
 ```
+
+## Character Lock Authority
+
+White Ghost Team visual locks are tracked in:
+
+```text
+assets/characters/white_ghost_team_visual_locks.yaml
+```
+
+Recurring character images should use approved lock sheets, references, IP-Adapter or equivalent reference conditioning, ControlNet pose/lineart, and later per-character LoRA if needed.

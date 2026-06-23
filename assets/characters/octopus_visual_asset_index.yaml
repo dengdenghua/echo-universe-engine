@@ -1,0 +1,120 @@
+schema: echo_octopus_visual_asset_index_v1
+status: copied_reference_assets
+source_repository: /Users/dangbei/Public/octopus/octopus-agent
+asset_root: assets/characters
+usage_policy:
+  canon_source: true
+  generation_rule: use these copied references before any new image generation
+  comic_rule: recurring manga panels must reference the approved front, side, back, avatar, and turnaround images
+  source_metadata: each pack keeps source_profile.jsonc from the original Octopus agent
+characters:
+  "001":
+    name: Zero
+    codename: White Ghost
+    echo_asset_dir: assets/characters/001_zero/octopus_refs
+    octopus_source_agent: aoi
+    octopus_source_dir: /Users/dangbei/Public/octopus/octopus-agent/agents/aoi
+    files:
+      avatar: assets/characters/001_zero/octopus_refs/avatar.png
+      front: assets/characters/001_zero/octopus_refs/front.png
+      side: assets/characters/001_zero/octopus_refs/side.png
+      back: assets/characters/001_zero/octopus_refs/back.png
+      head: assets/characters/001_zero/octopus_refs/head.png
+      chat: assets/characters/001_zero/octopus_refs/chat.png
+      source_portrait: assets/characters/001_zero/octopus_refs/source-portrait.png
+      source_turnaround: assets/characters/001_zero/octopus_refs/source-turnaround.png
+      source_profile: assets/characters/001_zero/octopus_refs/source_profile.jsonc
+  "002":
+    name: Kane
+    codename: Paladin
+    echo_asset_dir: assets/characters/002_kane/octopus_refs
+    octopus_source_agent: coder
+    octopus_source_dir: /Users/dangbei/Public/octopus/octopus-agent/agents/coder
+    files:
+      avatar: assets/characters/002_kane/octopus_refs/avatar.png
+      front: assets/characters/002_kane/octopus_refs/front.png
+      side: assets/characters/002_kane/octopus_refs/side.png
+      back: assets/characters/002_kane/octopus_refs/back.png
+      source_turnaround: assets/characters/002_kane/octopus_refs/source-turnaround.png
+      source_profile: assets/characters/002_kane/octopus_refs/source_profile.jsonc
+  "003":
+    name: Eve
+    codename: Siren
+    echo_asset_dir: assets/characters/003_eve/octopus_refs
+    octopus_source_agent: general
+    octopus_source_dir: /Users/dangbei/Public/octopus/octopus-agent/agents/general
+    files:
+      avatar: assets/characters/003_eve/octopus_refs/avatar.png
+      front: assets/characters/003_eve/octopus_refs/front.png
+      side: assets/characters/003_eve/octopus_refs/side.png
+      back: assets/characters/003_eve/octopus_refs/back.png
+      head: assets/characters/003_eve/octopus_refs/head.png
+      chat: assets/characters/003_eve/octopus_refs/chat.png
+      source_portrait: assets/characters/003_eve/octopus_refs/source-portrait.png
+      source_turnaround: assets/characters/003_eve/octopus_refs/source-turnaround.png
+      source_profile: assets/characters/003_eve/octopus_refs/source_profile.jsonc
+  "004":
+    name: Leon
+    codename: Chronos
+    echo_asset_dir: assets/characters/004_leon/octopus_refs
+    octopus_source_agent: admin
+    octopus_source_dir: /Users/dangbei/Public/octopus/octopus-agent/agents/admin
+    files:
+      avatar: assets/characters/004_leon/octopus_refs/avatar.png
+      front: assets/characters/004_leon/octopus_refs/front.png
+      side: assets/characters/004_leon/octopus_refs/side.png
+      back: assets/characters/004_leon/octopus_refs/back.png
+      source_turnaround: assets/characters/004_leon/octopus_refs/source-turnaround.png
+      source_profile: assets/characters/004_leon/octopus_refs/source_profile.jsonc
+  "005":
+    name: Raven
+    codename: Night Crow
+    echo_asset_dir: assets/characters/005_raven/octopus_refs
+    octopus_source_agent: desktop_operator
+    octopus_source_dir: /Users/dangbei/Public/octopus/octopus-agent/agents/desktop_operator
+    files:
+      avatar: assets/characters/005_raven/octopus_refs/avatar.png
+      front: assets/characters/005_raven/octopus_refs/front.png
+      side: assets/characters/005_raven/octopus_refs/side.png
+      back: assets/characters/005_raven/octopus_refs/back.png
+      source_turnaround: assets/characters/005_raven/octopus_refs/source-turnaround.png
+      source_profile: assets/characters/005_raven/octopus_refs/source_profile.jsonc
+  "006":
+    name: Shion
+    codename: Virus Queen
+    echo_asset_dir: assets/characters/006_shion/octopus_refs
+    octopus_source_agent: ecommerce_mind
+    octopus_source_dir: /Users/dangbei/Public/octopus/octopus-agent/agents/ecommerce_mind
+    files:
+      avatar: assets/characters/006_shion/octopus_refs/avatar.png
+      front: assets/characters/006_shion/octopus_refs/front.png
+      side: assets/characters/006_shion/octopus_refs/side.png
+      back: assets/characters/006_shion/octopus_refs/back.png
+      source_turnaround: assets/characters/006_shion/octopus_refs/source-turnaround.png
+      source_profile: assets/characters/006_shion/octopus_refs/source_profile.jsonc
+  "007":
+    name: Noah
+    codename: Probability
+    echo_asset_dir: assets/characters/007_noah/octopus_refs
+    octopus_source_agent: market_researcher
+    octopus_source_dir: /Users/dangbei/Public/octopus/octopus-agent/agents/market_researcher
+    files:
+      avatar: assets/characters/007_noah/octopus_refs/avatar.png
+      front: assets/characters/007_noah/octopus_refs/front.png
+      side: assets/characters/007_noah/octopus_refs/side.png
+      back: assets/characters/007_noah/octopus_refs/back.png
+      source_turnaround: assets/characters/007_noah/octopus_refs/source-turnaround.png
+      source_profile: assets/characters/007_noah/octopus_refs/source_profile.jsonc
+  "008":
+    name: Luna
+    codename: Dream Walker
+    echo_asset_dir: assets/characters/008_luna/octopus_refs
+    octopus_source_agent: vibe_selling
+    octopus_source_dir: /Users/dangbei/Public/octopus/octopus-agent/agents/vibe_selling
+    files:
+      avatar: assets/characters/008_luna/octopus_refs/avatar.png
+      front: assets/characters/008_luna/octopus_refs/front.png
+      side: assets/characters/008_luna/octopus_refs/side.png
+      back: assets/characters/008_luna/octopus_refs/back.png
+      source_turnaround: assets/characters/008_luna/octopus_refs/source-turnaround.png
+      source_profile: assets/characters/008_luna/octopus_refs/source_profile.jsonc

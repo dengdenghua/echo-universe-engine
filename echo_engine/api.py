@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+import yaml
 
 from echo_engine.generators import (
     run_art_director_agent,
@@ -26,6 +27,9 @@ app = FastAPI(title="ECHO Universe Engine", version="0.1.0")
 console_dir = Path("console")
 if console_dir.exists():
     app.mount("/console", StaticFiles(directory=console_dir), name="console")
+assets_dir = Path("assets")
+if assets_dir.exists():
+    app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
 
 
 class EventRunRequest(BaseModel):
@@ -57,6 +61,20 @@ def canon_status():
 @app.get("/api/canon/characters")
 def canon_characters():
     return CanonStore().load_character_cards()
+
+
+@app.get("/api/assets/characters")
+def character_visual_assets() -> dict[str, object]:
+    index_path = Path("assets/characters/octopus_visual_asset_index.yaml")
+    if not index_path.exists():
+        return {"schema": "echo_octopus_visual_asset_index_v1", "characters": {}}
+    data = yaml.safe_load(index_path.read_text(encoding="utf-8"))
+    for character in data.get("characters", {}).values():
+        files = character.get("files", {})
+        character["urls"] = {
+            key: f"/{path}" for key, path in files.items() if path.endswith((".png", ".jpg", ".jpeg", ".webp"))
+        }
+    return data
 
 
 @app.post("/api/agents/character/run")

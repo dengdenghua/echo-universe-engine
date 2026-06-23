@@ -1,0 +1,337 @@
+style_authority: bible/visual_system_v1.md
+asset_index: assets/characters/octopus_visual_asset_index.yaml
+team: White Ghost Team
+status: octopus_reference_assets_copied
+global_constraints:
+  palette: snow white industrial uniforms, graphite black modular straps, restrained character accent color
+  world_feel: clean, surgical, monitored, post-AI, emotionally haunted
+  required_elements:
+    - Echo Core interface marker
+    - white tactical silhouette
+    - black modular strap or compression detail
+    - biotech or neural interface element
+  banned_elements:
+    - fantasy armor
+    - supernatural aura
+    - dirty neon street punk default
+    - horns
+    - wings
+    - wizard robe
+    - medieval weapons
+    - random outfit redesign between panels
+generation_policy:
+  source_of_truth:
+    - use copied Octopus references in assets/characters/*/octopus_refs before any fresh generation
+    - never generate recurring comic panels from text prompts alone
+    - every new image must preserve face, hair, silhouette, outfit language, and accent colors from the copied references
+  first_pass:
+    output_type: reference_based_character_lock_sheet
+    required_views:
+      - front
+      - side
+      - back
+      - head_closeup
+      - expression_sheet
+    size: 1024x1536
+    background: clean dark industrial background
+  consistency_tools:
+    - IP-Adapter face reference
+    - ControlNet pose
+    - ControlNet lineart
+    - per-character LoRA after lock approval
+    - fixed prompt prefix
+    - fixed negative prompt
+  approval_required_before_comic: true
+characters:
+  "001":
+    name: Zero
+    codename: White Ghost
+    octopus_source_agent: aoi
+    reference_pack: assets/characters/001_zero/octopus_refs
+    approved_references:
+      avatar: assets/characters/001_zero/octopus_refs/avatar.png
+      front: assets/characters/001_zero/octopus_refs/front.png
+      side: assets/characters/001_zero/octopus_refs/side.png
+      back: assets/characters/001_zero/octopus_refs/back.png
+      head: assets/characters/001_zero/octopus_refs/head.png
+      source_turnaround: assets/characters/001_zero/octopus_refs/source-turnaround.png
+    silhouette: slim captain profile, high-collar iridescent white tactical jacket, precise calm posture
+    hair: silver-white, clean layered cut, luminous but not glowing like magic
+    face: apparent 18, calm expression, controlled sadness, pure features
+    eyes: pale gray or light cyan; pure white only during ECHO deep access scenes
+    accent_color: pale cyan and soft pink
+    required_items:
+      - translucent tactical glasses
+      - iridescent silver-white jacket
+      - Echo Core spine light
+      - captain insignia kept minimal
+    forbidden_drift:
+      - long fantasy dress
+      - angelic halo
+      - heavy armor bulk
+      - neon club styling
+    base_prompt: >
+      Zero, White Ghost captain, silver-white hair, translucent tactical glasses,
+      iridescent white tactical jacket, pale cyan and soft pink accents, slim
+      post-AI cyberpunk commander, snow white industrial techwear, black modular
+      straps, Echo Core spine light, calm controlled expression.
+    expression_set:
+      - neutral command
+      - quiet concern
+      - ECHO resonance trance
+      - restrained grief
+      - battle focus
+  "002":
+    name: Kane
+    codename: Paladin
+    octopus_source_agent: coder
+    reference_pack: assets/characters/002_kane/octopus_refs
+    approved_references:
+      avatar: assets/characters/002_kane/octopus_refs/avatar.png
+      front: assets/characters/002_kane/octopus_refs/front.png
+      side: assets/characters/002_kane/octopus_refs/side.png
+      back: assets/characters/002_kane/octopus_refs/back.png
+      source_turnaround: assets/characters/002_kane/octopus_refs/source-turnaround.png
+    silhouette: broad protective vice-captain, military white armored jacket, heavy gauntlets
+    hair: black or very dark brown, short practical cut
+    face: mature young adult, warm eyes, restrained intensity
+    eyes: warm brown or dark amber
+    accent_color: muted gold
+    required_items:
+      - white armored jacket
+      - black tactical straps
+      - heavy gauntlets
+      - command earpiece
+    forbidden_drift:
+      - fantasy knight armor
+      - oversized cape
+      - medieval paladin symbols
+      - glowing holy effects
+    base_prompt: >
+      Kane, Paladin vice captain, young male military cyberpunk operator,
+      white armored jacket, black tactical straps, heavy gauntlets, warm eyes,
+      muted gold accents, protective posture, snow white industrial techwear.
+    expression_set:
+      - calm command
+      - protective anger
+      - hidden affection
+      - combat download strain
+      - exhausted loyalty
+  "003":
+    name: Eve
+    codename: Siren
+    octopus_source_agent: general
+    reference_pack: assets/characters/003_eve/octopus_refs
+    approved_references:
+      avatar: assets/characters/003_eve/octopus_refs/avatar.png
+      front: assets/characters/003_eve/octopus_refs/front.png
+      side: assets/characters/003_eve/octopus_refs/side.png
+      back: assets/characters/003_eve/octopus_refs/back.png
+      head: assets/characters/003_eve/octopus_refs/head.png
+      source_turnaround: assets/characters/003_eve/octopus_refs/source-turnaround.png
+    silhouette: elegant negotiator, white tactical coat, soft emotional interface lines
+    hair: silver hair with soft pink accents
+    face: composed, empathetic, slightly dangerous
+    eyes: pink-gray or pale rose
+    accent_color: soft magenta
+    required_items:
+      - pink visor
+      - elegant white tactical coat
+      - subtle biotech implants
+      - emotional waveform UI
+    forbidden_drift:
+      - idol costume
+      - mermaid motifs
+      - seductive fantasy siren styling
+      - excessive pink saturation
+    base_prompt: >
+      Eve, Siren emotion hacker, silver hair with soft pink accents, pink visor,
+      elegant white tactical coat, composed negotiator posture, subtle biotech
+      implants, soft magenta interface lights, post-AI cyberpunk.
+    expression_set:
+      - composed empathy
+      - emotional focus
+      - guilt
+      - controlled threat
+      - fragile smile
+  "004":
+    name: Leon
+    codename: Chronos
+    octopus_source_agent: admin
+    reference_pack: assets/characters/004_leon/octopus_refs
+    approved_references:
+      avatar: assets/characters/004_leon/octopus_refs/avatar.png
+      front: assets/characters/004_leon/octopus_refs/front.png
+      side: assets/characters/004_leon/octopus_refs/side.png
+      back: assets/characters/004_leon/octopus_refs/back.png
+      source_turnaround: assets/characters/004_leon/octopus_refs/source-turnaround.png
+    silhouette: lean swordsman, white blade harness, black undersuit, narrow sword
+    hair: white or very pale silver, clean and sharp
+    face: calm, tired, precise
+    eyes: cold blue
+    accent_color: cold blue
+    required_items:
+      - segmented visor
+      - white blade harness
+      - narrow mono-edged sword
+      - predictive UI traces
+    forbidden_drift:
+      - samurai fantasy armor
+      - time portal effects
+      - clock motifs too literal
+      - oversized sword
+    base_prompt: >
+      Leon, Chronos cyberpunk swordsman, white blade harness, black undersuit,
+      segmented visor, narrow mono-edged sword, cold blue predictive interface,
+      lean precise posture, snow white tactical design.
+    expression_set:
+      - calm prediction
+      - pain after Time Echo
+      - rivalry focus
+      - regret
+      - silent resolve
+  "005":
+    name: Raven
+    codename: Night Crow
+    octopus_source_agent: desktop_operator
+    reference_pack: assets/characters/005_raven/octopus_refs
+    approved_references:
+      avatar: assets/characters/005_raven/octopus_refs/avatar.png
+      front: assets/characters/005_raven/octopus_refs/front.png
+      side: assets/characters/005_raven/octopus_refs/side.png
+      back: assets/characters/005_raven/octopus_refs/back.png
+      source_turnaround: assets/characters/005_raven/octopus_refs/source-turnaround.png
+    silhouette: dark underlayer with white stealth cloak, asymmetric hood, compact assassin profile
+    hair: black, partially hidden by hood
+    face: sharp, guarded, low-emotion
+    eyes: violet-gray or dark steel
+    accent_color: shadow violet
+    required_items:
+      - white stealth cloak
+      - black tactical underlayer
+      - asymmetric hood
+      - matte optical panels
+      - compact throwing drones
+    forbidden_drift:
+      - bird feathers
+      - fantasy assassin robes
+      - gothic costume
+      - supernatural shadow aura
+    base_prompt: >
+      Raven, Night Crow cyberpunk assassin, black tactical underlayer, white
+      stealth cloak, asymmetric hood, matte optical panels, compact throwing
+      drones, shadow violet accents, clean post-AI stealth silhouette.
+    expression_set:
+      - unreadable
+      - kill focus
+      - delayed mercy
+      - rivalry edge
+      - isolation
+  "006":
+    name: Shion
+    codename: Virus Queen
+    octopus_source_agent: ecommerce_mind
+    reference_pack: assets/characters/006_shion/octopus_refs
+    approved_references:
+      avatar: assets/characters/006_shion/octopus_refs/avatar.png
+      front: assets/characters/006_shion/octopus_refs/front.png
+      side: assets/characters/006_shion/octopus_refs/side.png
+      back: assets/characters/006_shion/octopus_refs/back.png
+      source_turnaround: assets/characters/006_shion/octopus_refs/source-turnaround.png
+    silhouette: oversized white techwear, black gloves, orbiting nano-particle field
+    hair: purple or dark violet, techwear messy cut
+    face: sharp, mischievous, analytical
+    eyes: violet
+    accent_color: violet
+    required_items:
+      - oversized white techwear
+      - black tactical gloves
+      - violet diagnostic threads
+      - nano swarm around hands
+    forbidden_drift:
+      - fantasy witch styling
+      - literal crown
+      - magical purple aura
+      - gothic dress
+    base_prompt: >
+      Shion, Virus Queen hacker, purple hair, oversized white cyberpunk techwear,
+      black tactical gloves, violet diagnostic threads, programmable nano swarm
+      around hands, analytical mischievous expression.
+    expression_set:
+      - amused analysis
+      - hacker focus
+      - distrust
+      - control panic
+      - rare care
+  "007":
+    name: Noah
+    codename: Probability
+    octopus_source_agent: market_researcher
+    reference_pack: assets/characters/007_noah/octopus_refs
+    approved_references:
+      avatar: assets/characters/007_noah/octopus_refs/avatar.png
+      front: assets/characters/007_noah/octopus_refs/front.png
+      side: assets/characters/007_noah/octopus_refs/side.png
+      back: assets/characters/007_noah/octopus_refs/back.png
+      source_turnaround: assets/characters/007_noah/octopus_refs/source-turnaround.png
+    silhouette: slim strategist, white analyst coat, translucent data scarf, narrow glasses
+    hair: yellow-brown or warm light brown
+    face: young, thoughtful, tense
+    eyes: amber
+    accent_color: amber
+    required_items:
+      - white analyst coat
+      - translucent data scarf
+      - narrow glasses
+      - probability glyph interface
+    forbidden_drift:
+      - wizard mathematician styling
+      - floating magic symbols
+      - school uniform default
+      - childish mascot design
+    base_prompt: >
+      Noah, Probability strategist, young male analyst, yellow-brown hair,
+      white techwear analyst coat, translucent data scarf, narrow glasses,
+      amber probability glyph interface, thoughtful tense expression.
+    expression_set:
+      - calculation focus
+      - moral alarm
+      - quiet fear
+      - strategic trust
+      - guilt
+  "008":
+    name: Luna
+    codename: Dream Walker
+    octopus_source_agent: vibe_selling
+    reference_pack: assets/characters/008_luna/octopus_refs
+    approved_references:
+      avatar: assets/characters/008_luna/octopus_refs/avatar.png
+      front: assets/characters/008_luna/octopus_refs/front.png
+      side: assets/characters/008_luna/octopus_refs/side.png
+      back: assets/characters/008_luna/octopus_refs/back.png
+      source_turnaround: assets/characters/008_luna/octopus_refs/source-turnaround.png
+    silhouette: soft white tactical suit, translucent neural veil, gentle but uncanny
+    hair: pink, soft layered style
+    face: gentle, haunted, curious
+    eyes: rose or pale lunar pink
+    accent_color: lunar pink
+    required_items:
+      - white tactical suit
+      - translucent veil-like neural interface
+      - biotech implants around temples
+      - lunar accent lines
+    forbidden_drift:
+      - magical girl outfit
+      - angel wings
+      - fantasy dream aura
+      - excessive frills
+    base_prompt: >
+      Luna, Dream Walker, pink-haired Ghost-human hybrid, white tactical suit,
+      translucent neural veil interface, biotech temple implants, soft lunar
+      pink accents, gentle haunted expression, post-AI cyberpunk.
+    expression_set:
+      - gentle curiosity
+      - dream trance
+      - Ghost sympathy
+      - fear
+      - quiet defiance

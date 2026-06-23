@@ -46,3 +46,31 @@ def test_api_serves_console_and_characters():
     response = client.get("/api/canon/characters")
     assert response.status_code == 200
     assert len(response.json()) >= 8
+
+
+def test_white_ghost_visual_assets_are_copied():
+    root = CanonStore().root / "assets" / "characters"
+    for folder in [
+        "001_zero",
+        "002_kane",
+        "003_eve",
+        "004_leon",
+        "005_raven",
+        "006_shion",
+        "007_noah",
+        "008_luna",
+    ]:
+        refs = root / folder / "octopus_refs"
+        for filename in ["avatar.png", "front.png", "side.png", "back.png", "source_profile.jsonc"]:
+            assert (refs / filename).exists()
+
+
+def test_api_serves_character_visual_assets():
+    client = TestClient(app)
+    response = client.get("/api/assets/characters")
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data["characters"]) == 8
+    zero = data["characters"]["001"]
+    assert zero["name"] == "Zero"
+    assert zero["urls"]["front"].endswith("/assets/characters/001_zero/octopus_refs/front.png")
