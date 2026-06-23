@@ -3,118 +3,133 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ECHO Universe Console</title>
+    <title>ECHO OS</title>
     <link rel="stylesheet" href="/console/styles.css" />
   </head>
   <body>
-    <div class="shell">
-      <aside class="sidebar">
-        <div class="brand">
-          <div class="mark">E</div>
-          <div>
-            <h1>ECHO</h1>
-            <p>Universe Console</p>
-          </div>
+    <div class="os-shell">
+      <header class="system-bar">
+        <div class="system-brand">
+          <span class="brand-mark">E</span>
+          <span>ECHO OS</span>
         </div>
-        <nav class="nav" aria-label="Console rooms">
-          <button class="nav-item active" data-room="overview">Overview</button>
-          <button class="nav-item" data-room="characters">Characters</button>
-          <button class="nav-item" data-room="factory">Factory</button>
-          <button class="nav-item" data-room="octopus">Octopus</button>
-        </nav>
-        <div class="status-strip">
-          <span class="pulse"></span>
-          <span id="engine-state">Connecting</span>
+        <div class="system-center">
+          <span class="system-chip" id="engine-state">Connecting</span>
+          <span class="system-chip">2147 / Echo Age</span>
+          <span class="system-chip">White Ghost Network</span>
         </div>
+        <time id="system-clock">--:--</time>
+      </header>
+
+      <aside class="dock" aria-label="ECHO rooms">
+        <button class="dock-item active" data-window="world" title="World Brain">WB</button>
+        <button class="dock-item" data-window="characters" title="Character Agents">CA</button>
+        <button class="dock-item" data-window="factory" title="Universe Factory">UF</button>
+        <button class="dock-item" data-window="memory" title="Memory Stream">MS</button>
+        <button class="dock-item" data-window="octopus" title="Octopus Runtime">OR</button>
       </aside>
 
-      <main class="workspace">
-        <header class="topbar">
-          <div>
-            <p class="eyebrow">2147 / Echo Age</p>
-            <h2 id="room-title">World Brain Overview</h2>
-          </div>
-          <div class="actions">
-            <button id="refresh-btn" class="icon-btn" title="Refresh">Refresh</button>
-            <button id="daily-life-btn" class="primary-btn">Run Daily Life</button>
-          </div>
-        </header>
-
-        <section class="room active" id="room-overview">
-          <div class="metrics" id="metrics"></div>
-          <div class="grid two">
-            <article class="panel">
-              <div class="panel-head">
-                <h3>World Brain</h3>
-                <span>Canon Gate</span>
-              </div>
-              <p>
-                Candidate memories, events, and relationship changes stay outside canon until
-                review. ECHO owns the rules; Octopus runs the nervous system.
-              </p>
-              <div class="rule-list">
-                <span>No magic</span>
-                <span>No supernatural ghosts</span>
-                <span>No time travel</span>
-                <span>Technology explains every power</span>
-              </div>
-            </article>
-            <article class="panel">
-              <div class="panel-head">
-                <h3>Today</h3>
-                <span>Pipeline</span>
-              </div>
-              <ol class="timeline">
-                <li><strong>09:00</strong> Character generation</li>
-                <li><strong>09:30</strong> Digital life tick</li>
-                <li><strong>13:00</strong> Lore expansion</li>
-                <li><strong>18:00</strong> Story seed</li>
-                <li><strong>23:00</strong> Canon audit</li>
-              </ol>
-            </article>
-          </div>
-        </section>
-
-        <section class="room" id="room-characters">
-          <div class="character-grid" id="character-grid"></div>
-        </section>
-
-        <section class="room" id="room-factory">
-          <div class="command-grid">
-            <button class="command" data-command="/api/agents/character/run">
-              <strong>Character Agent</strong>
-              <span>Generate one candidate character</span>
-            </button>
-            <button class="command" data-command="/api/agents/lore/run">
-              <strong>Lore Agent</strong>
-              <span>Expand world history or institutions</span>
-            </button>
-            <button class="command" data-command="/api/agents/story/run">
-              <strong>Story Agent</strong>
-              <span>Create a manga beat candidate</span>
-            </button>
-            <button class="command" data-command="/api/agents/consistency/run">
-              <strong>Consistency Agent</strong>
-              <span>Check canon risks</span>
-            </button>
-          </div>
-          <article class="panel output-panel">
-            <div class="panel-head">
-              <h3>Latest Output</h3>
-              <span id="output-mode">Idle</span>
+      <main class="desktop" id="desktop">
+        <section class="window world-window active" data-window-panel="world">
+          <div class="titlebar">
+            <div>
+              <span class="window-kicker">Layer 1</span>
+              <h1>World Brain</h1>
             </div>
-            <pre id="factory-output">Choose a factory command.</pre>
-          </article>
+            <div class="window-actions">
+              <button id="refresh-btn" title="Refresh canon state">Refresh</button>
+            </div>
+          </div>
+          <div class="world-body">
+            <div class="neural-core" aria-label="ECHO neural core">
+              <div class="core-ring ring-a"></div>
+              <div class="core-ring ring-b"></div>
+              <div class="core-ring ring-c"></div>
+              <div class="core-label">
+                <strong>ECHO</strong>
+                <span>World Brain</span>
+              </div>
+            </div>
+            <div class="metric-grid" id="metrics"></div>
+          </div>
+          <div class="law-strip">
+            <span>No magic</span>
+            <span>Ghosts are digital personalities</span>
+            <span>Every power is technological</span>
+            <span>Canon requires review</span>
+          </div>
         </section>
 
-        <section class="room" id="room-octopus">
-          <article class="panel output-panel tall">
-            <div class="panel-head">
-              <h3>Octopus Integration Plan</h3>
-              <span>Runtime Contract</span>
+        <section class="window characters-window active" data-window-panel="characters">
+          <div class="titlebar">
+            <div>
+              <span class="window-kicker">Layer 4</span>
+              <h2>Character Agents</h2>
             </div>
-            <pre id="octopus-plan">Loading...</pre>
-          </article>
+            <span class="window-badge" id="character-count">0 online</span>
+          </div>
+          <div class="agent-grid" id="character-grid"></div>
+        </section>
+
+        <section class="window factory-window active" data-window-panel="factory">
+          <div class="titlebar">
+            <div>
+              <span class="window-kicker">Factory</span>
+              <h2>Universe Forge</h2>
+            </div>
+            <span class="window-badge" id="output-mode">Idle</span>
+          </div>
+          <div class="forge-controls">
+            <button class="forge-command primary" data-command="/api/neural/daily-life/run">
+              <span>DL</span>
+              <strong>Daily Life</strong>
+            </button>
+            <button class="forge-command" data-command="/api/agents/character/run">
+              <span>CH</span>
+              <strong>Character</strong>
+            </button>
+            <button class="forge-command" data-command="/api/agents/lore/run">
+              <span>LR</span>
+              <strong>Lore</strong>
+            </button>
+            <button class="forge-command" data-command="/api/agents/story/run">
+              <span>ST</span>
+              <strong>Story</strong>
+            </button>
+            <button class="forge-command" data-command="/api/agents/consistency/run">
+              <span>CS</span>
+              <strong>Audit</strong>
+            </button>
+          </div>
+          <pre id="factory-output">Awaiting signal.</pre>
+        </section>
+
+        <section class="window memory-window" data-window-panel="memory">
+          <div class="titlebar">
+            <div>
+              <span class="window-kicker">Layer 3</span>
+              <h2>Memory Stream</h2>
+            </div>
+            <span class="window-badge">Candidate</span>
+          </div>
+          <ol class="stream" id="memory-stream">
+            <li><strong>09:00</strong><span>Character Agent prepares a new soul draft.</span></li>
+            <li><strong>09:30</strong><span>Digital Life tick records private memories.</span></li>
+            <li><strong>13:00</strong><span>Lore Agent expands history and institutions.</span></li>
+            <li><strong>18:00</strong><span>Story Agent turns pressure into chapter seed.</span></li>
+            <li><strong>23:00</strong><span>Consistency Agent reviews canon risk.</span></li>
+          </ol>
+        </section>
+
+        <section class="window octopus-window" data-window-panel="octopus">
+          <div class="titlebar">
+            <div>
+              <span class="window-kicker">Runtime</span>
+              <h2>Octopus Link</h2>
+            </div>
+            <span class="window-badge">Adapter</span>
+          </div>
+          <pre id="octopus-plan">Loading runtime contract.</pre>
         </section>
       </main>
     </div>

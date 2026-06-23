@@ -1,21 +1,18 @@
 const state = {
-  room: "overview",
   status: null,
   characters: [],
-};
-
-const titles = {
-  overview: "World Brain Overview",
-  characters: "Character Agents",
-  factory: "Universe Factory",
-  octopus: "Octopus Runtime",
+  zIndex: 20,
 };
 
 function $(selector) {
   return document.querySelector(selector);
 }
 
-function truncate(value, size = 220) {
+function $all(selector) {
+  return Array.from(document.querySelectorAll(selector));
+}
+
+function truncate(value, size = 150) {
   if (!value) return "";
   return value.length > size ? `${value.slice(0, size)}...` : value;
 }
@@ -29,19 +26,25 @@ async function requestJson(url, options = {}) {
 }
 
 function setEngineState(label, ok = false) {
-  $("#engine-state").textContent = label;
-  $(".pulse").classList.toggle("ok", ok);
+  const target = $("#engine-state");
+  target.textContent = label;
+  target.classList.toggle("online", ok);
 }
 
-function switchRoom(room) {
-  state.room = room;
-  document.querySelectorAll(".nav-item").forEach((item) => {
-    item.classList.toggle("active", item.dataset.room === room);
+function bringToFront(panel) {
+  state.zIndex += 1;
+  panel.style.zIndex = state.zIndex;
+  $all(".window").forEach((item) => item.classList.toggle("focused", item === panel));
+}
+
+function openWindow(name) {
+  const panel = document.querySelector(`[data-window-panel="${name}"]`);
+  if (!panel) return;
+  panel.classList.add("active");
+  bringToFront(panel);
+  $all(".dock-item").forEach((item) => {
+    item.classList.toggle("active", item.dataset.window === name);
   });
-  document.querySelectorAll(".room").forEach((item) => {
-    item.classList.toggle("active", item.id === `room-${room}`);
-  });
-  $("#room-title").textContent = titles[room];
 }
 
 function renderMetrics(status) {
@@ -49,9 +52,9 @@ function renderMetrics(status) {
     ["Bible", status.bible_files],
     ["Characters", status.characters],
     ["Factions", status.factions],
-    ["Timeline", status.timeline_files],
     ["Locations", status.locations],
     ["Tech", status.technologies],
+    ["Timeline", status.timeline_files],
     ["Relations", status.relationship_files],
     ["Stories", status.stories],
   ];
@@ -68,24 +71,41 @@ function renderMetrics(status) {
 }
 
 function renderCharacters(cards) {
+  $("#character-count").textContent = `${cards.length} online`;
   $("#character-grid").innerHTML = cards
     .map(
       (card) => `
-        <article class="character-card">
-          <h3>${card.name}</h3>
-          <div class="code">${card.codename || card.name} / ${card.faction || "Unknown"}</div>
-          <div class="tags">
-            <span class="tag">${card.role || "Unassigned"}</span>
-            <span class="tag">${card.rank || "No rank"}</span>
-            <span class="tag">${card.status}</span>
+        <article class="agent-tile">
+          <div class="agent-head">
+            <span>${card.id}</span>
+            <strong>${card.name}</strong>
           </div>
+          <div class="agent-code">${card.codename || card.name}</div>
           <p>${truncate(card.description)}</p>
-          <div class="tags">
-            ${(card.abilities || []).map((ability) => `<span class="tag">${ability}</span>`).join("")}
+          <div class="agent-tags">
+            <span>${card.role || "Unassigned"}</span>
+            <span>${card.rank || "No rank"}</span>
+            ${(card.abilities || []).slice(0, 1).map((ability) => `<span>${ability}</span>`).join("")}
           </div>
         </article>
       `,
     )
+    .join("");
+}
+
+function renderMemory(result) {
+  if (!result?.content) return;
+  const lines = result.content
+    .split("\n")
+    .filter((line) => line.startsWith("### ") || line.startsWith("- Activity:"))
+    .slice(0, 16);
+  $("#memory-stream").innerHTML = lines
+    .map((line) => {
+      const isName = line.startsWith("### ");
+      return isName
+        ? `<li class="stream-name"><strong>${line.replace("### ", "")}</strong><span>agent pulse</span></li>`
+        : `<li><strong>log</strong><span>${line.replace("- Activity: ", "")}</span></li>`;
+    })
     .join("");
 }
 
@@ -109,12 +129,14 @@ async function refresh() {
 }
 
 async function runCommand(url, label = "Running") {
+  openWindow("factory");
   $("#output-mode").textContent = label;
   $("#factory-output").textContent = "Running...";
   try {
     const result = await requestJson(url, { method: "POST" });
     $("#output-mode").textContent = result.mode || "Done";
     $("#factory-output").textContent = result.content || JSON.stringify(result, null, 2);
+    renderMemory(result);
     await refresh();
   } catch (error) {
     $("#output-mode").textContent = "Error";
@@ -122,18 +144,63 @@ async function runCommand(url, label = "Running") {
   }
 }
 
-document.querySelectorAll(".nav-item").forEach((item) => {
-  item.addEventListener("click", () => switchRoom(item.dataset.room));
-});
+function installDock() {
+  $all(".dock-item").forEach((item) => {
+    item.addEventListener("click", () => openWindow(item.dataset.window));
+  });
+}
 
-document.querySelectorAll(".command").forEach((item) => {
-  item.addEventListener("click", () => runCommand(item.dataset.command, item.textContent.trim()));
-});
+function installDrag() {
+  $all(".window").forEach((panel) => {
+    const handle = panel.querySelector(".titlebar");
+    let drag = null;
+    panel.addEventListener("mousedown", () => bringToFront(panel));
+    handle.addEventListener("mousedown", (event) => {
+      if (event.target.closest("button")) return;
+      const rect = panel.getBoundingClientRect();
+      drag = {
+        pointerId: event.pointerId,
+        dx: event.clientX - rect.left,
+        dy: event.clientY - rect.top,
+      };
+      handle.setPointerCapture?.(event.pointerId);
+    });
+    handle.addEventListener("mousemove", (event) => {
+      if (!drag) return;
+      const left = Math.max(74, event.clientX - drag.dx);
+      const top = Math.max(58, event.clientY - drag.dy);
+      panel.style.left = `${left}px`;
+      panel.style.top = `${top}px`;
+      panel.style.right = "auto";
+      panel.style.bottom = "auto";
+    });
+    handle.addEventListener("mouseup", () => {
+      drag = null;
+    });
+    handle.addEventListener("mouseleave", () => {
+      drag = null;
+    });
+  });
+}
 
-$("#refresh-btn").addEventListener("click", refresh);
-$("#daily-life-btn").addEventListener("click", () => {
-  switchRoom("factory");
-  runCommand("/api/neural/daily-life/run", "Digital Life");
-});
+function installCommands() {
+  $("#refresh-btn").addEventListener("click", refresh);
+  $all(".forge-command").forEach((item) => {
+    item.addEventListener("click", () => runCommand(item.dataset.command, item.textContent.trim()));
+  });
+}
 
+function tickClock() {
+  const now = new Date();
+  $("#system-clock").textContent = now.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+installDock();
+installDrag();
+installCommands();
+tickClock();
+setInterval(tickClock, 30_000);
 refresh();
