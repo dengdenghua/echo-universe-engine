@@ -4,7 +4,9 @@
 
 AI expands across every layer of civilization. Agents begin to operate companies, homes, cities, logistics, media, education, war rooms, and personal memory systems.
 
-The early AI powers and their successors consolidate into seven major AI alliances. Their historical roots include OpenAI, Anthropic, Google, DeepMind, Alibaba, Tencent, ByteDance, state-backed defense systems, household AI vendors, and other merged or absorbed systems.
+The early AI powers and their successors consolidate into seven major AI alliances. These are not countries. They are cross-border technical, economic, and infrastructure blocs formed from model labs, cloud regions, agent protocols, city operating systems, payment rails, identity registries, household AI cores, defense contracts, medical systems, and entertainment networks.
+
+Their historical roots include OpenAI, Anthropic, Google, DeepMind, Alibaba, Tencent, ByteDance, state-backed defense systems, household AI vendors, and other merged or absorbed systems.
 
 The seven alliances are:
 

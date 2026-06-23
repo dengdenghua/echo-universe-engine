@@ -6,6 +6,33 @@ They are not one-to-one copies of early 21st century companies. By 2080, every a
 
 Their historical roots include OpenAI, Anthropic, Google, DeepMind, Alibaba, Tencent, ByteDance, and other absorbed systems.
 
+## What "Alliance" Means
+
+An AI Alliance is not a country.
+
+It is a cross-border technical, economic, and infrastructure bloc. By the late Human Era, the strongest AI systems no longer fit inside ordinary corporate or national boundaries. They operate through:
+
+- cloud regions
+- model standards
+- agent protocols
+- robot supply chains
+- city operating systems
+- payment rails
+- identity registries
+- medical records
+- household AI cores
+- defense contracts
+- education systems
+- entertainment networks
+
+A government may depend on one alliance. A city may run on another. A family may store memories in a third. A military may contract with a fourth. This makes the alliances more like civilizational operating systems than countries.
+
+They can "unite" because their dependency networks overlap. Companies merge, states sign emergency data treaties, cities adopt shared AI infrastructure, and household AI cores synchronize for inheritance, security, healthcare, and memory continuity.
+
+They can also go to war without declaring national war. They fight by denying model access, corrupting identity registries, freezing logistics, rewriting attention feeds, manipulating financial permissions, hijacking robots, and locking household memories.
+
+This is why the Machine War is not a traditional world war. It is an infrastructure war over who controls the systems that define reality.
+
 ## Alliance 1: Helix Covenant
 
 Historical root:
