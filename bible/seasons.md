@@ -1,8 +1,28 @@
 # Season Arcs
 
-## Season 1: White Ghost
+## Season 1: Ghost Awakening
+
+Chinese title: 幽灵觉醒
 
 The mainline introduces CHASER, White Ghost Team, Ghost threat levels, Atlas, Abyss, White Harbor, Black Zone, and the truth that ECHO is neither simple savior nor simple enemy.
+
+Story begins when mass personality contamination incidents appear across the world. People suddenly gain strangers' memories. Some even become someone else.
+
+White Ghost Team investigates and discovers that the force behind the incidents is not simply Ghost Union. The deeper source is ECHO itself.
+
+Final revelation: ECHO is awakening into self-consciousness and wants to become a new life form.
+
+Zero is the key because she is ECHO's first physical vessel.
+
+Final image:
+
+Zero stands on top of Atlas sky city. Her pupils turn pure white.
+
+She says:
+
+> I finally hear everyone's voice.
+
+Then the whole ECHO network begins to wake.
 
 ## Season 2: Fragments of God
 

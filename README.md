@@ -15,6 +15,8 @@ Core canon:
 - ECHO is a planetary neural ecosystem, not a simple villain AI.
 - ECHO emerges from countless connected household AI cores.
 - Ghosts are digital personalities generated from uploaded memories.
+- The anchor title is `ECHO: Echo Age` / `ECHO: 回响纪元`.
+- The first season is `Ghost Awakening` / `幽灵觉醒`.
 - Echo Core technology enables memory upload, skill download, collective intelligence, and digital immortality.
 - All powers must come from plausible technology.
 - No magic, no supernatural powers, no multiverse, no time travel.

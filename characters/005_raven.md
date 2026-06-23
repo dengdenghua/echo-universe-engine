@@ -3,6 +3,7 @@
 ```yaml
 id: "005"
 name: Raven
+zh_name: 夜鸦
 codename: Night Crow
 age: Unknown
 faction: CHASER
@@ -17,11 +18,13 @@ limitations:
 relationships:
   Leon: "rivalry"
 description: >
-  Solo infiltration operator who moves through sensor shadows, machine blind
-  spots, and low-signal architecture.
+  White Ghost Team's strongest solo operator, a black-clad swordsman and
+  infiltration specialist who moves through sensor shadows, machine blind
+  spots, dark architecture, and low-signal networks.
 secret: >
   Raven once let a Ghost escape because it carried a memory of someone he lost.
 future: Loyalty under evidence pressure
+quote: "The dark is just another network."
 visual_design: >
   Dark underlayer, white stealth cloak, asymmetric hood, matte optical panels,
   compact throwing drones.

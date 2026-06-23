@@ -3,6 +3,7 @@
 ```yaml
 id: "007"
 name: Noah
+zh_name: 诺亚
 codename: Probability
 age: Unknown
 faction: CHASER
@@ -17,11 +18,14 @@ limitations:
 relationships:
   Zero: "strategic trust"
 description: >
-  Signal analyst and strategist who reads probability across capital flows,
-  supply chains, infrastructure noise, and battlefield telemetry.
+  Young signal analyst and strategist who reads probability across capital
+  flows, supply chains, infrastructure noise, and battlefield telemetry. His
+  Probability Engine can raise the chance of an event, such as a shot landing
+  at 99%, but cannot control the scale of the result.
 secret: >
   Noah once chose the statistically optimal route and lost a civilian district.
 future: Learns that low-probability mercy can still be strategy
+quote: "Ninety-nine percent is not destiny."
 visual_design: >
   White analyst coat, translucent data scarf, narrow glasses, black tactical
   trousers, probability glyph interface.

@@ -3,6 +3,7 @@
 ```yaml
 id: "006"
 name: Shion
+zh_name: 紫苑
 codename: Virus Queen
 age: Unknown
 faction: CHASER
@@ -17,11 +18,13 @@ limitations:
 relationships:
   Eve: "mutual suspicion"
 description: >
-  Hacker and logistics saboteur who commands programmable nano-swarms through
-  Echo Core signal choreography.
+  White Ghost Team's hacker and nano-virus controller. She commands programmable
+  nano-swarms through Echo Core signal choreography and treats supply chains,
+  bodies, locks, and machines as infection surfaces.
 secret: >
   Her swarm contains archived behavior from a Ghost she claims to have deleted.
 future: Weapon becomes witness arc
+quote: "Everything connected can be infected."
 visual_design: >
   White oversized techwear, black gloves, violet diagnostic threads, drone
   particles orbiting hands.

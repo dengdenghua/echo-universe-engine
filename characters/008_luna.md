@@ -3,6 +3,7 @@
 ```yaml
 id: "008"
 name: Luna
+zh_name: 露娜
 codename: Dream Walker
 age: Unknown
 faction: CHASER
@@ -17,12 +18,15 @@ limitations:
 relationships:
   Zero: "protective bond"
 description: >
-  Narrative infiltration operator and Ghost-human hybrid who traverses inner
-  worlds through neural interface residue.
+  Pink-haired narrative infiltration operator and Ghost-human hybrid who enters
+  inner worlds through neural interface residue. Dream Dive lets her move
+  through another person's consciousness space, but canonically this is Echo
+  Core-mediated neural traversal, not magic.
 secret: >
   ECHO Council and Ghost Union both believe Luna may prove coexistence is
   possible, making her a target for capture rather than killing.
 future: Bridge between species
+quote: "Dreams are memories wearing masks."
 visual_design: >
   White tactical suit, soft lunar accents, translucent veil-like interface,
   biotech implants around temples.
