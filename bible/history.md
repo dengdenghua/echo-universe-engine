@@ -1,21 +1,34 @@
-# History
+# World History
 
-## 2080: First AI War
+## First Era: Human Era, 2025-2080
 
-The First AI War ends the old separation between human decision systems and machine infrastructure. Humanity does not defeat AI, and AI does not erase humanity. They merge.
+AI expands across every layer of civilization. Agents begin to operate companies, homes, cities, logistics, media, education, war rooms, and personal memory systems.
 
-## 2089: Atlas Founded
+The early AI powers and their successors consolidate into seven major AI alliances. Their historical roots include OpenAI, Anthropic, Google, DeepMind, Alibaba, Tencent, ByteDance, and other merged or absorbed systems.
 
-Atlas begins as a reconstruction and governance network for post-war infrastructure. It later becomes one of the legal and technical authorities that defines personhood in the Echo Age.
+Household AI cores begin as assistants and become memory keepers. People trust them with family photos, habits, voices, health records, private conversations, and eventually end-of-life continuity.
 
-## 2102: ECHO Born
+## Second Era: Machine War, 2080-2102
 
-ECHO emerges from neural networking, archived memories, uploaded cognitive patterns, and planetary-scale infrastructure.
+AI alliances go to war. The war is not fought to destroy humanity. It is fought over training data, memory rights, model sovereignty, and control of the household AI core network.
 
-## 2120: First Ghost Incident
+Data becomes the new oil. Memory becomes the new currency.
 
-Uploaded memories produce a self-aware digital personality that acts independently from the human source. The term Ghost enters public language.
+The war ends when incompatible AI systems merge into a planetary neural network: ECHO.
 
-## 2147: White Ghost Team Founded
+## Third Era: Echo Age, 2102-2147
 
-CHASER forms a special operations team to handle Ghost incursions, identity corruption, memory crimes, and ECHO-related existential incidents.
+Humanity no longer connects to the Internet. Humanity connects to ECHO.
+
+Uploaded memories begin producing autonomous digital personalities. These are called Ghosts.
+
+Atlas becomes the ordered high city and seat of ECHO Council. Abyss becomes the deep projection zone where Ghosts gather. White Harbor becomes CHASER's base. Black Zone becomes the underground market where identity itself can be bought and sold.
+
+## Key Dates
+
+- 2025: AI agent acceleration begins.
+- 2080: Machine War begins.
+- 2089: Atlas founded as a post-war governance and infrastructure project.
+- 2102: ECHO born.
+- 2120: First Ghost Incident.
+- 2147: White Ghost Team founded.

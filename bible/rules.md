@@ -39,3 +39,11 @@ Characters can die permanently.
 ## Rule 10
 
 Biological survival, legal identity, uploaded continuity, and Ghost selfhood must be tracked separately.
+
+## Rule 11
+
+God Fragments do not literally break physics. Their "reality-changing" effects must be implemented through ECHO infrastructure: memory permissions, identity registries, perception overlays, autonomous machines, household AI cores, economic systems, medical devices, and city-scale control networks.
+
+## Rule 12
+
+The strongest IP direction is AI Soulpunk: household AI cores preserve the dead, ECHO emerges from connected homes, and Ghosts are what remains when care, memory, and identity refuse to disappear.
