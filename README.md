@@ -52,6 +52,10 @@ Useful commands:
 uv run python agents/character_agent.py
 uv run python agents/lore_agent.py
 uv run python agents/story_agent.py
+uv run python agents/relationship_agent.py
+uv run python agents/faction_agent.py
+uv run python agents/technology_agent.py
+uv run python agents/art_director_agent.py
 uv run python agents/consistency_agent.py
 uv run python -m echo_engine.cli status
 ```
@@ -69,6 +73,10 @@ API:
 - `POST /api/agents/character/run`
 - `POST /api/agents/lore/run`
 - `POST /api/agents/story/run`
+- `POST /api/agents/relationship/run`
+- `POST /api/agents/faction/run`
+- `POST /api/agents/technology/run`
+- `POST /api/agents/art-director/run`
 - `POST /api/agents/consistency/run`
 
 ## Visual Pipeline

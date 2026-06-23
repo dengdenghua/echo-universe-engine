@@ -1,0 +1,40 @@
+daily:
+  "09:00":
+    agent: CharacterAgent
+    outputs:
+      - character_card: 1
+      - illustration_prompt: 1
+      - relationship_updates: suggested
+  "13:00":
+    agent: LoreAgent
+    outputs:
+      - historical_event: 1
+      - technology_entry: 1
+      - faction_expansion: 1
+  "18:00":
+    agent: StoryAgent
+    outputs:
+      - manga_storyboard_seed: 1
+  "23:00":
+    agent: ConsistencyAgent
+    outputs:
+      - canon_audit: 1
+      - conflict_fixes: suggested
+weekly:
+  saturday_10:
+    agent: StoryAgent
+    cron: "0 10 * * 6"
+    outputs:
+      - manga_chapter: 1
+      - target_length_words: 5000
+monthly:
+  day_28_20:
+    agent: ConsistencyAgent
+    cron: "0 20 28 * *"
+    outputs:
+      - universe_version_upgrade: 1
+      - bible_digest: 1
+      - new_character_summary: true
+      - new_event_summary: true
+      - new_lore_summary: true
+      - conflict_check: true

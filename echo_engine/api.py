@@ -3,10 +3,14 @@ from __future__ import annotations
 from fastapi import FastAPI
 
 from echo_engine.generators import (
+    run_art_director_agent,
     run_character_agent,
     run_consistency_agent,
+    run_faction_agent,
     run_lore_agent,
+    run_relationship_agent,
     run_story_agent,
+    run_technology_agent,
 )
 from echo_engine.store import CanonStore
 
@@ -36,6 +40,26 @@ def lore_run():
 @app.post("/api/agents/story/run")
 def story_run():
     return run_story_agent()
+
+
+@app.post("/api/agents/relationship/run")
+def relationship_run():
+    return run_relationship_agent()
+
+
+@app.post("/api/agents/faction/run")
+def faction_run():
+    return run_faction_agent()
+
+
+@app.post("/api/agents/technology/run")
+def technology_run():
+    return run_technology_agent()
+
+
+@app.post("/api/agents/art-director/run")
+def art_director_run():
+    return run_art_director_agent()
 
 
 @app.post("/api/agents/consistency/run")
