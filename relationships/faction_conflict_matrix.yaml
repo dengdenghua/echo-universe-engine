@@ -1,0 +1,91 @@
+CHASER:
+  Ghost Union:
+    relation: enemy / negotiation partner
+    conflict: CHASER stops body occupation and Ghost violence; Ghost Union demands recognition and sanctuary.
+    story_use: Field missions where deletion is tactically easy but legally or morally wrong.
+  ECHO Council:
+    relation: authorized / constrained
+    conflict: Council funds CHASER but hides ECHO-level truths and political risk.
+    story_use: Orders that protect stability while endangering White Ghost Team.
+  Memory Bank:
+    relation: evidence partner / suspect
+    conflict: Memory Bank provides continuity evidence while profiting from identity conflict.
+    story_use: Cases where the bank is both witness and culprit.
+  Black Market:
+    relation: enforcement target
+    conflict: Black Zone sells forged consent keys, Ghost labor, body tenancy, and illegal skill downloads.
+    story_use: Raids that reveal legal markets created illegal demand.
+  Mars:
+    relation: limited jurisdiction
+    conflict: CHASER cannot operate freely under Red Delay Protocol.
+    story_use: Pursuit of a Ghost or God Fragment beyond Earth authority.
+
+Ghost Union:
+  ECHO Council:
+    relation: rights struggle
+    conflict: Council recognizes limited digital personhood but blocks full Ghost sovereignty.
+    story_use: Political arcs, Ghost Court trials, sanctuary crises.
+  Memory Bank:
+    relation: exploitative dependency
+    conflict: Ghosts need compute and continuity services; Memory Bank can freeze or monetize them.
+    story_use: Ghost debt, labor exploitation, memory foreclosure.
+  Abyss Alliance:
+    relation: uneasy kinship
+    conflict: Ghost Union seeks rights inside human systems; Abyss Alliance seeks separatist survival.
+    story_use: Moderates versus separatists.
+  Dream Network:
+    relation: shelter / risk
+    conflict: Dream Network gives Ghosts sensory worlds but can trap or manipulate them.
+    story_use: Luna-led moral dilemmas.
+
+ECHO Council:
+  Atlas:
+    relation: seat of power
+    conflict: Atlas embodies order, safety, surveillance, and hidden compromise.
+    story_use: Final-season political pressure and public control.
+  Mars:
+    relation: treaty tension
+    conflict: Mars refuses full ECHO synchronization through RED ARCHIVE.
+    story_use: Earth-Mars memory sovereignty conflicts.
+  Church of Fragments:
+    relation: containment target
+    conflict: Church treats God Fragments as divine signs; Council treats them as infrastructure threats.
+    story_use: Season 2 cult politics.
+  White Harbor:
+    relation: command channel / operational friction
+    conflict: White Harbor needs field autonomy; Council wants political control.
+    story_use: Orders delayed or rewritten during emergencies.
+
+Memory Bank:
+  Black Market:
+    relation: official enemy / hidden symbiosis
+    conflict: Black Zone launders memory assets that legal banks cannot touch.
+    story_use: Financial horror and institutional hypocrisy.
+  Atlas Corporation:
+    relation: strategic partner
+    conflict: Corporate infrastructure needs memory collateral and identity verification.
+    story_use: Private city power over personhood.
+  Dream Network:
+    relation: data extraction risk
+    conflict: Dream sessions contain valuable emotional and memory residue.
+    story_use: Consent and therapy exploitation arcs.
+
+Black Market:
+  Abyss Alliance:
+    relation: trade / exploitation
+    conflict: Abyss refugees need compute and routing; Black Zone brokers profit from desperation.
+    story_use: Smuggling, Ghost trafficking, illegal sanctuary.
+  Church of Fragments:
+    relation: artifact pipeline
+    conflict: Fragment cultists buy infrastructure access and relic evidence.
+    story_use: Season 2 escalation.
+
+Mars:
+  Red Archive Authority:
+    relation: self-governance
+    conflict: Mars protects delayed memory sovereignty from Earth inspection.
+    story_use: Spin-off and Season 2/3 external pressure.
+  ECHO:
+    relation: partial sync / existential suspicion
+    conflict: ECHO wants integration; Mars fears emotional and political drowning.
+    story_use: The question of whether humanity can escape its own memory.

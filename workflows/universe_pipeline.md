@@ -63,6 +63,15 @@ Each character needs:
 - Ability / limitation
 - Quotes
 - Canon risks
+- Identity states
+- Agent memory hooks
+- Relationship weights
+
+Detailed expansion rules:
+
+```text
+workflows/character_expansion_rules.md
+```
 
 ## Stage 2: Month 3, ECHO Chronicle
 
@@ -148,3 +157,14 @@ This enables:
 - Games
 - AI character social experiences
 - Digital personality universe
+
+## V1.0 Production References
+
+Core production files:
+
+```text
+relationships/faction_conflict_matrix.yaml
+locations/world_map_layers.md
+technologies/ability_constraints.md
+stories/season_1_production_plan.md
+```

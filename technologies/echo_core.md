@@ -19,3 +19,9 @@ to ECHO.
 Every ability must be explainable as neural interface, predictive modeling,
 cybernetics, bioengineering, distributed computation, signal control, or memory
 architecture. No ability can be magic.
+
+Detailed ability limits and countermeasures are defined in:
+
+```text
+technologies/ability_constraints.md
+```
