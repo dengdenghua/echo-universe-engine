@@ -66,6 +66,7 @@ uv run python -m echo_engine.cli status
 uv run python -m echo_engine.cli event --title "Ghost Attack on Atlas"
 uv run python -m echo_engine.cli daily-life
 uv run python -m echo_engine.cli export-octopus-agents
+uv run python -m echo_engine.cli octopus-ecosystem-plan
 ```
 
 ## Docker
@@ -105,3 +106,13 @@ status: queued
 ```
 
 Later workers can implement ComfyUI, SDXL, Flux, storyboard, and manga layout without changing canon logic.
+
+## Octopus Ecosystem
+
+ECHO stays as the canon/IP repository. Octopus becomes the runtime nervous system.
+
+- `octopus-agent`: World Brain runtime, scheduler, model routing, knowledge graph, journal, multi-agent character execution.
+- `octopus-mobile`: future embodied gateway for mobile sensing, notification, camera/screen context, and user interaction.
+- `octopus-storage`: Memory Vault for long-term character memory, embeddings, generated documents, generated images, and asset libraries.
+
+The integration contract lives in `integrations/octopus_ecosystem.yaml`.

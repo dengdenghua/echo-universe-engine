@@ -23,6 +23,19 @@ echo-universe-engine
 | Model Routing | OpenAI/Anthropic/MultiModelRouter | Use cheap models for minor reactions, strong models for World Brain |
 | Scheduler | `BackgroundRunner` and cron | Run daily lives, event ticks, audits, and monthly bible upgrades |
 
+## Octopus Ecosystem Split
+
+ECHO should reuse the wider Octopus ecosystem without becoming a subfolder of it.
+
+| System | ECHO role | What it should run |
+|---|---|---|
+| `echo-universe-engine` | Canon source | Bible, characters, timeline, relationships, stories, prompts, candidate outputs |
+| `octopus-agent` | Runtime brain | World Brain review, Character Agent execution, scheduler, KG, Journal, model routing |
+| `octopus-mobile` | Embodied gateway | Future mobile notifications, camera/screen context, field interaction, companion UI |
+| `octopus-storage` | Memory vault | Long-term memory, embeddings, documents, images, generated assets, searchable archives |
+
+This keeps the IP clean. Octopus can execute the universe, but only ECHO canon folders decide what becomes official.
+
 ## Recommended Integration Shape
 
 Do not merge ECHO canon directly into Octopus core code.
@@ -34,6 +47,14 @@ Instead:
 3. Let Octopus run character agents and event simulations.
 4. Write generated outputs back into ECHO `outputs/` first.
 5. Promote reviewed material into canon folders.
+
+The machine-readable contract for this split lives in:
+
+```text
+integrations/octopus_ecosystem.yaml
+```
+
+Use it as the single source for paths, layer ownership, flow status, and canon boundaries.
 
 ## First Milestone
 
@@ -55,4 +76,30 @@ event yaml/json
   -> KnowledgeGraph relationship update
   -> Journal history write
   -> ECHO canon candidate
+```
+
+## Digital Life Runtime
+
+The long-term target is one persistent Octopus agent per major ECHO character:
+
+```text
+Zero Agent
+Kane Agent
+Eve Agent
+Leon Agent
+Raven Agent
+Shion Agent
+Noah Agent
+Luna Agent
+```
+
+Each agent owns private memory and diary drafts, but World Brain owns canon promotion.
+
+```text
+daily tick
+  -> character private memory
+  -> relationship pressure
+  -> diary candidate
+  -> World Brain review
+  -> timeline / canon promotion only if approved
 ```

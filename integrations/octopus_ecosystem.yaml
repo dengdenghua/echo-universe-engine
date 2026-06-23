@@ -1,0 +1,136 @@
+ecosystem: octopus
+version: 0.1
+mode: neural_universe
+
+repositories:
+  echo_universe_engine:
+    role: canon_source
+    default_path: /Users/dangbei/Public/octopus/echo-universe-engine
+    owns:
+      - bible
+      - characters
+      - factions
+      - locations
+      - timeline
+      - technologies
+      - relationships
+      - stories
+      - prompts
+      - outputs
+  octopus_agent:
+    role: runtime_brain
+    default_path: /Users/dangbei/Public/octopus/octopus-agent
+    reuses:
+      - agent_runtime
+      - scheduler
+      - knowledge_graph
+      - journal
+      - model_routing
+      - multi_agent_execution
+  octopus_mobile:
+    role: embodied_gateway
+    default_path: /Users/dangbei/Public/octopus/octopus-mobile
+    reuses:
+      - mobile_sensing
+      - notifications
+      - camera_or_screen_context
+      - user_interaction_gateway
+  octopus_storage:
+    role: memory_vault
+    default_path: /Users/dangbei/Public/octopus/octopus-storage
+    reuses:
+      - long_term_memory
+      - asset_store
+      - embeddings
+      - generated_documents
+      - generated_images
+
+layers:
+  world_brain:
+    owner: echo_universe_engine
+    runtime: octopus_agent
+    purpose: Review canon, enforce rules, approve candidate events.
+    writes_to:
+      - outputs/world_brain
+      - bible
+  timeline_brain:
+    owner: echo_universe_engine
+    runtime: octopus_agent
+    purpose: Maintain chronology from 2025 to 2200 and append approved history.
+    writes_to:
+      - timeline
+      - outputs/timeline
+  relationship_graph:
+    owner: echo_universe_engine
+    runtime: octopus_agent
+    storage: octopus_storage
+    purpose: Track trust, love, debt, fear, rivalry, betrayal, and faction links.
+    writes_to:
+      - relationships
+      - outputs/relationships
+  character_agents:
+    owner: echo_universe_engine
+    runtime: octopus_agent
+    storage: octopus_storage
+    purpose: Run Zero, Kane, Eve, Leon, Raven, Shion, Noah, and Luna as persistent personalities.
+    exported_to: outputs/octopus_agents
+  story_generator:
+    owner: echo_universe_engine
+    runtime: octopus_agent
+    purpose: Turn approved events and character conflicts into manga chapters.
+    writes_to:
+      - stories
+      - outputs/story
+  image_generator:
+    owner: echo_universe_engine
+    runtime: octopus_agent
+    worker: asset_factory
+    storage: octopus_storage
+    purpose: Produce character image tasks for ComfyUI, SDXL, Flux, and later storyboard workers.
+    writes_to:
+      - outputs/assets
+  comic_generator:
+    owner: echo_universe_engine
+    runtime: octopus_agent
+    worker: asset_factory
+    storage: octopus_storage
+    purpose: Convert storyboards, prompts, and approved visual assets into comic-page candidates.
+    writes_to:
+      - outputs/comics
+
+flows:
+  daily_life_tick:
+    schedule: "30 9 * * *"
+    runner: "uv run python -m echo_engine.cli daily-life"
+    status: candidate_memory
+    approval: world_brain_required
+  event_simulation:
+    schedule: manual_or_event_triggered
+    runner: "uv run python -m echo_engine.cli event"
+    status: candidate_history
+    approval: world_brain_required
+  export_character_agents:
+    schedule: after_character_or_relationship_change
+    runner: "uv run python -m echo_engine.cli export-octopus-agents"
+    status: runtime_sync
+    approval: not_required
+  ecosystem_plan:
+    schedule: manual
+    runner: "uv run python -m echo_engine.cli octopus-ecosystem-plan"
+    status: integration_report
+    approval: not_required
+
+canon_boundaries:
+  candidate_until_review:
+    - daily_life_tick
+    - event_simulation
+    - character_growth
+    - relationship_changes
+    - generated_story
+  never_auto_promote:
+    - major_character_death
+    - season_secret_reveal
+    - irreversible_romance
+    - faction_destruction
+    - god_fragment_transfer
+    - omega_ghost_identity_change

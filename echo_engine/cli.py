@@ -4,6 +4,7 @@ import argparse
 import json
 
 from echo_engine.neural.simulator import UniverseEvent, simulate_event
+from echo_engine.neural.octopus_ecosystem import render_octopus_ecosystem_plan
 from echo_engine.neural.octopus_export import export_octopus_agents
 from echo_engine.neural.digital_life import run_daily_life_tick
 from echo_engine.generators import (
@@ -36,6 +37,7 @@ def main() -> None:
             "event",
             "daily-life",
             "export-octopus-agents",
+            "octopus-ecosystem-plan",
         ],
     )
     parser.add_argument("--title", default="Ghost Attack on Atlas")
@@ -80,6 +82,10 @@ def main() -> None:
     if args.command == "export-octopus-agents":
         written = export_octopus_agents()
         print(json.dumps([str(path) for path in written], ensure_ascii=False, indent=2))
+        return
+
+    if args.command == "octopus-ecosystem-plan":
+        print(render_octopus_ecosystem_plan())
         return
 
     runners = {

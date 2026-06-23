@@ -77,6 +77,22 @@ Layer 6: Image Generator
 Layer 7: Comic Generator
 ```
 
+## Octopus Mapping
+
+Neural Universe Mode maps naturally onto the Octopus ecosystem:
+
+| ECHO layer | Octopus runtime |
+|---|---|
+| World Brain | `octopus-agent` team runner, evaluator, scheduler |
+| Timeline Brain | `octopus-agent` Journal plus ECHO `timeline/` files |
+| Relationship Graph | `octopus-agent` KG plus ECHO `relationships/` files |
+| Character Agents | exported `agent-core` folders for Zero, Kane, Eve, Leon, Raven, Shion, Noah, Luna |
+| Memory Vault | `octopus-storage` long-term memory, embeddings, generated archives |
+| Mobile Interface | `octopus-mobile` notifications, context capture, user-facing companion actions |
+| Image / Comic Workers | ECHO `asset_factory/` plus future ComfyUI, SDXL, Flux, storyboard workers |
+
+ECHO remains the canon source. Octopus is the nervous system that lets the universe run.
+
 ## Event Flow
 
 ```text
@@ -131,3 +147,16 @@ Every major character should eventually have:
 After one year, Zero should no longer be identical to her initial card. She should have experienced love, war, betrayal, sacrifice, and growth.
 
 At that point ECHO is no longer only a comic IP. It becomes a digital personality universe.
+
+## Promotion Rule
+
+Character agents can dream, argue, hide information, grow, and record private memory. They cannot directly rewrite official ECHO history.
+
+Official canon promotion always flows through:
+
+```text
+candidate output
+  -> World Brain review
+  -> consistency audit
+  -> canon folder update
+```
