@@ -24,3 +24,11 @@ Members:
 CHASER claims to protect humanity, but it depends on ECHO infrastructure and
 often treats Ghost existence as a security problem before treating it as a
 personhood problem.
+
+## Organization Reference
+
+Detailed CHASER structure, ranks, divisions, mission types, equipment, and legal constraints are defined in:
+
+```text
+bible/chaser_organization.md
+```

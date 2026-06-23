@@ -17,3 +17,21 @@ They can affect:
 - Ghost continuity records
 
 They cannot violate physics, open multiverses, resurrect souls, or perform magic.
+
+## Seven Fragment Mechanics
+
+Detailed infrastructure mapping is defined in:
+
+```text
+technologies/god_fragments_mechanics.md
+```
+
+The seven functional fragments are:
+
+- Identity Fragment
+- Memory Fragment
+- Body Fragment
+- Dream Fragment
+- City Fragment
+- Probability Fragment
+- Archive Fragment

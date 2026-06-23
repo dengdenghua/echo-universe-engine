@@ -17,3 +17,11 @@ Principles:
 - Absolute safety
 
 Atlas is beautiful because every unsafe variable has already been removed or hidden.
+
+## Political Reference
+
+Detailed Atlas governance, ECHO Council seats, civil life, surveillance, and Season 1 political function are defined in:
+
+```text
+bible/atlas_politics.md
+```

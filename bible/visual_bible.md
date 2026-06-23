@@ -43,3 +43,11 @@ Anime character design, post-AI cyberpunk, biotech techwear, snow white tactical
 ```text
 dirty neon street punk, magic, fantasy armor, supernatural aura, medieval, horns, wings, wizard robe, literal angel, literal demon, time portal, steampunk
 ```
+
+## Visual System Reference
+
+Detailed palette, uniform rules, Echo Core light language, Ghost styling, Atlas, Black Zone, Abyss, Mars, and Memory Bank visual rules are defined in:
+
+```text
+bible/visual_system_v1.md
+```
