@@ -5,6 +5,12 @@ daily:
       - character_card: 1
       - illustration_prompt: 1
       - relationship_updates: suggested
+  "09:30":
+    agent: DigitalLifeAgent
+    outputs:
+      - character_diary_tick: 8
+      - memory_updates: candidate
+      - growth_updates: weekly_candidate
   "13:00":
     agent: LoreAgent
     outputs:

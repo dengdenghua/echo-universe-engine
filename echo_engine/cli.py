@@ -5,6 +5,7 @@ import json
 
 from echo_engine.neural.simulator import UniverseEvent, simulate_event
 from echo_engine.neural.octopus_export import export_octopus_agents
+from echo_engine.neural.digital_life import run_daily_life_tick
 from echo_engine.generators import (
     run_art_director_agent,
     run_character_agent,
@@ -33,6 +34,7 @@ def main() -> None:
             "art",
             "consistency",
             "event",
+            "daily-life",
             "export-octopus-agents",
         ],
     )
@@ -63,6 +65,13 @@ def main() -> None:
                 stakes=args.stakes,
             )
         )
+        print(result.content)
+        if result.output_path:
+            print(f"\nSaved: {result.output_path}")
+        return
+
+    if args.command == "daily-life":
+        result = run_daily_life_tick()
         print(result.content)
         if result.output_path:
             print(f"\nSaved: {result.output_path}")

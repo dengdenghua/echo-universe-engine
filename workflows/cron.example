@@ -1,4 +1,5 @@
 0 9 * * * cd /srv/echo-universe-engine && uv run python agents/character_agent.py && git add . && git commit -m "daily character"
+30 9 * * * cd /srv/echo-universe-engine && uv run python agents/daily_life_agent.py && git add . && git commit -m "daily character life tick"
 0 13 * * * cd /srv/echo-universe-engine && uv run python agents/lore_agent.py && uv run python agents/technology_agent.py && uv run python agents/faction_agent.py && git add . && git commit -m "daily lore"
 0 18 * * * cd /srv/echo-universe-engine && uv run python agents/story_agent.py && git add . && git commit -m "daily story"
 0 23 * * * cd /srv/echo-universe-engine && uv run python agents/relationship_agent.py && uv run python agents/consistency_agent.py && git add . && git commit -m "daily canon audit"

@@ -14,6 +14,7 @@ from echo_engine.generators import (
     run_technology_agent,
 )
 from echo_engine.neural.simulator import UniverseEvent, simulate_event
+from echo_engine.neural.digital_life import run_daily_life_tick
 from echo_engine.store import CanonStore
 
 app = FastAPI(title="ECHO Universe Engine", version="0.1.0")
@@ -83,3 +84,8 @@ def consistency_run():
 @app.post("/api/neural/event/run")
 def neural_event_run(body: EventRunRequest):
     return simulate_event(UniverseEvent(**body.model_dump()))
+
+
+@app.post("/api/neural/daily-life/run")
+def neural_daily_life_run():
+    return run_daily_life_tick()

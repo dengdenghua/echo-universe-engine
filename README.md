@@ -60,9 +60,11 @@ uv run python agents/technology_agent.py
 uv run python agents/art_director_agent.py
 uv run python agents/consistency_agent.py
 uv run python agents/event_agent.py
+uv run python agents/daily_life_agent.py
 uv run python agents/export_octopus_agents.py
 uv run python -m echo_engine.cli status
 uv run python -m echo_engine.cli event --title "Ghost Attack on Atlas"
+uv run python -m echo_engine.cli daily-life
 uv run python -m echo_engine.cli export-octopus-agents
 ```
 
@@ -85,6 +87,7 @@ API:
 - `POST /api/agents/art-director/run`
 - `POST /api/agents/consistency/run`
 - `POST /api/neural/event/run`
+- `POST /api/neural/daily-life/run`
 
 ## Visual Pipeline
 
