@@ -54,6 +54,12 @@ Open the console:
 http://localhost:8010/
 ```
 
+Octopus runtime controls are intentionally hidden from the default Hub view. Use this development URL when you need to inspect the reserved adapter panel:
+
+```text
+http://localhost:8010/?runtime=1
+```
+
 Useful commands:
 
 ```bash
@@ -135,3 +141,5 @@ ECHO stays as the canon/IP repository. Octopus becomes the runtime nervous syste
 - `octopus-storage`: Memory Vault for long-term character memory, embeddings, generated documents, generated images, and asset libraries.
 
 The integration contract lives in `integrations/octopus_ecosystem.yaml`.
+
+The hidden Hub interface rules live in `workflows/octopus_hub_interface.md`.

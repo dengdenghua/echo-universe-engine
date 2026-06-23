@@ -136,6 +136,18 @@ button {
   background: rgba(103, 221, 236, 0.12);
 }
 
+.runtime-only {
+  display: none;
+}
+
+.show-runtime .runtime-only {
+  display: block;
+}
+
+.show-runtime .dock .runtime-only {
+  display: grid;
+}
+
 .desktop {
   position: relative;
   min-height: 100vh;

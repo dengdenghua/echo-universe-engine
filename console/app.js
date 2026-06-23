@@ -2,6 +2,7 @@ const state = {
   status: null,
   characters: [],
   assets: null,
+  runtimeVisible: new URLSearchParams(window.location.search).get("runtime") === "1",
   zIndex: 20,
 };
 
@@ -46,6 +47,14 @@ function openWindow(name) {
   $all(".dock-item").forEach((item) => {
     item.classList.toggle("active", item.dataset.window === name);
   });
+}
+
+function installRuntimeVisibility() {
+  document.body.classList.toggle("show-runtime", state.runtimeVisible);
+  if (!state.runtimeVisible) {
+    const panel = document.querySelector('[data-window-panel="octopus"]');
+    panel?.classList.remove("active");
+  }
 }
 
 function renderMetrics(status) {
@@ -236,6 +245,7 @@ function tickClock() {
 installDock();
 installDrag();
 installCommands();
+installRuntimeVisibility();
 tickClock();
 setInterval(tickClock, 30_000);
 refresh();

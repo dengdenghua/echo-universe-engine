@@ -74,3 +74,11 @@ def test_api_serves_character_visual_assets():
     zero = data["characters"]["001"]
     assert zero["name"] == "Zero"
     assert zero["urls"]["front"].endswith("/assets/characters/001_zero/octopus_refs/front.png")
+
+
+def test_console_keeps_octopus_runtime_hidden_by_default():
+    html = (CanonStore().root / "console" / "index.html").read_text(encoding="utf-8")
+    js = (CanonStore().root / "console" / "app.js").read_text(encoding="utf-8")
+    assert 'data-window="octopus"' in html
+    assert "runtime-only" in html
+    assert 'get("runtime") === "1"' in js
