@@ -6,6 +6,9 @@ from echo_engine.neural.octopus_ecosystem import (
 from echo_engine.scheduler import auto_commit, due_task_keys
 from echo_engine.store import CanonStore
 from datetime import datetime
+from fastapi.testclient import TestClient
+
+from echo_engine.api import app
 
 
 def test_canon_status_counts_initial_files():
@@ -35,3 +38,11 @@ def test_scheduler_due_task_keys():
 
 def test_auto_commit_disabled_does_nothing():
     auto_commit("test")
+
+
+def test_api_serves_console_and_characters():
+    client = TestClient(app)
+    assert client.get("/").status_code == 200
+    response = client.get("/api/canon/characters")
+    assert response.status_code == 200
+    assert len(response.json()) >= 8

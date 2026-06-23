@@ -48,6 +48,12 @@ cp .env.example .env
 uv run uvicorn echo_engine.api:app --reload --port 8010
 ```
 
+Open the console:
+
+```text
+http://localhost:8010/
+```
+
 Useful commands:
 
 ```bash
@@ -88,6 +94,7 @@ API:
 
 - `GET /api/health`
 - `GET /api/canon/status`
+- `GET /api/canon/characters`
 - `POST /api/agents/character/run`
 - `POST /api/agents/lore/run`
 - `POST /api/agents/story/run`

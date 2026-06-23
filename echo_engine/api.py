@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from echo_engine.generators import (
@@ -19,6 +23,9 @@ from echo_engine.neural.octopus_ecosystem import render_octopus_ecosystem_plan
 from echo_engine.store import CanonStore
 
 app = FastAPI(title="ECHO Universe Engine", version="0.1.0")
+console_dir = Path("console")
+if console_dir.exists():
+    app.mount("/console", StaticFiles(directory=console_dir), name="console")
 
 
 class EventRunRequest(BaseModel):
@@ -45,6 +52,11 @@ def health() -> dict[str, object]:
 @app.get("/api/canon/status")
 def canon_status():
     return CanonStore().status()
+
+
+@app.get("/api/canon/characters")
+def canon_characters():
+    return CanonStore().load_character_cards()
 
 
 @app.post("/api/agents/character/run")
@@ -100,3 +112,11 @@ def neural_daily_life_run():
 @app.get("/api/integrations/octopus/plan")
 def octopus_integration_plan() -> dict[str, str]:
     return {"content": render_octopus_ecosystem_plan()}
+
+
+@app.get("/")
+def console_index():
+    index = console_dir / "index.html"
+    if index.exists():
+        return FileResponse(index)
+    return {"service": "echo-universe-engine", "console": "not installed"}

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ECHO Universe Console</title>
+    <link rel="stylesheet" href="/console/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="mark">E</div>
+          <div>
+            <h1>ECHO</h1>
+            <p>Universe Console</p>
+          </div>
+        </div>
+        <nav class="nav" aria-label="Console rooms">
+          <button class="nav-item active" data-room="overview">Overview</button>
+          <button class="nav-item" data-room="characters">Characters</button>
+          <button class="nav-item" data-room="factory">Factory</button>
+          <button class="nav-item" data-room="octopus">Octopus</button>
+        </nav>
+        <div class="status-strip">
+          <span class="pulse"></span>
+          <span id="engine-state">Connecting</span>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">2147 / Echo Age</p>
+            <h2 id="room-title">World Brain Overview</h2>
+          </div>
+          <div class="actions">
+            <button id="refresh-btn" class="icon-btn" title="Refresh">Refresh</button>
+            <button id="daily-life-btn" class="primary-btn">Run Daily Life</button>
+          </div>
+        </header>
+
+        <section class="room active" id="room-overview">
+          <div class="metrics" id="metrics"></div>
+          <div class="grid two">
+            <article class="panel">
+              <div class="panel-head">
+                <h3>World Brain</h3>
+                <span>Canon Gate</span>
+              </div>
+              <p>
+                Candidate memories, events, and relationship changes stay outside canon until
+                review. ECHO owns the rules; Octopus runs the nervous system.
+              </p>
+              <div class="rule-list">
+                <span>No magic</span>
+                <span>No supernatural ghosts</span>
+                <span>No time travel</span>
+                <span>Technology explains every power</span>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Today</h3>
+                <span>Pipeline</span>
+              </div>
+              <ol class="timeline">
+                <li><strong>09:00</strong> Character generation</li>
+                <li><strong>09:30</strong> Digital life tick</li>
+                <li><strong>13:00</strong> Lore expansion</li>
+                <li><strong>18:00</strong> Story seed</li>
+                <li><strong>23:00</strong> Canon audit</li>
+              </ol>
+            </article>
+          </div>
+        </section>
+
+        <section class="room" id="room-characters">
+          <div class="character-grid" id="character-grid"></div>
+        </section>
+
+        <section class="room" id="room-factory">
+          <div class="command-grid">
+            <button class="command" data-command="/api/agents/character/run">
+              <strong>Character Agent</strong>
+              <span>Generate one candidate character</span>
+            </button>
+            <button class="command" data-command="/api/agents/lore/run">
+              <strong>Lore Agent</strong>
+              <span>Expand world history or institutions</span>
+            </button>
+            <button class="command" data-command="/api/agents/story/run">
+              <strong>Story Agent</strong>
+              <span>Create a manga beat candidate</span>
+            </button>
+            <button class="command" data-command="/api/agents/consistency/run">
+              <strong>Consistency Agent</strong>
+              <span>Check canon risks</span>
+            </button>
+          </div>
+          <article class="panel output-panel">
+            <div class="panel-head">
+              <h3>Latest Output</h3>
+              <span id="output-mode">Idle</span>
+            </div>
+            <pre id="factory-output">Choose a factory command.</pre>
+          </article>
+        </section>
+
+        <section class="room" id="room-octopus">
+          <article class="panel output-panel tall">
+            <div class="panel-head">
+              <h3>Octopus Integration Plan</h3>
+              <span>Runtime Contract</span>
+            </div>
+            <pre id="octopus-plan">Loading...</pre>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="/console/app.js"></script>
+  </body>
+</html>

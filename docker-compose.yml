@@ -24,6 +24,7 @@ services:
       - ./stories:/app/stories
       - ./prompts:/app/prompts
       - ./integrations:/app/integrations
+      - ./console:/app/console
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8010/api/health', timeout=3)"]
       interval: 30s
@@ -58,6 +59,7 @@ services:
       - ./stories:/app/stories
       - ./prompts:/app/prompts
       - ./integrations:/app/integrations
+      - ./console:/app/console
 
   # Optional future GPU worker. Enable once ComfyUI is deployed.
   comfyui-worker:

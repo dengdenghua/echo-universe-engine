@@ -24,6 +24,7 @@ COPY prompts ./prompts
 COPY workflows ./workflows
 COPY asset_factory ./asset_factory
 COPY integrations ./integrations
+COPY console ./console
 
 RUN pip install --no-cache-dir -e .
 
