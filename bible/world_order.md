@@ -105,6 +105,7 @@ The decisive theaters are not only battlefields. They are:
 - memory vaults
 - city operating systems
 - orbital compute farms
+- Mars delayed-memory channels
 - undersea data routes
 - robot factories
 - hospital continuity systems
@@ -128,6 +129,7 @@ The settlement creates:
 - memory upload regulation
 - Ghost incident suppression protocols
 - post-war AI infrastructure neutrality law
+- Red Delay Protocol for limited Mars-ECHO synchronization
 
 The United States and China become founding old-world powers inside the settlement, but not rulers of ECHO.
 
@@ -149,6 +151,8 @@ Every person lives under several authorities at once:
 This creates the Post-National Infrastructure Order.
 
 Old countries still have armies, laws, languages, borders, and culture. But a person's actual life can be more strongly shaped by ECHO permissions than by passport status.
+
+Mars remains the largest exception. It exchanges data with ECHO but refuses full real-time synchronization through RED ARCHIVE.
 
 ## Current Balance in 2147
 
