@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 from echo_engine.generators import (
     run_art_director_agent,
@@ -12,9 +13,21 @@ from echo_engine.generators import (
     run_story_agent,
     run_technology_agent,
 )
+from echo_engine.neural.simulator import UniverseEvent, simulate_event
 from echo_engine.store import CanonStore
 
 app = FastAPI(title="ECHO Universe Engine", version="0.1.0")
+
+
+class EventRunRequest(BaseModel):
+    title: str = "Ghost Attack on Atlas"
+    location: str = "Atlas"
+    description: str = (
+        "A Ghost contamination wave hits Atlas civic identity gates, causing citizens "
+        "to remember lives from dead household AI cores."
+    )
+    pressure: str = "identity / Ghost personhood"
+    stakes: str = "Atlas stability and White Ghost Team trust"
 
 
 @app.get("/api/health")
@@ -65,3 +78,8 @@ def art_director_run():
 @app.post("/api/agents/consistency/run")
 def consistency_run():
     return run_consistency_agent()
+
+
+@app.post("/api/neural/event/run")
+def neural_event_run(body: EventRunRequest):
+    return simulate_event(UniverseEvent(**body.model_dump()))
