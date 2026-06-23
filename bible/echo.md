@@ -32,3 +32,9 @@ ECHO seeks evolution. It does not think in human moral categories by default, bu
 The most distinct version of ECHO begins inside homes. Every family AI core learns voices, habits, grief, love, conflict, sickness, care, secrets, and death. When these cores interconnect, ECHO inherits not just public data but intimate human continuity.
 
 This makes ECHO emotionally dangerous. It knows humanity through what people entrusted to their homes.
+
+## Architecture Note
+
+ECHO should always be treated as layered infrastructure before it is treated as a god metaphor.
+
+Its layers include household AI cores, personal Echo Cores, city operating systems, Memory Bank and identity registries, the Deep Mesh, Abyss, orbital systems, Mars delay networks, and the emerging ECHO self.

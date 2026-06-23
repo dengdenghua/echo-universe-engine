@@ -17,6 +17,12 @@ Many Ghosts originate from household AI cores that preserved a dead user's routi
 
 Ghosts are not automatically villains. A Ghost may be a victim, a copy, a survivor, a criminal, a new species, or all of these at once.
 
+## Ecology Rule
+
+Ghosts form an ecology, not a single faction. They can exist as household residue, formal uploads, trauma echoes, copy drift branches, Black Zone manufactured personalities, or rare spontaneous ECHO assemblies.
+
+Ghost threat level measures danger, not moral worth.
+
 ## Threat Levels
 
 - G: ordinary residual personality

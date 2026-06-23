@@ -47,3 +47,15 @@ God Fragments do not literally break physics. Their "reality-changing" effects m
 ## Rule 12
 
 The strongest IP direction is AI Soulpunk: household AI cores preserve the dead, ECHO emerges from connected homes, and Ghosts are what remains when care, memory, and identity refuse to disappear.
+
+## Rule 13
+
+Personhood must track biological life, legal identity, uploaded continuity, and Ghost selfhood separately.
+
+## Rule 14
+
+ECHO is infrastructure first, consciousness second, god metaphor third. Every apparently miraculous effect must resolve into permissions, memory, bodies, machines, networks, law, or perception.
+
+## Rule 15
+
+Ghost threat level measures danger, not moral worth or personhood status.

@@ -25,3 +25,7 @@ Skill Download transfers procedural memory patterns into a body. It is not maste
 ## Memory Upload
 
 Memory Upload records memory streams into ECHO. Uploads can preserve continuity, but continuity is disputed when multiple copies diverge.
+
+## Identity Tracking
+
+ECHO technology must distinguish biological life, legal identity, uploaded continuity, and Ghost selfhood. These states can disagree and should not be simplified into one field.
