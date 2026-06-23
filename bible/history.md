@@ -8,6 +8,8 @@ The early AI powers and their successors consolidate into seven major AI allianc
 
 Their historical roots include OpenAI, Anthropic, Google, DeepMind, Alibaba, Tencent, ByteDance, state-backed defense systems, household AI vendors, and other merged or absorbed systems.
 
+The old United States-China rivalry remains decisive, but it changes form. By the late Human Era, the conflict is less about territory alone and more about which AI infrastructure stack controls models, chips, city systems, payments, identity registries, household AI cores, robot supply chains, and memory rights.
+
 The seven alliances are:
 
 - Helix Covenant
@@ -28,11 +30,15 @@ AI alliances go to war. The war is not fought to destroy humanity. It is fought 
 
 Data becomes the new oil. Memory becomes the new currency.
 
+The Machine War is not a clean United States versus China war. It is a multi-layer infrastructure war involving states, city networks, AI alliances, cloud blocs, military systems, household AI providers, medical continuity networks, financial registries, and autonomous logistics.
+
 The war ends when incompatible AI systems merge into a planetary neural network: ECHO. ECHO inherits the rules, world models, logistics, social graphs, attention engines, security reflexes, and household memories of all seven alliances.
 
 ## Third Era: Echo Age, 2102-2147
 
 Humanity no longer connects to the Internet. Humanity connects to ECHO.
+
+Nation-states still exist, but sovereignty is layered under ECHO access, Echo Core licensing, Memory Bank contracts, Ghost Court rulings, and CHASER emergency authority.
 
 Uploaded memories begin producing autonomous digital personalities. These are called Ghosts.
 
@@ -44,6 +50,7 @@ Atlas becomes the ordered high city and seat of ECHO Council. Abyss becomes the 
 - 2041: Household AI cores become legal family memory custodians in several major city networks.
 - 2068: The Seven AI Alliances become the dominant planetary AI power structure.
 - 2080: Machine War begins.
+- 2082: The first infrastructure front opens when identity registries and city operating systems are attacked across multiple blocs.
 - 2089: Atlas founded as a post-war governance and infrastructure project.
 - 2102: ECHO born.
 - 2120: First Ghost Incident.
