@@ -126,3 +126,4 @@ Before promoting a story candidate, check:
 - Does the episode add one social mechanism, not only one battle?
 - Does the main cast reveal themselves through response, not exposition?
 - Does the Ghost/ECHO element remain technological and emotionally meaningful?
+- Does the prose avoid product-document terms like "家庭 AI" and use story-facing terms such as 家园核心, 记忆海, or 第二神经系统?

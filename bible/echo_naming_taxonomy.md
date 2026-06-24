@@ -150,3 +150,27 @@ If every character says "global household AI network," the universe feels like a
 - Religious factions: The Great Echo.
 - Legal and financial scenes: Continuity Stack.
 - Emotional manipulation and Dream Network scenes: Empathy Mesh.
+
+## Prose Terminology Rule
+
+In novels, manga scripts, dialogue, and marketing copy, do not use:
+
+```text
+家庭 AI
+全球家庭 AI 网络
+```
+
+Use instead:
+
+```text
+家园核心
+家园层
+记忆海
+第二神经系统
+Home Core
+Home Layer
+Memory Sea
+Second Nervous System
+```
+
+The engineering phrase "household AI core" is allowed only in technical canon documents when explaining how the system works.

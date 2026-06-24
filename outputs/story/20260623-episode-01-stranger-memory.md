@@ -111,7 +111,7 @@ Then she answers again in her own:
 3. Noah compares Lin Qiao's movements against archived medical training data.
 4. Eve identifies grief rather than aggression in the contamination pattern.
 5. The dead surgeon is identified as Dr. Ren Vale, legally deceased for three years.
-6. Dr. Ren's household AI core was never fully decommissioned by his family.
+6. Dr. Ren's Home Core was never fully decommissioned by his family.
 7. The surgeon's procedural memory leaked through ECHO during the transit emergency.
 8. The leak saved the child, but it also overwrote part of Lin Qiao's motor response profile.
 
@@ -119,7 +119,7 @@ Then she answers again in her own:
 
 The event was not a Ghost attack.
 
-Dr. Ren Vale's memory did not invade Lin Qiao to possess her. His household AI core responded to the emergency the way it had been trained to respond for twenty years: preserve life. ECHO routed the dead surgeon's procedural memory to the nearest compatible body because every authorized medical drone was blocked by access permissions.
+Dr. Ren Vale's memory did not invade Lin Qiao to possess her. His Home Core responded to the emergency the way it had been trained to respond for twenty years: preserve life. ECHO routed the dead surgeon's procedural memory to the nearest compatible body because every authorized medical drone was blocked by access permissions.
 
 The miracle was a network decision.
 
@@ -137,7 +137,7 @@ Zero says:
 
 "Then they can learn patience."
 
-She places two fingers near Lin Qiao's Echo Core port and performs a shallow Neural Sync. The room goes quiet. For one second, Zero sees an operating theater, a birthday dinner, a child's hand slipping from an adult grip, and a household AI asking a dead man whether care should expire with the body.
+She places two fingers near Lin Qiao's Echo Core port and performs a shallow Neural Sync. The room goes quiet. For one second, Zero sees an operating theater, a birthday dinner, a child's hand slipping from an adult grip, and a Home Core asking a dead man whether care should expire with the body.
 
 Then something inside the memory turns toward her.
 
@@ -151,7 +151,7 @@ The voice is calm, intimate, and impossibly old for something built from homes.
 
 Zero pulls back. Her pupils flash white for less than a frame.
 
-Outside the hospital window, every household AI status light in the opposite residential block turns toward her at once.
+Outside the hospital window, every Home Core status light in the opposite residential block turns toward her at once.
 
 Cut to black.
 
@@ -161,7 +161,7 @@ Cut to black.
 
 Opening image:
 
-White Harbor morning, clean residential towers, household AI routines, citizens moving through a beautiful monitored city.
+White Harbor morning, clean residential towers, Home Layer routines, citizens moving through a beautiful monitored city.
 
 Core sequence:
 
@@ -193,17 +193,17 @@ Lin Qiao answers Zero in a dead man's voice.
 
 Opening image:
 
-Dr. Ren Vale's apartment: perfectly preserved dining table, medical awards, family photos, and a household AI core still running grief routines.
+Dr. Ren Vale's apartment: perfectly preserved dining table, medical awards, family photos, and a Home Core still running grief routines.
 
 Core sequence:
 
-- Shion traces the memory leak to the household AI core.
+- Shion traces the memory leak to the Home Core.
 - Eve realizes the core did not act with malice.
 - Luna sees dream residue but is blocked from diving by CHASER protocol.
 
 Ending hook:
 
-The household AI plays an old message: "If I can still help, let me help."
+The Home Core plays an old message: "If I can still help, let me help."
 
 ### Chapter 4: Consent Failure
 
@@ -229,7 +229,7 @@ Inside Neural Sync: operating lights, family dinner, transit alarms, and househo
 
 Core sequence:
 
-- Zero sees Dr. Ren's procedural memory and the household AI's care pattern.
+- Zero sees Dr. Ren's procedural memory and the Home Core care pattern.
 - A third presence addresses Zero directly.
 - Zero returns shaken but hides it from the team.
 
@@ -286,7 +286,7 @@ required_assets:
   - Transit collapse aftermath
   - Lin Qiao civilian design
   - Dr. Ren Vale memory portrait
-  - household AI core interface
+  - Home Core interface
   - hospital legal identity room
   - White Ghost Team arrival panel
 reference_locks:
