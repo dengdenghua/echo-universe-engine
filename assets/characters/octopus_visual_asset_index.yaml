@@ -118,3 +118,17 @@ characters:
       back: assets/characters/008_luna/octopus_refs/back.png
       source_turnaround: assets/characters/008_luna/octopus_refs/source-turnaround.png
       source_profile: assets/characters/008_luna/octopus_refs/source_profile.jsonc
+  "009":
+    name: Mira Voss
+    codename: Glass Vein
+    echo_asset_dir: assets/characters/009_mira_voss/octopus_refs
+    octopus_source_agent: echo_mira_voss
+    octopus_source_dir: /Users/dangbei/Public/octopus/octopus-agent/agents/echo_mira_voss
+    status: provisional_visual_lock
+    files:
+      avatar: assets/characters/009_mira_voss/octopus_refs/avatar.png
+      front: assets/characters/009_mira_voss/octopus_refs/front.png
+      side: assets/characters/009_mira_voss/octopus_refs/side.png
+      back: assets/characters/009_mira_voss/octopus_refs/back.png
+      source_turnaround: assets/characters/009_mira_voss/octopus_refs/source-turnaround.png
+      source_profile: assets/characters/009_mira_voss/octopus_refs/source_profile.jsonc

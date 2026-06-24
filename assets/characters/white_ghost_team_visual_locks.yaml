@@ -335,3 +335,43 @@ characters:
       - Ghost sympathy
       - fear
       - quiet defiance
+  "009":
+    name: Mira Voss
+    codename: Glass Vein
+    octopus_source_agent: echo_mira_voss
+    reference_pack: assets/characters/009_mira_voss/octopus_refs
+    status: provisional_visual_lock
+    approved_references:
+      avatar: assets/characters/009_mira_voss/octopus_refs/avatar.png
+      front: assets/characters/009_mira_voss/octopus_refs/front.png
+      side: assets/characters/009_mira_voss/octopus_refs/side.png
+      back: assets/characters/009_mira_voss/octopus_refs/back.png
+      source_turnaround: assets/characters/009_mira_voss/octopus_refs/source-turnaround.png
+    silhouette: clinical Echo Core medic, white medical techwear coat over dark compression layer, surgical drone ring
+    hair: pale silver-white, clean medical silhouette
+    face: adult, calm, precise, empathetic but guarded
+    eyes: pale green behind diagnostic visor
+    accent_color: glass mint
+    required_items:
+      - white clinical techwear coat
+      - dark graphite inner layer
+      - pale green diagnostic visor
+      - translucent vein lights along forearms
+      - compact surgical drone ring
+    forbidden_drift:
+      - angel halo styling
+      - fantasy healer robe
+      - hospital nurse costume
+      - neon street medic default
+      - duplicated Eve or Shion identity
+    base_prompt: >
+      Mira Voss, Glass Vein forensic medic, adult female Echo Core repair
+      specialist, white clinical techwear coat, dark graphite tactical inner
+      layer, pale green diagnostic visor, translucent mint vein lights along
+      forearms, compact surgical drone ring, calm precise clinical expression.
+    expression_set:
+      - calm diagnosis
+      - surgical focus
+      - guarded empathy
+      - legal alarm
+      - exhausted mercy
