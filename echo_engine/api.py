@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from fastapi import Depends
 from fastapi import FastAPI
 from fastapi import HTTPException
 from fastapi.responses import FileResponse
@@ -9,6 +10,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import yaml
 
+from echo_engine.config import get_settings
 from echo_engine.bindings import (
     BindingError,
     bind_user_to_character,
@@ -76,6 +78,16 @@ for static_name in ["outputs", "stories", "characters", "relationships", "bible"
     static_dir = Path(static_name)
     if static_dir.exists():
         app.mount(f"/{static_name}", StaticFiles(directory=static_dir), name=static_name)
+
+
+def get_root() -> Path:
+    """FastAPI 依赖：返回引擎读写状态用的根目录。
+
+    端点据此解析 data/ 路径，而不是在写盘的那一刻才调用 Path.cwd()，从而避免请求
+    处理线程（尤其是 Starlette TestClient 的工作线程）落在错误的工作目录上把状态
+    写进真实项目 data/。测试可用 app.dependency_overrides[get_root] 注入隔离根目录。
+    """
+    return get_settings().root
 
 
 class EventRunRequest(BaseModel):
@@ -249,64 +261,65 @@ def canon_promotion(body: PromoteCandidateRequest):
 
 
 @app.get("/api/bindings")
-def user_bindings():
-    return [binding.model_dump(mode="json") for binding in list_user_bindings()]
+def user_bindings(root: Path = Depends(get_root)):
+    return [binding.model_dump(mode="json") for binding in list_user_bindings(root=root)]
 
 
 @app.get("/api/bindings/{user_id}")
-def user_binding(user_id: str):
-    binding = get_user_binding(user_id)
+def user_binding(user_id: str, root: Path = Depends(get_root)):
+    binding = get_user_binding(user_id, root=root)
     if binding is None:
         raise HTTPException(status_code=404, detail=f"user binding not found: {user_id}")
     return binding
 
 
 @app.post("/api/bindings")
-def bind_character(body: BindCharacterRequest):
+def bind_character(body: BindCharacterRequest, root: Path = Depends(get_root)):
     try:
         return bind_user_to_character(
             user_id=body.user_id,
             character_id=body.character_id,
             source=body.source,
+            root=root,
         )
     except BindingError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.delete("/api/bindings/{user_id}")
-def release_binding(user_id: str):
+def release_binding(user_id: str, root: Path = Depends(get_root)):
     try:
-        return release_user_binding(user_id)
+        return release_user_binding(user_id, root=root)
     except BindingError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @app.get("/api/universe/feed/{user_id}")
-def universe_feed(user_id: str):
+def universe_feed(user_id: str, root: Path = Depends(get_root)):
     try:
-        return get_universe_feed_for_user(user_id)
+        return get_universe_feed_for_user(user_id, root=root)
     except UniverseFeedError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @app.get("/api/identity/tiers")
-def identity_tiers():
+def identity_tiers(root: Path = Depends(get_root)):
     try:
-        return [tier.model_dump(mode="json") for tier in list_identity_tiers()]
+        return [tier.model_dump(mode="json") for tier in list_identity_tiers(root=root)]
     except IdentityError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.get("/api/identity/users/{user_id}")
-def identity_user(user_id: str):
+def identity_user(user_id: str, root: Path = Depends(get_root)):
     try:
-        return get_universe_identity(user_id)
+        return get_universe_identity(user_id, root=root)
     except IdentityError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.post("/api/identity/assignments")
-def identity_assignment(body: IdentityAssignmentRequest):
+def identity_assignment(body: IdentityAssignmentRequest, root: Path = Depends(get_root)):
     try:
         return assign_identity(
             user_id=body.user_id,
@@ -314,27 +327,31 @@ def identity_assignment(body: IdentityAssignmentRequest):
             realms=body.realms,
             source=body.source,
             metadata=dict(body.metadata),
+            root=root,
         )
     except IdentityError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.post("/api/identity/check-realm")
-def identity_check_realm(body: RealmAccessCheckRequest):
+def identity_check_realm(body: RealmAccessCheckRequest, root: Path = Depends(get_root)):
     try:
         return check_realm_event_access(
             user_id=body.user_id,
             scope=body.scope,
             realm_id=body.realm_id,
+            root=root,
         )
     except IdentityError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.post("/api/identity/check-npc")
-def identity_check_npc(body: NPCAccessCheckRequest):
+def identity_check_npc(body: NPCAccessCheckRequest, root: Path = Depends(get_root)):
     try:
-        return check_npc_access(user_id=body.user_id, npc_id=body.npc_id, action=body.action)
+        return check_npc_access(
+            user_id=body.user_id, npc_id=body.npc_id, action=body.action, root=root
+        )
     except IdentityError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
@@ -470,23 +487,23 @@ def reviewer_authorize(body: ReviewerAuthorizationRequest):
 
 
 @app.get("/api/economy/products")
-def economy_products():
+def economy_products(root: Path = Depends(get_root)):
     try:
-        return [product.model_dump(mode="json") for product in list_products()]
+        return [product.model_dump(mode="json") for product in list_products(root=root)]
     except EconomyError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.get("/api/economy/users/{user_id}/summary")
-def economy_summary(user_id: str):
+def economy_summary(user_id: str, root: Path = Depends(get_root)):
     try:
-        return economy_account_summary(user_id)
+        return economy_account_summary(user_id, root=root)
     except EconomyError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.post("/api/economy/wallet/grant")
-def economy_wallet_grant(body: WalletGrantRequest):
+def economy_wallet_grant(body: WalletGrantRequest, root: Path = Depends(get_root)):
     try:
         return record_wallet_entry(
             user_id=body.user_id,
@@ -494,25 +511,27 @@ def economy_wallet_grant(body: WalletGrantRequest):
             reason=body.reason,
             ref_id=body.ref_id,
             metadata=dict(body.metadata),
+            root=root,
         )
     except EconomyError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.post("/api/economy/purchases")
-def economy_purchase(body: ProductPurchaseRequest):
+def economy_purchase(body: ProductPurchaseRequest, root: Path = Depends(get_root)):
     try:
         return purchase_product(
             user_id=body.user_id,
             product_id=body.product_id,
             character_id=body.character_id,
+            root=root,
         )
     except EconomyError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.post("/api/economy/subscriptions/ghost")
-def economy_ghost_subscription(body: GhostSubscriptionRequest):
+def economy_ghost_subscription(body: GhostSubscriptionRequest, root: Path = Depends(get_root)):
     try:
         return activate_ghost_subscription(
             user_id=body.user_id,
@@ -520,6 +539,7 @@ def economy_ghost_subscription(body: GhostSubscriptionRequest):
             duration_days=body.duration_days,
             source=body.source,
             metadata=dict(body.metadata),
+            root=root,
         )
     except EconomyError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -585,8 +605,8 @@ def neural_event_run(body: EventRunRequest):
 
 
 @app.post("/api/neural/daily-life/run")
-def neural_daily_life_run():
-    return run_daily_life_tick()
+def neural_daily_life_run(root: Path = Depends(get_root)):
+    return run_daily_life_tick(root=root)
 
 
 @app.get("/api/integrations/octopus/plan")

@@ -21,6 +21,10 @@ def save_life_states(base: Path, states: dict[str, dict[str, Any]]) -> None:
     _save_states(base, states)
 
 
+def life_states_exist(base: Path) -> bool:
+    return (base / STATE_PATH).exists()
+
+
 def seed_life_state(card: CharacterCard) -> dict[str, Any]:
     return _seed_state(card)
 

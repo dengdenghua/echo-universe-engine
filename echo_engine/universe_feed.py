@@ -6,6 +6,7 @@ from typing import Any
 from echo_engine.bindings import get_user_binding
 from echo_engine.models import CharacterCard, UniverseFeed
 from echo_engine.neural.digital_life import (
+    life_states_exist,
     load_or_seed_life_states,
     save_life_states,
     seed_life_state,
@@ -24,11 +25,20 @@ def get_universe_feed_for_user(user_id: str, root: Path | None = None) -> Univer
     if binding.status != "active":
         raise UniverseFeedError(f"user binding is not active: {user_id}")
 
+    base = root or Path.cwd()
     cards = CanonStore(root).load_character_cards()
     card = _find_card(cards, binding.character_id)
-    states = load_or_seed_life_states(root or Path.cwd(), cards)
-    state = states.setdefault(card.id, seed_life_state(card))
-    save_life_states(root or Path.cwd(), states)
+    state_existed = life_states_exist(base)
+    states = load_or_seed_life_states(base, cards)
+    card_missing = card.id not in states
+    if card_missing:
+        states[card.id] = seed_life_state(card)
+    state = states[card.id]
+    # 纯读不写盘：只有在首次惰性初始化（状态文件缺失）或绑定角色尚未入库时才落盘。
+    # 否则每次 GET /api/universe/feed 都会写 data/digital_life_state.yaml，在 root
+    # 回退到 Path.cwd() 时（如 TestClient 工作线程跨用例残留）会把假状态泄漏进真实 data/。
+    if not state_existed or card_missing:
+        save_life_states(base, states)
 
     diary = _string_dict_list(state.get("diary"))
     growth = _string_dict_list(state.get("growth"))

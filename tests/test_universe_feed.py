@@ -6,11 +6,7 @@ from pathlib import Path
 import subprocess
 import sys
 
-from fastapi.testclient import TestClient
-
-from echo_engine.api import app
 from echo_engine.bindings import bind_user_to_character
-from echo_engine.config import get_settings
 from echo_engine.neural.digital_life import run_daily_life_tick
 from echo_engine.universe_feed import get_universe_feed_for_user
 
@@ -63,19 +59,16 @@ def test_universe_feed_includes_daily_life_tick(tmp_path):
     assert feed.diary[-1]["text"] == feed.latest_diary
 
 
-def test_universe_feed_api(tmp_path, monkeypatch):
+def test_universe_feed_api(tmp_path, api_client):
     seed_characters(tmp_path)
-    monkeypatch.chdir(tmp_path)
-    get_settings.cache_clear()
     bind_user_to_character(user_id="mobile-user-1", character_id="001", root=tmp_path)
 
-    response = TestClient(app).get("/api/universe/feed/mobile-user-1")
+    response = api_client.get("/api/universe/feed/mobile-user-1")
 
     assert response.status_code == 200
     body = response.json()
     assert body["agent_id"] == "echo_zero"
     assert body["character_name"] == "Zero"
-    get_settings.cache_clear()
 
 
 def test_cli_universe_feed_outputs_json(tmp_path):

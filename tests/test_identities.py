@@ -7,9 +7,6 @@ import shutil
 import subprocess
 import sys
 
-from fastapi.testclient import TestClient
-
-from echo_engine.api import app
 from echo_engine.economy import grant_entitlement
 from echo_engine.identities import (
     assign_identity,
@@ -148,23 +145,21 @@ def test_missing_required_npc_entitlement_is_reported(tmp_path):
     assert "missing entitlement" in decision.reason
 
 
-def test_identity_api_and_assignment(tmp_path, monkeypatch):
+def test_identity_api_and_assignment(tmp_path, api_client):
     seed_catalogs(tmp_path)
     seed_characters(tmp_path)
-    monkeypatch.chdir(tmp_path)
-    client = TestClient(app)
 
-    before = client.get("/api/identity/users/free-user")
+    before = api_client.get("/api/identity/users/free-user")
     assert before.status_code == 200
     assert before.json()["tier"] == "edge_ghost"
 
-    assigned = client.post(
+    assigned = api_client.post(
         "/api/identity/assignments",
         json={"user_id": "creator-user", "tier": "creator", "realms": ["ghost_court"]},
     )
     assert assigned.status_code == 200
 
-    checked = client.post(
+    checked = api_client.post(
         "/api/identity/check-npc",
         json={"user_id": "creator-user", "npc_id": "zero", "action": "candidate_event"},
     )

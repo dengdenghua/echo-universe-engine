@@ -6,16 +6,12 @@ from pathlib import Path
 import subprocess
 import sys
 
-from fastapi.testclient import TestClient
-
-from echo_engine.api import app
 from echo_engine.bindings import (
     BindingError,
     bind_user_to_character,
     get_user_binding,
     release_user_binding,
 )
-from echo_engine.config import get_settings
 
 
 def seed_characters(root):
@@ -90,31 +86,27 @@ def test_bind_user_rejects_unknown_character(tmp_path):
         raise AssertionError("expected BindingError")
 
 
-def test_bindings_api_roundtrip(tmp_path, monkeypatch):
+def test_bindings_api_roundtrip(tmp_path, api_client):
     seed_characters(tmp_path)
-    monkeypatch.chdir(tmp_path)
-    get_settings.cache_clear()
-    client = TestClient(app)
 
-    created = client.post(
+    created = api_client.post(
         "/api/bindings",
         json={"user_id": "mobile-user-1", "character_id": "001", "source": "mobile"},
     )
     assert created.status_code == 200
     assert created.json()["agent_id"] == "echo_zero"
 
-    fetched = client.get("/api/bindings/mobile-user-1")
+    fetched = api_client.get("/api/bindings/mobile-user-1")
     assert fetched.status_code == 200
     assert fetched.json()["character_name"] == "Zero"
 
-    listed = client.get("/api/bindings")
+    listed = api_client.get("/api/bindings")
     assert listed.status_code == 200
     assert len(listed.json()) == 1
 
-    released = client.delete("/api/bindings/mobile-user-1")
+    released = api_client.delete("/api/bindings/mobile-user-1")
     assert released.status_code == 200
     assert released.json()["status"] == "released"
-    get_settings.cache_clear()
 
 
 def test_cli_bind_character_outputs_binding(tmp_path):

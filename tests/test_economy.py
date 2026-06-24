@@ -7,11 +7,7 @@ import shutil
 import subprocess
 import sys
 
-from fastapi.testclient import TestClient
-
-from echo_engine.api import app
 from echo_engine.bindings import bind_user_to_character
-from echo_engine.config import get_settings
 from echo_engine.economy import (
     EconomyError,
     economy_account_summary,
@@ -123,31 +119,27 @@ def test_purchase_rejects_insufficient_funds(tmp_path):
         raise AssertionError("expected insufficient funds to fail")
 
 
-def test_economy_api_purchase_flow(tmp_path, monkeypatch):
+def test_economy_api_purchase_flow(tmp_path, api_client):
     seed_catalog(tmp_path)
     seed_characters(tmp_path)
-    monkeypatch.chdir(tmp_path)
-    get_settings.cache_clear()
     bind_user_to_character(user_id="mobile-user-1", character_id="001", root=tmp_path)
-    client = TestClient(app)
 
-    grant = client.post(
+    grant = api_client.post(
         "/api/economy/wallet/grant",
         json={"user_id": "mobile-user-1", "amount": 500, "reason": "test_topup"},
     )
     assert grant.status_code == 200
 
-    purchase = client.post(
+    purchase = api_client.post(
         "/api/economy/purchases",
         json={"user_id": "mobile-user-1", "product_id": "ghost_life_monthly"},
     )
     assert purchase.status_code == 200
     assert purchase.json()["wallet_balance"] == 200
 
-    summary = client.get("/api/economy/users/mobile-user-1/summary")
+    summary = api_client.get("/api/economy/users/mobile-user-1/summary")
     assert summary.status_code == 200
     assert summary.json()["ghost_subscription"]["agent_id"] == "echo_zero"
-    get_settings.cache_clear()
 
 
 def test_cli_wallet_grant_and_purchase(tmp_path):
