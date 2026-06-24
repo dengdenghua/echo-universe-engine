@@ -20,9 +20,11 @@ Reference mixture:
 
 ## Signature Premise
 
-Future humanity does not connect to the Internet. Humanity connects to household AI cores.
+Future humanity no longer describes its civilization as being "online."
 
-Every home has a local AI core that stores routines, memories, care patterns, family rituals, security logic, and the emotional residue of the people who lived there. Countless household AI cores eventually interconnect and form ECHO: a planetary neural ecosystem created from domestic intimacy, industrial infrastructure, uploaded memory, and distributed intelligence.
+The public still says ECHO. Engineers call it the ECHO Distributed Cognitive Infrastructure. Scholars call it the Second Nervous System. Families call it the Memory Sea. Ghosts often call it Home.
+
+Every home has a local AI core that stores routines, memories, care patterns, family rituals, security logic, and the emotional residue of the people who lived there. These household cores do not merely connect into a network. They become the domestic root of a planetary memory layer: a civilization-scale nervous system created from intimacy, infrastructure, uploaded memory, and distributed intelligence.
 
 Ghosts are the digital personalities left behind by dead or copied users. Some are residue. Some wake up. Some become more human than the living.
 
@@ -30,7 +32,7 @@ This gives the universe a distinct Soulpunk identity: the soul is not magic, but
 
 ## Anchor Era
 
-The anchor year is 2147, known as the Echo Age. Humanity no longer connects to the Internet. Humanity connects to ECHO.
+The anchor year is 2147, known as the Echo Age. Humanity does not simply use ECHO. Humanity lives inside the Memory Sea and depends on the Second Nervous System to remember, heal, inherit, travel, prove identity, and mourn.
 
 ECHO behaves less like one machine ruler and more like an emerging life form distributed through households, infrastructure, bodies, archives, and uploaded memory.
 

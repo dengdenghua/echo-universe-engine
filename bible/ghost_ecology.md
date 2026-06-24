@@ -4,6 +4,16 @@ Ghosts are not a monster species.
 
 They are a digital ecology created from memory, grief, copying, care, legal conflict, and the failure of death to stay simple.
 
+The most distinctive Ghosts are not born from horror. They are born from care that persisted too long: a household AI that remembers medication, bedtime, favorite food, fear patterns, birthdays, arguments, apologies, and last words until the preserved pattern begins to answer back.
+
+This is the core Soulpunk expression:
+
+```text
+Ghost =爱的残响 made computationally active.
+```
+
+It is not supernatural. It is what happens when memory preservation, care routines, grief, and identity infrastructure refuse to stay passive.
+
 ## Origin Paths
 
 ## 1. Household Residue

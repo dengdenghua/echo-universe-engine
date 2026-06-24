@@ -7,7 +7,8 @@ The production goal is to convert the universe bible into a manga or animation-r
 ## Season Spine
 
 ```text
-Case-of-the-week Ghost incidents
+World-first civilian cases
+  -> White Ghost investigation
   -> identity law contradictions
   -> CHASER institutional pressure
   -> Atlas political manipulation
@@ -21,7 +22,7 @@ Case-of-the-week Ghost incidents
 
 Episode 1-4:
 
-Curiosity and procedural tension. The world feels cool, dangerous, and solvable.
+Curiosity and procedural tension. The world feels cool, dangerous, and solvable, but every case should begin with ordinary citizens before White Ghost Team enters.
 
 Episode 5-8:
 
@@ -39,12 +40,12 @@ Intimate apocalypse. ECHO awakening is planetary, but the emotional center is Ze
 
 | Episode | Focus Character | Worldbuilding Increment | Reversal | Ending Hook |
 |---|---|---|---|---|
-| 1 | Zero | personality contamination | victim is not possessed, but overwritten by memory | voice calls Zero unfinished |
-| 2 | Eve / Luna | Ghost Court and legal identity | Ghost copy may be more continuous than living body | forged consent key appears |
-| 3 | Raven / Shion | Black Zone memory market | legal institutions depend on illegal supply | White Ghost records are being purchased |
-| 4 | Kane | Combat Download cost | skill carries trauma | Kane sees Zero's upload fragility |
-| 5 | Luna | Dream Network | target Ghost is a frightened child | Luna hides contact |
-| 6 | Eve | household AI grief loops | family love is imprisoning the dead | Ghost Union makes a valid demand |
+| 1 | Lin Qiao / Zero | personality contamination | victim is not possessed; dead surgeon's care routine saved a child without consent | voice calls Zero unfinished |
+| 2 | living engineer / Eve / Luna | Ghost Court and legal identity | Ghost copy may be more continuous than living body | forged consent key appears |
+| 3 | Black Zone receipt clerk / Raven / Shion | memory market | legal institutions depend on illegal supply | White Ghost records are being purchased |
+| 4 | contaminated ex-soldier / Kane | Combat Download cost | skill carries trauma and last fear | Kane sees Zero's upload fragility |
+| 5 | Ghost child / Luna | Dream Network | target Ghost is a frightened child, not malware | Luna hides contact |
+| 6 | grieving family / Eve | household AI grief loops | family love is imprisoning the dead | Ghost Union makes a valid demand |
 | 7 | Noah | probability cost | 99% success harms unseen people | Noah logs unacceptable consequence |
 | 8 | Zero | Ghost Court projection | law detects Zero's continuity anomaly | Project E-01 trace appears |
 | 9 | Raven | Ghost compute poverty | assassin target is shelter protector | Raven spares a Ghost criminal |
@@ -68,6 +69,18 @@ Every two episodes should advance at least one main character:
 - Shion: control versus care
 - Noah: probability versus responsibility
 - Luna: Ghost coexistence and selfhood
+
+## Viewpoint Rule
+
+Season 1 should not begin as a hero-team vehicle.
+
+For the first 6 episodes, open with a case character or civilian institution. White Ghost Team enters as investigators, responders, or pressure points after the world has already exposed the wound.
+
+Reference:
+
+```text
+workflows/world_centric_story_rule.md
+```
 
 ## Visual Escalation
 

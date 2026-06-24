@@ -13,7 +13,7 @@ ECHO Universe asks three questions:
 Core canon:
 
 - ECHO is a planetary neural ecosystem, not a simple villain AI.
-- ECHO emerges from countless connected household AI cores.
+- ECHO emerges from countless connected household AI cores, but mature factions name it differently: engineers call it infrastructure, scholars call it the Second Nervous System, families call it the Memory Sea, and Ghosts call it Home.
 - Ghosts are digital personalities generated from uploaded memories.
 - The anchor title is `ECHO: Echo Age` / `ECHO: 回响纪元`.
 - The first season is `Ghost Awakening` / `幽灵觉醒`.

@@ -4,6 +4,30 @@ ECHO is not a single server or a central AI god.
 
 ECHO is a layered planetary neural ecosystem made from household AI cores, city infrastructure, cloud systems, Echo Cores, memory vaults, orbital compute, legal registries, robotics, and uploaded personalities.
 
+## Naming Layer
+
+The architecture is technical, but characters should not all speak like engineers.
+
+ECHO's names vary by social context:
+
+| Name | Users | Meaning |
+|---|---|---|
+| ECHO Distributed Cognitive Infrastructure | engineers, councils, compliance teams | official technical system |
+| Echo Network / 回响网络 | public interfaces, schools, hospitals | visible civilian access layer |
+| Second Nervous System / 第二神经系统 | scholars, neural researchers | civilization-scale memory and sensation layer |
+| Memory Sea / 记忆海 | families, artists, ordinary citizens | shared ocean of memory, dreams, grief, and skills |
+| Home Layer / 家园层 | inheritance lawyers, household AI vendors | domestic AI substrate beneath ECHO |
+| Empathy Mesh / 共感网 | Dream Network, emotion researchers | affective transmission layer |
+| Home / 家 | Ghosts | the place where the dead were not discarded |
+| Great Echo / 大回响 | religious movements | theological interpretation, not proof of divinity |
+| Continuity Stack / 连续性栈 | Atlas, Memory Bank, Ghost Courts | legal-financial identity control layers |
+
+Canonical reference:
+
+```text
+bible/echo_naming_taxonomy.md
+```
+
 ## Layer 0: Household Cores
 
 Household AI cores are ECHO's emotional root.

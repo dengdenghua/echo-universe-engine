@@ -6,6 +6,10 @@ Ghost is a digital personality generated from uploaded memories. Some Ghosts are
 
 Many Ghosts originate from household AI cores that preserved a dead user's routines, voice, preferences, memories, and emotional patterns long enough for a personality to reassemble.
 
+In the strongest ECHO framing, a Ghost is not simply a digital亡灵. A Ghost can be an爱的残响: love, duty, grief, habit, and identity residue preserved by household AI systems until the pattern becomes self-updating.
+
+This must remain technological. The "love" is not magic; it is repeated care routines, memory traces, voice models, family rituals, medical reminders, consent records, and Echo Core continuity gaining enough structure to act.
+
 ## Ghost Traits
 
 - Born from uploaded memory
