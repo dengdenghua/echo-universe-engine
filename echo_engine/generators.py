@@ -271,6 +271,56 @@ politics.
 
 
 def run_relationship_agent(root: Path | None = None) -> GenerationResult:
+    base = root or Path.cwd()
+    existing_relationships = list((base / "outputs" / "relationship").glob("*zero-mother-luna.md"))
+    if existing_relationships:
+        title = "Relationship Update: Lin Qiao / Ren Vale / Home Core"
+        content = f"""# {title}
+
+## New Relationship Lines
+
+```yaml
+Lin Qiao:
+  Ren Vale: "borrowed hands / unwanted debt"
+  Home Core: "trauma source / life-saving witness"
+Ren Vale:
+  Lin Qiao: "procedural memory carrier / stranger saved by care routine"
+Home Core:
+  Lin Qiao: "emergency vessel / consent violation"
+  Ren Vale: "preserved care pattern / unfinished goodbye"
+Zero:
+  Lin Qiao: "first warning / proof ECHO can help without consent"
+```
+
+## Dramatic Use
+
+- Lin Qiao should remain the emotional proof that ECHO's mercy can still violate a person.
+- Ren Vale is not resurrected; his preserved procedural memory and care pattern created the crisis.
+- The Home Core is not a villain machine. It is domestic care converted into unauthorized action.
+- Zero can recognize the event as a precedent for her own continuity problem.
+
+## Canon Risks
+
+- Do not make Ren Vale's soul survive.
+- Do not make the Home Core morally simple.
+- Do not let Lin Qiao become a clean superpower user.
+"""
+        return _finalize_generation(
+            mode="relationship",
+            title=title,
+            content=content,
+            root=root,
+            instructions=(
+                "Create a relationship graph update for Episode 1. Use story-facing terms "
+                "such as Home Core and avoid product-document terminology. Include a yaml "
+                "relationship block, dramatic use, and canon risks."
+            ),
+            canon_risks=[
+                "Keep Ren Vale as preserved procedural memory and care pattern, not a resurrected soul."
+            ],
+            metadata={"dedupe_reason": "Zero / Mother / Luna relationship already exists."},
+        )
+
     title = "Relationship Update: Zero / Mother / Luna"
     content = f"""# {title}
 
@@ -323,7 +373,7 @@ the Echo Age.
 
 - Memory vaulting
 - Inheritance continuity packages
-- Family AI core escrow
+- Home Core escrow
 - Identity insurance
 - Trauma redaction loans
 
@@ -359,13 +409,13 @@ financial product, not a miracle.
 
 
 def run_technology_agent(root: Path | None = None) -> GenerationResult:
-    title = "Technology Entry: Family Echo Inheritance Key"
+    title = "Technology Entry: Home Echo Inheritance Key"
     content = f"""# {title}
 
 ## Definition
 
-A Family Echo Inheritance Key is a cryptographic and neural-consent artifact
-used to transfer control of a household AI core after death.
+A Home Echo Inheritance Key is a cryptographic and neural-consent artifact
+used to transfer control of a Home Core after death.
 
 ## Use
 
@@ -381,7 +431,7 @@ legal memory trail.
 
 ## Story Hooks
 
-- A child inherits a household AI core that insists their parent is still alive.
+- A child inherits a Home Core that insists their parent is still alive.
 - Black Zone auctions a key belonging to an Atlas Council family.
 - Mother uses old inheritance keys to reconstruct the first Ghost lineage.
 
@@ -409,14 +459,14 @@ def run_art_director_agent(root: Path | None = None) -> GenerationResult:
 
 ## Visual North Star
 
-ECHO should look like household intimacy absorbed into planetary cyberpunk.
+ECHO should look like domestic intimacy absorbed into planetary cyberpunk.
 
 ## Motifs
 
 - White tactical silhouettes against dark industrial memory spaces
 - Warm domestic artifacts embedded in cold neural infrastructure
 - Transparent interfaces that resemble glass, water, and preserved breath
-- Family AI cores as shrine-like machines without becoming religious magic
+- Home Cores as shrine-like machines without becoming religious magic
 - Ghosts as data-personality residue, not fantasy spirits
 
 ## Palette
@@ -430,7 +480,7 @@ ECHO should look like household intimacy absorbed into planetary cyberpunk.
 
 ## Prompt Add-on
 
-AI Soulpunk, household AI core, cyberpunk memory infrastructure, white tactical
+AI Soulpunk, Home Core, cyberpunk memory infrastructure, white tactical
 techwear, translucent neural interface, emotional machine shrine, high detail
 anime concept art, Ghost in the Shell mood, Arknights faction design discipline.
 
@@ -486,7 +536,7 @@ def run_consistency_agent(root: Path | None = None) -> GenerationResult:
 - Luna's Dream Dive must remain neural interface traversal, not supernatural dream magic.
 - Zero's ninth upload must be tracked as continuity ambiguity, not simple resurrection.
 - God Fragments must act through infrastructure, not literal reality magic.
-- ECHO's household AI origin must stay central so the IP does not become generic cyberpunk.
+- ECHO's Home Core / Memory Sea origin must stay central so the IP does not become generic cyberpunk.
 
 ## Suggested Fixes
 
@@ -498,9 +548,9 @@ def run_consistency_agent(root: Path | None = None) -> GenerationResult:
 
 ## Next Priorities
 
-- CharacterAgent: create a non-CHASER Ghost-aligned supporting character.
+- CharacterAgent: create a non-CHASER Ghost-aligned supporting character without duplicating Mira Voss.
 - LoreAgent: define Atlas and CHASER authority boundaries.
-- StoryAgent: draft a mission where ECHO helps without becoming a hero.
+- StoryAgent: expand Episode 1 or draft the next non-duplicate world-centric case.
 - FactionAgent: expand Dream Network and Black Market conflicts.
 - TechnologyAgent: define Memory Bank data formats.
 """
