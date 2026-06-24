@@ -4,6 +4,7 @@ from datetime import datetime
 from pathlib import Path
 import re
 
+from echo_engine.llm import LLMRequest, generate_candidate_content
 from echo_engine.models import GenerationResult
 from echo_engine.store import CanonStore
 
@@ -13,7 +14,15 @@ def _slugify(value: str) -> str:
     return slug.strip("-") or "untitled"
 
 
-def _write_output(mode: str, title: str, content: str, root: Path | None = None) -> str:
+def _write_output(
+    mode: str,
+    title: str,
+    content: str,
+    root: Path | None = None,
+    *,
+    canon_risks: list[str] | None = None,
+    metadata: dict[str, object] | None = None,
+) -> str:
     base = root or Path.cwd()
     out_dir = base / "outputs" / mode
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -21,7 +30,69 @@ def _write_output(mode: str, title: str, content: str, root: Path | None = None)
     filename = f"{stamp}-{_slugify(title)}.md"
     path = out_dir / filename
     path.write_text(content, encoding="utf-8")
-    return str(path.relative_to(base))
+    output_path = str(path.relative_to(base))
+    _record_candidate(mode, title, content, output_path, root, canon_risks, metadata)
+    return output_path
+
+
+def _record_candidate(
+    mode: str,
+    title: str,
+    content: str,
+    output_path: str,
+    root: Path | None = None,
+    canon_risks: list[str] | None = None,
+    metadata: dict[str, object] | None = None,
+) -> None:
+    try:
+        from echo_engine.journal import record_candidate_output
+
+        record_candidate_output(
+            mode=mode,
+            title=title,
+            content=content,
+            output_path=output_path,
+            root=root,
+            canon_risks=canon_risks,
+            metadata=metadata,
+        )
+    except OSError:
+        return
+
+
+def _finalize_generation(
+    *,
+    mode: str,
+    title: str,
+    content: str,
+    root: Path | None = None,
+    instructions: str = "",
+    canon_risks: list[str] | None = None,
+    metadata: dict[str, object] | None = None,
+) -> GenerationResult:
+    generated = generate_candidate_content(
+        LLMRequest(
+            mode=mode,
+            title=title,
+            instructions=instructions,
+            reference_draft=content,
+            root=root,
+        )
+    )
+    return GenerationResult(
+        mode=mode,
+        title=title,
+        content=generated,
+        canon_risks=canon_risks or [],
+        output_path=_write_output(
+            mode,
+            title,
+            generated,
+            root,
+            canon_risks=canon_risks,
+            metadata=metadata,
+        ),
+    )
 
 
 def run_character_agent(root: Path | None = None) -> GenerationResult:
@@ -82,12 +153,17 @@ illustration_prompt: >
 - Memory Suturing must remain repair technology, not resurrection.
 - The hidden patient should be tracked before any story beat uses them.
 """
-    return GenerationResult(
+    return _finalize_generation(
         mode="character",
         title=title,
         content=content,
+        root=root,
+        instructions=(
+            "Create one new character card as Markdown with a yaml block compatible with "
+            "the reference draft. Include relationships, visual design, illustration prompt, "
+            "relationship implications, and canon risks."
+        ),
         canon_risks=["Do not let Memory Suturing become supernatural resurrection."],
-        output_path=_write_output("character", title, content, root),
     )
 
 
@@ -125,12 +201,16 @@ recognition.
 Ghost Courts are legal-informational systems, not supernatural judgment. Their
 authority comes from infrastructure dependence on ECHO.
 """
-    return GenerationResult(
+    return _finalize_generation(
         mode="lore",
         title=title,
         content=content,
+        root=root,
+        instructions=(
+            "Create a lore entry with canon entry, timeline placement, consequences, story "
+            "hooks, and consistency notes. Keep every mechanism technological."
+        ),
         canon_risks=["Track legal identity separately from biological survival."],
-        output_path=_write_output("lore", title, content, root),
     )
 
 
@@ -177,12 +257,16 @@ politics.
 - Dream Dive must be neural-interface traversal, not magic.
 - Legal death, biological death, and digital continuity need separate fields.
 """
-    return GenerationResult(
+    return _finalize_generation(
         mode="story",
         title=title,
         content=content,
+        root=root,
+        instructions=(
+            "Create a story beat with logline, involved characters, conflict, emotional turn, "
+            "lore consequence, visual set pieces, and consistency checks."
+        ),
         canon_risks=["Do not collapse legal identity into soul metaphysics."],
-        output_path=_write_output("story", title, content, root),
     )
 
 
@@ -213,12 +297,16 @@ Luna:
 - Do not make Mother a literal goddess.
 - Do not let the creator-child relationship erase Zero's agency.
 """
-    return GenerationResult(
+    return _finalize_generation(
         mode="relationship",
         title=title,
         content=content,
+        root=root,
+        instructions=(
+            "Create a relationship graph update. Include a yaml relationship block, dramatic "
+            "use, and canon risks. Avoid irreversible canon claims unless framed as candidate."
+        ),
         canon_risks=["Keep Mother infrastructural and psychological, not divine."],
-        output_path=_write_output("relationship", title, content, root),
     )
 
 
@@ -257,12 +345,16 @@ the Echo Age.
 Memory Bank is economic infrastructure. It should make immortality feel like a
 financial product, not a miracle.
 """
-    return GenerationResult(
+    return _finalize_generation(
         mode="faction",
         title=title,
         content=content,
+        root=root,
+        instructions=(
+            "Create a faction expansion with role, public services, hidden services, story "
+            "hooks, and consistency notes. Tie power to memory infrastructure."
+        ),
         canon_risks=["Avoid treating memory as simple file storage; it has identity weight."],
-        output_path=_write_output("faction", title, content, root),
     )
 
 
@@ -298,12 +390,16 @@ legal memory trail.
 The key cannot resurrect a person. It can only unlock preserved patterns,
 permissions, and records.
 """
-    return GenerationResult(
+    return _finalize_generation(
         mode="technology",
         title=title,
         content=content,
+        root=root,
+        instructions=(
+            "Create a technology entry with definition, use, failure mode, story hooks, and "
+            "constraints. Keep the technology plausible inside ECHO canon."
+        ),
         canon_risks=["Do not turn inheritance keys into soul containers."],
-        output_path=_write_output("technology", title, content, root),
     )
 
 
@@ -343,18 +439,24 @@ anime concept art, Ghost in the Shell mood, Arknights faction design discipline.
 Magic, medieval fantasy, angel wings, demon horns, supernatural aura, wizard
 robes, literal gods, time portals.
 """
-    return GenerationResult(
+    return _finalize_generation(
         mode="art",
         title=title,
         content=content,
+        root=root,
+        instructions=(
+            "Create an art direction note with visual north star, motifs, palette, prompt "
+            "add-on, and negative prompt. Keep sacred imagery metaphorical and technological."
+        ),
         canon_risks=["Keep sacred imagery metaphorical and technological."],
-        output_path=_write_output("art", title, content, root),
     )
 
 
 def run_consistency_agent(root: Path | None = None) -> GenerationResult:
     store = CanonStore(root)
     status = store.status()
+    pending_events = _recent_candidate_events(root)
+    pending = _render_recent_candidates(pending_events, root)
     title = "Canon Audit"
     content = f"""# {title}
 
@@ -373,6 +475,10 @@ def run_consistency_agent(root: Path | None = None) -> GenerationResult:
 - Locations: {status.locations}
 - Technologies: {status.technologies}
 - Stories: {status.stories}
+
+## Candidate Output Queue
+
+{pending}
 
 ## Risks
 
@@ -398,10 +504,52 @@ def run_consistency_agent(root: Path | None = None) -> GenerationResult:
 - FactionAgent: expand Dream Network and Black Market conflicts.
 - TechnologyAgent: define Memory Bank data formats.
 """
-    return GenerationResult(
+    return _finalize_generation(
         mode="consistency",
         title=title,
         content=content,
+        root=root,
+        instructions=(
+            "Create a canon audit. Preserve repository counts and candidate queue details. "
+            "Identify risks, suggested fixes, and next priorities."
+        ),
         canon_risks=[],
-        output_path=_write_output("consistency", title, content, root),
+        metadata={"candidate_events_reviewed": len(pending_events)},
     )
+
+
+def _recent_candidate_events(root: Path | None = None, limit: int = 10):
+    try:
+        from echo_engine.journal import journal
+
+        return [
+            event
+            for event in journal(root).read_all(event_type="candidate_output", limit=limit)
+            if event.mode != "consistency"
+        ]
+    except OSError:
+        return []
+
+
+def _render_recent_candidates(events, root: Path | None = None) -> str:
+    if not events:
+        return "- No candidate outputs recorded yet."
+
+    try:
+        from echo_engine.journal import candidate_review_state
+
+        decisions = candidate_review_state(root)
+    except OSError:
+        decisions = {}
+
+    lines: list[str] = []
+    for event in events:
+        decision = decisions.get(str(event.event_id))
+        status = decision.canon_status if decision else event.canon_status
+        decision_note = f"; review: {decision.summary}" if decision else ""
+        risks = "; ".join(event.canon_risks) if event.canon_risks else "No explicit risk logged."
+        lines.append(
+            f"- [{event.mode}] {event.title} — {event.output_path or 'not written'} "
+            f"(status: {status}; risks: {risks}{decision_note})"
+        )
+    return "\n".join(lines)

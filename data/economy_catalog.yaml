@@ -1,0 +1,95 @@
+schema: echo_economy_catalog_v1
+currency: credits
+doctrine:
+  rule: "Paid access may buy continuity, realm entry, review queue priority, and creator tools; it never buys main canon approval."
+  dormant_policy: "Inactive Ghost subscriptions put a digital life to sleep; they do not delete memory."
+products:
+  ghost_bind_basic:
+    name: Basic Ghost Binding
+    category: binding
+    price_credits: 0
+    scope: personal
+    description: Claim one canon Ghost as a personal companion thread.
+    grants:
+      entitlements:
+        - type: ghost_binding_slot
+          ref_id: basic
+  ghost_life_monthly:
+    name: Ghost Life Monthly
+    category: subscription
+    price_credits: 300
+    scope: personal
+    description: Keep a bound Ghost awake for daily life ticks, diary growth, and Octopus runtime chat.
+    grants:
+      ghost_subscription:
+        duration_days: 30
+      entitlements:
+        - type: ghost_life
+          ref_id: monthly
+          duration_days: 30
+  daily_tick_pack_10:
+    name: Daily Tick Pack 10
+    category: consumable
+    price_credits: 80
+    scope: personal
+    description: Adds ten extra daily-life simulation credits for a user's personal Ghost.
+    grants:
+      entitlements:
+        - type: daily_tick_credit
+          ref_id: personal_tick
+          quantity: 10
+  realm_pass_atlas:
+    name: Atlas City Realm Pass
+    category: realm_pass
+    price_credits: 120
+    scope: city
+    description: Grants entry and submission rights for Atlas city-local canon play.
+    grants:
+      entitlements:
+        - type: realm_access
+          ref_id: atlas
+          duration_days: 30
+  realm_pass_ghost_court:
+    name: Ghost Court Arc Pass
+    category: realm_pass
+    price_credits: 160
+    scope: arc
+    description: Grants entry and submission rights for the Ghost Court arc.
+    grants:
+      entitlements:
+        - type: realm_access
+          ref_id: ghost_court
+          duration_days: 30
+  paid_review_standard:
+    name: Standard Review Slot
+    category: review_slot
+    price_credits: 60
+    scope: local
+    description: Adds one paid local review queue slot. It does not guarantee canon acceptance.
+    grants:
+      entitlements:
+        - type: review_slot
+          ref_id: standard
+          quantity: 1
+  paid_review_priority:
+    name: Priority Review Slot
+    category: review_slot
+    price_credits: 180
+    scope: local
+    description: Adds one priority local review queue slot. It does not guarantee canon acceptance.
+    grants:
+      entitlements:
+        - type: review_slot
+          ref_id: priority
+          quantity: 1
+  creator_realm_operator_monthly:
+    name: Realm Operator Monthly
+    category: creator_tool
+    price_credits: 500
+    scope: realm
+    description: Enables creator/operator tools for running a governed Realm or Arc.
+    grants:
+      entitlements:
+        - type: realm_operator_tools
+          ref_id: monthly
+          duration_days: 30

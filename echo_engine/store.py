@@ -1,10 +1,31 @@
 from __future__ import annotations
 
+import os
+import tempfile
+from contextlib import suppress
 from pathlib import Path
 
 import yaml
 
 from echo_engine.models import CanonStatus, CharacterCard
+
+
+def atomic_write_text(path: Path, content: str, *, encoding: str = "utf-8") -> None:
+    """原子写文本：写同目录临时文件后 os.replace 落地。
+
+    避免直接 path.write_text 在写入中途崩溃/掉电时留下半截 JSON/YAML，
+    从而损坏钱包、绑定、身份等状态文件。
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(dir=str(path.parent), prefix=f".{path.name}.", suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding=encoding) as handle:
+            handle.write(content)
+        os.replace(tmp, path)
+    except BaseException:
+        with suppress(OSError):
+            os.unlink(tmp)
+        raise
 
 
 ROOT_NAMES = {

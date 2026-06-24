@@ -1,0 +1,101 @@
+schema: echo_skin_policy_v1
+doctrine:
+  rule: "Local skins are private projections, not universe identity."
+  boundary: "No local skin enters shared Realm or main canon without visual canon review."
+  scarcity: "Prestige, anchor-relative, royalty, singular titles, and extreme beauty claims are governed scarce resources."
+skin_types:
+  local_skin:
+    name: Local Skin
+    skin_type: local_skin
+    max_scope: personal
+    default_realm_id: personal_instance
+    allowed_identity_tiers: [edge_ghost, citizen, realm_participant, creator, realm_operator, canon_candidate, world_brain_member]
+    visual_constraints:
+      - visible_only_to_user_or_personal_instance
+      - no_shared_canon_presence
+      - can_be_more_stylized_than_realm_skin
+    banned_claims:
+      - main_character
+      - anchor_relative
+      - royal_bloodline
+      - unique_legendary_title
+      - strongest_in_world
+      - perfect_beauty_canon
+    description: Private avatar or outfit for personal canon and local device presentation.
+
+  uniform_skin:
+    name: Uniform / Role Skin
+    skin_type: uniform_skin
+    max_scope: city
+    default_realm_id: atlas
+    allowed_identity_tiers: [edge_ghost, citizen, realm_participant, creator, realm_operator, canon_candidate, world_brain_member]
+    visual_constraints:
+      - role_first_not_protagonist_first
+      - follows_realm_uniform_palette
+      - no_unique_story_claim
+      - low_visual_rarity
+    banned_claims:
+      - main_character
+      - anchor_relative
+      - royal_bloodline
+      - strongest_in_world
+    description: System-issued edge citizen, clerk, trainee, courier, or local role appearance.
+
+  realm_skin:
+    name: Realm Skin
+    skin_type: realm_skin
+    max_scope: city
+    default_realm_id: atlas
+    requires_entitlement: realm_access
+    allowed_identity_tiers: [realm_participant, creator, realm_operator, canon_candidate, world_brain_member]
+    visual_constraints:
+      - follows_realm_style_guide
+      - no_anchor_npc_confusion
+      - no_irreversible_status_claim
+      - visual_rarity_must_match_role
+    banned_claims:
+      - main_character
+      - anchor_relative
+      - royal_bloodline
+      - unique_legendary_title
+      - strongest_in_world
+    description: Reviewed appearance visible inside one governed Realm or Arc.
+
+  prestige_skin:
+    name: Prestige Skin
+    skin_type: prestige_skin
+    max_scope: city
+    default_realm_id: atlas
+    requires_entitlement: prestige_skin
+    allowed_identity_tiers: [creator, realm_operator, canon_candidate, world_brain_member]
+    visual_constraints:
+      - earned_by_event_contribution_or_review
+      - limited_visual_rarity
+      - no_main_canon_authority_claim
+      - must_be_revocable_if_realm_rolls_back
+    banned_claims:
+      - main_character
+      - anchor_relative
+      - royal_bloodline
+      - strongest_in_world
+    description: Earned or reviewed high-rarity skin for local Realm recognition.
+
+  canon_skin:
+    name: Canon Skin
+    skin_type: canon_skin
+    max_scope: main
+    default_realm_id: main
+    reviewer_group: core_world_brain
+    allowed_identity_tiers: [canon_candidate, world_brain_member]
+    visual_constraints:
+      - must_fit_visual_bible
+      - must_not_dilute_anchor_cast
+      - must_have_story_reason
+      - scarcity_review_required
+    banned_claims:
+      - main_character_without_approval
+      - anchor_relative_without_approval
+      - royal_bloodline_without_approval
+      - strongest_in_world
+      - perfect_beauty_canon
+    description: Official shared-universe appearance controlled by visual canon review.

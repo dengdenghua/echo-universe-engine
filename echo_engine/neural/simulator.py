@@ -40,7 +40,14 @@ def simulate_event(event: UniverseEvent, root: Path | None = None) -> Generation
         title=title,
         content=content,
         canon_risks=[r.canon_risk for r in reactions if r.canon_risk],
-        output_path=_write_output("event", title, content, root),
+        output_path=_write_output(
+            "event",
+            title,
+            content,
+            root,
+            canon_risks=[r.canon_risk for r in reactions if r.canon_risk],
+            metadata={"location": event.location, "pressure": event.pressure, "stakes": event.stakes},
+        ),
     )
 
 

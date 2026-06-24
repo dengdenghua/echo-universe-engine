@@ -1,6 +1,106 @@
 ecosystem: octopus
 version: 0.1
 mode: neural_universe
+architecture_codex: workflows/architecture_codex.md
+
+product_doctrine:
+  category: AI-native interactive universe
+  not_category: AI chatbot skin store
+  north_star: "memory upload -> Ghost binding -> daily life -> relationship field -> canon review"
+  mvp_loop:
+    - bind Ghost
+    - read current diary and focus
+    - speak through octopus-agent in main chat
+    - advance one daily tick
+    - see visible canon-safe change
+  success_criteria:
+    - user_understands_premise_within_three_minutes
+    - first_diary_feels_character_specific
+    - first_chat_uses_exported_echo_agent_not_generic_prompting
+    - daily_tick_changes_state_without_breaking_canon
+    - world_brain_blocks_destructive_drift
+
+realm_governance:
+  source: data/realms.yaml
+  reviewers_source: data/reviewers.yaml
+  route_api: /api/realms/review-route
+  hierarchy:
+    - main
+    - planet
+    - nation
+    - city
+    - arc
+    - instance
+  impact_routing:
+    personal: personal_safety_gate
+    instance: instance_reviewer_required
+    arc: arc_reviewer_required
+    city: city_reviewer_required
+    nation: nation_board_required
+    planet: planet_board_required
+    main: world_brain_required
+  rule: "Impact radius decides reviewer group; promotion escalates through parent realms before main canon."
+
+npc_system:
+  source: data/npcs.yaml
+  api_prefix: /api/npcs
+  types:
+    anchor: Main canon characters with protected long-term arcs.
+    realm: Local characters owned by a Realm or Arc.
+    utility: Functional guides, clerks, reviewers, shopkeepers, and quest givers.
+    creator: Creator-submitted NPCs after local review.
+  rule: "NPCs are social nodes with Realm ownership, review routes, and relationship policy; they are not generic chat skins."
+  routing: "NPC actions resolve through Realm governance before they can affect shared or main canon."
+
+identity_access:
+  source: data/access_policy.yaml
+  state: data/user_identities.json
+  api_prefix: /api/identity
+  default_registered_tier: edge_ghost
+  progression:
+    - edge_ghost
+    - citizen
+    - realm_participant
+    - creator
+    - realm_operator
+    - canon_candidate
+    - world_brain_member
+  rule: "Free registered users enter from the edge with personal canon; wider impact requires subscription, Realm entitlement, creator review, or operator assignment."
+  hard_boundary: "Identity tier and entitlements can expand review radius, but they never bypass reviewer approval."
+
+visual_canon:
+  source: data/skin_policy.yaml
+  api_prefix: /api/skins
+  layers:
+    local_skin: Private projection for local device and personal canon only.
+    uniform_skin: System-issued edge role appearance for low-risk shared presence.
+    realm_skin: Realm-reviewed appearance visible inside one governed Realm or Arc.
+    prestige_skin: Scarce, earned, or reviewed local recognition skin.
+    canon_skin: Main-canon visual identity controlled by Core World Brain.
+  hard_rule: "Local skins do not enter shared universe spaces directly."
+  banned_claims:
+    - main_character
+    - anchor_relative
+    - royal_bloodline
+    - unique_legendary_title
+    - strongest_in_world
+    - perfect_beauty_canon
+  routing: "Skin scope resolves through identity access, Realm entitlement, and visual canon review."
+
+economy:
+  source: data/economy_catalog.yaml
+  state: data/economy_state.json
+  api_prefix: /api/economy
+  currency: credits
+  monetized_surfaces:
+    - ghost_binding
+    - ghost_life_subscription
+    - daily_life_ticks
+    - realm_passes
+    - review_queue_slots
+    - creator_realm_operator_tools
+  hard_rule: "Credits may buy access, continuity, priority, and tools; they never buy main canon approval."
+  dormant_policy: "Inactive Ghost subscriptions put a digital life to sleep instead of deleting memory."
 
 repositories:
   echo_universe_engine:
@@ -74,6 +174,21 @@ layers:
     storage: octopus_storage
     purpose: Run Zero, Kane, Eve, Leon, Raven, Shion, Noah, and Luna as persistent personalities.
     exported_to: outputs/octopus_agents
+    runtime_agents_root_env: ECHO_OCTOPUS_AGENTS_ROOT
+    runtime_sync_runner: "uv run python -m echo_engine.cli export-octopus-agents --sync-octopus-runtime"
+  npc_catalog:
+    owner: echo_universe_engine
+    runtime: octopus_agent
+    entry: octopus_mobile
+    purpose: Expose anchor, Realm, utility, and creator NPCs as governed social nodes.
+    source: data/npcs.yaml
+  economy:
+    owner: echo_universe_engine
+    entry: octopus_mobile
+    settlement: future_mobile_relay_or_payment_gateway
+    purpose: Track catalog products, wallet credits, user entitlements, and Ghost life subscriptions.
+    writes_to:
+      - data/economy_state.json
   story_generator:
     owner: echo_universe_engine
     runtime: octopus_agent
@@ -112,6 +227,7 @@ flows:
   export_character_agents:
     schedule: after_character_or_relationship_change
     runner: "uv run python -m echo_engine.cli export-octopus-agents"
+    runtime_sync_runner: "uv run python -m echo_engine.cli export-octopus-agents --sync-octopus-runtime"
     status: runtime_sync
     approval: not_required
   ecosystem_plan:

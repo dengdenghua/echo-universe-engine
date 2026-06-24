@@ -1,0 +1,64 @@
+schema: echo_reviewers_v1
+groups:
+  core_world_brain:
+    id: core_world_brain
+    name: Core World Brain
+    members: [core_author, world_brain]
+    can_review_groups: ["*"]
+    can_review_realms: ["*"]
+    can_review_scopes: ["*"]
+    description: Final authority for main canon and cross-realm escalation.
+
+  earth_world_brain:
+    id: earth_world_brain
+    name: Earth World Brain
+    members: [earth_editor]
+    can_review_groups: [earth_world_brain, atlas_canon_board, white_harbor_canon_board, ghost_court_reviewers]
+    can_review_realms: [earth, atlas, white_harbor, ghost_court]
+    can_review_scopes: [planet, nation, city, arc]
+    description: Planet-level review group for Earth local canon.
+
+  mars_world_brain:
+    id: mars_world_brain
+    name: Mars World Brain
+    members: [mars_editor]
+    can_review_groups: [mars_world_brain]
+    can_review_realms: [mars]
+    can_review_scopes: [planet, nation, city, arc]
+    description: Planet-level review group for Mars and off-world arcs.
+
+  atlas_canon_board:
+    id: atlas_canon_board
+    name: Atlas Canon Board
+    members: [atlas_editor]
+    can_review_groups: [atlas_canon_board]
+    can_review_realms: [atlas]
+    can_review_scopes: [city]
+    description: City-level review for Atlas events.
+
+  white_harbor_canon_board:
+    id: white_harbor_canon_board
+    name: White Harbor Canon Board
+    members: [white_harbor_editor]
+    can_review_groups: [white_harbor_canon_board]
+    can_review_realms: [white_harbor]
+    can_review_scopes: [city]
+    description: City-level review for White Harbor events.
+
+  ghost_court_reviewers:
+    id: ghost_court_reviewers
+    name: Ghost Court Reviewers
+    members: [ghost_court_showrunner]
+    can_review_groups: [ghost_court_reviewers]
+    can_review_realms: [ghost_court]
+    can_review_scopes: [arc]
+    description: Arc-level review for Ghost Court identity disputes.
+
+  personal_safety_gate:
+    id: personal_safety_gate
+    name: Personal Safety Gate
+    members: [system, personal_moderator]
+    can_review_groups: [personal_safety_gate]
+    can_review_realms: [personal_instance]
+    can_review_scopes: [personal, instance]
+    description: Light review for private Ghost instances.

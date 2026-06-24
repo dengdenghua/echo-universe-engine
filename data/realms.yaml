@@ -1,0 +1,85 @@
+schema: echo_realms_v1
+realms:
+  main:
+    id: main
+    name: ECHO Main Canon
+    type: main
+    parent_id:
+    canon_tier: main
+    owner_group: world_brain
+    reviewer_group: core_world_brain
+    default_approval: world_brain_required
+    allowed_child_types: [planet]
+    description: Anchor canon for ECHO, Ghost origin, season secrets, and irreversible world history.
+
+  earth:
+    id: earth
+    name: Earth
+    type: planet
+    parent_id: main
+    canon_tier: planet
+    owner_group: earth_board
+    reviewer_group: earth_world_brain
+    default_approval: planet_board_required
+    allowed_child_types: [nation, city, arc]
+    description: Primary human civilization layer around Atlas, White Harbor, Black Zone, and ECHO infrastructure.
+
+  mars:
+    id: mars
+    name: Mars
+    type: planet
+    parent_id: main
+    canon_tier: planet
+    owner_group: mars_board
+    reviewer_group: mars_world_brain
+    default_approval: planet_board_required
+    allowed_child_types: [nation, city, arc]
+    description: Orbital Mars and off-world ECHO infrastructure arcs.
+
+  atlas:
+    id: atlas
+    name: Atlas
+    type: city
+    parent_id: earth
+    canon_tier: city
+    owner_group: atlas_editorial
+    reviewer_group: atlas_canon_board
+    default_approval: city_reviewer_required
+    allowed_child_types: [arc, instance]
+    description: Core city for civic identity systems, Ghost Court pressure, and CHASER operations.
+
+  white_harbor:
+    id: white_harbor
+    name: White Harbor
+    type: city
+    parent_id: earth
+    canon_tier: city
+    owner_group: white_harbor_editorial
+    reviewer_group: white_harbor_canon_board
+    default_approval: city_reviewer_required
+    allowed_child_types: [arc, instance]
+    description: Memory market, refugee, port, and Ghost personhood storyline hub.
+
+  ghost_court:
+    id: ghost_court
+    name: Ghost Court Arc
+    type: arc
+    parent_id: atlas
+    canon_tier: local
+    owner_group: ghost_court_showrunner
+    reviewer_group: ghost_court_reviewers
+    default_approval: arc_reviewer_required
+    allowed_child_types: [instance]
+    description: Legal identity, uploaded memory disputes, and contested personhood cases.
+
+  personal_instance:
+    id: personal_instance
+    name: Personal Ghost Instance
+    type: instance
+    parent_id: main
+    canon_tier: personal
+    owner_group: user
+    reviewer_group: personal_safety_gate
+    default_approval: auto_or_light_review
+    allowed_child_types: []
+    description: Private user canon for one user's Ghost, diary, chat, and local life changes.

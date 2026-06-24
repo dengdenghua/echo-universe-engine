@@ -13,6 +13,18 @@ from echo_engine.store import CanonStore
 STATE_PATH = Path("data/digital_life_state.yaml")
 
 
+def load_or_seed_life_states(base: Path, cards: list[CharacterCard]) -> dict[str, dict[str, Any]]:
+    return _load_or_seed_states(base, cards)
+
+
+def save_life_states(base: Path, states: dict[str, dict[str, Any]]) -> None:
+    _save_states(base, states)
+
+
+def seed_life_state(card: CharacterCard) -> dict[str, Any]:
+    return _seed_state(card)
+
+
 def run_daily_life_tick(root: Path | None = None) -> GenerationResult:
     base = root or Path.cwd()
     store = CanonStore(base)
@@ -34,7 +46,16 @@ def run_daily_life_tick(root: Path | None = None) -> GenerationResult:
         canon_risks=[
             "Daily life logs are candidate memory, not canon history, until World Brain review."
         ],
-        output_path=_write_output("digital_life", title, content, root),
+        output_path=_write_output(
+            "digital_life",
+            title,
+            content,
+            root,
+            canon_risks=[
+                "Daily life logs are candidate memory, not canon history, until World Brain review."
+            ],
+            metadata={"date": today, "character_count": len(entries)},
+        ),
     )
 
 

@@ -1,0 +1,88 @@
+schema: echo_access_policy_v1
+default_tier: edge_ghost
+scope_rank:
+  personal: 0
+  instance: 1
+  arc: 2
+  city: 3
+  nation: 4
+  planet: 5
+  main: 6
+tiers:
+  edge_ghost:
+    name: Edge Ghost
+    rank: 10
+    default: true
+    max_review_scope: personal
+    allowed_realms: [personal_instance]
+    allowed_npc_types: [anchor, utility]
+    allowed_actions: [bind, chat, diary, guide, explain_realm, personal_memory]
+    can_create_npc_types: []
+    can_manage_realms: false
+    description: Free registered users enter as edge Ghosts or edge citizens with personal canon only.
+
+  citizen:
+    name: Citizen
+    rank: 20
+    max_review_scope: instance
+    allowed_realms: [personal_instance]
+    allowed_npc_types: [anchor, utility]
+    allowed_actions: [bind, chat, diary, guide, explain_realm, personal_memory, mission_prompt]
+    can_create_npc_types: []
+    can_manage_realms: false
+    description: A Ghost with active continuity and richer personal-instance participation.
+
+  realm_participant:
+    name: Realm Participant
+    rank: 30
+    max_review_scope: city
+    allowed_realms: [personal_instance]
+    allowed_npc_types: [anchor, utility, realm]
+    allowed_actions: [bind, chat, diary, guide, explain_realm, personal_memory, mission_prompt, file_case, open_hearing, file_evidence, submit_realm_event, offer_contract, seed_rumor]
+    can_create_npc_types: []
+    can_manage_realms: false
+    description: A user with Realm Pass access to local city or arc participation.
+
+  creator:
+    name: Creator
+    rank: 40
+    max_review_scope: arc
+    allowed_realms: [personal_instance]
+    allowed_npc_types: [anchor, utility, realm, creator]
+    allowed_actions: [bind, chat, diary, guide, explain_realm, personal_memory, mission_prompt, file_case, open_hearing, file_evidence, submit_realm_event, offer_contract, seed_rumor, create_npc, submit_arc]
+    can_create_npc_types: [creator]
+    can_manage_realms: false
+    description: A reviewed creator who can submit local NPCs, quests, and arcs into Realm review.
+
+  realm_operator:
+    name: Realm Operator
+    rank: 50
+    max_review_scope: city
+    allowed_realms: [personal_instance]
+    allowed_npc_types: [anchor, utility, realm, creator]
+    allowed_actions: [bind, chat, diary, guide, explain_realm, personal_memory, mission_prompt, file_case, open_hearing, file_evidence, submit_realm_event, offer_contract, seed_rumor, create_npc, submit_arc, manage_realm]
+    can_create_npc_types: [realm, utility, creator]
+    can_manage_realms: true
+    description: A Realm or Arc operator who can manage local NPCs and queues, still under parent canon review.
+
+  canon_candidate:
+    name: Canon Candidate Contributor
+    rank: 60
+    max_review_scope: planet
+    allowed_realms: [personal_instance]
+    allowed_npc_types: [anchor, utility, realm, creator]
+    allowed_actions: [bind, chat, diary, guide, explain_realm, personal_memory, mission_prompt, file_case, open_hearing, file_evidence, submit_realm_event, offer_contract, seed_rumor, create_npc, submit_arc, submit_planet, candidate_event]
+    can_create_npc_types: [realm, utility, creator]
+    can_manage_realms: false
+    description: A trusted contributor whose work may be escalated beyond local canon, never auto-accepted.
+
+  world_brain_member:
+    name: World Brain Member
+    rank: 90
+    max_review_scope: main
+    allowed_realms: ["*"]
+    allowed_npc_types: [anchor, utility, realm, creator]
+    allowed_actions: ["*"]
+    can_create_npc_types: [anchor, realm, utility, creator]
+    can_manage_realms: true
+    description: Core authority for main canon review and cross-Realm escalation.

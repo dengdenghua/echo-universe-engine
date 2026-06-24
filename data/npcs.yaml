@@ -1,0 +1,123 @@
+schema: echo_npc_catalog_v1
+doctrine:
+  rule: "NPCs are social nodes inside governed Realms, not generic chat skins."
+  boundary: "Anchor NPCs can be spoken to or bound as companions, but users cannot buy or force irreversible main-canon outcomes."
+npcs:
+  zero:
+    id: zero
+    name: Zero
+    npc_type: anchor
+    realm_id: main
+    character_id: "001"
+    bindable: true
+    review_scope: main
+    canon_risk: high
+    interaction_modes: [bind, chat, diary, mission]
+    roles: [white_ghost_team_anchor, identity_pressure, combat_lead]
+    allowed_actions: [chat, bind, personal_memory, mission_prompt, candidate_event]
+    relationship_policy: personal_instance_only_without_review
+    description: Main anchor NPC for White Ghost Team and identity continuity.
+
+  kane:
+    id: kane
+    name: Kane
+    npc_type: anchor
+    realm_id: main
+    character_id: "002"
+    bindable: true
+    review_scope: main
+    canon_risk: high
+    interaction_modes: [bind, chat, mission]
+    roles: [combat_download_anchor, tactical_pressure]
+    allowed_actions: [chat, bind, personal_memory, mission_prompt, candidate_event]
+    relationship_policy: personal_instance_only_without_review
+    description: Main anchor NPC for combat download, loyalty, and tactical arcs.
+
+  eve:
+    id: eve
+    name: Eve
+    npc_type: anchor
+    realm_id: main
+    character_id: "003"
+    bindable: true
+    review_scope: main
+    canon_risk: high
+    interaction_modes: [bind, chat, diary, memory]
+    roles: [ghost_empathy_anchor, personhood_pressure]
+    allowed_actions: [chat, bind, personal_memory, mission_prompt, candidate_event]
+    relationship_policy: personal_instance_only_without_review
+    description: Main anchor NPC for Ghost empathy and personhood conflict.
+
+  raven:
+    id: raven
+    name: Raven
+    npc_type: anchor
+    realm_id: main
+    character_id: "005"
+    bindable: true
+    review_scope: main
+    canon_risk: high
+    interaction_modes: [bind, chat, mission]
+    roles: [shadow_link_anchor, infiltration_pressure]
+    allowed_actions: [chat, bind, personal_memory, mission_prompt, candidate_event]
+    relationship_policy: personal_instance_only_without_review
+    description: Main anchor NPC for infiltration, secrecy, and trust stress.
+
+  atlas_identity_clerk:
+    id: atlas_identity_clerk
+    name: Atlas Identity Clerk
+    npc_type: utility
+    realm_id: atlas
+    bindable: false
+    review_scope: city
+    canon_risk: medium
+    interaction_modes: [guide, quest, review_intake]
+    roles: [realm_onboarding, identity_case_intake, quest_giver]
+    allowed_actions: [explain_realm, file_case, submit_realm_event]
+    relationship_policy: functional_only
+    unlock_entitlement: realm_access:atlas
+    description: Guides users through Atlas identity systems and local Ghost dispute submissions.
+
+  ghost_court_bailiff:
+    id: ghost_court_bailiff
+    name: Ghost Court Bailiff
+    npc_type: realm
+    realm_id: ghost_court
+    bindable: false
+    review_scope: arc
+    canon_risk: medium
+    interaction_modes: [quest, hearing, review_intake]
+    roles: [hearing_gatekeeper, evidence_intake, arc_guide]
+    allowed_actions: [open_hearing, file_evidence, submit_realm_event]
+    relationship_policy: arc_local_only
+    unlock_entitlement: realm_access:ghost_court
+    description: Runs intake for Ghost Court identity hearings and routes cases to arc reviewers.
+
+  white_harbor_memory_broker:
+    id: white_harbor_memory_broker
+    name: White Harbor Memory Broker
+    npc_type: realm
+    realm_id: white_harbor
+    bindable: false
+    review_scope: city
+    canon_risk: medium
+    interaction_modes: [quest, trade, rumor]
+    roles: [memory_market_contact, rumor_source, local_conflict_seed]
+    allowed_actions: [offer_contract, seed_rumor, submit_realm_event]
+    relationship_policy: city_local_only
+    unlock_entitlement: realm_access:white_harbor
+    description: A city-local NPC for memory markets, refugee leads, and rumor-driven side arcs.
+
+  world_brain_liaison:
+    id: world_brain_liaison
+    name: World Brain Liaison
+    npc_type: utility
+    realm_id: main
+    bindable: false
+    review_scope: main
+    canon_risk: high
+    interaction_modes: [review, audit, explanation]
+    roles: [canon_boundary_explainer, risk_auditor, escalation_guide]
+    allowed_actions: [explain_canon_risk, route_review, summarize_candidate]
+    relationship_policy: no_romance_no_private_memory
+    description: Explains canon risk, review routes, and why a candidate event is blocked or escalated.
