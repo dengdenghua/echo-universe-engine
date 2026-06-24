@@ -131,6 +131,7 @@
             <li><strong>18:00</strong><span>Story Agent turns pressure into chapter seed.</span></li>
             <li><strong>23:00</strong><span>Consistency Agent reviews canon risk.</span></li>
           </ol>
+          <div class="candidate-grid" id="candidate-grid"></div>
         </section>
 
         <section class="window octopus-window runtime-only" data-window-panel="octopus">
@@ -139,7 +140,10 @@
               <span class="window-kicker">Runtime</span>
               <h2>Octopus Link</h2>
             </div>
-            <span class="window-badge">Adapter</span>
+            <div class="window-actions">
+              <span class="window-badge" id="octopus-status">Adapter</span>
+              <button id="octopus-sync-btn" title="Sync agents into Octopus runtime">Sync</button>
+            </div>
           </div>
           <pre id="octopus-plan">Loading runtime contract.</pre>
         </section>
