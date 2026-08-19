@@ -1,0 +1,27 @@
+id: asset-prop-home-layer-audit-sweep-notice-20260819-130200
+type: prop_scene_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/character/20260819-090200-candidate-character-044-nina-alvarez.md
+  - outputs/faction/20260819-130200-faction-dossier-route-insurer-naming-candidate.md
+  - outputs/lore/20260819-130200-lore-entry-season1-timeline-orbital-civic-arc.md
+  - outputs/technology/20260819-130200-technology-gate-recheck-quiet-log.md
+prompt: "Grounded AI soulpunk domestic audit sweep notice prop, a standard route coverage form on thin recycled paper slid under a residential apartment door, header band reading COVERAGE-CONDITION REVIEW in small bureaucratic type with a domestic route code, a soft amber reserve-model readout in the corner, a dimmed Home Core companion bracelet on the floor beside it with the mirror toggle set to drop, warm sand-toned eldercare smock edge visible, low-glow Memory Sea archive console in the background, no faces, restrained practical Home Layer interior, no dramatic lighting, high detail ECHO Universe visual system."
+negative_prompt: "magic, supernatural aura, villain threat card, fantasy scroll, glowing sigils, multiverse imagery, time travel effects, readable sealed phrase text, opened Home Layer family rooms, visible adapter location, confirmed Ghost portrait, villain glamour, readable personal names, dramatic backlighting, glowing eyes, cyberpunk neon overload"
+usage:
+  - Nina Alvarez case-character episode cold open (episodes 12-13 window)
+  - Home Layer domestic audit sweep visual language
+  - Coverage-condition letter ground-side variant reference
+  - The desk follows the worker, not the corridor visual cue
+notes: >
+  The notice should read as bureaucratic, not monstrous: an ordinary route
+  coverage form that has followed a worker from orbit to the Home Layer. The
+  amber reserve readout and the bracelet's drop toggle carry the structural
+  contradiction — hidden listening is being hunted by the same model that
+  made it worth hiding. Keep the widow's sealed Home Layer content and the
+  husband's residue entirely out of frame; no phrase text, no names.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true
