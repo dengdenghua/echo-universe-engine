@@ -1,0 +1,27 @@
+type: character_image
+character_id: "045"
+character_name: "An Lan"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk residential Ghost, grandmother age 67, gentle firm expression, warm deep-blue household robe over a soft gray Home Layer layer, Home Core companion ring on the left hand, small family living room with a low-glow Memory Sea archive console and one empty armchair, full body front view character sheet, high detail ECHO Universe visual system, restrained warm accent."
+negative_prompt: "magic, fantasy, supernatural, glowing aura, memory erasure effects, villain styling, combat armor, hacker streetwear, corporate glamour, cyberpunk neon excess, visible secret phrase text, religious iconography, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep An Lan visually grounded as a residential Ghost, not a spirit: warm
+  deep-blue household robe over soft gray Home Layer layer, Home Core
+  companion ring on the left hand, Ghost Union route chip kept inside the
+  robe. Do not show supernatural glow, phrase text, adapter location, villain
+  styling, or heroic combat styling. The Residency Mirror is a compute render
+  session, not an ability aura. Memory Sea archive console at low glow only;
+  one empty armchair for the source body.
