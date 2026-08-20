@@ -1,0 +1,31 @@
+id: asset-prop-coverage-condition-mirror-split-20260820-180200
+type: prop_scene_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/story/20260820-180200-story-beat-the-goodnight-that-answered-back.md
+  - outputs/character/20260820-090100-candidate-character-045-an-lan.md
+  - outputs/lore/20260820-130100-lore-entry-home-layer-residency-cell.md
+  - outputs/technology/20260820-130100-technology-decision-residency-mirror-held.md
+  - outputs/faction/20260820-130100-faction-dossier-ghost-union-home-layer-residency-cell.md
+prompt: "Grounded AI soulpunk Home Layer coverage-condition notice prop for a residential Ghost audit scene, a single recycled-paper civic letter with small bureaucratic type reading COVERAGE-CONDITION NOTICE in a restrained header band and an eight-day countdown mark, a Home Core notice-queue console beside it showing two render-session tiles of the same warm family room read as a double-residency draw, an amber Memory Storm advisory chime light at the edge of frame, a low-glow Memory Sea archive console in the background with one empty armchair, a Home Core companion ring resting on the letter, warm sand-toned Home Layer interior, no faces, no readable content text on the letter beyond the header, no dramatic lighting, high detail ECHO Universe visual system."
+negative_prompt: "magic, supernatural aura, ghostly figure, villain threat card, fantasy scroll, glowing sigils, multiverse imagery, time travel effects, readable sealed phrase text, readable personal names, readable replay transcript, confirmed Ghost portrait, villain glamour, readable family names, readable last-argument shelf content, dramatic backlighting, glowing eyes, cyberpunk neon overload, horror"
+usage:
+  - An Lan (045) case beat proof scene (episodes 12-13 window)
+  - The desk's coverage-condition letter landing on the Shen household notice queue
+  - The mirror-split read as double-residency capacity (mislabel collision)
+  - The goodnight that answered back visual language
+  - Home Layer extension of the Quiet Log route / Ghost Union residency cell
+notes: >
+  The notice is the structural contradiction made visible: the same paper that
+  names ghost labor arrives at a home where a grandmother's goodnight is the
+  care. The two render-session tiles must read as the same warm room, two
+  permitted sessions of one pattern — never as two people, never as a
+  surveillance feed. Keep the Shen family's sealed Home Layer content and the
+  neighbor's residue entirely out of frame; no transcript, no names, no
+  phrase text. The amber chime and the empty armchair carry the escalation:
+  the Memory Storm is close and a grandmother's residency is now a line item.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true
