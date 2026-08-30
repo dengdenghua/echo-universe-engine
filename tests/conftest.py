@@ -14,6 +14,16 @@ def _data_entries() -> set[str]:
     return {p.name for p in _DATA_DIR.iterdir()} if _DATA_DIR.exists() else set()
 
 
+def _is_sqlite_sidecar(name: str) -> bool:
+    """WAL 模式下 SQLite 自己管理的 -wal/-shm 边车文件。
+
+    governance.py 打开库时会设 journal_mode=WAL，未隔离 cwd 的测试因此会在真实
+    data/ 里生成边车。它们是 SQLite 的临时产物而非伪造状态，且已在 .gitignore
+    里排除，删掉即可，不必让守卫失败——守卫要拦的是 *_state.json/yaml 那类假数据。
+    """
+    return name.startswith("echo.sqlite3-")
+
+
 def _clean_leaks(reference: set[str]) -> list[str]:
     """删除 reference 之后新出现在真实 data/ 的条目，返回被删名字列表。"""
     leaked = sorted(_data_entries() - reference)
@@ -23,7 +33,7 @@ def _clean_leaks(reference: set[str]) -> list[str]:
             shutil.rmtree(path, ignore_errors=True)
         else:
             path.unlink(missing_ok=True)
-    return leaked
+    return [name for name in leaked if not _is_sqlite_sidecar(name)]
 
 
 # 会话开始时真实 data/ 的基线（即已提交的 catalog/policy 文件集合）。

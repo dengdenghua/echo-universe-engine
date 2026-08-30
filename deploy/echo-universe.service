@@ -1,0 +1,34 @@
+[Unit]
+Description=ECHO Universe Engine
+After=docker.service network-online.target
+Requires=docker.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+ExecStartPre=-/usr/bin/docker rm -f echo-universe-engine
+ExecStart=/usr/bin/docker run --name echo-universe-engine --network host \
+  --env-file /opt/octopus-cloud/echo-universe-engine/deploy/echo-universe.env \
+  -v /etc/echo-universe-admin.key:/run/secrets/admin_api_key:ro \
+  -v /etc/echo-universe-jwt.key:/run/secrets/user_jwt_secret:ro \
+  -v /opt/octopus-cloud/echo-universe-engine/data:/app/data \
+  -v /opt/octopus-cloud/echo-universe-engine/outputs:/app/outputs \
+  -v /opt/octopus-cloud/echo-universe-engine/assets:/app/assets \
+  -v /opt/octopus-cloud/echo-universe-engine/bible:/app/bible \
+  -v /opt/octopus-cloud/echo-universe-engine/characters:/app/characters \
+  -v /opt/octopus-cloud/echo-universe-engine/factions:/app/factions \
+  -v /opt/octopus-cloud/echo-universe-engine/locations:/app/locations \
+  -v /opt/octopus-cloud/echo-universe-engine/timeline:/app/timeline \
+  -v /opt/octopus-cloud/echo-universe-engine/technologies:/app/technologies \
+  -v /opt/octopus-cloud/echo-universe-engine/relationships:/app/relationships \
+  -v /opt/octopus-cloud/echo-universe-engine/stories:/app/stories \
+  -v /opt/octopus-cloud/echo-universe-engine/prompts:/app/prompts \
+  -v /opt/octopus-cloud/echo-universe-engine/integrations:/app/integrations \
+  -v /opt/octopus-cloud/echo-universe-engine/console:/app/console \
+  echo-universe-engine:latest
+ExecStop=/usr/bin/docker stop -t 20 echo-universe-engine
+ExecStopPost=-/usr/bin/docker rm -f echo-universe-engine
+
+[Install]
+WantedBy=multi-user.target

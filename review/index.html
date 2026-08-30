@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>ECHO Canon Review</title>
+    <link rel="stylesheet" href="/review/styles.css?v=20260830-3" />
+  </head>
+  <body>
+    <div class="aurora" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="/universe/novel/" aria-label="ECHO Universe">
+        <span class="brand-mark">E</span>
+        <span><b>ECHO</b><small data-copy="reviewDesk">正典审核台</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="identity" id="reviewer-identity" hidden></span>
+        <button class="quiet" type="button" id="lang-toggle">EN</button>
+        <button class="quiet" type="button" id="logout" hidden data-copy="logout">退出</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <p class="eyebrow">CANON GOVERNANCE · INTERNAL</p>
+        <h1 data-copy="title">让每一次正典晋升，都能被追溯。</h1>
+        <p data-copy="subtitle">每位委员只能操作自己的席位。社区共鸣提供参考，不代替连续性审校与委员会决定。</p>
+      </section>
+
+      <section class="login-card" id="login-card">
+        <div>
+          <span class="step">01</span>
+          <h2 data-copy="signIn">委员身份验证</h2>
+          <p data-copy="signInBody">粘贴 ECHO 账号系统签发的委员令牌。令牌只保存在当前浏览器会话中。</p>
+        </div>
+        <form id="login-form">
+          <label for="reviewer-token" data-copy="tokenLabel">委员令牌</label>
+          <input id="reviewer-token" type="password" autocomplete="off" spellcheck="false" required />
+          <button class="primary" type="submit" data-copy="enter">进入审核台</button>
+          <p class="login-error" id="login-error" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="workspace" id="workspace" hidden>
+        <div class="workspace-head">
+          <div>
+            <span class="step">02</span>
+            <h2 data-copy="queue">我的正典审核队列</h2>
+          </div>
+          <button class="quiet" id="refresh" type="button" data-copy="refresh">刷新</button>
+        </div>
+        <div class="notice" id="notice" aria-live="polite"></div>
+        <div class="candidate-list" id="candidate-list"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>ECHO AGE · CANON PROTOCOL</span>
+      <a href="/universe/novel/" data-copy="publicPage">返回小说连载页</a>
+    </footer>
+    <script src="/review/app.js?v=20260830-3"></script>
+  </body>
+</html>

@@ -11,6 +11,7 @@ RUN apt-get update \
 
 COPY pyproject.toml README.md ./
 COPY echo_engine ./echo_engine
+COPY data ./data
 COPY agents ./agents
 COPY bible ./bible
 COPY characters ./characters
@@ -25,6 +26,10 @@ COPY workflows ./workflows
 COPY asset_factory ./asset_factory
 COPY integrations ./integrations
 COPY console ./console
+COPY homepage ./homepage
+COPY universe ./universe
+COPY developers ./developers
+COPY review ./review
 
 RUN pip install --no-cache-dir -e .
 

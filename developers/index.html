@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#020308" />
+    <meta name="description" content="ECHO 开发者中心：ECHO Universe 内容 API 的公开只读接口、身份分层与调用约束。" />
+    <meta property="og:title" content="ECHO DEVELOPERS · 开发者中心" />
+    <meta property="og:description" content="ECHO Universe 内容 API 的公开只读接口、身份分层与调用约束。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:url" content="https://universe.echo-age.com/developers/" />
+    <meta property="og:site_name" content="ECHO" />
+    <meta property="og:image" content="https://universe.echo-age.com/home/assets/og-cover.jpg?v=20260830-3" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ECHO DEVELOPERS · 开发者中心" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ECHO DEVELOPERS · 开发者中心" />
+    <meta name="twitter:description" content="ECHO Universe 内容 API 的公开只读接口、身份分层与调用约束。" />
+    <meta name="twitter:image" content="https://universe.echo-age.com/home/assets/og-cover.jpg?v=20260830-3" />
+    <title>ECHO DEVELOPERS · 开发者中心</title>
+    <link rel="canonical" href="https://universe.echo-age.com/developers/" />
+    <link rel="alternate" hreflang="zh-CN" href="https://universe.echo-age.com/developers/?lang=zh" />
+    <link rel="alternate" hreflang="en" href="https://universe.echo-age.com/developers/?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://universe.echo-age.com/developers/" />
+    <link rel="icon" href="/home/assets/favicon.svg?v=20260830-3" type="image/svg+xml" />
+    <link rel="preload" href="/home/assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/developers/styles.css?v=20260830-6" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main" data-i18n="skipToContent">跳到主要内容</a>
+
+    <header class="dev-header">
+      <a class="dev-brand" href="/" aria-label="ECHO 首页" data-i18n-aria="brandHome">
+        <strong>ECHO</strong><span>DEVELOPERS</span>
+      </a>
+      <nav class="dev-nav" aria-label="开发者中心导航" data-i18n-aria="devNavigation">
+        <a href="#start" data-i18n="navStart">开始</a>
+        <a href="#auth" data-i18n="navAuth">身份</a>
+        <a href="#endpoints" data-i18n="navEndpoints">接口</a>
+        <a href="#playground" data-i18n="navPlayground">试调</a>
+        <a href="#limits" data-i18n="navLimits">约束</a>
+      </nav>
+      <div class="dev-actions">
+        <div class="locale-switch" role="group" aria-label="语言" data-i18n-aria="languageSelector">
+          <button type="button" data-locale="zh" aria-pressed="true">中</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" data-locale="en" aria-pressed="false">EN</button>
+        </div>
+        <a class="back-echo" href="/universe/" data-i18n="backUniverse">回到宇宙</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="dev-hero">
+        <p class="kicker">ECHO UNIVERSE · CONTENT API</p>
+        <h1 data-i18n="heroTitle">读取一个持续生长的世界</h1>
+        <p class="lead" data-i18n="heroLead">ECHO Universe 把角色、派系、正典状态与世界事件以只读 JSON 暴露出来。下面每个接口都来自运行中的服务，不是规划稿。</p>
+        <div class="hero-facts" role="list">
+          <span role="listitem"><b id="fact-endpoints">—</b><small data-i18n="factEndpoints">公开只读接口</small></span>
+          <span role="listitem"><b id="fact-characters">—</b><small data-i18n="factCharacters">角色档案</small></span>
+          <span role="listitem"><b data-i18n="factAuthValue">无需密钥</b><small data-i18n="factAuth">公开层调用</small></span>
+        </div>
+      </section>
+      <section class="dev-section" id="start">
+        <header class="section-head">
+          <p class="kicker">01 · QUICK START</p>
+          <h2 data-i18n="startTitle">第一次调用</h2>
+          <p class="section-body" data-i18n="startBody">公开只读接口不需要任何凭据。基址即部署域名，响应一律为 UTF-8 JSON。</p>
+        </header>
+        <div class="code-block">
+          <div class="code-top"><span>curl</span><button type="button" class="copy-btn" data-copy="curl-start" data-i18n="copy">复制</button></div>
+          <pre id="curl-start"><code>curl -s https://universe.echo-age.com/api/canon/status</code></pre>
+        </div>
+        <p class="note" data-i18n="startNote">状态字段区分 canon（已通过连续性审核）与 candidate（候选，可能在审核后调整）。请不要把 candidate 内容当作最终设定缓存。</p>
+      </section>
+
+      <section class="dev-section" id="auth">
+        <header class="section-head">
+          <p class="kicker">02 · IDENTITY</p>
+          <h2 data-i18n="authTitle">三层身份</h2>
+          <p class="section-body" data-i18n="authBody">接口按可见性分三层。公开层之外的调用在生产环境一律需要凭据，未配置凭据时服务会直接返回 503 而不是降级放行。</p>
+        </header>
+        <div class="tier-grid">
+          <article class="tier-card tier-public">
+            <span class="tier-index">PUBLIC</span>
+            <h3 data-i18n="tierPublicName">公开只读</h3>
+            <p data-i18n="tierPublicBody">世界观内容、正典状态、经济商品与身份档位。无需凭据。</p>
+            <code>无</code>
+          </article>
+          <article class="tier-card tier-user">
+            <span class="tier-index">USER</span>
+            <h3 data-i18n="tierUserName">用户层</h3>
+            <p data-i18n="tierUserBody">个人绑定、余额与宇宙信息流。需用户 JWT，且只能访问自己的数据。</p>
+            <code>Authorization: Bearer &lt;jwt&gt;</code>
+          </article>
+          <article class="tier-card tier-admin">
+            <span class="tier-index">ADMIN</span>
+            <h3 data-i18n="tierAdminName">管理层</h3>
+            <p data-i18n="tierAdminBody">内容写入、Agent 执行、资产生成与治理晋升。仅限运营。</p>
+            <code>X-Echo-Api-Key: &lt;key&gt;</code>
+          </article>
+        </div>
+        <p class="note warn" data-i18n="authWarn">跨用户访问会被拒绝：即使持有合法 JWT，请求他人 user_id 的数据也会返回 403。</p>
+      </section>
+      <section class="dev-section" id="endpoints">
+        <header class="section-head">
+          <p class="kicker">03 · REFERENCE</p>
+          <h2 data-i18n="endpointsTitle">公开接口清单</h2>
+          <p class="section-body" data-i18n="endpointsBody">以下是服务当前允许匿名读取的全部路径，逐条对照代码里的公开白名单，没有收录规划中的接口。</p>
+        </header>
+        <div class="filter-row">
+          <label class="filter-label" for="endpoint-filter" data-i18n="filterLabel">筛选路径</label>
+          <input type="search" id="endpoint-filter" placeholder="canon / economy / npcs" autocomplete="off" />
+        </div>
+        <div class="table-wrap">
+          <table class="endpoint-table">
+            <caption class="sr-only" data-i18n="tableCaption">ECHO Universe 公开只读接口清单</caption>
+            <thead>
+              <tr>
+                <th scope="col" data-i18n="thMethod">方法</th>
+                <th scope="col" data-i18n="thPath">路径</th>
+                <th scope="col" data-i18n="thDesc">说明</th>
+              </tr>
+            </thead>
+            <tbody id="endpoint-rows"></tbody>
+          </table>
+        </div>
+        <p class="empty-hint" id="endpoint-empty" hidden data-i18n="noMatch">没有匹配的接口。</p>
+      </section>
+
+      <section class="dev-section" id="playground">
+        <header class="section-head">
+          <p class="kicker">04 · PLAYGROUND</p>
+          <h2 data-i18n="playTitle">直接试调</h2>
+          <p class="section-body" data-i18n="playBody">公开层是同源 GET，可以在本页直接请求当前部署的服务，响应原样呈现。</p>
+        </header>
+        <div class="play-controls">
+          <label class="sr-only" for="play-endpoint" data-i18n="playSelectLabel">选择接口</label>
+          <select id="play-endpoint"></select>
+          <button type="button" id="play-send" class="send-btn" data-i18n="send">发送请求</button>
+        </div>
+        <div class="play-result">
+          <div class="result-top">
+            <span class="result-status" id="play-status" data-i18n="idle">待发送</span>
+            <span class="result-time" id="play-time"></span>
+          </div>
+          <pre id="play-output" aria-live="polite" aria-atomic="true"><code data-i18n="playHint">选择一个接口并发送，响应会显示在这里。</code></pre>
+        </div>
+      </section>
+      <section class="dev-section" id="limits">
+        <header class="section-head">
+          <p class="kicker">05 · CONSTRAINTS</p>
+          <h2 data-i18n="limitsTitle">当前的真实限制</h2>
+          <p class="section-body" data-i18n="limitsBody">这些是接口现在的状态，不是将来的承诺。先看清楚再决定怎么接。</p>
+        </header>
+        <ul class="limit-list">
+          <li>
+            <b data-i18n="limitCorsName">没有 CORS 响应头</b>
+            <span data-i18n="limitCorsBody">浏览器跨源请求会被拦截。第三方前端需自建服务端代理，或等待正式开放。</span>
+          </li>
+          <li>
+            <b data-i18n="limitRateName">没有速率限制</b>
+            <span data-i18n="limitRateBody">公开层目前不限流，也因此不承诺可用性。请自行加缓存与退避，不要把它当高可用数据源。</span>
+          </li>
+          <li>
+            <b data-i18n="limitStableName">字段未冻结</b>
+            <span data-i18n="limitStableBody">接口未版本化，字段可能随内容层演进调整。请容错处理未知字段。</span>
+          </li>
+          <li>
+            <b data-i18n="limitSdkName">暂无 SDK</b>
+            <span data-i18n="limitSdkBody">没有官方客户端库。直接用 HTTP 即可，响应是普通 JSON。</span>
+          </li>
+          <li>
+            <b data-i18n="limitCandidateName">候选内容会变</b>
+            <span data-i18n="limitCandidateBody">status 为 candidate 的条目尚未通过连续性审核，展示时应保留候选标注。</span>
+          </li>
+        </ul>
+        <div class="spec-links">
+          <a href="/openapi.json" class="spec-link"><span>OpenAPI Schema</span><b aria-hidden="true">↗</b></a>
+          <a href="/docs" class="spec-link"><span>Swagger UI</span><b aria-hidden="true">↗</b></a>
+          <a href="/redoc" class="spec-link"><span>ReDoc</span><b aria-hidden="true">↗</b></a>
+        </div>
+      </section>
+
+      <footer class="dev-footer">
+        <nav aria-label="页脚导航" data-i18n-aria="footerNavigation">
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/universe/">ECHO UNIVERSE</a>
+          <a href="#endpoints" data-i18n="navEndpoints">接口</a>
+        </nav>
+        <small>© 2026 ECHO. Intelligence with continuity.</small>
+      </footer>
+    </main>
+
+    <script src="/developers/app.js?v=20260830-3"></script>
+  </body>
+</html>

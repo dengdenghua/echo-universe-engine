@@ -6,6 +6,8 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 data/*.sqlite3
+# WAL 模式的 -wal/-shm 边车文件，上面那行匹配不到，会被 ECHO_AUTO_GIT_COMMIT 误提交。
+data/*.sqlite3-*
 data/chroma/
 outputs/generated/
 assets/generated/

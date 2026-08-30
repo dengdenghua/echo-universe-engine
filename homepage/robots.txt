@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /$
+Allow: /home/
+Allow: /universe/
+Allow: /developers/
+
+# 运营台与治理评审面板不面向公众，避免被索引。
+Disallow: /console/
+Disallow: /review/
+Disallow: /api/
+Disallow: /outputs/
+Disallow: /data/
+
+Sitemap: https://universe.echo-age.com/sitemap.xml
