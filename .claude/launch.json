@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "echo-engine",
+      "runtimeExecutable": ".venv/bin/python",
+      "runtimeArgs": ["-m", "uvicorn", "echo_engine.api:app", "--port", "8010"],
+      "port": 8010,
+      "autoPort": false
+    }
+  ]
+}

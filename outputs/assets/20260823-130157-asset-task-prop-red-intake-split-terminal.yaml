@@ -1,0 +1,26 @@
+id: asset-prop-red-intake-split-terminal-20260823-130157
+type: prop_scene_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/character/20260823-090208-candidate-character-048-inez-park.md
+  - outputs/lore/20260823-130157-lore-entry-red-intake-split.md
+  - outputs/technology/20260823-130157-technology-entry-red-intake-split-terminal.md
+  - outputs/faction/20260823-130157-faction-impact-chaser-civil-contamination-intake.md
+prompt: "Grounded AI soulpunk CHASER civil contamination intake terminal prop, split workstation screen in a restrained public intake hall, left panel labeled PROTECTED WITNESS SIDE with sealed statement hash, consent scope receipt, analog appeal notice code, right panel labeled RESTRICTED PERMISSION SIDE with seventy-two-hour countdown, muted red intake marker, travel gate slowdown icon, guardian permission review icon, narrow Home Core disclosure scope warning, CHASER gray desk surface, off-white printed appeal notices, tired fluorescent civic lighting, no faces, practical White Harbor transit-contamination environment, high detail ECHO Universe visual system."
+negative_prompt: "magic, supernatural aura, fantasy sigils, glowing spell circles, soul detector, villain threat screen, neon overload, police glamour, readable private memories, full Home Layer family archive, confirmed Ghost portrait, Project E-01 text, Omega text, Mother signal text, God Fragment icon, multiverse imagery, time travel effects, readable personal names"
+usage:
+  - Inez Park red intake split scene reference
+  - early Season 1 Stranger Memory aftermath intake-room visual language
+  - CHASER civil procedure prop design
+  - protected witness versus restricted permission interface motif
+notes: >
+  The prop should make protection and coercion visible at the same time. The
+  left side looks like rights preservation; the right side looks like ordinary
+  life being slowed. Keep the design bureaucratic and plausible. Do not show
+  private Home Layer contents, witness names, Project E-01, Omega, Mother, God
+  Fragments, or any supernatural imagery.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true

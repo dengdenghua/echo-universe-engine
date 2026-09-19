@@ -1,0 +1,26 @@
+type: character_image
+character_id: "034"
+character_name: "Celia Anh"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk Atlas civic-risk architect, Vietnamese Chinese woman age 37, severe charcoal high-collar civic coat, pale analytics inner layer, smoked-glass ID strip, graphite tablet cuffs, thin amber clean-index line at throat, restrained tired expression, translucent civic queue panes around one hand, sterile high-altitude Atlas interior with visible-safety dashboards in the background, full body front view character sheet, high detail restrained corporate governance concept art, ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, occult, glowing angel, demon, wizard, generic neon cyberpunk, combat armor, tactical gun pose, villain cape, seductive spy outfit, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Celia grounded as an Atlas civic-risk normalization architect: severe
+  corporate public-safety silhouette, charcoal and civic white palette, restrained
+  amber clean-index accent, queue panes, and high-altitude Atlas dashboard
+  environment. No fantasy, no supernatural glow, no combat armor, no generic neon
+  hacker styling, and no glamorous villain framing.
+

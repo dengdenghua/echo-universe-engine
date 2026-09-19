@@ -1,0 +1,25 @@
+id: asset-prop-dirty-room-hold-receipt-20260821-130210
+type: prop_scene_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/character/20260821-090055-candidate-character-046-selene-arif.md
+  - outputs/lore/20260821-130210-lore-entry-dirty-room-hold.md
+  - outputs/technology/20260821-130210-technology-decision-dirty-room-hold-held.md
+  - outputs/faction/20260821-130210-faction-dossier-white-harbor-civic-reset-service.md
+prompt: "Grounded AI soulpunk municipal reset hold receipt prop, thin waterproof White Harbor sanitation form clipped to a post-eviction apartment door, header reading DIRTY ROOM HOLD in small civic type, eight-hour countdown strip, landlord release clock and air-scrub clock disagreeing by eleven minutes, Home Core latch telemetry box marked unresolved, limited CHASER evidence line stamp, sealed inventory bags and old paper door tags at the bottom edge, low-glow Home Layer disconnect panel visible inside the dim apartment, no faces, practical civic sanitation atmosphere, high detail ECHO Universe visual system."
+negative_prompt: "magic, supernatural aura, fantasy spell, glowing sigils, multiverse imagery, time travel effects, villain threat card, readable private medical record, opened sealed Home Layer family content, confirmed Ghost portrait, gore, horror filth, cyberpunk neon overload, glamorous combat UI, readable personal names"
+usage:
+  - Selene Arif / Apartment 6C municipal reset case
+  - Dirty Room Hold candidate visual language
+  - White Harbor Civic Reset Service contractor-layer reference
+  - Evidence-scope and privacy-collision prop for StoryAgent
+notes: >
+  The receipt should look ordinary and bureaucratic, not heroic. The emotional
+  contradiction is carried by the two clocks, the unresolved Home Core latch,
+  and the limited evidence stamp. Keep the neighbor's medical details out of
+  frame; the prop can imply a live-care dependency without displaying a record.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true

@@ -1,0 +1,25 @@
+type: character_image
+character_id: "037"
+character_name: "Rosa Valen"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk White Harbor municipal supervised-release night desk adjudicator, woman age 46, compact build, short salt-black hair, tired precise expression, practical municipal green release-office coat over graphite gray work clothes, repaired left wrist support, carbon-copy appeal strips in one hand, release desk tablet and wrist-monitor calibration ring clipped to belt, amber Home Core door-log receipt, old concrete stairwell and civic night office background, full body front view character sheet, high detail ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, glowing aura, judge robes, police tactical armor, gun pose, cyberpunk bounty hunter, saintly rescuer imagery, glamorous detective, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Rosa visually grounded as a municipal release-office worker: worn office
+  coat, repaired-wrist support, appeal strips, release tablet, wrist-monitor
+  calibration ring, Home Core door-log receipt, and stairwell/night-desk setting.
+  No judge robes, no police armor, no supernatural glow, no glamorous detective
+  styling.

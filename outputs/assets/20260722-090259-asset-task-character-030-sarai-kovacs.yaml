@@ -1,0 +1,23 @@
+type: character_image
+character_id: "030"
+character_name: "Sarai Kovacs"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, AI soulpunk Mars civil-court breath-rights advocate, middle-aged woman with clipped gray-black hair, white pressure-law coat stained with red Mars dust, black medical compression underlayer, visible surgical oxygen port, matte red evidence sleeves, pale blue Earth signal recorder, analog diary in hand, sealed habitat clinic and quiet industrial chapel background, calm tired courtroom expression, no weapons, no magic, no fantasy, full body front view character sheet, high detail industrial concept art, ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, medieval, wizard, occult, glowing runes, angel wings, demon horns, generic neon cyberpunk, tactical gun pose, military armor, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Sarai as a Mars civil-law and medical witness: pressure-law coat, oxygen
+  port, analog diary, red dust evidence sleeves, no combat posture, no fantasy or
+  religious visual effects.

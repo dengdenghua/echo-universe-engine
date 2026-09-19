@@ -1,0 +1,23 @@
+id: asset-prop-empty-window-fee-notice-20260810-180147
+type: prop_and_ui_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/story/20260810-180147-story-beat-the-empty-window-counts-fees.md
+  - outputs/lore/20260810-130205-lore-entry-non-priceability-review.md
+  - outputs/technology/20260810-130205-technology-entry-non-priceability-mark.md
+prompt: "Grounded AI soulpunk legal-financial prop, empty-window fee notice from Memory Bank, matte off-white invoice sheet folded through a blank redacted center, dense practical bilingual-style ledger UI without readable private phrase text, muted ledger green lines, cold amber warning codes, sealed Home Core afterword hash blocks, storage fee meter, audit mirror refresh line, witness handling fee, claimant uncertainty reserve hold, CHASER boundary observation stamp, Vera Qadir underwriter bond mark, Nara Marr refusal card clipped beside it, Ceres orbital civic office lighting, procedural and human, not heroic."
+negative_prompt: "magic, supernatural aura, fantasy parchment, multiverse imagery, time travel effects, glowing religious symbols, readable sealed phrase, exposed Home Layer family room, luxury banking advertisement, generic cyberpunk neon overload, heroic character pose"
+usage:
+  - Season 1 orbital civic case prop
+  - Nara Marr sealed-phrase route visual anchor
+  - Memory Bank perimeter repricing UI reference
+  - Vera Qadir underwriter audit scene detail
+notes: >
+  The asset should make privacy look formally protected but financially
+  surrounded. The center stays blank/redacted; the drama lives in the many
+  charge lines orbiting that blank center.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true

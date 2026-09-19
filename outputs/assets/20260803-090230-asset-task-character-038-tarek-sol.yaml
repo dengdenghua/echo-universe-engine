@@ -1,0 +1,25 @@
+type: character_image
+character_id: "038"
+character_name: "Tarek Sol"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk Free Orbital hospice continuity attendant, man age 34, lean low-gravity build, close-cropped dark hair, quiet tired expression, practical gray-green padded custody coat over oxidized white hospice uniform, low-gravity brace straps, sealed Home Core afterword cartridge, cargo-custody wrist tablet, analog kin receipt strip, small cracked ceramic cup, orbital dock hospice corridor and body-container custody bay background, full body front view character sheet, high detail ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, glowing aura, astronaut hero suit, military armor, space opera cape, glamorous smuggler, gun pose, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Tarek visually grounded as a Free Orbital hospice-and-dock worker: worn
+  gray-green custody coat, low-gravity brace straps, hospice interface marker,
+  kin receipt strip, sealed Home Core afterword cartridge, cargo-custody tablet,
+  and quiet orbital dock setting. No astronaut-hero suit, no military armor, no
+  supernatural glow, no space-opera cape, no glamorous smuggler styling.

@@ -1,0 +1,24 @@
+id: asset-location-free-orbital-hospice-escrow-bay-20260812-130121
+type: environment_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/lore/20260812-130121-lore-entry-neutral-care-escrow.md
+  - outputs/faction/20260812-130121-faction-escalation-free-orbital-mutual-hospice-network.md
+  - outputs/technology/20260812-130121-technology-entry-non-opening-transfer-proof.md
+prompt: "Grounded AI soulpunk orbital hospice escrow bay at Ceres Transfer Gate C-17, worker-run neutral care counter, sealed Home Core afterword case on practical transfer cradle, no-copy receipt printer, scratched escrow key rack, muted teal-gray hospice panels with cold amber route insurance warnings and soft ledger green compute reserve meter, visible worker meal-window roster, compact CHASER physical-chain observation stamp, Mars boundary notice redacted blocks, Memory Bank release state on small side display, practical low-gravity corridor architecture, tired civic care mood, cinematic but restrained."
+negative_prompt: "magic, supernatural aura, religious shrine, fantasy hospital, multiverse imagery, time travel effects, heroic command center, luxury clinic, generic neon cyberpunk overload, readable private phrase text, exposed Home Layer family rooms, visible adapter location"
+usage:
+  - Season 1 orbital civic case hospice escrow background
+  - Sana Velez receiving-side custody scene
+  - Nara Marr sealed afterword transfer aftermath
+  - Free Orbital Mutual Hospice Network visual language reference
+notes: >
+  The bay should feel worker-run and underfunded, not sacred or criminal. The
+  visual contradiction is neutral care under pressure: no-copy receipts,
+  compute meters, route insurance warnings, meal-window rosters, and a sealed
+  case that remains unopened.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true

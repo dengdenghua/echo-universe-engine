@@ -1,0 +1,42 @@
+id: asset-scene-consent-gated-room-7-20260826-130105
+type: key_scene_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/lore/20260826-130105-lore-entry-consent-gated-live-route-access.md
+  - outputs/technology/20260826-130105-technology-entry-consent-gated-live-route-access.md
+  - outputs/faction/20260826-130105-faction-impact-consent-gated-live-route-access.md
+  - outputs/character/20260826-090149-candidate-character-051-leina-elian.md
+  - outputs/story/20260825-180200-episode-05-dream-child-civic-prelude-package.md
+prompt: >
+  Grounded AI Soulpunk key scene outside hospital-attached Dream Network Room
+  7, consent-gated live route access review, Luna waiting outside a transparent
+  supervised projection room door with hands still, Leina Elian holding a
+  folded narrow consent receipt, Eve crossing out export fields on paper,
+  Shion checking a hash-only route packet on a muted clinical tablet, Min
+  Seo-yun visible through ward glass as clinical supervisor, soft yellow door
+  light, blue wake-boundary indicator, analog exit phrase card face down, no
+  visible child or readable private Home Layer content, restrained White Harbor
+  recovery ward, quiet civic-medical tension, cinematic manga composition,
+  ECHO Universe visual system.
+negative_prompt: >
+  magic, supernatural aura, fantasy dreamscape, visible ghost child, angelic
+  child silhouette, readable child name, readable bedtime phrase, raw Home
+  Layer memory display, raw family archive, horror possession, combat raid,
+  cyberpunk neon overload, villain hospital glamour, Project E-01 text, Omega
+  text, Mother signal text, God Fragment icon, multiverse imagery, time travel
+  effects, unsupervised heroic entry.
+usage:
+  - Episode 5 Dream Child main room bridge
+  - consent boundary visual reference
+  - Room 7 clinical access scene
+  - Luna restraint and Leina scope motif
+notes: >
+  The scene should show permission before entry. The emotional center is the
+  closed door and the people limiting themselves around it, not the pattern
+  inside. Room 7 may glow softly, but the responsive child-pattern must remain
+  unseen and legally unresolved.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true

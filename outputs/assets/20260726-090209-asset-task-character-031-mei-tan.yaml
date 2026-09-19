@@ -1,0 +1,23 @@
+type: character_image
+character_id: "031"
+character_name: "Mei Tan"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk municipal flood-memory custodian, Chinese woman in her forties with short rain-dark hair, off-white public-works rain shell over black waterproof utility layers, muted green tidewall stripe, graphite boots, analog whistle and access key clipped at chest, wrist flood-route display, rolled waterproof map tube, subtle vertigo support rail posture, White Harbor tidewall control room and storm shutters in background, calm exhausted public-safety expression, no weapons, no magic, no fantasy, full body front view character sheet, high detail industrial concept art, ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, medieval, wizard, occult, glowing runes, angel wings, demon horns, water magic, weather control, generic neon cyberpunk, tactical gun pose, military armor, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Mei as grounded White Harbor public works: rain shell, tidewall stripe,
+  access key, analog whistle, wrist route display, practical support-rail stance,
+  no combat posture, no fantasy, no water-control imagery.

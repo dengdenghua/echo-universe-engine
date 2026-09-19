@@ -1,0 +1,43 @@
+type: prop_image
+asset_id: "episode_08_shelter_room_hash_hearing_interface"
+asset_name: "Shelter Room Hash / Ghost Court Release Interface"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Grounded AI Soulpunk prop and interface design sheet for ECHO Universe
+  Episode 8 The Court Inside ECHO, Shelter Room Hash hearing interface,
+  cramped apartment Home Core diagnostic panel connected to Ghost Court
+  release docket, dull teal repair path blocked by clean white protected-room
+  hash lock, append-only witness fragment strip, separate family access log and
+  institutional access log, partial release toggle shown as supervised repair
+  route, civic-computational legal UI built from apartment doors and evidence
+  receipts, restrained readable shapes without exposing private family memory,
+  prop callouts, front orthographic UI panel, close-up interaction states
+negative_prompt: >
+  magic, fantasy, supernatural aura, occult symbols, gothic cathedral, halo,
+  soul container, glowing spell circle, force field, monster, transparent ghost,
+  police glamour, generic neon cyberpunk overload, raw Home Layer export,
+  readable private memories, readable child records, full medical chart,
+  Project E-01 explanation text, ninth upload text, Omega symbols, God Fragment
+  icon, multiverse imagery, time travel effects, low detail
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - prop_front_view
+  - apartment_home_core_panel
+  - ghost_court_release_docket
+  - append_only_witness_fragment_strip
+  - family_access_log_state
+  - institutional_access_log_state
+  - supervised_repair_route_state
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  technology:
+    - "technologies/continuity_shelter_order.md"
+    - "technologies/shelter_room_hash.md"
+  promotion: "outputs/lore/20260831-130142-lore-promotion-episode-08-shelter-court-infrastructure.md"
+  audit: "outputs/consistency/20260831-130142-canon-audit-episode-08-shelter-court-infrastructure.md"
+  promotion_status: "promoted_episode_08_support"

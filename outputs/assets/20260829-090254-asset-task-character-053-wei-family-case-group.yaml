@@ -1,0 +1,35 @@
+type: character_image
+character_id: "053"
+character_name: "Wei Family Case Group"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Full-body and group anime character design sheet for the Wei family from ECHO
+  Universe Episode 6 Social Ocean Funeral, grounded AI Soulpunk White Harbor
+  lower residential family, surviving spouse Wei An with exhausted guilt,
+  eldest child Wei Lin with protective refusal, younger child Wei Min holding a
+  small birthday bowl, faint Home Core birthday table light reflected on their
+  faces, modest apartment clothing, Memory Lien Notice interface in background,
+  warm domestic grief under legal pressure, front views, head closeups,
+  expression sheet, no weapons, no horror monster design
+negative_prompt: >
+  magic, fantasy, supernatural aura, ghostly transparent body, occult symbols,
+  angel wings, demon horns, halo, glowing weapon, generic neon punk, horror
+  possession, zombie, monster child, royal costume, combat armor, law
+  enforcement uniform, villain costume, childlike mascot style, low detail
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - group_front_view
+  - individual_head_closeups
+  - expression_sheet
+  - clothing_callouts
+  - birthday_table_context_thumbnail
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  candidate: "outputs/character/20260829-090254-episode-06-wei-family-character-boundary-sheet.md"
+  audit: "outputs/consistency/20260829-090254-canon-audit-episode-06-wei-family-character-boundary-sheet.md"
+  promotion_status: "candidate_only"

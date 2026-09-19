@@ -1,0 +1,24 @@
+type: character_image
+character_id: "032"
+character_name: "Marisol Keene"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk White Harbor dock safety witness, mixed-race woman late thirties with tied-back dark curls and tired precise eyes, off-white dock safety shell over charcoal industrial work layers, muted yellow dock stripe accents, compact shoulder brace under one sleeve, wrist shift-seal reader, union witness lanyard, folded wage clawback notice in hand, magnetic work boots, quarantine port cargo exosuit silhouettes and clean industrial dock lights in background, full body front view character sheet, high detail industrial concept art, ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, medieval, wizard, occult, glowing runes, angel wings, demon horns, machine possession aura, generic neon cyberpunk, tactical gun pose, military armor, glamorous superhero suit, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Marisol grounded as White Harbor dock labor governance: safety shell,
+  shoulder brace, shift-seal reader, union witness lanyard, wage clawback notice,
+  cargo exosuit background, no combat posture, no fantasy, no magical machine
+  control imagery.

@@ -416,10 +416,129 @@ function strokeEchoArc(drawingContext, geometry, radius, color, lineWidth, alpha
   drawingContext.restore();
 }
 
+function drawNightEarth(width, box) {
+  const geometry = heroEchoGeometry(width, box.height, box.top);
+  const { centerX, centerY, radius, compact } = geometry;
+  const earthRadius = radius * (compact ? .79 : .81);
+  const earthRandom = seededRandom(214701);
+  const lightClusters = [
+    { x: -.43, y: -.19, spreadX: .24, spreadY: .18, count: 58 },
+    { x: -.17, y: .22, spreadX: .16, spreadY: .27, count: 37 },
+    { x: .04, y: -.27, spreadX: .12, spreadY: .09, count: 52 },
+    { x: .26, y: -.16, spreadX: .26, spreadY: .15, count: 73 },
+    { x: .38, y: .13, spreadX: .22, spreadY: .2, count: 49 },
+    { x: .05, y: .14, spreadX: .17, spreadY: .22, count: 33 },
+  ];
+
+  context.save();
+
+  const outerHalo = context.createRadialGradient(centerX, centerY, earthRadius * .74, centerX, centerY, earthRadius * 1.16);
+  outerHalo.addColorStop(0, "rgba(70,112,228,.045)");
+  outerHalo.addColorStop(.64, "rgba(81,104,226,.035)");
+  outerHalo.addColorStop(1, "rgba(26,43,124,0)");
+  context.fillStyle = outerHalo;
+  context.fillRect(centerX - earthRadius * 1.2, centerY - earthRadius * 1.2, earthRadius * 2.4, earthRadius * 2.4);
+
+  context.beginPath();
+  context.arc(centerX, centerY, earthRadius, 0, fullCircle);
+  context.clip();
+
+  const globe = context.createRadialGradient(
+    centerX - earthRadius * .32,
+    centerY - earthRadius * .38,
+    earthRadius * .06,
+    centerX + earthRadius * .08,
+    centerY + earthRadius * .08,
+    earthRadius * 1.02,
+  );
+  globe.addColorStop(0, "rgba(22,39,79,.8)");
+  globe.addColorStop(.42, "rgba(9,20,46,.88)");
+  globe.addColorStop(.78, "rgba(3,9,24,.96)");
+  globe.addColorStop(1, "rgba(1,3,10,1)");
+  context.fillStyle = globe;
+  context.fillRect(centerX - earthRadius, centerY - earthRadius, earthRadius * 2, earthRadius * 2);
+
+  context.globalCompositeOperation = "lighter";
+  context.lineWidth = .42;
+  lightClusters.forEach((cluster, clusterIndex) => {
+    const nextCluster = lightClusters[(clusterIndex + 1) % lightClusters.length];
+    context.globalAlpha = .055;
+    context.strokeStyle = clusterIndex % 2 ? "#9d8cff" : "#79c4ff";
+    context.beginPath();
+    context.moveTo(centerX + cluster.x * earthRadius, centerY + cluster.y * earthRadius);
+    context.quadraticCurveTo(
+      centerX + (cluster.x + nextCluster.x) * earthRadius * .17,
+      centerY + (cluster.y + nextCluster.y) * earthRadius * .06,
+      centerX + nextCluster.x * earthRadius,
+      centerY + nextCluster.y * earthRadius,
+    );
+    context.stroke();
+
+    for (let index = 0; index < cluster.count; index += 1) {
+      const xOffset = (earthRandom() + earthRandom() + earthRandom() - 1.5) * cluster.spreadX;
+      const yOffset = (earthRandom() + earthRandom() + earthRandom() - 1.5) * cluster.spreadY;
+      const normalizedX = cluster.x + xOffset;
+      const normalizedY = cluster.y + yOffset;
+      const distance = Math.hypot(normalizedX, normalizedY);
+      if (distance > .88) continue;
+      const limbFade = Math.pow(1 - Math.max(0, distance - .52) / .38, .7);
+      const titleSafe = Math.min(1, Math.abs(normalizedX) * 2.1 + Math.abs(normalizedY) * .55 + .18);
+      const bright = index % 19 === 0;
+      motionPoint(
+        context,
+        centerX + normalizedX * earthRadius,
+        centerY + normalizedY * earthRadius,
+        bright ? .78 : .18 + earthRandom() * .42,
+        clusterIndex % 3 === 1 ? "#bba6ff" : "#8fc8ff",
+        (.09 + earthRandom() * (bright ? .42 : .24)) * limbFade * titleSafe,
+      );
+    }
+  });
+
+  for (let band = 0; band < 7; band += 1) {
+    const bandY = centerY + earthRadius * (-.56 + band * .18);
+    const halfWidth = Math.sqrt(Math.max(0, earthRadius ** 2 - (bandY - centerY) ** 2));
+    context.globalAlpha = .025 + (band % 3) * .008;
+    context.strokeStyle = band % 2 ? "#a1bcff" : "#7897e8";
+    context.lineWidth = 1.2 + band % 2;
+    context.beginPath();
+    context.ellipse(centerX, bandY, halfWidth * .94, earthRadius * .04, 0, 0, fullCircle);
+    context.stroke();
+  }
+
+  const titleShade = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, earthRadius * .72);
+  titleShade.addColorStop(0, "rgba(1,3,10,.62)");
+  titleShade.addColorStop(.42, "rgba(2,5,14,.34)");
+  titleShade.addColorStop(1, "rgba(2,5,14,0)");
+  context.globalCompositeOperation = "source-over";
+  context.globalAlpha = 1;
+  context.fillStyle = titleShade;
+  context.fillRect(centerX - earthRadius, centerY - earthRadius, earthRadius * 2, earthRadius * 2);
+  context.restore();
+
+  context.save();
+  const atmosphere = context.createLinearGradient(centerX - earthRadius, centerY - earthRadius, centerX + earthRadius, centerY + earthRadius);
+  atmosphere.addColorStop(0, "rgba(157,202,255,.34)");
+  atmosphere.addColorStop(.46, "rgba(91,146,255,.12)");
+  atmosphere.addColorStop(.76, "rgba(116,91,244,.16)");
+  atmosphere.addColorStop(1, "rgba(55,79,176,.04)");
+  context.globalAlpha = .62;
+  context.strokeStyle = atmosphere;
+  context.lineWidth = compact ? .8 : 1.05;
+  context.shadowColor = "rgba(91,151,255,.26)";
+  context.shadowBlur = compact ? 9 : 15;
+  context.beginPath();
+  context.arc(centerX, centerY, earthRadius, Math.PI * 1.06, Math.PI * 1.91);
+  context.stroke();
+  context.restore();
+}
+
 function drawHeroParticles(width, box, random) {
   const geometry = heroEchoGeometry(width, box.height, box.top);
   const { centerX, centerY, radius, startAngle, endAngle, compact } = geometry;
   const arcSpan = endAngle - startAngle;
+
+  drawNightEarth(width, box);
 
   context.save();
   context.globalCompositeOperation = "lighter";
@@ -676,6 +795,10 @@ const heroSignalMotes = Array.from({ length: 36 }, (_, index) => ({
   size: index % 9 === 0 ? .92 : .24 + heroSparkRandom() * .48,
   violet: heroSparkRandom() > .88,
 }));
+const heroEarthSignals = [
+  [-.42, -.18, 0], [.02, -.27, 1.7], [.28, -.16, 3.2],
+  [.4, .12, 4.6], [-.16, .22, 5.5], [.08, .14, 6.8],
+];
 const memorySparkRandom = seededRandom(20260825);
 const memorySparks = Array.from({ length: 18 }, (_, index) => ({
   offset: memorySparkRandom(),
@@ -725,6 +848,35 @@ function drawHeroMotion(time) {
   const breath = .5 + Math.sin(time * .00105) * .5;
   heroMotionContext.save();
   heroMotionContext.globalCompositeOperation = "lighter";
+
+  const earthRadius = radius * (compact ? .79 : .81);
+  const scanProgress = (Math.sin(time * .00024) + 1) * .5;
+  const scanY = centerY + earthRadius * (-.48 + scanProgress * .96);
+  const scanHalfWidth = Math.sqrt(Math.max(0, earthRadius ** 2 - (scanY - centerY) ** 2));
+  const scanGradient = heroMotionContext.createLinearGradient(
+    centerX - scanHalfWidth,
+    scanY,
+    centerX + scanHalfWidth,
+    scanY,
+  );
+  scanGradient.addColorStop(0, "rgba(98,145,255,0)");
+  scanGradient.addColorStop(.18, "rgba(116,177,255,.05)");
+  scanGradient.addColorStop(.5, "rgba(178,219,255,.13)");
+  scanGradient.addColorStop(.82, "rgba(146,118,255,.05)");
+  scanGradient.addColorStop(1, "rgba(98,145,255,0)");
+  heroMotionContext.globalAlpha = .35 + breath * .16;
+  heroMotionContext.strokeStyle = scanGradient;
+  heroMotionContext.lineWidth = compact ? .46 : .62;
+  heroMotionContext.beginPath();
+  heroMotionContext.ellipse(centerX, scanY, scanHalfWidth * .97, earthRadius * .032, 0, 0, fullCircle);
+  heroMotionContext.stroke();
+
+  heroEarthSignals.forEach(([signalOffsetX, signalOffsetY, phase], index) => {
+    const pulse = Math.pow(.5 + Math.sin(time * .00115 + phase) * .5, 7);
+    const x = centerX + signalOffsetX * earthRadius;
+    const y = centerY + signalOffsetY * earthRadius;
+    motionPoint(heroMotionContext, x, y, .55 + pulse * 1.1, index % 3 === 1 ? "#c4a5ff" : "#a8d6ff", .06 + pulse * .34);
+  });
 
   const ringGradient = heroMotionContext.createLinearGradient(
     centerX - radius,

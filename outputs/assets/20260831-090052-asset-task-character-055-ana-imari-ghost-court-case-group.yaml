@@ -1,0 +1,44 @@
+type: character_image
+character_id: "055"
+character_name: "Ana Rivera / Imari Chen / Ghost Court Case Group"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Full-body and group anime character design sheet for ECHO Universe Episode 8
+  The Court Inside ECHO, grounded AI Soulpunk identity-law hearing package,
+  Ana Rivera as compact Latina Home Core recall engineer late thirties in
+  charcoal utility jumpsuit and off-white insulated vest with dull teal
+  diagnostic glove lights, Imari Chen as exhausted precise school-services
+  parent in restrained civic blazer holding denial receipts, Imari's daughter
+  visible only behind apartment-door threshold or hearing access glass with
+  private details obscured, Zero as white tactical CHASER captain standing as
+  delayed witness under split continuity audit fields, Ghost Court projection
+  built from apartment doors, witness logs, suspended Home Layer room panels,
+  append-only evidence fragment UI, teal maintenance map against white
+  protected-room lock, restrained civic-computational courtroom mood, front
+  views, head closeups, expression sheet, no fantasy elements, no weapons focus
+negative_prompt: >
+  magic, fantasy, supernatural aura, occult symbols, gothic cathedral court,
+  angel wings, demon horns, halo, glowing weapon, monster, possession horror,
+  transparent ghost body, royal courtroom robes, medieval judge, religious
+  iconography, generic neon punk, exposed child private data, full medical
+  record display, raw Home Layer export, villain costume, low detail
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - group_front_view
+  - ana_front_view
+  - imari_front_view
+  - zero_witness_variant
+  - individual_head_closeups
+  - expression_sheet
+  - protected_room_lock_prop_callout
+  - ghost_court_hearing_context_thumbnail
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  candidate: "outputs/character/20260831-090052-episode-08-court-inside-echo-character-boundary-sheet.md"
+  audit: "outputs/consistency/20260831-090052-canon-audit-episode-08-court-inside-echo-character-boundary-sheet.md"
+  promotion_status: "candidate_only"

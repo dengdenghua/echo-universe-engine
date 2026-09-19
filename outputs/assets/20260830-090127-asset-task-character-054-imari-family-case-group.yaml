@@ -1,0 +1,39 @@
+type: character_image
+character_id: "054"
+character_name: "Imari Chen Family Case Group"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Full-body and group anime character design sheet for ECHO Universe Episode 7
+  Probability Debt, grounded AI Soulpunk White Harbor school-services family,
+  Imari Chen as a precise exhausted school administrator parent with slate
+  utility blazer and invalid-permission lanyard, her daughter behind school
+  gate scanner glass with both hands raised, spouse shown as clinic-call
+  dependent family member, rain-lit civic pickup lane, cracked family access
+  tablet showing guardian relation denied while citizen identity passes,
+  subtle amber probability UI reflection, Home Core routine mismatch icon,
+  restrained bureaucratic tension, front views, head closeups, expression
+  sheet, no weapons, no fantasy elements
+negative_prompt: >
+  magic, fantasy, supernatural aura, ghostly transparent body, occult symbols,
+  angel wings, demon horns, halo, glowing weapon, generic neon punk, horror
+  possession, zombie, monster child, royal costume, combat armor, law
+  enforcement uniform, villain costume, childlike mascot style, low detail,
+  full medical record display, exposed child private data
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - group_front_view
+  - individual_head_closeups
+  - expression_sheet
+  - clothing_callouts
+  - school_gate_context_thumbnail
+  - denial_tablet_prop_callout
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  candidate: "outputs/character/20260830-090127-episode-07-probability-debt-character-boundary-sheet.md"
+  audit: "outputs/consistency/20260830-090127-canon-audit-episode-07-probability-debt-character-boundary-sheet.md"
+  promotion_status: "candidate_only"

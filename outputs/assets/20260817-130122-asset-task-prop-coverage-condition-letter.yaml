@@ -1,0 +1,34 @@
+id: asset-prop-coverage-condition-letter
+title: Coverage-Condition Letter Prop
+type: prop
+status: candidate
+created_at: "2026-08-17T13:01:22+08:00"
+source:
+  - outputs/lore/20260817-130122-lore-entry-coverage-condition-review.md
+  - outputs/technology/20260817-130122-technology-entry-coverage-condition-letter.md
+  - outputs/faction/20260817-130122-faction-impact-route-insurer-coverage-condition.md
+prompt: "Grounded AI soulpunk route-insurance prop, Coverage-Condition Letter on a practical claims desk, dull orange fault stamp hovering above paper and translucent civic UI, fields showing covered care, worker fault, excluded courtesy, named safety-event precursor, unpaid hold minutes double-counted as reserve capacity and denied as covered labor, worker bond exposure, CHASER safety-event boundary, Memory Bank release-cost position, Ghost Union anti-starvation note, sealed Home Core afterword case visible only as a hash and no-copy custody band, Ceres route-insurer service corridor, restrained graphite gray and faded teal interface, no private phrase text visible."
+negative_prompt: "magic, supernatural aura, fantasy symbols, glowing holy relic, visible secret phrase text, opened Home Layer content, villain glamour, cyberpunk neon excess, cluttered unreadable UI, combat weapon focus"
+needed_views:
+  - close-up readable prop UI
+  - Priya Chand desk environment insert
+  - worker-bond exposure field detail
+canon_constraints:
+  - Do not reveal sealed phrase text, adapter location, or unrelated Home Layer rooms.
+  - Keep the letter bureaucratic and procedural, not mystical or theatrical.
+  - Show the double-count contradiction clearly without making the UI too busy.
+  - Use ECHO visual language: clean civic surfaces, cold practical light, worn paper records, restrained route-insurance palette.
+related_characters:
+  - Priya Chand
+  - Sana Velez
+  - Nara Marr
+related_factions:
+  - Route Insurer Conduct Desk
+  - Free Orbital Mutual Hospice Network
+  - Memory Bank
+  - Ghost Union
+  - CHASER
+pipeline:
+  stage: candidate_output
+  canon_promotion: false
+  requires_art_director_review: true

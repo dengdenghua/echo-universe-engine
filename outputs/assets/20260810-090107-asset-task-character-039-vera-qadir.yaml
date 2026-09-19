@@ -1,0 +1,26 @@
+type: character_image
+character_id: "039"
+character_name: "Vera Qadir"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk Memory Bank sealed-asset underwriter, woman age 41, controlled tired expression, ink black formal audit coat over bank white shirt, muted ledger green interface lines, dull copper bond seal at collar, subtle throat ledger implant, holding sealed appraisal slate and paper refusal notebook, upside-down cup pin hidden inside coat, Ceres appeal desk and memory-valuation ledger wall background, full body front view character sheet, high detail ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, glowing aura, luxury banker glamour, villain cape, combat armor, hacker streetwear, space opera costume, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Vera visually grounded as a Memory Bank sealed-asset underwriter: clerical
+  audit formalwear, ink black and bank white, muted ledger green interface,
+  dull copper bond seal, throat ledger implant, sealed appraisal slate, paper
+  refusal notebook, and hidden upside-down cup icon. No luxury banker glamour,
+  no villain cape, no combat armor, no supernatural glow, no hacker-street
+  styling.

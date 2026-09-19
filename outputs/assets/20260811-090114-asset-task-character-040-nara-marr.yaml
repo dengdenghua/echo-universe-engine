@@ -1,0 +1,25 @@
+type: character_image
+character_id: "040"
+character_name: "Nara Marr"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk civilian case character, woman age 29 from Ceres Quiet Dock maintenance kin network, compact practical posture, graphite gray orbital work jacket over workwear off-white layers, pressure-label yellow tape accents, muted dock blue compression sleeves, practical boots, small Home Core amber access tag hidden inside jacket, wrist receipt reader with memory-mirror icon disabled, holding folded Memory Bank fee notice with a blank center field, tired guarded expression, no combat pose, no glamour, appeal room and dock maintenance labels in background, full body front view character sheet, high detail ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, glowing aura, angelic ghost imagery, visible secret phrase text, combat armor, hacker streetwear, luxury fashion, villain styling, cyberpunk neon excess, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Nara visually grounded as a Ceres Quiet Dock maintenance civilian and
+  living sealed-recipient case character: workwear, receipt reader, Home Core
+  access tag, folded fee notice with blank center field, and guarded exhaustion.
+  Do not show the sealed phrase text. Avoid heroic armor, hacker streetwear,
+  luxury grief styling, supernatural glow, angelic imagery, or Ghostly aura.

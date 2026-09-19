@@ -1,0 +1,26 @@
+type: character_image
+character_id: "046"
+character_name: "Selene Arif"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk municipal reset supervisor, 41-year-old woman with tired precise eyes, charcoal-gray scrub coat under white sanitation apron, matte respirator hanging loose at the throat, sealed inventory bags clipped at the hip, restrained green hazard accent on the sleeve, scratched Home Core latch scanner on the left wrist, transparent chest pocket holding old apartment door tags, quiet post-eviction apartment doorway with low-glow Home Layer disconnect panel behind her, full body front view character sheet, high detail ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, glowing aura, memory erasure effects, villain styling, combat armor, hacker streetwear, corporate glamour, cyberpunk neon excess, visible secret phrase text, religious iconography, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Selene visually grounded as a municipal reset worker, not a fighter or
+  hacker: charcoal-gray scrub coat, white sanitation apron, respirator at the
+  throat, inventory bags, door tags, restrained green hazard accent, and Home
+  Core latch scanner. Do not show supernatural glow, memory-erasure effects,
+  villain styling, cyberpunk neon excess, or heroic combat styling. The Dirty
+  Room Hold is a municipal delay procedure, not an aura or power effect.

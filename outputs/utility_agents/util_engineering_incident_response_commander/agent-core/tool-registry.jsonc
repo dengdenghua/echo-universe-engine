@@ -1,0 +1,15 @@
+// non-canon utility agent tool registry (arms ref octopus-agent presets.py).
+
+{
+  "arms": [
+    "web_read",
+    "fs_writer",
+    "git",
+    "shell"
+  ],
+  "extra_affinity": [
+    "coder",
+    "utility"
+  ],
+  "private_skills": []
+}

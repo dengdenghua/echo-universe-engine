@@ -1,0 +1,23 @@
+id: asset-location-memory-bank-sealed-asset-review-desk-20260810-130205
+type: environment_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/lore/20260810-130205-lore-entry-non-priceability-review.md
+  - outputs/faction/20260810-130205-faction-impact-memory-bank-sealed-asset-review-desk.md
+  - outputs/technology/20260810-130205-technology-entry-non-priceability-mark.md
+prompt: "Grounded AI soulpunk financial review chamber inside Memory Bank, sealed-asset review desk, narrow appeal room with no windows, matte white ledger walls, muted ledger green and cold amber UI lines, sealed Home Core afterword hash displayed as redacted blocks, empty-window hearing layout, underwriter station with bond seal scanner, beneficiary refusal card tray, storage fee meter, audit mirror column, upside-down cracked cup on evidence shelf, Ceres orbital civic architecture influence, cinematic but practical, no mystical symbols."
+negative_prompt: "magic, supernatural aura, glowing religious halo, fantasy courtroom, multiverse imagery, time travel effects, heroic battle pose, luxury bank lobby, generic cyberpunk neon overload, readable private phrase text, exposed Home Layer family rooms"
+usage:
+  - Season 1 orbital civic case appeal background
+  - Vera Qadir character scene environment
+  - Memory Bank institutional visual language reference
+notes: >
+  The room should feel procedural and compromised, not evil by decoration.
+  Visual priority is the contradiction between privacy protection and financial
+  extraction: redacted evidence blocks, fee meters, audit mirrors, and a cramped
+  beneficiary-facing desk.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true

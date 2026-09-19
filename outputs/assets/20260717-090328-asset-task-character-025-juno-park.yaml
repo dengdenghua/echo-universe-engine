@@ -1,0 +1,22 @@
+type: character_image
+character_id: "025"
+character_name: Juno Park
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk civilian warning officer, Korean woman in late thirties, practical graphite municipal jacket with short white CHASER liaison vest, amber threshold stripe on sleeve, black flat shoes, subtle neural glass earpiece, holding palm-sized doorbell recorder and folded paper resident list, White Harbor apartment corridor background, quiet tense expression, restrained industrial palette"
+negative_prompt: "magic, fantasy, supernatural, medieval, glowing sword, ornate costume, generic neon punk, superhero armor, police militarism, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_source:
+  candidate: "outputs/character/20260717-090328-candidate-character-025-juno-park.md"
+  audit: "outputs/consistency/20260717-090328-canon-audit-juno-park.md"

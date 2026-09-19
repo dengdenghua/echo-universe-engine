@@ -3,11 +3,20 @@ groups:
   core_world_brain:
     id: core_world_brain
     name: Core World Brain
-    members: [core_author, world_brain]
+    members: [core_author, world_brain, continuity_editor]
     can_review_groups: ["*"]
     can_review_realms: ["*"]
     can_review_scopes: ["*"]
     description: Final authority for main canon and cross-realm escalation.
+
+  canon_promotion_board:
+    id: canon_promotion_board
+    name: Canon Promotion Board
+    members: [core_author, world_brain, continuity_editor]
+    can_review_groups: [canon_promotion_board]
+    can_review_realms: [main]
+    can_review_scopes: [main]
+    description: Three-seat main-canon committee; two approvals are required after continuity clearance.
 
   earth_world_brain:
     id: earth_world_brain

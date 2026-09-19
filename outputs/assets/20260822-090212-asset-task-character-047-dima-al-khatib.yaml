@@ -1,0 +1,26 @@
+type: character_image
+character_id: "047"
+character_name: "Dima al-Khatib"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk Black Zone salvage intake clerk, 33-year-old woman with wary precise eyes, charcoal repair smock with clipped paper receipts, matte fingerless scan gloves, small Home Core latch-reader bracelet, clear evidence sleeve holding dead-room tags, dim White Harbor service-tunnel resale booth behind her, restrained rust-orange booth light accent on sleeves, dirty white labels, full body front view character sheet, high detail ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, glowing aura, memory erasure effects, villain glamour, combat armor, hacker streetwear, cyberpunk neon excess, religious iconography, floating soul imagery, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Dima visually grounded as a compromised Black Zone resale intake worker,
+  not a glamorous villain or hacker. Core markers: charcoal repair smock,
+  clipped paper receipts, scan gloves, latch-reader bracelet, evidence sleeve
+  with dead-room tags, dim service-tunnel booth, restrained rust-orange accent.
+  Do not show supernatural glow, souls, memory-erasure effects, combat styling,
+  cyberpunk neon excess, or readable secret serial text.

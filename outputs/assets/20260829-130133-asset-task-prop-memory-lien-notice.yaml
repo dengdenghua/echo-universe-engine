@@ -1,0 +1,33 @@
+type: prop_design
+asset_id: "prop-memory-lien-notice"
+asset_name: "Memory Lien Notice"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Grounded AI Soulpunk prop design for a Memory Lien Notice interface in a
+  White Harbor lower residential apartment, restrained civil-financial warning
+  overlay above a birthday dinner table, restricted access state, Continuity
+  Lien Ledger fields, blocked actions list, forty-eight-hour emergency stay
+  timer, vendor update signature warning, Home Core evidence hash chips,
+  charcoal glass, off-white paper receipt, muted red legal status marks, warm
+  domestic light from noodles and candle, clean orthographic prop sheet,
+  readable interface closeups, no fantasy symbols
+negative_prompt: >
+  magic, supernatural aura, occult symbols, ghost body, demon, angel, glowing
+  weapon, generic neon punk, hologram overload, ornate fantasy document,
+  illegible UI, monster design, horror possession, low detail
+size: "1024x1024"
+status: queued
+required_outputs:
+  - front_view
+  - interface_closeup
+  - receipt_detail
+  - apartment_context_thumbnail
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  technology: "technologies/memory_lien_notice.md"
+  lore_promotion: "outputs/lore/20260829-130133-lore-promotion-memory-lien-notice-episode-06.md"
+  audit: "outputs/consistency/20260829-130133-canon-audit-memory-lien-notice-episode-06-promotion.md"
+  promotion_status: "promoted_narrow"

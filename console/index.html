@@ -1,117 +1,135 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ECHO OS</title>
-    <link rel="stylesheet" href="/console/styles.css" />
+    <meta name="description" content="ECHO 内部宇宙管理平台" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <title>ECHO INTERNAL · 宇宙管理平台</title>
+    <link rel="stylesheet" href="/console/styles.css?v=20260830-3" />
   </head>
   <body>
     <div class="os-shell">
       <header class="system-bar">
         <div class="system-brand">
           <span class="brand-mark">E</span>
-          <span>ECHO OS</span>
+          <span>ECHO INTERNAL</span>
         </div>
         <div class="system-center">
-          <span class="system-chip" id="engine-state">Connecting</span>
+          <span class="system-chip" id="engine-state">连接中</span>
           <span class="system-chip">2147 / Echo Age</span>
-          <span class="system-chip">White Ghost Network</span>
+          <span class="system-chip" data-i18n="whiteGhostNetwork">白幽灵网络</span>
         </div>
-        <time id="system-clock">--:--</time>
+        <div class="system-actions">
+          <div class="locale-switch" role="group" aria-label="语言" data-i18n-aria="languageSelector">
+            <button type="button" data-locale="zh" aria-pressed="true">中文</button>
+            <button type="button" data-locale="en" aria-pressed="false">EN</button>
+          </div>
+          <time id="system-clock">--:--</time>
+        </div>
       </header>
 
-      <aside class="dock" aria-label="ECHO rooms">
-        <button class="dock-item active" data-window="world" title="World Brain">WB</button>
-        <button class="dock-item" data-window="characters" title="Character Agents">CA</button>
-        <button class="dock-item" data-window="factory" title="Universe Factory">UF</button>
-        <button class="dock-item" data-window="assets" title="Asset Locks">AL</button>
-        <button class="dock-item" data-window="memory" title="Memory Stream">MS</button>
-        <button class="dock-item runtime-only" data-window="octopus" title="Octopus Runtime">OR</button>
+      <aside class="dock" aria-label="ECHO 空间" data-i18n-aria="echoRooms">
+        <button class="dock-item active" data-window="world" title="世界大脑" data-i18n-title="worldBrain">WB</button>
+        <button class="dock-item" data-window="characters" title="角色智能体" data-i18n-title="characterAgents">CA</button>
+        <button class="dock-item" data-window="factory" title="宇宙工厂" data-i18n-title="universeFactory">UF</button>
+        <button class="dock-item" data-window="assets" title="资产锁定" data-i18n-title="assetLocks">AL</button>
+        <button class="dock-item" data-window="memory" title="记忆流" data-i18n-title="memoryStream">MS</button>
+        <button class="dock-item runtime-only" data-window="octopus" title="Octopus 运行时" data-i18n-title="octopusRuntime">OR</button>
       </aside>
 
       <main class="desktop" id="desktop">
         <section class="window world-window active" data-window-panel="world">
           <div class="titlebar">
             <div>
-              <span class="window-kicker">Layer 1</span>
-              <h1>World Brain</h1>
+              <span class="window-kicker" data-i18n="layerOne">第 1 层</span>
+              <h1 data-i18n="worldBrain">世界大脑</h1>
             </div>
             <div class="window-actions">
-              <button id="refresh-btn" title="Refresh canon state">Refresh</button>
+              <button id="refresh-btn" title="刷新正典状态" data-i18n-title="refreshCanon" data-i18n="refresh">刷新</button>
+              <button class="window-close" type="button" title="关闭窗口" aria-label="关闭窗口" data-i18n-title="closeWindow" data-i18n-aria="closeWindow">×</button>
             </div>
           </div>
           <div class="world-body">
-            <div class="neural-core" aria-label="ECHO neural core">
+            <div class="neural-core" aria-label="ECHO 神经核心" data-i18n-aria="neuralCore">
               <div class="core-ring ring-a"></div>
               <div class="core-ring ring-b"></div>
               <div class="core-ring ring-c"></div>
               <div class="core-label">
                 <strong>ECHO</strong>
-                <span>World Brain</span>
+                <span data-i18n="worldBrain">世界大脑</span>
               </div>
             </div>
             <div class="metric-grid" id="metrics"></div>
           </div>
           <div class="law-strip">
-            <span>No magic</span>
-            <span>Ghosts are digital personalities</span>
-            <span>Every power is technological</span>
-            <span>Canon requires review</span>
+            <span data-i18n="lawNoMagic">不存在魔法</span>
+            <span data-i18n="lawDigitalGhosts">Ghost 是数字人格</span>
+            <span data-i18n="lawTechnology">一切能力源于技术</span>
+            <span data-i18n="lawCanonReview">正典必须经过审核</span>
           </div>
         </section>
 
-        <section class="window characters-window active" data-window-panel="characters">
+        <section class="window characters-window" data-window-panel="characters">
           <div class="titlebar">
             <div>
-              <span class="window-kicker">Layer 4</span>
-              <h2>Character Agents</h2>
+              <span class="window-kicker" data-i18n="layerFour">第 4 层</span>
+              <h2 data-i18n="characterAgents">角色智能体</h2>
             </div>
-            <span class="window-badge" id="character-count">0 online</span>
+            <div class="window-actions">
+              <span class="window-badge" id="character-count">0 在线</span>
+              <button class="window-close" type="button" title="关闭窗口" aria-label="关闭窗口" data-i18n-title="closeWindow" data-i18n-aria="closeWindow">×</button>
+            </div>
           </div>
           <div class="agent-grid" id="character-grid"></div>
         </section>
 
-        <section class="window factory-window active" data-window-panel="factory">
+        <section class="window factory-window" data-window-panel="factory">
           <div class="titlebar">
             <div>
-              <span class="window-kicker">Factory</span>
-              <h2>Universe Forge</h2>
+              <span class="window-kicker" data-i18n="factory">工厂</span>
+              <h2 data-i18n="universeForge">宇宙熔炉</h2>
             </div>
-            <span class="window-badge" id="output-mode">Idle</span>
+            <div class="window-actions">
+              <span class="window-badge" id="output-mode">空闲</span>
+              <button class="window-close" type="button" title="关闭窗口" aria-label="关闭窗口" data-i18n-title="closeWindow" data-i18n-aria="closeWindow">×</button>
+            </div>
           </div>
           <div class="forge-controls">
             <button class="forge-command primary" data-command="/api/neural/daily-life/run">
               <span>DL</span>
-              <strong>Daily Life</strong>
+              <strong data-i18n="dailyLife">日常生活</strong>
             </button>
             <button class="forge-command" data-command="/api/agents/character/run">
               <span>CH</span>
-              <strong>Character</strong>
+              <strong data-i18n="character">角色</strong>
             </button>
             <button class="forge-command" data-command="/api/agents/lore/run">
               <span>LR</span>
-              <strong>Lore</strong>
+              <strong data-i18n="lore">世界设定</strong>
             </button>
             <button class="forge-command" data-command="/api/agents/story/run">
               <span>ST</span>
-              <strong>Story</strong>
+              <strong data-i18n="story">故事</strong>
             </button>
             <button class="forge-command" data-command="/api/agents/consistency/run">
               <span>CS</span>
-              <strong>Audit</strong>
+              <strong data-i18n="audit">审核</strong>
             </button>
           </div>
-          <pre id="factory-output">Awaiting signal.</pre>
+          <pre id="factory-output">等待信号。</pre>
         </section>
 
-        <section class="window assets-window active" data-window-panel="assets">
+        <section class="window assets-window" data-window-panel="assets">
           <div class="titlebar">
             <div>
-              <span class="window-kicker">Visual Canon</span>
-              <h2>Asset Locks</h2>
+              <span class="window-kicker" data-i18n="visualCanon">视觉正典</span>
+              <h2 data-i18n="assetLocks">资产锁定</h2>
             </div>
-            <span class="window-badge" id="asset-count">0 locked</span>
+            <div class="window-actions">
+              <span class="window-badge" id="asset-count">0 已锁定</span>
+              <button class="window-close" type="button" title="关闭窗口" aria-label="关闭窗口" data-i18n-title="closeWindow" data-i18n-aria="closeWindow">×</button>
+            </div>
           </div>
           <div class="asset-grid" id="asset-grid"></div>
         </section>
@@ -119,17 +137,20 @@
         <section class="window memory-window" data-window-panel="memory">
           <div class="titlebar">
             <div>
-              <span class="window-kicker">Layer 3</span>
-              <h2>Memory Stream</h2>
+              <span class="window-kicker" data-i18n="layerThree">第 3 层</span>
+              <h2 data-i18n="memoryStream">记忆流</h2>
             </div>
-            <span class="window-badge">Candidate</span>
+            <div class="window-actions">
+              <span class="window-badge" data-i18n="candidate">候选</span>
+              <button class="window-close" type="button" title="关闭窗口" aria-label="关闭窗口" data-i18n-title="closeWindow" data-i18n-aria="closeWindow">×</button>
+            </div>
           </div>
           <ol class="stream" id="memory-stream">
-            <li><strong>09:00</strong><span>Character Agent prepares a new soul draft.</span></li>
-            <li><strong>09:30</strong><span>Digital Life tick records private memories.</span></li>
-            <li><strong>13:00</strong><span>Lore Agent expands history and institutions.</span></li>
-            <li><strong>18:00</strong><span>Story Agent turns pressure into chapter seed.</span></li>
-            <li><strong>23:00</strong><span>Consistency Agent reviews canon risk.</span></li>
+            <li><strong>09:00</strong><span data-i18n="scheduleCharacter">角色智能体准备新的灵魂草稿。</span></li>
+            <li><strong>09:30</strong><span data-i18n="scheduleLife">数字生活节拍记录私人记忆。</span></li>
+            <li><strong>13:00</strong><span data-i18n="scheduleLore">设定智能体扩展历史与制度。</span></li>
+            <li><strong>18:00</strong><span data-i18n="scheduleStory">故事智能体将压力转化为章节种子。</span></li>
+            <li><strong>23:00</strong><span data-i18n="scheduleAudit">一致性智能体审核正典风险。</span></li>
           </ol>
           <div class="candidate-grid" id="candidate-grid"></div>
         </section>
@@ -137,19 +158,21 @@
         <section class="window octopus-window runtime-only" data-window-panel="octopus">
           <div class="titlebar">
             <div>
-              <span class="window-kicker">Runtime</span>
+              <span class="window-kicker" data-i18n="runtime">运行时</span>
               <h2>Octopus Link</h2>
             </div>
             <div class="window-actions">
-              <span class="window-badge" id="octopus-status">Adapter</span>
-              <button id="octopus-sync-btn" title="Sync agents into Octopus runtime">Sync</button>
+              <span class="window-badge" id="octopus-status">适配器</span>
+              <button id="octopus-sync-btn" title="将智能体同步到 Octopus 运行时" data-i18n-title="syncAgents" data-i18n="sync">同步</button>
+              <button class="window-close" type="button" title="关闭窗口" aria-label="关闭窗口" data-i18n-title="closeWindow" data-i18n-aria="closeWindow">×</button>
             </div>
           </div>
-          <pre id="octopus-plan">Loading runtime contract.</pre>
+          <pre id="octopus-plan">正在加载运行时契约。</pre>
         </section>
       </main>
     </div>
 
-    <script src="/console/app.js"></script>
+    <script src="/console/i18n.js?v=20260830-3"></script>
+    <script src="/console/app.js?v=20260830-3"></script>
   </body>
 </html>

@@ -1,0 +1,26 @@
+type: character_image
+character_id: "043"
+character_name: "Ama Osei"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk hospice route attendant, woman age 34, quiet guarded expression, worn teal route coverall over a pale undershirt, dimmed Home Core work-log bracelet on left wrist, folded paper shift chit at collar, free orbital hospice corridor with care-reserve model screens in soft gray, full body front view character sheet, high detail ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, glowing aura, memory erasure effects, villain styling, combat armor, hacker streetwear, corporate glamour, cyberpunk neon excess, visible secret phrase text, religious iconography, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Ama visually grounded in the Free Orbital Mutual Hospice Network visual
+  family shared with Sana Velez and Tarek Sol: worn teal route coverall, pale
+  undershirt, dimmed Home Core work-log bracelet, folded paper shift chit at
+  the collar. Do not show supernatural concealment, glowing effects, phrase
+  text, adapter location, villain styling, or heroic combat styling. The Quiet
+  Log is a settings-level withholding, not an ability glow.

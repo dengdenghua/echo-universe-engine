@@ -1,0 +1,23 @@
+id: asset-prop-reserve-sufficiency-hearing-board-20260813-130215
+type: prop_ui_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/lore/20260813-130215-lore-entry-reserve-sufficiency-hearing.md
+  - outputs/faction/20260813-130215-faction-impact-route-insurer-conduct-review.md
+  - outputs/technology/20260813-130215-technology-entry-care-reserve-sufficiency-packet.md
+prompt: "Grounded AI soulpunk orbital hearing-room UI prop, reserve sufficiency board for sealed Home Core afterword hospice escrow, practical wall display showing compute reserve floor, oxygen allocation minutes, unpaid hold minutes, route insurer conduct review state, worker bond exposure, Ghost Union anti-starvation note, Memory Bank release-cost refusal, CHASER physical-chain boundary, no-copy receipt id, muted teal-gray civic interface with amber warning blocks and ledger green reserve bars, paper meal-window roster taped below screen, Ceres Transfer Gate C-17 underfunded care setting, restrained procedural mood, no private phrase text visible."
+negative_prompt: "magic, supernatural aura, religious shrine, fantasy interface, multiverse imagery, time travel effects, heroic command bridge, luxury tribunal, generic neon cyberpunk overload, readable private phrase text, exposed Home Layer family rooms, visible adapter location"
+usage:
+  - Season 1 Reserve Sufficiency Hearing scene prop
+  - Sana Velez conduct review pressure
+  - Nara Marr sealed afterword hospice escrow consequence
+  - Free Orbital Mutual Hospice Network visual language reference
+notes: >
+  The prop should make the conflict readable at a glance: privacy has been
+  preserved, but reserve math, unpaid labor, and insurer conduct review decide
+  whether care can continue. It should feel bureaucratic, local, and worn down.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true

@@ -1,0 +1,23 @@
+type: character_image
+character_id: "029"
+character_name: "Ema Sayegh"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, AI soulpunk clinical neurorehabilitation architect, middle-aged woman in white projection-clinic coat over black technical underlayer, ankle stability brace, pale blue vestibular bead, soft amber consent ledger interface on forearm, Dream Network therapy room background with muted handrails and gait mirrors, calm precise expression, no weapons, no magic, no fantasy, full body front view character sheet, high detail industrial concept art, ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, medieval, wizard, occult, glowing runes, angel wings, demon horns, generic neon cyberpunk, tactical gun pose, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Ema as a clinical Dream Network specialist: restrained white/black
+  silhouette, pale blue medical telemetry, soft amber consent interface, no
+  combat armor emphasis, no fantasy dream symbolism.

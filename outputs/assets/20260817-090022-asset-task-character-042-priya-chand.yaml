@@ -1,0 +1,26 @@
+type: character_image
+character_id: "042"
+character_name: "Priya Chand"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk route-insurer conduct reviewer, woman age 52, weary controlled expression, graphite gray formal conduct coat over faded teal undershirt, dull orange coverage stamp at sleeve, thin claims-classification implant at wrist, holding printed coverage letter and paper conduct file, folded old denial letter tucked inside coat, Ceres route-insurer service corridor with reserve model screens background, full body front view character sheet, high detail ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, glowing aura, villain cape, corporate luxury glamour, combat armor, hacker streetwear, visible secret phrase text, cyberpunk neon excess, religious iconography, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Priya visually grounded as a cost-side route-insurer conduct reviewer:
+  graphite formal conduct coat, faded teal undershirt, coverage stamp,
+  claims-classification wrist implant, printed coverage letters, paper conduct
+  file, and the folded old denial letter inside her coat. Do not show phrase
+  text, adapter location, supernatural effects, villain styling, corporate
+  glamour, or heroic combat styling.

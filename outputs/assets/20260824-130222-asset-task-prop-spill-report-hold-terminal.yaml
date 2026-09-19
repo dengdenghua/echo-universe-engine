@@ -1,0 +1,31 @@
+type: prop_design
+asset_id: "prop-spill-report-hold-terminal"
+asset_name: "Spill Report Hold Terminal"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Grounded AI Soulpunk prop design for a Dream Network Civic Claims desk
+  terminal, compact public-service hardware with low-brightness consent panels,
+  analog receipt slot, route hash display, refund purge countdown, muted teal
+  status tabs, charcoal and off-white materials, worn claim-counter surface,
+  small Home Core grief-texture reference chips shown as sealed hash tokens,
+  clean orthographic prop sheet, close-up interface states, no fantasy symbols
+negative_prompt: >
+  magic, supernatural aura, occult dream symbols, glowing weapon, generic neon
+  punk, hologram overload, ornate fantasy console, illegible UI, low detail
+size: "1024x1024"
+status: queued
+required_outputs:
+  - front_view
+  - side_view
+  - interface_closeup
+  - receipt_detail
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  lore: "outputs/lore/20260824-130222-lore-entry-dream-network-civic-claims.md"
+  technology: "outputs/technology/20260824-130222-technology-entry-spill-report-hold-terminal.md"
+  faction: "outputs/faction/20260824-130222-faction-impact-dream-network-civic-claims.md"
+  audit: "outputs/consistency/20260824-130222-canon-audit-spill-report-hold-bundle.md"
+  promotion_status: "candidate_only"

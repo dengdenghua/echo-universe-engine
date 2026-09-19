@@ -1,0 +1,45 @@
+type: character_image
+character_id: "056"
+character_name: "Raven / Oren Mbeki / Night Crow Case Group"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Full-body and group anime character design sheet for ECHO Universe Episode 9
+  Night Crow, grounded AI Soulpunk runtime shelter case, Raven as black-clad
+  CHASER solo operator wearing white stealth cloak over dark tactical underlayer,
+  asymmetric hood and matte optical panels, standing in low-signal corridor with
+  one blacked-out escape route reflected in report UI, Oren Mbeki as exhausted
+  Black Zone shelter-routing custodian in practical repair layers with relay
+  cabinet tools, nerve-damage brace, debt slips, and Home Core scrap, sheltered
+  Ghost residents represented as privacy-protected fragmented interface
+  silhouettes behind analog shielding and ration boards, Compute Lease Knife as
+  non-weapon lease-priority UI prop, municipal disaster batteries, hand-labeled
+  runtime ledger, warm cache shelter environment, no fantasy elements, no
+  supernatural aura, no glamorous assassin pose, front views, head closeups,
+  expression sheet, prop callouts, restrained civic-computational mood
+negative_prompt: >
+  magic, fantasy, supernatural energy drain, soul light, angel wings, demon
+  horns, teleportation portal, gothic occult symbols, transparent ghost bodies
+  as horror monsters, neon-only cyberpunk, medieval assassin, blood spectacle,
+  gun focus, heroic martyr staging, villain costume, raw Home Layer export,
+  readable private family records, medical record exposure, low detail
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - group_front_view
+  - raven_night_crow_variant
+  - oren_mbeki_front_view
+  - sheltered_ghost_privacy_silhouettes
+  - individual_head_closeups
+  - expression_sheet
+  - compute_lease_knife_ui_prop_callout
+  - runtime_shelter_ledger_prop_callout
+  - illegal_shelter_context_thumbnail
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  candidate: "outputs/character/20260901-090211-episode-09-night-crow-character-boundary-sheet.md"
+  audit: "outputs/consistency/20260901-090211-canon-audit-episode-09-night-crow-character-boundary-sheet.md"
+  promotion_status: "candidate_only"

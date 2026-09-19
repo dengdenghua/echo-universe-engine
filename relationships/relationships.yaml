@@ -1,17 +1,37 @@
 Zero:
-  Kane: trust / unspoken love
-  Eve: friendship
-  Luna: protective bond
+  Kane: "trust / unspoken love / upload-fragility fear"
+  Eve: "friendship / strategic trust / Ghost truth pressure"
+  Luna: "protective bond / coexistence proof"
+  Noah: "strategic trust / probability unease"
+  Mira Voss: "wary medical trust / continuity evidence risk"
 Kane:
-  Zero: love
+  Zero: "love / loyalty / rehearsed sacrifice"
+  Eve: "protective suspicion / emotional truth pressure"
+  Leon: "frontline trust / obedience tension"
 Eve:
-  Zero: admiration
-  Shion: mutual suspicion
+  Zero: "admiration / friendship / possible seed suspicion"
+  Shion: "mutual suspicion / evidence-method conflict"
+  Luna: "Ghost empathy bridge / personhood-method tension"
+  Kane: "reads hidden loyalty / refuses to expose it cheaply"
 Raven:
-  Leon: rivalry
+  Leon: "rivalry / field respect"
+  Shion: "raid partner / privacy suspicion"
 Leon:
-  Raven: rivalry
+  Raven: "rivalry / field respect"
+  Kane: "frontline trust / command friction"
 Noah:
-  Zero: strategic trust
+  Zero: "strategic trust / consequence witness"
+  Shion: "systems pair / collateral-accounting conflict"
 Luna:
-  Zero: protective bond
+  Zero: "protective bond / vessel fear"
+  Eve: "Ghost empathy bridge / sanctuary disagreement"
+  Mother: "fear / unwanted kinship"
+Shion:
+  Eve: "mutual suspicion / Ghost Union risk"
+  Noah: "systems pair / control-versus-probability tension"
+  Raven: "Black Zone raid partners / evidence friction"
+  Mira Voss: "tooling conflict / repair-versus-control tension"
+Mira Voss:
+  Zero: "wary trust / continuity patient risk"
+  Eve: "professional empathy / testimony boundary"
+  Shion: "tooling conflict / memory repair ethics"

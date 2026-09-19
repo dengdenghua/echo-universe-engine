@@ -1,0 +1,42 @@
+id: asset-scene-refund-button-waits-20260824-180057
+type: key_scene_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/story/20260824-180057-story-beat-the-refund-button-waits.md
+  - outputs/character/20260824-090213-candidate-character-049-jules-mbeki.md
+  - outputs/lore/20260824-130222-lore-entry-dream-network-civic-claims.md
+  - outputs/technology/20260824-130222-technology-entry-spill-report-hold-terminal.md
+  - outputs/consistency/20260824-180057-canon-audit-refund-button-waits.md
+prompt: >
+  Grounded AI Soulpunk key scene inside a White Harbor Dream Network public
+  claims hall, Jules Mbeki at a muted teal claims terminal with his hand
+  hovering over a green refund button, analog carbon-copy receipt printer open,
+  grieving aunt Mara Elian holding two public memorial route wristbands, Leina
+  seated beside her with consent papers turned face down, low-brightness route
+  hash and spill report hold countdown display, no readable private Home Layer
+  content, Eve and Shion entering as quiet boundary reviewers, Luna waiting
+  outside a sealed session door, soft civic furniture, worn off-white counter,
+  restrained emotional bureaucracy, cinematic manga composition, ECHO Universe
+  visual system.
+negative_prompt: >
+  magic, supernatural aura, fantasy dream symbols, ghost child visible,
+  glowing spell circle, possession visual, readable family archive, readable
+  child name, raw Home Layer memory display, horror jump scare, combat pose,
+  cyberpunk neon overload, villain corporate glamour, Project E-01 text, Omega
+  text, Mother signal text, God Fragment icon, multiverse imagery, time travel
+  effects.
+usage:
+  - Dream Network Civic Claims story validation scene
+  - Spill Report Hold Terminal in-use context
+  - Dream Child prelude or civic interstitial
+  - refund-versus-erasure motif
+notes: >
+  The image should show a civic decision, not an action scene. Focus on the
+  green refund button waiting, the carbon-copy receipt, the family withholding
+  private grief, and the limited evidence interface. The responsive route
+  should remain unseen and ambiguous.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true

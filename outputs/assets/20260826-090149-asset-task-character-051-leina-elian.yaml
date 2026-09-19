@@ -1,0 +1,35 @@
+type: character_image
+character_id: "051"
+character_name: "Leina Elian"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Full-body anime character sheet for Leina Elian, grounded AI Soulpunk
+  civilian in the ECHO Universe, grieving White Harbor mother and Dream Network
+  public memorial route participant, practical layered coat, soft gray route
+  wristband, folded narrow consent copy held close, tired precise expression,
+  close-cropped dark hair with one loose clip, muted hospital green accent,
+  worn transit shoes, restrained public claims hall and sealed Dream Network
+  route door background, clean front side back views, head closeup, expression
+  sheet
+negative_prompt: >
+  magic, fantasy, supernatural aura, occult dream symbols, angel wings, demon
+  horns, halo, glowing weapon, generic neon punk, oversized armor, investigator
+  uniform, chosen-one costume, childlike proportions, smiling mascot style,
+  low detail
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  candidate: "outputs/character/20260826-090149-candidate-character-051-leina-elian.md"
+  audit: "outputs/consistency/20260826-090149-canon-audit-leina-elian.md"
+  promotion_status: "candidate_only"

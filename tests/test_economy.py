@@ -11,6 +11,7 @@ from echo_engine.bindings import bind_user_to_character
 from echo_engine.economy import (
     EconomyError,
     economy_account_summary,
+    fulfill_external_purchase,
     list_products,
     purchase_product,
     record_wallet_entry,
@@ -117,6 +118,28 @@ def test_purchase_rejects_insufficient_funds(tmp_path):
         assert "insufficient credits" in str(exc)
     else:
         raise AssertionError("expected insufficient funds to fail")
+
+
+def test_external_fulfillment_is_idempotent_and_does_not_use_local_wallet(tmp_path):
+    seed_catalog(tmp_path)
+
+    first = fulfill_external_purchase(
+        user_id="mobile-user-1",
+        product_id="realm_pass_atlas",
+        purchase_ref="echo:mobile-user-1:purchase-1",
+        root=tmp_path,
+    )
+    second = fulfill_external_purchase(
+        user_id="mobile-user-1",
+        product_id="realm_pass_atlas",
+        purchase_ref="echo:mobile-user-1:purchase-1",
+        root=tmp_path,
+    )
+
+    assert first["duplicate"] is False
+    assert second["duplicate"] is True
+    assert wallet_balance("mobile-user-1", root=tmp_path) == 0
+    assert len(economy_account_summary("mobile-user-1", root=tmp_path).entitlements) == 1
 
 
 def test_economy_api_purchase_flow(tmp_path, api_client):

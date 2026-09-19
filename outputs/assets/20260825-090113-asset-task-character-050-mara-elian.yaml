@@ -1,0 +1,34 @@
+type: character_image
+character_id: "050"
+character_name: "Mara Elian"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Full-body anime character sheet for Mara Elian, grounded AI Soulpunk
+  civilian in the ECHO Universe, White Harbor municipal cafeteria shift
+  manager and Dream Network refund claimant, slate apron coat over practical
+  work clothes, faded green Dream Network route wristband, compact cafeteria
+  calculator, worn transit shoes, short tied-back hair, tired alert eyes,
+  folded carbon-copy receipt held carefully, muted Dream Network public claims
+  hall background, restrained emotional realism, no weapons, clean front side
+  back views, head closeup, expression sheet
+negative_prompt: >
+  magic, fantasy, supernatural aura, occult dream symbols, angel wings, demon
+  horns, halo, glowing weapon, generic neon punk, oversized armor, chosen-one
+  costume, investigator uniform, childlike proportions, low detail
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  candidate: "outputs/character/20260825-090113-candidate-character-050-mara-elian.md"
+  audit: "outputs/consistency/20260825-090113-canon-audit-mara-elian.md"
+  promotion_status: "candidate_only"

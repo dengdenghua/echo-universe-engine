@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_prefix="ECHO_", extra="ignore")
 
     root: Path = Field(default_factory=lambda: Path.cwd())
+    environment: str = "development"
     model_provider: str = "stub"
     model_name: str = "local-stub"
     model_base_url: str | None = None
@@ -18,8 +19,14 @@ class Settings(BaseSettings):
     model_timeout_seconds: float = 60
     model_temperature: float = 0.7
     model_max_tokens: int = 2400
+    admin_api_key: str | None = None
+    admin_api_key_file: Path | None = None
+    user_jwt_secret: str | None = None
+    user_jwt_secret_file: Path | None = None
     database_path: Path = Path("data/echo.sqlite3")
     journal_path: Path = Path("data/echo_journal.jsonl")
+    governance_registry_path: Path = Path("data/public_candidates.yaml")
+    governance_cookie_secret: str | None = None
     economy_state_path: Path = Path("data/economy_state.json")
     octopus_agents_root: Path | None = None
     octopus_runtime_url: str | None = None

@@ -3,9 +3,18 @@ const state = {
   characters: [],
   assets: null,
   candidates: [],
+  governanceCandidates: [],
+  events: [],
+  engineState: { key: "connecting", params: {}, ok: false },
+  outputModeKey: "idle",
+  outputContentKey: "awaitingSignal",
+  octopusStatusKey: "adapter",
+  octopusPlanKey: "loadingRuntime",
   runtimeVisible: new URLSearchParams(window.location.search).get("runtime") === "1",
-  zIndex: 20,
 };
+
+const i18n = window.EchoI18n;
+const t = (key, params, fallback) => i18n.t(key, params, fallback);
 
 function $(selector) {
   return document.querySelector(selector);
@@ -21,7 +30,14 @@ function truncate(value, size = 150) {
 }
 
 async function requestJson(url, options = {}) {
-  const response = await fetch(url, options);
+  const headers = new Headers(options.headers || {});
+  try {
+    const token = sessionStorage.getItem("echo.admin.token") || localStorage.getItem("echo.auth.token");
+    if (token && !headers.has("Authorization")) headers.set("Authorization", `Bearer ${token}`);
+  } catch (_) {
+    // A trusted reverse proxy may provide authentication when browser storage is unavailable.
+  }
+  const response = await fetch(url, { ...options, headers });
   if (!response.ok) {
     let message = `${response.status} ${response.statusText}`;
     try {
@@ -35,25 +51,49 @@ async function requestJson(url, options = {}) {
   return response.json();
 }
 
-function setEngineState(label, ok = false) {
+function setEngineState(key, ok = false, params = {}) {
+  state.engineState = { key, params, ok };
   const target = $("#engine-state");
-  target.textContent = label;
+  target.textContent = t(key, params);
   target.classList.toggle("online", ok);
 }
 
-function bringToFront(panel) {
-  state.zIndex += 1;
-  panel.style.zIndex = state.zIndex;
-  $all(".window").forEach((item) => item.classList.toggle("focused", item === panel));
+function setOutputMode(key) {
+  state.outputModeKey = key;
+  $("#output-mode").textContent = t(key);
+}
+
+function setOutputModeRaw(value) {
+  state.outputModeKey = null;
+  $("#output-mode").textContent = value;
+}
+
+function setOutputContent(key) {
+  state.outputContentKey = key;
+  $("#factory-output").textContent = t(key);
+}
+
+function setOutputContentRaw(value) {
+  state.outputContentKey = null;
+  $("#factory-output").textContent = value;
 }
 
 function openWindow(name) {
   const panel = document.querySelector(`[data-window-panel="${name}"]`);
   if (!panel) return;
-  panel.classList.add("active");
-  bringToFront(panel);
+  $all(".window").forEach((item) => item.classList.remove("active", "focused"));
+  panel.classList.add("active", "focused");
   $all(".dock-item").forEach((item) => {
     item.classList.toggle("active", item.dataset.window === name);
+  });
+}
+
+function closeWindow(panel) {
+  if (!panel) return;
+  const name = panel.dataset.windowPanel;
+  panel.classList.remove("active", "focused");
+  $all(".dock-item").forEach((item) => {
+    if (item.dataset.window === name) item.classList.remove("active");
   });
 }
 
@@ -67,21 +107,21 @@ function installRuntimeVisibility() {
 
 function renderMetrics(status) {
   const metrics = [
-    ["Bible", status.bible_files],
-    ["Characters", status.characters],
-    ["Factions", status.factions],
-    ["Locations", status.locations],
-    ["Tech", status.technologies],
-    ["Timeline", status.timeline_files],
-    ["Relations", status.relationship_files],
-    ["Stories", status.stories],
+    ["metricBible", status.bible_files],
+    ["metricCharacters", status.characters],
+    ["metricFactions", status.factions],
+    ["metricLocations", status.locations],
+    ["metricTech", status.technologies],
+    ["metricTimeline", status.timeline_files],
+    ["metricRelations", status.relationship_files],
+    ["metricStories", status.stories],
   ];
   $("#metrics").innerHTML = metrics
     .map(
-      ([label, value]) => `
+      ([labelKey, value]) => `
         <div class="metric">
           <strong>${value}</strong>
-          <span>${label}</span>
+          <span>${t(labelKey)}</span>
         </div>
       `,
     )
@@ -89,7 +129,7 @@ function renderMetrics(status) {
 }
 
 function renderCharacters(cards) {
-  $("#character-count").textContent = `${cards.length} online`;
+  $("#character-count").textContent = t("onlineCount", { count: cards.length });
   $("#character-grid").innerHTML = cards
     .map(
       (card) => `
@@ -101,8 +141,8 @@ function renderCharacters(cards) {
           <div class="agent-code">${card.codename || card.name}</div>
           <p>${truncate(card.description)}</p>
           <div class="agent-tags">
-            <span>${card.role || "Unassigned"}</span>
-            <span>${card.rank || "No rank"}</span>
+            <span>${card.role || t("unassigned")}</span>
+            <span>${card.rank || t("noRank")}</span>
             ${(card.abilities || []).slice(0, 1).map((ability) => `<span>${ability}</span>`).join("")}
           </div>
         </article>
@@ -113,7 +153,7 @@ function renderCharacters(cards) {
 
 function renderAssets(index) {
   const characters = Object.entries(index?.characters || {});
-  $("#asset-count").textContent = `${characters.length} locked`;
+  $("#asset-count").textContent = t("lockedCount", { count: characters.length });
   $("#asset-grid").innerHTML = characters
     .map(([id, item]) => {
       const urls = item.urls || {};
@@ -121,18 +161,18 @@ function renderAssets(index) {
       return `
         <article class="asset-card">
           <div class="asset-preview">
-            ${portrait ? `<img src="${portrait}" alt="${item.name} front reference" />` : ""}
+            ${portrait ? `<img src="${portrait}" alt="${t("frontReference", { name: item.name })}" />` : ""}
           </div>
           <div class="asset-info">
             <div class="asset-title">
               <span>${id}</span>
               <strong>${item.name}</strong>
             </div>
-            <p>${item.codename || "White Ghost Team"}</p>
+            <p>${item.codename || t("whiteGhostTeam")}</p>
             <div class="asset-links">
               ${["front", "side", "back", "avatar", "source_turnaround"]
                 .filter((key) => urls[key])
-                .map((key) => `<a href="${urls[key]}" target="_blank" rel="noreferrer">${key}</a>`)
+                .map((key) => `<a href="${urls[key]}" target="_blank" rel="noreferrer">${t(`link${key.split("_").map((part) => part[0].toUpperCase() + part.slice(1)).join("")}`, {}, key)}</a>`)
                 .join("")}
             </div>
           </div>
@@ -152,15 +192,15 @@ function renderMemory(result) {
     .map((line) => {
       const isName = line.startsWith("### ");
       return isName
-        ? `<li class="stream-name"><strong>${line.replace("### ", "")}</strong><span>agent pulse</span></li>`
-        : `<li><strong>log</strong><span>${line.replace("- Activity: ", "")}</span></li>`;
+        ? `<li class="stream-name"><strong>${line.replace("### ", "")}</strong><span>${t("agentPulse")}</span></li>`
+        : `<li><strong>${t("log")}</strong><span>${line.replace("- Activity: ", "")}</span></li>`;
     })
     .join("");
 }
 
 function renderJournal(events) {
   if (!events?.length) {
-    $("#memory-stream").innerHTML = `<li><strong>queue</strong><span>No journal events yet.</span></li>`;
+    $("#memory-stream").innerHTML = `<li><strong>${t("queue")}</strong><span>${t("noJournalEvents")}</span></li>`;
     return;
   }
   $("#memory-stream").innerHTML = events
@@ -169,7 +209,7 @@ function renderJournal(events) {
     .map(
       (event) => `
         <li>
-          <strong>${event.mode}</strong>
+          <strong>${i18n.translateMode(event.mode)}</strong>
           <span>${event.title}${event.output_path ? ` · ${event.output_path}` : ""}</span>
         </li>
       `,
@@ -177,47 +217,89 @@ function renderJournal(events) {
     .join("");
 }
 
-function renderCandidates(candidates) {
+function renderGovernanceCandidate(row) {
+  const committee = row.committee;
+  const continuity = row.continuity;
+  const resonance = row.resonance;
+  const gate = row.promotion_gate;
+  const title = row.candidate.title[i18n.getLocale()] || row.candidate.title.en;
+  const members = committee.members || [];
+  const continuityReviewer = continuity.reviewers?.[0]?.id || "continuity_editor";
+  const promotionLabel = row.promotion.promoted
+    ? t("statusPromoted")
+    : gate.state === "blocked"
+      ? t("promotionBlocked")
+      : t(gate.can_promote ? "promotionReady" : "promotionLocked");
+  return `
+    <article class="candidate-card governance-card" data-governance-id="${row.candidate.id}" data-revision="${row.candidate.revision_sha256}" data-continuity-reviewer="${continuityReviewer}">
+      <div class="candidate-head">
+        <span>${t("publicCanon")}</span>
+        <strong>${title}</strong>
+      </div>
+      <p>${t("resonanceSummary", { support: resonance.support, revise: resonance.revise })}</p>
+      <div class="candidate-meta governance-meta">
+        <span>${t("continuityState", { status: t(`governanceContinuity${continuity.status[0].toUpperCase()}${continuity.status.slice(1)}`, {}, continuity.status) })}</span>
+        <span>${t("committeeState", { approvals: committee.approvals, size: committee.size, threshold: committee.threshold })}</span>
+        <span>${promotionLabel}</span>
+        <a href="${row.candidate.public_href}" target="_blank" rel="noreferrer">${t("open")}</a>
+      </div>
+      <label class="reviewer-select"><span>${t("reviewer")}</span><select data-reviewer-select>
+        ${members.map((member) => `<option value="${member.id}">${member.id}${member.decision ? ` · ${member.decision}` : ""}</option>`).join("")}
+      </select></label>
+      <div class="candidate-actions governance-actions">
+        <button data-governance-action="approve">${t("approveVote")}</button>
+        <button data-governance-action="reject">${t("rejectVote")}</button>
+        <button data-governance-action="continuity-pass">${t("continuityPass")}</button>
+        <button data-governance-action="continuity-veto">${t("continuityVeto")}</button>
+        <button data-governance-action="promote" ${gate.can_promote ? "" : "disabled"}>${t("promote")}</button>
+      </div>
+    </article>
+  `;
+}
+
+function renderCandidates(candidates, governanceCandidates = []) {
   const grid = $("#candidate-grid");
-  if (!candidates?.length) {
-    grid.innerHTML = `<div class="empty-state">No candidate outputs waiting in journal.</div>`;
+  if (!candidates?.length && !governanceCandidates?.length) {
+    grid.innerHTML = `<div class="empty-state">${t("noCandidates")}</div>`;
     return;
   }
-  grid.innerHTML = candidates
+  const governanceMarkup = governanceCandidates.map(renderGovernanceCandidate).join("");
+  const legacyMarkup = candidates
     .slice()
     .reverse()
     .map((row) => {
       const event = row.event;
       const decision = row.latest_decision;
       const promotion = row.promotion;
-      const reason = decision?.summary || event.summary || "Awaiting review.";
+      const reason = decision?.summary || event.summary || t("awaitingReview");
       return `
         <article class="candidate-card" data-event-id="${event.event_id}">
           <div class="candidate-head">
-            <span>${event.mode}</span>
+            <span>${i18n.translateMode(event.mode)}</span>
             <strong>${event.title}</strong>
           </div>
           <p>${truncate(reason, 190)}</p>
           <div class="candidate-meta">
-            <span>${row.status}</span>
-            ${event.output_path ? `<a href="/${event.output_path}" target="_blank" rel="noreferrer">open</a>` : ""}
-            ${promotion?.output_path ? `<a href="/${promotion.output_path}" target="_blank" rel="noreferrer">canon</a>` : ""}
+            <span>${i18n.translateStatus(row.status)}</span>
+            ${event.output_path ? `<a href="/${event.output_path}" target="_blank" rel="noreferrer">${t("open")}</a>` : ""}
+            ${promotion?.output_path ? `<a href="/${promotion.output_path}" target="_blank" rel="noreferrer">${t("canon")}</a>` : ""}
           </div>
           <div class="candidate-actions">
-            <button data-action="accept">Accept</button>
-            <button data-action="reject">Reject</button>
-            <button data-action="promote" ${row.can_promote ? "" : "disabled"}>Promote</button>
+            <button data-action="accept">${t("accept")}</button>
+            <button data-action="reject">${t("reject")}</button>
+            <button data-action="promote" ${row.can_promote ? "" : "disabled"}>${t("promote")}</button>
           </div>
         </article>
       `;
     })
     .join("");
+  grid.innerHTML = governanceMarkup + legacyMarkup;
 }
 
 async function refresh() {
   try {
-    setEngineState("Syncing");
-    const [health, characters, plan, octopus, assets, events, candidates] = await Promise.all([
+    setEngineState("syncing");
+    const [health, characters, plan, octopus, assets, events, candidates, governanceCandidates] = await Promise.all([
       requestJson("/api/health"),
       requestJson("/api/canon/characters"),
       requestJson("/api/integrations/octopus/plan"),
@@ -225,21 +307,26 @@ async function refresh() {
       requestJson("/api/assets/characters"),
       requestJson("/api/journal/events?limit=16"),
       requestJson("/api/journal/candidates?limit=24"),
+      requestJson("/api/canon/governance/candidates"),
     ]);
     state.status = health.canon;
     state.characters = characters;
     state.assets = assets;
     state.candidates = candidates;
+    state.governanceCandidates = governanceCandidates;
+    state.events = events;
     renderMetrics(health.canon);
     renderCharacters(characters);
     renderAssets(assets);
     renderJournal(events);
-    renderCandidates(candidates);
+    renderCandidates(candidates, governanceCandidates);
+    state.octopusPlanKey = null;
     $("#octopus-plan").textContent = plan.content;
-    $("#octopus-status").textContent = octopus.configured ? "Linked" : "Not linked";
-    setEngineState("Online", true);
+    state.octopusStatusKey = octopus.configured ? "linked" : "notLinked";
+    $("#octopus-status").textContent = t(state.octopusStatusKey);
+    setEngineState("online", true);
   } catch (error) {
-    setEngineState(`Offline: ${error.message}`);
+    setEngineState("offline", false, { message: error.message });
   }
 }
 
@@ -263,6 +350,30 @@ async function promoteCandidate(eventId) {
   });
 }
 
+async function reviewGovernanceCandidate(candidateId, reviewer, decision, revision) {
+  return requestJson(`/api/canon/governance/candidates/${candidateId}/committee-votes`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ reviewer, decision, expected_revision_sha256: revision, reason: "Recorded in the ECHO OS canon governance console." }),
+  });
+}
+
+async function checkGovernanceContinuity(candidateId, reviewer, verdict, revision) {
+  return requestJson(`/api/canon/governance/candidates/${candidateId}/continuity-checks`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ reviewer, verdict, expected_revision_sha256: revision, reason: "Continuity decision recorded in the ECHO OS console.", issues: verdict === "veto" ? ["continuity_review_required"] : [] }),
+  });
+}
+
+async function promoteGovernanceCandidate(candidateId, revision) {
+  return requestJson(`/api/canon/governance/candidates/${candidateId}/promotions`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ expected_revision_sha256: revision }),
+  });
+}
+
 async function syncOctopusRuntime() {
   return requestJson("/api/integrations/octopus/sync-agents", {
     method: "POST",
@@ -271,19 +382,19 @@ async function syncOctopusRuntime() {
   });
 }
 
-async function runCommand(url, label = "Running") {
+async function runCommand(url, label = t("running")) {
   openWindow("factory");
-  $("#output-mode").textContent = label;
-  $("#factory-output").textContent = "Running...";
+  setOutputModeRaw(label);
+  setOutputContent("runningDots");
   try {
     const result = await requestJson(url, { method: "POST" });
-    $("#output-mode").textContent = result.mode || "Done";
-    $("#factory-output").textContent = result.content || JSON.stringify(result, null, 2);
+    setOutputModeRaw(result.mode ? i18n.translateMode(result.mode) : t("done"));
+    setOutputContentRaw(result.content || JSON.stringify(result, null, 2));
     renderMemory(result);
     await refresh();
   } catch (error) {
-    $("#output-mode").textContent = "Error";
-    $("#factory-output").textContent = error.message;
+    setOutputMode("error");
+    setOutputContentRaw(error.message);
   }
 }
 
@@ -293,36 +404,9 @@ function installDock() {
   });
 }
 
-function installDrag() {
-  $all(".window").forEach((panel) => {
-    const handle = panel.querySelector(".titlebar");
-    let drag = null;
-    panel.addEventListener("mousedown", () => bringToFront(panel));
-    handle.addEventListener("mousedown", (event) => {
-      if (event.target.closest("button")) return;
-      const rect = panel.getBoundingClientRect();
-      drag = {
-        pointerId: event.pointerId,
-        dx: event.clientX - rect.left,
-        dy: event.clientY - rect.top,
-      };
-      handle.setPointerCapture?.(event.pointerId);
-    });
-    handle.addEventListener("mousemove", (event) => {
-      if (!drag) return;
-      const left = Math.max(74, event.clientX - drag.dx);
-      const top = Math.max(58, event.clientY - drag.dy);
-      panel.style.left = `${left}px`;
-      panel.style.top = `${top}px`;
-      panel.style.right = "auto";
-      panel.style.bottom = "auto";
-    });
-    handle.addEventListener("mouseup", () => {
-      drag = null;
-    });
-    handle.addEventListener("mouseleave", () => {
-      drag = null;
-    });
+function installWindowControls() {
+  $all(".window-close").forEach((button) => {
+    button.addEventListener("click", () => closeWindow(button.closest(".window")));
   });
 }
 
@@ -330,15 +414,15 @@ function installCommands() {
   $("#refresh-btn").addEventListener("click", refresh);
   $("#octopus-sync-btn").addEventListener("click", async () => {
     openWindow("octopus");
-    $("#output-mode").textContent = "Octopus Sync";
-    $("#factory-output").textContent = "Syncing agents...";
+    setOutputMode("octopusSync");
+    setOutputContent("syncingAgents");
     try {
       const result = await syncOctopusRuntime();
-      $("#factory-output").textContent = JSON.stringify(result, null, 2);
+      setOutputContentRaw(JSON.stringify(result, null, 2));
       await refresh();
     } catch (error) {
-      $("#output-mode").textContent = "Error";
-      $("#factory-output").textContent = error.message;
+      setOutputMode("error");
+      setOutputContentRaw(error.message);
     }
   });
   $all(".forge-command").forEach((item) => {
@@ -346,13 +430,42 @@ function installCommands() {
   });
   $("#candidate-grid").addEventListener("click", async (event) => {
     const button = event.target.closest("button[data-action]");
+    const governanceButton = event.target.closest("button[data-governance-action]");
+    if (governanceButton) {
+      const governanceCard = governanceButton.closest("[data-governance-id]");
+      const candidateId = governanceCard?.dataset.governanceId;
+      const revision = governanceCard?.dataset.revision;
+      const action = governanceButton.dataset.governanceAction;
+      if (!candidateId || !revision || !action) return;
+      if (action === "continuity-veto" && !window.confirm(t("confirmContinuityVeto"))) return;
+      if (action === "promote" && !window.confirm(t("confirmCanonPromotion"))) return;
+      setOutputModeRaw(t("canonGovernance"));
+      setOutputContent("updatingJournal");
+      try {
+        if (action === "approve" || action === "reject") {
+          const reviewer = governanceCard.querySelector("[data-reviewer-select]")?.value;
+          await reviewGovernanceCandidate(candidateId, reviewer, action, revision);
+        } else if (action === "continuity-pass" || action === "continuity-veto") {
+          const reviewer = governanceCard.dataset.continuityReviewer;
+          await checkGovernanceContinuity(candidateId, reviewer, action === "continuity-pass" ? "pass" : "veto", revision);
+        } else if (action === "promote") {
+          const result = await promoteGovernanceCandidate(candidateId, revision);
+          setOutputContentRaw(JSON.stringify(result, null, 2));
+        }
+        await refresh();
+      } catch (error) {
+        setOutputMode("error");
+        setOutputContentRaw(error.message);
+      }
+      return;
+    }
     if (!button) return;
     const card = button.closest("[data-event-id]");
     const eventId = card?.dataset.eventId;
     if (!eventId) return;
     const action = button.dataset.action;
-    $("#output-mode").textContent = action;
-    $("#factory-output").textContent = "Updating candidate journal...";
+    setOutputMode(action);
+    setOutputContent("updatingJournal");
     try {
       if (action === "accept") {
         await reviewCandidate(eventId, "accepted");
@@ -360,28 +473,44 @@ function installCommands() {
         await reviewCandidate(eventId, "rejected");
       } else if (action === "promote") {
         const result = await promoteCandidate(eventId);
-        $("#factory-output").textContent = JSON.stringify(result, null, 2);
+        setOutputContentRaw(JSON.stringify(result, null, 2));
       }
       await refresh();
     } catch (error) {
-      $("#output-mode").textContent = "Error";
-      $("#factory-output").textContent = error.message;
+      setOutputMode("error");
+      setOutputContentRaw(error.message);
     }
   });
 }
 
 function tickClock() {
-  const now = new Date();
-  $("#system-clock").textContent = now.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  $("#system-clock").textContent = i18n.formatTime(new Date());
+}
+
+function renderCurrentLocale() {
+  if (state.status) renderMetrics(state.status);
+  if (state.characters.length) renderCharacters(state.characters);
+  if (state.assets) renderAssets(state.assets);
+  if (state.events.length) renderJournal(state.events);
+  if (state.candidates || state.governanceCandidates) renderCandidates(state.candidates, state.governanceCandidates);
+  setEngineState(state.engineState.key, state.engineState.ok, state.engineState.params);
+  if (state.outputModeKey) $("#output-mode").textContent = t(state.outputModeKey);
+  if (state.outputContentKey) $("#factory-output").textContent = t(state.outputContentKey);
+  if (state.octopusStatusKey) $("#octopus-status").textContent = t(state.octopusStatusKey);
+  if (state.octopusPlanKey) $("#octopus-plan").textContent = t(state.octopusPlanKey);
+  tickClock();
 }
 
 installDock();
-installDrag();
+installWindowControls();
 installCommands();
 installRuntimeVisibility();
+setEngineState("connecting");
+setOutputMode("idle");
+setOutputContent("awaitingSignal");
+$("#octopus-status").textContent = t("adapter");
+$("#octopus-plan").textContent = t("loadingRuntime");
+i18n.subscribe(renderCurrentLocale);
 tickClock();
 setInterval(tickClock, 30_000);
 refresh();

@@ -1,0 +1,31 @@
+type: character_image
+character_id: "018"
+character_name: Samir Haddad
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Anime character design, grounded AI soulpunk Black Zone escrow courier and
+  demolition salvage clerk, Middle Eastern man early forties, lean build,
+  charcoal demolition coat, off-white receipt sleeves, dust-gray scarf, amber
+  retinal escrow monocle, sealed Home Core key cards on chest lanyard, patched
+  courier implant behind one ear, subtle condemned-apartment archive interface,
+  full body front view character sheet, restrained underground market mood, high
+  detail concept art.
+negative_prompt: "magic, fantasy, supernatural, medieval, weapons, occult symbols, low detail, generic neon punk"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+pipeline:
+  stage: asset_task_generation
+  source_candidate: "outputs/character/20260703-090047-candidate-character-018-samir-haddad.md"
+  created_at: "2026-07-03T09:00:47+08:00"
+  promotion_required_before_asset_lock: true

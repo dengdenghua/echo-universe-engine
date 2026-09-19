@@ -7,6 +7,7 @@ from typing import Any
 import yaml
 
 from echo_engine.generators import _slugify
+from echo_engine.governance import GovernanceError, list_public_candidates
 from echo_engine.models import CharacterCard
 from echo_engine.journal import (
     JournalEvent,
@@ -48,7 +49,7 @@ def promote_candidate(
     filename: str | None = None,
     refresh_octopus_agents: bool = True,
 ) -> PromotionResult:
-    base = root or Path.cwd()
+    base = (root or Path.cwd()).resolve()
     event = _candidate_event(event_id, root)
     decision = candidate_review_state(root).get(str(event.event_id))
     if decision is None or decision.canon_status != "accepted":
@@ -60,13 +61,22 @@ def promote_candidate(
     if not event.output_path:
         raise PromotionError("candidate has no output_path")
 
-    source = base / event.output_path
+    source = _inside_root(base, event.output_path, label="candidate output")
     if not source.is_file():
         raise PromotionError(f"candidate output not found: {event.output_path}")
 
-    target_root = base / (target_dir or _target_dir_for_mode(event.mode))
+    target_root = _inside_root(
+        base,
+        target_dir or _target_dir_for_mode(event.mode),
+        label="promotion target directory",
+    )
     target_root.mkdir(parents=True, exist_ok=True)
-    target = target_root / (filename or _promotion_filename(event, base))
+    target = _inside_root(
+        target_root,
+        filename or _promotion_filename(event, base),
+        label="promotion target",
+    )
+    _reject_governed_candidate(source, target, base)
     if target.exists():
         raise PromotionError(f"promotion target already exists: {target.relative_to(base)}")
 
@@ -91,6 +101,29 @@ def promote_candidate(
     if refresh_octopus_agents and result.mode == "character":
         _refresh_octopus_agents(root)
     return result
+
+
+def _reject_governed_candidate(source: Path, target: Path, base: Path) -> None:
+    try:
+        candidates = list_public_candidates(base)
+    except GovernanceError as exc:
+        raise PromotionError(f"cannot verify governed canon targets: {exc}") from exc
+    for candidate in candidates:
+        governed_source = _inside_root(base, candidate.source_path, label="governed source")
+        governed_target = _inside_root(base, candidate.target_path, label="governed target")
+        if source == governed_source or target == governed_target:
+            raise PromotionError(
+                "candidate or target is protected by ECHO canon governance; "
+                "use the governed promotion workflow"
+            )
+
+
+def _inside_root(base: Path, relative: str, *, label: str) -> Path:
+    root = base.resolve()
+    candidate = (root / relative).resolve()
+    if candidate == root or root not in candidate.parents:
+        raise PromotionError(f"{label} escapes its allowed root")
+    return candidate
 
 
 def _refresh_octopus_agents(root: Path | None = None) -> None:

@@ -1,0 +1,25 @@
+type: character_image
+character_id: "041"
+character_name: "Sana Velez"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk orbital hospice escrow worker, woman age 46, practical tired authority, low-gravity joint brace sleeves, muted teal-gray hospice utility jacket over off-white work layers, scratched escrow key lanyard with no-copy tags, compact sealed-case receipt tablet, meal-window paper roster clipped to belt, Ceres Transfer Gate C-17 hospice escrow corridor background, restrained expression, worker posture not heroic, full body front view character sheet, high detail ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, glowing aura, angelic ghost imagery, visible secret phrase text, combat armor, hacker streetwear, luxury fashion, villain styling, cyberpunk neon excess, religious iconography, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Sana visually grounded as a Free Orbital hospice escrow worker and
+  receiving-side custody character: utility jacket, escrow key lanyard, no-copy
+  tags, sealed-case receipt tablet, and meal-window roster. Do not show phrase
+  text, adapter location, supernatural effects, heroic combat styling, or
+  luxury grief fashion.

@@ -1,0 +1,85 @@
+# Promoted from ECHO candidate output.
+# source_outputs:
+#   - outputs/lore/20260824-130222-lore-entry-dream-network-civic-claims.md
+#   - outputs/technology/20260824-130222-technology-entry-spill-report-hold-terminal.md
+#   - outputs/faction/20260824-130222-faction-impact-dream-network-civic-claims.md
+#   - outputs/story/20260824-180057-story-beat-the-refund-button-waits.md
+#   - outputs/relationship/20260824-230155-relationship-update-refund-button-waits.md
+# review_output: outputs/consistency/20260825-130115-canon-audit-civic-claims-promotion.md
+# scope: Season 1 Episode 5 civic prelude relationships only.
+Mara_Elian:
+  Leina_Elian: "aunt-as-speaker / privacy protection / delayed-money guilt"
+  Jules_Mbeki: "refund trust under pressure / proof-before-closure dependence"
+  Eve: "consent-language relief / fear of grief becoming public file"
+  Shion: "hash-only proof dependence / distrust of technical summaries"
+  Luna: "personhood-caution respect / do-not-call-it-him boundary"
+  Dream_Network_Civic_Claims: "customer-and-witness split / refund-versus-erasure wound"
+  Memory_Bank: "archive-objection threat / private lullaby commodification fear"
+  CHASER_low_threat_desk: "narrow-notice tolerance / contamination-label fear"
+
+Leina_Elian:
+  Mara_Elian: "sister trust / grief-shield dependence / signature exhaustion"
+  Jules_Mbeki: "conditional procedural trust / money-needed proof-cost"
+  Eve: "private Home Layer boundary trust / handwritten consent anchor"
+  Shion: "family-archive minimization reliance / child-identity exposure fear"
+  Luna: "sealed-door suspicion / possible witness not yet welcome"
+  Memory_Bank: "mother-grief pressure / ownership-language harm"
+  Dream_Network_Civic_Claims: "paid-comfort betrayal / compensation without closure"
+
+Jules_Mbeki:
+  Mara_Elian: "claimant trust / phrase-withheld respect / delayed-refund liability"
+  Leina_Elian: "silent-consent duty / no-full-Home-Layer promise"
+  Supervisor: "procedure conflict / kindness-as-erasure argument"
+  Eve: "consent-scope ally / wording stronger than software"
+  Shion: "packet-sufficiency reliance / no-personhood-proof discipline"
+  Luna: "useful witness delayed / Dream Dive boundary fear"
+  Dream_Network_Civic_Claims: "desk loyalty / purge-rule shame / human-signature risk"
+  Memory_Bank: "archive-objection opponent / settlement erasure suspicion"
+  CHASER_low_threat_desk: "notice-only boundary / broad-transfer refusal"
+
+Eve:
+  Mara_Elian: "consent-boundary witness / family grief minimization promise"
+  Leina_Elian: "handwritten-scope trust / private Home Layer defended"
+  Jules_Mbeki: "procedural ally / over-broad-export correction"
+  Shion: "minimal-packet partner / proof-without-biography alignment"
+  Luna: "entry-restraint counterweight / empathy after scope"
+  Memory_Bank: "ownership-language opponent / archive-claim narrowing"
+  CHASER_low_threat_desk: "low-threat notice constraint / no-family-affect export"
+
+Shion:
+  Mara_Elian: "route-hash proof / emotional-fingerprint limitation"
+  Leina_Elian: "no-child-identification promise / summary distrust accepted"
+  Jules_Mbeki: "technical-sufficiency support / hold-packet validation"
+  Eve: "consent-plus-minimization partner / export-field pruning"
+  Luna: "wake-boundary prerequisite / responsiveness-not-personhood caution"
+  Memory_Bank: "archive-comparison pressure / licensed-texture claim test"
+  CHASER_low_threat_desk: "packet-minimum defense / contamination-escalation brake"
+
+Luna:
+  Mara_Elian: "possible-Ghost empathy checked / naming-boundary respect"
+  Leina_Elian: "outside-door witness / trust not yet earned"
+  Jules_Mbeki: "held-record dependence / entry-risk awareness"
+  Eve: "consent-first restraint / family-before-Dream-Dive discipline"
+  Shion: "technical-boundary reliance / timing-ping ambiguity"
+  disputed_route: "responsive-room concern / no-unsupervised-entry"
+
+Dream_Network_Civic_Claims:
+  Mara_Elian: "refund-eligible claimant / evidence-preservation witness"
+  Leina_Elian: "private-family-grief exposure risk / compensation subject"
+  Jules_Mbeki: "human-signature bottleneck / liability-bearing clerk"
+  Supervisor: "queue-closure pressure / institutional self-protection"
+  Memory_Bank: "archive-objection corridor / settlement pressure"
+  CHASER_low_threat_desk: "notice boundary / contamination-frame risk"
+
+Memory_Bank:
+  Mara_Elian: "licensed-texture challenge / settlement-pressure threat"
+  Leina_Elian: "family-archive ownership wound / child-privacy risk"
+  Jules_Mbeki: "hold-packet adversary / objection-before-printing"
+  Shion: "comparison-demand opponent / source-claim credibility test"
+  Dream_Network_Civic_Claims: "refund-delay leverage / archive-review gate"
+
+CHASER_low_threat_desk:
+  Jules_Mbeki: "narrow-notice recipient / broad-transfer resisted"
+  Eve: "consent-filtered intake / private-affect exclusion"
+  Shion: "hash-level packet reliance / no-containment trigger yet"
+  Dream_Network_Civic_Claims: "safety-notice corridor / not Red Intake Split"

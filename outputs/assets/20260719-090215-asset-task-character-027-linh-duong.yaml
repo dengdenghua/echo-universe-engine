@@ -1,0 +1,33 @@
+type: character_image
+character_id: "027"
+character_name: Linh Duong
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Anime character design, grounded AI soulpunk domestic consent interpreter,
+  Vietnamese woman in her late thirties, calm tired expression, practical
+  charcoal civil-care coat with pale green tribunal tabs, compact wrist consent
+  recorder, slim auditory filter earpieces, soft legal-medical techwear, carrying
+  transparent care-capacity tablet and sealed paper directive envelope, White
+  Harbor eldercare apartment background with Home Core wall node and muted
+  medical interface, no weapons, no magic, no fantasy, full body front view
+  character sheet, high detail industrial concept art.
+negative_prompt: "magic, fantasy, supernatural, angel wings, halos, occult symbols, generic neon punk, superhero armor, glowing sword, monster, cyber demon, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+pipeline:
+  stage: asset_task_generation
+  source_candidate: "outputs/character/20260719-090215-candidate-character-027-linh-duong.md"
+  source_consistency_audit: "outputs/consistency/20260719-090215-canon-audit-linh-duong.md"
+  created_at: "2026-07-19T09:02:15+08:00"
+  promotion_required_before_asset_lock: true

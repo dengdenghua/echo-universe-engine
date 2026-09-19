@@ -21,6 +21,17 @@ Core canon:
 - All powers must come from plausible technology.
 - No magic, no supernatural powers, no multiverse, no time travel.
 
+### Canon governance
+
+Public fiction candidates use two separate signals:
+
+- Community resonance is advisory and only affects editorial priority. One signed device or verified account keeps one current signal.
+- Canon promotion is binding: the current content revision must pass continuity review and receive at least two approvals from the three-seat Canon Promotion Board.
+
+Committee and continuity decisions are tied to a SHA-256 snapshot of both the source content and its governance policy. Editing the candidate, threshold, reviewer roster, or target automatically makes earlier approvals stale. Each reviewer token must carry an explicit `canon_reviewer` role and `reviewer_id`; one authenticated actor cannot occupy multiple seats. Promoted output is hash-checked for deletion or tampering. Governance state is stored in SQLite with an append-only audit table; raw reader identities are never stored.
+
+Reviewers use the separate `/review/` desk with an account-service reviewer token kept in browser session storage. The general `/console/` remains an administrator-only operations surface and is not linked from the public site.
+
 ## Structure
 
 ```text
@@ -37,6 +48,7 @@ agents/           Generation and validation agents
 workflows/        Cron, automation, and pipeline examples
 outputs/          Generated candidate material
 asset_factory/    Future ComfyUI / SDXL / Flux / storyboard adapters
+codex_plugins/    Vendored Codex plugin mirrors for Product Design and Remotion workflows
 echo_engine/      FastAPI app and reusable engine code
 ```
 
@@ -119,6 +131,12 @@ API:
 - `GET /api/health`
 - `GET /api/canon/status`
 - `GET /api/canon/characters`
+- `GET /api/canon/candidates/{candidate_id}/governance`
+- `PUT /api/canon/candidates/{candidate_id}/resonance`
+- `GET /api/canon/governance/candidates` (internal)
+- `POST /api/canon/governance/candidates/{candidate_id}/committee-votes` (internal)
+- `POST /api/canon/governance/candidates/{candidate_id}/continuity-checks` (internal)
+- `POST /api/canon/governance/candidates/{candidate_id}/promotions` (internal)
 - `POST /api/agents/character/run`
 - `POST /api/agents/lore/run`
 - `POST /api/agents/story/run`
@@ -138,6 +156,13 @@ Deployment notes live in `workflows/deployment.md`.
 ## Visual Pipeline
 
 Visual generation is intentionally isolated behind `asset_factory/`.
+
+Creative workflow plugins are mirrored in `codex_plugins/`:
+
+- `product-design` supports UX audits, visual directions, and prototype workflows for ECHO console and future mobile surfaces.
+- `remotion` supports programmatic video, trailers, explainers, captions, audio, and animation workflows.
+
+The project-specific usage contract lives in `workflows/creative_plugins.md`.
 
 The text engine emits tasks like:
 

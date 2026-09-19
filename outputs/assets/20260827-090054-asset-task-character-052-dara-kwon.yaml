@@ -1,0 +1,33 @@
+type: character_image
+character_id: "052"
+character_name: "Dara Kwon"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Full-body anime character sheet for Dara Kwon, grounded AI Soulpunk Dream
+  Network compliance supervisor in the ECHO Universe, Korean woman in her
+  forties, precise charcoal suit, soft cream clinical blouse, transparent route
+  compliance badge strip, blue settlement stylus, calm public smile with tired
+  eyes, route-retention dashboard reflection in glasses, restrained claims floor
+  background, clean front side back views, head closeup, expression sheet
+negative_prompt: >
+  magic, fantasy, supernatural aura, occult dream symbols, angel wings, demon
+  horns, halo, glowing weapon, generic neon punk, oversized armor, combat armor,
+  law enforcement uniform, villain costume, childlike proportions, smiling
+  mascot style, low detail
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  candidate: "outputs/character/20260827-090054-candidate-character-052-dara-kwon.md"
+  audit: "outputs/consistency/20260827-090054-canon-audit-dara-kwon.md"
+  promotion_status: "candidate_only"

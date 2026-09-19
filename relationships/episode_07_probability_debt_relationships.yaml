@@ -1,0 +1,122 @@
+# Promoted from ECHO candidate output.
+# source_outputs:
+#   - outputs/relationship/20260629-230143-relationship-update-probability-debt.md
+#   - outputs/character/20260830-090127-episode-07-probability-debt-character-boundary-sheet.md
+#   - outputs/story/20260830-180058-episode-07-probability-debt-full-treatment.md
+# review_output: outputs/consistency/20260830-230131-canon-audit-episode-07-story-package-promotion.md
+# scope: Season 1 Episode 7 Imari Chen family relation-edge rollback case map.
+# canon_limits:
+#   - Does not erase Imari Chen, prove Ghost personhood, or make relation graph status moral truth.
+#   - Does not repair the family through apology, force, CHASER hold, or Civil Delay Token.
+#   - Keeps Imari Chen, Sofia Marin, and Yao Nian case-scoped unless later canon promotes them.
+Imari_Chen_family:
+  Imari_Chen: "civilian center / denied family authority / relation-edge harm witness"
+  Imari_daughter: "dependent-care stake / school-gate separation / privacy-protected witness"
+  Imari_spouse: "clinic-signature denial / spouse-authority wound / sealed medical privacy"
+  Home_Core: "routine memory still present / resident guest insult / scoped witness source"
+  Household_Relation_Graph: "family authority substrate / rollback wound / not moral truth"
+  Civil_Delay_Token: "twelve-minute custody pause / time without restoration"
+  Memory_Bank: "fast graph repair offer / continuity-backed collateral pressure"
+  White_Ghost_Team: "needed proof and feared exposure / bounded intervention"
+
+Imari_Chen:
+  Imari_daughter: "mother relation remembered / gate denial trauma / supervised handoff need"
+  Imari_spouse: "marriage authority disputed / clinic pressure / family repair urgency"
+  Home_Core: "domestic recognition mismatch / fever-protocol and resident-status denial"
+  Noah: "consequence named / apology rejected / one-percent harm made concrete"
+  Shion: "technical proof dependence / privacy boundary over Home Layer fragments"
+  Sofia_Marin: "delay dependence / operator liability witnessed / no false restoration"
+  Yao_Nian: "repair temptation / collateral refusal pressure / useful predatory help"
+  Eve: "testimony trust / calm-not-consent protection"
+  Zero: "evidence hold dependence / repair delay resentment"
+  Kane: "school-gate restraint / state force kept still"
+
+Imari_daughter:
+  Imari_Chen: "visible family bond / scanner glass separation / unreachable one percent"
+  school_gate: "custody rail pressure / child fear cannot become broad proof packet"
+  Eve: "protected testimony / fear response not exploited"
+  Kane: "physical-line protection / custody escalation delayed"
+
+Imari_spouse:
+  Imari_Chen: "spouse authority failure / clinic signing wound / mutual urgency"
+  clinic_system: "known citizen but disputed spouse / treatment review blocked"
+  Shion: "sealed detail protected / only disputed edge requested"
+  Home_Core: "family routine evidence / medical privacy limit"
+
+Noah:
+  Imari_Chen: "model consequence / apology without repair / name replaces anonymous bucket"
+  Shion: "case-relevance challenge / rollback trace accepted"
+  Zero: "evidence-hold authorization pressure / clean extraction reviewed"
+  Eve: "statistical language corrected by testimony"
+  Yao_Nian: "probability language mirror / repair terms condemned but needed"
+  Episode_06_Social_Ocean_Funeral: "cleanest option moral remainder"
+  Episode_08_identity_law_route: "relation evidence routed forward / accountability unresolved"
+
+Shion:
+  Imari_Chen: "disputed-edge proof / no full Home Layer export"
+  Home_Core: "fragment source / school-clinic-resident-fever-continuity edges"
+  Household_Relation_Graph: "rollback trace / queue timing causality"
+  Noah: "model scope correction / collateral household named"
+  Zero: "identity-evidence threshold / narrow CHASER hold supported"
+  Memory_Bank: "repair offer evidence risk / quiet causality erasure concern"
+
+Sofia_Marin:
+  Imari_Chen: "twelve-minute mercy / honest limit / liability-bearing operator"
+  Civil_Delay_Token: "named signature / one custody action / reviewable delay"
+  White_Harbor: "time-creation authority / cannot restore graph"
+  Zero: "public delay aligned with evidence hold / no command subordination"
+
+Yao_Nian:
+  Imari_Chen: "fast repair offer / continuity collateral pressure / resentment without rescue"
+  Memory_Bank: "delegated repair terms / liability container / useful predation"
+  Noah: "risk-model mirror / moral accounting conflict"
+  Eve: "calm-not-consent record challenges collateral framing"
+  Household_Relation_Graph: "restoration product / ownership of restored path disputed"
+
+Eve:
+  Imari_Chen: "testimony preservation / exhaustion named / consent overread blocked"
+  Imari_daughter: "child privacy protected / fear not converted into proof shortcut"
+  Noah: "statistical harm challenged / apology kept non-resolution"
+  Shion: "minimal-fragment ally / domestic privacy discipline"
+  Yao_Nian: "repair-pressure witness / collateral language exposed"
+
+Zero:
+  Imari_Chen: "narrow evidence hold / protection that prolongs harm"
+  Noah: "successful operation reviewed / accountability kept procedural"
+  Shion: "relation harm as identity evidence / fragment threshold trusted"
+  CHASER: "family containment resisted / proof preservation only"
+  Kane: "field restraint / custody force held below escalation"
+
+Kane:
+  Imari_Chen: "school-gate protection / state presence still frightening"
+  Imari_daughter: "custody-transfer line held / supervised handoff enabled"
+  Zero: "proportional force boundary / no combat solution"
+  school_gate: "public pressure point / escalation delayed under witnesses"
+
+Household_Relation_Graph:
+  Imari_Chen_family: "machine-readable relation authority / rollback harm / not love proof"
+  Home_Core: "continuity-holder and resident-status coupling"
+  school_gate: "guardian relation denial / custody rail escalation"
+  clinic_system: "spouse signing authority denial"
+  transit_system: "family fare failure / civic relation dependency"
+  Memory_Bank: "repair product surface / collateralized continuity risk"
+  CHASER: "evidence substrate / damaged state preserved"
+
+Civil_Delay_Token:
+  Imari_Chen: "custody pause / visible countdown / no repair"
+  Sofia_Marin: "operator liability / signed time creation"
+  White_Harbor: "public mercy constrained by review clock"
+  CHASER: "evidence window overlap / custody action paused only"
+
+Memory_Bank:
+  Imari_Chen_family: "restoration before morning / continuity-backed collateral wound"
+  Yao_Nian: "repair offer representative / useful danger"
+  Household_Relation_Graph: "repair authority / causality-erasure risk"
+  Noah: "predatory-help objection / clean math mirrored by collateral math"
+  White_Harbor: "public delay competitor / fast private repair pressure"
+
+CHASER:
+  Imari_Chen_family: "evidence preservation / family exposure risk / no containment"
+  Zero: "narrow hold authority / threshold discipline"
+  Shion: "fragment proof reliance / raw Home Layer boundary"
+  White_Harbor: "custody rail coordination / public action slowed"

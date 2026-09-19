@@ -1,0 +1,24 @@
+id: asset-scene-apartment-6c-scrub-hold-20260821-180100
+type: key_scene_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/story/20260821-180100-story-beat-the-room-refuses-reset.md
+  - outputs/lore/20260821-130210-lore-entry-dirty-room-hold.md
+  - outputs/character/20260821-090055-candidate-character-046-selene-arif.md
+prompt: "Grounded AI soulpunk key scene in White Harbor municipal apartment corridor, Apartment 6C door half sealed by automated blue sanitation scrub light, paper DIRTY ROOM HOLD receipt taped beside old door tags, sealed inventory bags lined low against the wall, two civic clocks disagreeing on a small corridor console, unresolved Home Core latch indicator glowing inside a dim kitchen, Selene Arif as practical reset supervisor in worn sanitation techwear holding a manual override wedge, White Ghost investigators present as restrained field silhouettes, neighbor door 6B closed with privacy light active, tense bureaucratic evidence-preservation mood, detailed ECHO Universe visual system, cinematic manga composition."
+negative_prompt: "magic, supernatural aura, fantasy spell, glowing sigils, multiverse imagery, time travel effects, monster, gore, horror filth, cyberpunk neon overload, glamorous combat pose, readable private medical record, exposed patient body, opened sealed Home Layer family content, confirmed Ghost portrait, luxury archive display"
+usage:
+  - Apartment 6C municipal reset story beat
+  - Dirty Room Hold first story validation
+  - Selene Arif visual context
+  - White Harbor Civic Reset Service corridor language
+notes: >
+  Keep the scene ordinary and civic rather than heroic. The emotional focus is
+  the room being held long enough to be witnessed: paper receipt, disagreeing
+  clocks, sealed inventory, closed neighbor door, and the scrub cycle starting
+  early. Do not show medical details or private Home Layer content.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true

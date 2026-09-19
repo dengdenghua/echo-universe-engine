@@ -241,6 +241,84 @@ def purchase_product(
     }
 
 
+def fulfill_external_purchase(
+    *,
+    user_id: str,
+    product_id: str,
+    purchase_ref: str,
+    character_id: str | None = None,
+    source: str = "echoai_account",
+    root: Path | None = None,
+) -> dict[str, Any]:
+    """Grant a product already paid through the official EchoAI account ledger.
+
+    The purchase reference is persisted with the grant result, making retries safe after
+    timeouts between the account service and this engine.
+    """
+    clean_user_id = _clean_required(user_id, "user_id")
+    clean_ref = _clean_required(purchase_ref, "purchase_ref")
+    product = get_product(product_id, root)
+    with _STATE_LOCK:
+        state = _load_state(root)
+        existing = state["fulfilled_purchases"].get(clean_ref)
+        if isinstance(existing, dict):
+            if existing.get("user_id") != clean_user_id or existing.get("product_id") != product.id:
+                raise EconomyError("purchase_ref already belongs to another purchase")
+            return {**existing["result"], "duplicate": True}
+
+        grants = product.grants
+        subscription_grant = _mapping_grant(grants.get("ghost_subscription"))
+        character_ref = None
+        if subscription_grant is not None:
+            character_ref = _resolve_character_ref(clean_user_id, character_id, root)
+
+        created_entitlements: list[UserEntitlement] = []
+        for grant in _list_grants(grants.get("entitlements")):
+            created_entitlements.append(
+                _append_entitlement(
+                    state,
+                    user_id=clean_user_id,
+                    entitlement_type=str(grant.get("type", "")).strip(),
+                    ref_id=str(grant.get("ref_id", "")).strip(),
+                    source=f"{source}:{product.id}",
+                    duration_days=_optional_positive_int(grant.get("duration_days")),
+                    metadata={
+                        "product_id": product.id,
+                        "purchase_ref": clean_ref,
+                        **{key: value for key, value in grant.items() if key not in {"type", "ref_id"}},
+                    },
+                )
+            )
+
+        ghost_subscription = None
+        if subscription_grant is not None and character_ref is not None:
+            ghost_subscription = _set_ghost_subscription(
+                state,
+                user_id=clean_user_id,
+                character_id=character_ref["character_id"],
+                agent_id=character_ref["agent_id"],
+                duration_days=_optional_positive_int(subscription_grant.get("duration_days")) or 30,
+                source=f"{source}:{product.id}",
+                metadata={"product_id": product.id, "purchase_ref": clean_ref},
+            )
+
+        result = {
+            "ok": True,
+            "product": product.model_dump(mode="json"),
+            "entitlements": [item.model_dump(mode="json") for item in created_entitlements],
+            "ghost_subscription": ghost_subscription.model_dump(mode="json")
+            if ghost_subscription
+            else None,
+        }
+        state["fulfilled_purchases"][clean_ref] = {
+            "user_id": clean_user_id,
+            "product_id": product.id,
+            "result": result,
+        }
+        _save_state(state, root)
+    return {**result, "duplicate": False}
+
+
 def economy_account_summary(user_id: str, root: Path | None = None) -> EconomyAccountSummary:
     clean_user_id = _clean_required(user_id, "user_id")
     return EconomyAccountSummary(
@@ -282,6 +360,8 @@ def _load_state(root: Path | None = None) -> dict[str, Any]:
             state["entitlements"] = data["entitlements"]
         if isinstance(data.get("ghost_subscriptions"), dict):
             state["ghost_subscriptions"] = data["ghost_subscriptions"]
+        if isinstance(data.get("fulfilled_purchases"), dict):
+            state["fulfilled_purchases"] = data["fulfilled_purchases"]
     return state
 
 
@@ -414,6 +494,7 @@ def _empty_state() -> dict[str, Any]:
         "wallet_ledger": [],
         "entitlements": [],
         "ghost_subscriptions": {},
+        "fulfilled_purchases": {},
     }
 
 

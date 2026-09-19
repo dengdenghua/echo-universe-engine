@@ -1,0 +1,27 @@
+type: character_image
+character_id: "044"
+character_name: "Nina Alvarez"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk domestic eldercare companion, woman age 29, warm tired expression, sand-toned eldercare smock over a soft gray street layer, Home Core companion bracelet with dimmed mirror toggle on the right wrist, folded orbital route chit in the pocket, small Home Layer apartment corridor with a low-glow Memory Sea archive console, full body front view character sheet, high detail ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, glowing aura, memory erasure effects, villain styling, combat armor, hacker streetwear, corporate glamour, cyberpunk neon excess, visible secret phrase text, religious iconography, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Nina visually grounded in a domestic eldercare visual family distinct
+  from the orbital hospice coveralls: warm sand-toned smock, soft gray street
+  layer, dimmed Home Core companion bracelet (mirror toggle), folded orbital
+  route chit in the pocket. Do not show supernatural concealment, glowing
+  effects, phrase text, adapter location, villain styling, or heroic combat
+  styling. The Held Listening Minute is a settings-level withholding, not an
+  ability glow. Memory Sea archive console at low glow only.

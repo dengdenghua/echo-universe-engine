@@ -1,0 +1,24 @@
+type: character_image
+character_id: "033"
+character_name: "Elian Sato"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk digital public librarian Ghost witness, Japanese mixed-race adult woman apparent mid forties, warm tired eyes, short dark hair with one silver streak, charcoal library cardigan, off-white archival blouse, narrow teal shelf-tag accents, translucent caption strips around wrists, quiet rectangular library receipt light near collarbone, White Harbor municipal reading room background with muted school terminal screens, full body front view character sheet, high detail restrained public service concept art, ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, medieval, wizard, occult, spectral glow, halo, angel wings, demon horns, ghost sheet, haunted library, generic neon cyberpunk, tactical gun pose, military armor, glamorous superhero suit, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Elian grounded as a public library and school grief-reading Ghost witness:
+  cardigan, archival blouse, teal shelf-tag accents, caption strips, receipt-light
+  marker, muted reading room and school terminals. No magical haunting, no
+  spectral aura, no weapon pose, no fantasy costume.

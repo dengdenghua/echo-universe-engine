@@ -9,6 +9,7 @@ from datetime import datetime
 from fastapi.testclient import TestClient
 import json
 import os
+import re
 import subprocess
 import sys
 
@@ -225,12 +226,185 @@ def test_auto_commit_disabled_does_nothing():
     auto_commit("test")
 
 
-def test_api_serves_console_and_characters():
+def test_api_serves_public_homepage_local_console_and_characters():
     client = TestClient(app)
-    assert client.get("/").status_code == 200
+    homepage = client.get("/")
+    assert homepage.status_code == 200
+    assert "THE ECHO AGE" in homepage.text
+    assert "ECHO STATION" in homepage.text
+    assert "ECHO STUDIO" in homepage.text
+    assert "/console/" not in homepage.text
+    universe = client.get("/universe/")
+    assert universe.status_code == 200
+    assert "ECHO UNIVERSE" in universe.text
+    assert "ACROSS MEDIA" in universe.text
+    console = client.get("/console/")
+    assert console.status_code == 200
+    assert "ECHO INTERNAL" in console.text
     response = client.get("/api/canon/characters")
     assert response.status_code == 200
     assert len(response.json()) >= 8
+
+
+def test_delivery_includes_public_sites_and_never_falls_back_to_internal_console(
+    tmp_path,
+    monkeypatch,
+):
+    import echo_engine.api as api_module
+
+    dockerfile = (CanonStore().root / "Dockerfile").read_text(encoding="utf-8")
+    assert "COPY data ./data" in dockerfile
+    assert "COPY homepage ./homepage" in dockerfile
+    assert "COPY universe ./universe" in dockerfile
+    assert "COPY review ./review" in dockerfile
+
+    monkeypatch.setattr(api_module, "homepage_dir", tmp_path / "missing-homepage")
+    assert api_module.homepage_index() == {
+        "service": "echo-universe-engine",
+        "homepage": "not installed",
+    }
+
+
+def test_reviewer_portal_is_separate_and_requires_a_reviewer_token():
+    root = CanonStore().root
+    html = (root / "review" / "index.html").read_text(encoding="utf-8")
+    javascript = (root / "review" / "app.js").read_text(encoding="utf-8")
+    assert 'name="robots" content="noindex,nofollow"' in html
+    assert 'id="reviewer-token"' in html
+    assert "echo.reviewer.token" in javascript
+    assert "/api/canon/governance/candidates" in javascript
+    assert "expected_revision_sha256" in javascript
+
+
+def test_homepage_exposes_bilingual_locale_controls():
+    root = CanonStore().root
+    html = (root / "homepage" / "index.html").read_text(encoding="utf-8")
+    javascript = (root / "homepage" / "app.js").read_text(encoding="utf-8")
+    styles = (root / "homepage" / "styles.css").read_text(encoding="utf-8")
+    assert 'data-locale="zh"' in html
+    assert 'data-locale="en"' in html
+    assert 'hreflang="zh-CN"' in html
+    assert 'hreflang="en"' in html
+    assert "localeMetadata" in javascript
+    assert 'localStorage.setItem("echo.locale"' in javascript
+    for product in (
+        "ECHO OS",
+        "ECHO STATION",
+        "ECHO MEMORY",
+        "ECHO HOME",
+        "ECHO STUDIO",
+        "ECHO UNIVERSE",
+    ):
+        assert product in html
+    assert html.count('class="product-card system-card') == 6
+    assert "<h3>ECHO CORE</h3>" not in html
+    assert "<h3>ECHO MOBILE</h3>" not in html
+    assert "<h3>ECHO WORKSPACE</h3>" not in html
+    assert "<h3>ECHO VAULT</h3>" not in html
+    assert "ECHO HEALTH" in html
+    assert "THE ECHO AGE" in html
+    assert "MEMORY SEA" in html
+    assert "echo-age-logo.svg" in html
+    assert "action-flow" in html
+    assert 'id="cosmos-field"' in html
+    assert 'id="hero-motion"' in html
+    assert 'id="memory-motion"' in html
+    assert '<button class="play-button" id="motion-toggle"' in html
+    assert "universe-section" in html
+    assert '<a href="/universe/" data-i18n="navUniverse">' in html
+    assert "status-concept" in html
+    assert "/console/" not in html
+    assert "will-reveal" not in javascript
+    assert "will-reveal" not in styles
+    assert "reducedMotionQuery" in javascript
+    assert "strokeEchoArc" in javascript
+    assert "echoGapHalfAngle" in javascript
+    assert "is-flowing" in javascript
+    assert 'motionToggle?.addEventListener("click"' in javascript
+    assert "prefers-reduced-motion" in styles
+    for key in set(re.findall(r'data-i18n(?:-html|-aria)?="([^"]+)"', html)):
+        assert len(re.findall(rf"(?m)^\s*{re.escape(key)}:", javascript)) == 2, key
+    assert "roadmapNowBody" in html
+    assert "Station" in html
+
+
+def test_universe_page_exposes_canon_media_and_bilingual_controls():
+    root = CanonStore().root
+    html = (root / "universe" / "index.html").read_text(encoding="utf-8")
+    javascript = (root / "universe" / "app.js").read_text(encoding="utf-8")
+    styles = (root / "universe" / "styles.css").read_text(encoding="utf-8")
+    assert 'data-locale="zh"' in html
+    assert 'data-locale="en"' in html
+    assert "Ghost Awakening" in html
+    assert "WORLD ATLAS" in html
+    assert "ACROSS MEDIA" in html
+    assert 'data-media="story"' in html
+    assert 'data-media="novel"' in html
+    assert 'data-media="community"' in html
+    assert 'data-media="comic"' in html
+    assert 'data-media="motion"' in html
+    assert 'data-media="screen"' in html
+    assert "CANON PROTOCOL" in html
+    assert "/console/" not in html
+    assert "atlasData" in javascript
+    assert "mediaData" in javascript
+    assert 'production: "IN DEVELOPMENT"' in javascript
+    assert 'meta[property="og:locale"]' in javascript
+    assert "echo.universe.spoilers" in javascript
+    assert "prefers-reduced-motion" in styles
+
+
+def test_novel_serial_exposes_candidate_preview_reader_and_local_preferences():
+    root = CanonStore().root
+    catalog = (root / "universe" / "novel" / "index.html").read_text(encoding="utf-8")
+    catalog_js = (root / "universe" / "novel" / "app.js").read_text(encoding="utf-8")
+    reader = (root / "universe" / "novel" / "stranger-memory" / "index.html").read_text(encoding="utf-8")
+    reader_js = (root / "universe" / "novel" / "stranger-memory" / "reader.js").read_text(encoding="utf-8")
+    preview = (root / "universe" / "novel" / "content" / "stranger-memory.zh.md").read_text(encoding="utf-8")
+    styles = (root / "universe" / "novel" / "styles.css").read_text(encoding="utf-8")
+
+    assert "SERIAL FICTION · CANDIDATE PREVIEW" in catalog
+    assert "CANDIDATE ≠ CANON" in catalog
+    assert "/universe/novel/stranger-memory/" in catalog
+    assert 'data-locale="zh"' in catalog
+    assert 'data-locale="en"' in catalog
+    assert "echo.novel.following" in catalog_js
+    assert "echo.novel.stranger-memory.progress" in catalog_js
+    assert "CANDIDATE PREVIEW" in reader
+    assert 'id="font-down"' in reader
+    assert 'id="theme-toggle"' in reader
+    assert "stranger-memory.zh.md" in reader_js
+    assert "echo.novel.reader.size" in reader_js
+    assert "echo.novel.reader.theme" in reader_js
+    assert 'id="governance-protocol"' in catalog
+    assert 'data-resonance-choice="support"' in catalog
+    assert 'data-resonance-choice="revise"' in catalog
+    assert "正典委员会" in catalog
+    assert 'id="committee-step-status"' in catalog
+    assert "committee.threshold" in catalog_js
+    assert "/api/canon/candidates/stranger-memory/governance" in catalog_js
+    assert "/api/canon/candidates/stranger-memory/resonance" in catalog_js
+    assert "resonanceBoundary" in catalog_js
+    illustration_names = [
+        "illustration-white-harbor-agnes-v1.png",
+        "illustration-l7-collapse-agnes-v1.png",
+        "illustration-stranger-hands-agnes-v1.png",
+    ]
+    for illustration_name in illustration_names:
+        illustration = root / "universe" / "novel" / "assets" / illustration_name
+        illustration_bytes = illustration.read_bytes()
+        assert illustration_name in reader_js
+        assert illustration_bytes.startswith(b"\x89PNG\r\n\x1a\n")
+        assert len(illustration_bytes) >= 100_000
+        assert int.from_bytes(illustration_bytes[16:20], "big") >= 1200
+        assert int.from_bytes(illustration_bytes[20:24], "big") >= 800
+    assert "白港不是被闹钟叫醒的" in preview
+    assert "她哭是因为她不知道怎么停止当一个外科医生" in preview
+    assert "Notes For Review" not in preview
+    assert "Project E-01" not in preview
+    assert "reader-site[data-theme=\"paper\"]" in styles
+    assert "chapter-illustration" in styles
+    assert "prefers-reduced-motion" in styles
 
 
 def test_api_serves_journal_events():
@@ -356,6 +530,48 @@ def test_console_keeps_octopus_runtime_hidden_by_default():
     assert 'data-window="octopus"' in html
     assert "runtime-only" in html
     assert 'get("runtime") === "1"' in js
+
+
+def test_console_exposes_bilingual_locale_controls():
+    root = CanonStore().root
+    html = (root / "console" / "index.html").read_text(encoding="utf-8")
+    app_js = (root / "console" / "app.js").read_text(encoding="utf-8")
+    i18n_js = (root / "console" / "i18n.js").read_text(encoding="utf-8")
+    assert 'data-locale="zh"' in html
+    assert 'data-locale="en"' in html
+    assert "/console/i18n.js" in html
+    assert "EchoI18n" in app_js
+    assert 'localStorage.setItem("echo.locale"' in i18n_js
+    assert 'hour12: locale !== "zh"' in i18n_js
+
+
+def test_console_uses_single_window_navigation_without_overlap():
+    root = CanonStore().root
+    html = (root / "console" / "index.html").read_text(encoding="utf-8")
+    app_js = (root / "console" / "app.js").read_text(encoding="utf-8")
+    styles = (root / "console" / "styles.css").read_text(encoding="utf-8")
+    assert 'window world-window active' in html
+    for name in ("characters", "factory", "assets", "memory", "octopus"):
+        assert f'window {name}-window active' not in html
+    assert 'item.classList.remove("active", "focused")' in app_js
+    assert "installDrag" not in app_js
+    assert html.count('class="window-close"') == 6
+    assert "function closeWindow(panel)" in app_js
+    assert "installWindowControls();" in app_js
+    assert ".memory-window.active" in styles
+
+
+def test_console_exposes_internal_canon_governance_controls():
+    root = CanonStore().root
+    app_js = (root / "console" / "app.js").read_text(encoding="utf-8")
+    i18n_js = (root / "console" / "i18n.js").read_text(encoding="utf-8")
+    styles = (root / "console" / "styles.css").read_text(encoding="utf-8")
+    assert "/api/canon/governance/candidates" in app_js
+    assert "committee-votes" in app_js
+    assert "continuity-checks" in app_js
+    assert "promoteGovernanceCandidate" in app_js
+    assert "canonGovernance" in i18n_js
+    assert ".governance-card" in styles
 
 
 def test_console_exposes_candidate_review_controls():

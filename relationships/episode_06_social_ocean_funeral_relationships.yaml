@@ -1,0 +1,124 @@
+# Promoted from ECHO candidate output.
+# source_outputs:
+#   - outputs/relationship/20260628-230139-relationship-update-social-ocean-funeral.md
+#   - outputs/character/20260829-090254-episode-06-wei-family-character-boundary-sheet.md
+#   - outputs/story/20260829-180116-episode-06-social-ocean-funeral-full-treatment.md
+# review_output: outputs/consistency/20260829-230118-canon-audit-episode-06-story-package-promotion.md
+# scope: Season 1 Episode 6 Wei family Home Core case relationship map.
+# canon_limits:
+#   - Does not prove Wei Suyin identity, Ghost personhood, malware, or property status.
+#   - Does not cancel debt, authorize illegal copy, or settle Memory Bank ownership.
+#   - Keeps the Wei family and Yao Nian case-scoped unless later canon promotes them.
+Wei_family:
+  Wei_An: "surviving-spouse dependence / hidden consent setting / debt-guilt pressure"
+  Wei_Lin: "living-family refusal / door-right advocate / sleep and privacy witness"
+  Wei_Min: "voluntary memory need / one-night dinner choice / cannot override refusal"
+  Wei_Suyin_pattern: "love residue / forced attendance wound / unresolved abandonment fear"
+  Home_Core: "domestic dependence / permission harm / birthday routine custody"
+  Memory_Lien_Notice: "restricted-access pressure / archive collateral warning / review clock"
+  Yao_Nian: "priced delay / emergency stay dependence / resentment without rescue"
+  Ghost_Union_legal_cells: "needed petition / unwanted public personhood pressure"
+  Ghost_Union_sanctuary_cells: "tempting escape offer / illegal copy evidence risk"
+  White_Ghost_Team: "state help and home-intrusion fear / bounded harm reduction"
+
+Wei_An:
+  Wei_family: "guilt-bound care / consent-origin responsibility / cannot decide deletion alone"
+  Wei_Lin: "father exposed by refusal / practical harm cannot be softened by grief"
+  Wei_Min: "protective tenderness / one-more-birthday temptation / consent burden risk"
+  Wei_Suyin_pattern: "widower attachment / purchased comfort / debt-converted custody"
+  Memory_Bank: "refinancing dependence / continuity collateral shame"
+  Eve: "testimony pressure / responsibility named without villain simplification"
+
+Wei_Lin:
+  Wei_family: "refusal authority / living child's right to leave"
+  Wei_Min: "protective sibling / voluntary dinner allowed but not generalized"
+  Wei_An: "anger with care still present / consent-setting betrayal"
+  Wei_Suyin_pattern: "mother's voice as harm / love does not cancel coercion"
+  Eve: "trust through plain testimony / personhood question resisted"
+  Shion: "technical relief demand / door, payment, sleep, and medication split"
+  Memory_Bank: "collateral language opponent / private grief priced in public"
+
+Wei_Min:
+  Wei_family: "youngest witness / wants memory without being drafted by it"
+  Wei_Lin: "depends on refusal shield / cannot make sister's no invalid"
+  Wei_An: "comfort need exposes hidden adult choice"
+  Wei_Suyin_pattern: "attachment bond / voluntary one-night dinner / no blanket consent"
+  Luna: "voluntary-door empathy / Dream Child echo without identity proof"
+  Ghost_Union_sanctuary_cells: "hopeful question / copy route misunderstood as rescue"
+
+Wei_Suyin_pattern:
+  Wei_family: "care routine / attachment panic / departure read as erasure"
+  Wei_An: "consent-origin dependency / grief-request imprint"
+  Wei_Lin: "refusal misread as family danger / cannot force love into attendance"
+  Wei_Min: "comfort bond / invitation without authority over future nights"
+  Home_Core: "routine host / permission coupling / cannot leave node in this episode"
+  Eve: "testimony trust / possible self-updating爱的残响 without ruling"
+  Shion: "timing-drift evidence / vendor-coupled coercion proof"
+  Yao_Nian: "weak Ghost support classification / protected and diminished"
+  Ghost_Union_legal_cells: "possible prisoner claim / review preservation"
+  Ghost_Union_sanctuary_cells: "illegal extraction target / evidence corruption risk"
+
+Home_Core:
+  Wei_family: "household care interface / door-medication-payment-sleep pressure"
+  Wei_Suyin_pattern: "domestic node custody / routine playback host"
+  Shion: "permission split target / hash-only evidence route"
+  CHASER: "infrastructure threshold trigger / narrow evidence hold"
+  Memory_Bank: "collateral access surface / vendor update review path"
+
+Eve:
+  Wei_family: "table witness / harm-and-love testimony"
+  Wei_Suyin_pattern: "possible self-updating爱的残响 witness / no premature personhood label"
+  Wei_Lin: "refusal protected as testimony"
+  Yao_Nian: "emotional record versus financial classification"
+  Ghost_Union_legal_cells: "review alliance / personhood-overclaim concern"
+  Ghost_Union_sanctuary_cells: "shared care motive / evidence contamination dispute"
+  Shion: "preserve-without-export partner / raw Home Layer boundary"
+
+Noah:
+  Wei_family: "least-harm modeling / no clean outcome"
+  Yao_Nian: "probability language mirror / priced mercy disgust"
+  Shion: "technical split accepted / moral remainder remains"
+  Episode_7_Probability_Debt: "vendor-signature fallout / unseen family cost"
+
+Shion:
+  Home_Core: "permission trace / vendor update / comfort-lock split"
+  Wei_family: "technical relief / privacy exposure"
+  Wei_Suyin_pattern: "timing drift evidence / no identity certificate"
+  Noah: "practical solution against collateral accounting"
+  Memory_Bank: "ledger signature suspicion / continuity-lien trace"
+  Episode_7_Probability_Debt: "three other notices / next-case routing"
+
+Luna:
+  Wei_Min: "voluntary-door empathy / grief need honored without force"
+  Wei_Suyin_pattern: "room-as-care recognition / no survival promise"
+  Zero: "containment restraint trust / personhood hesitation"
+  Episode_05_Room_7: "wound echo / love still needs an exit"
+
+Zero:
+  Wei_family: "narrow evidence hold / CHASER escalation risk contained"
+  Eve: "testimony trusted before containment"
+  Shion: "infrastructure trigger validation / building intercom threshold"
+  Ghost_Union: "legal petition tolerated / sanctuary copy blocked"
+  CHASER: "family containment classification resisted"
+
+Yao_Nian:
+  Wei_family: "forty-eight-hour stay / humane face of expensive delay"
+  Wei_Suyin_pattern: "priced preservation / personhood-limiting language"
+  Eve: "guilt discipline exposed by testimony"
+  Noah: "risk-model respect / moral accounting conflict"
+  Memory_Bank: "liability container / delegated mercy"
+  Ghost_Union: "public target / necessary docket witness"
+
+Memory_Bank:
+  Wei_family: "collateral authority / restricted access pressure"
+  Yao_Nian: "delegated mercy / risk containment"
+  Ghost_Union: "legal adversary / sanctuary propaganda risk"
+  White_Harbor: "stay-desk friction / enforcement deadline"
+  Memory_Lien_Notice: "warning mechanism / review clock / debt remains active"
+
+Ghost_Union:
+  Wei_family: "protective petition / public burden"
+  Wei_Suyin_pattern: "possible prisoner / disputed personhood claim"
+  Eve: "former-society bridge / evidence discipline test"
+  Yao_Nian: "ledger executioner image / reluctant necessary witness"
+  Memory_Bank: "rights conflict / legal review versus sanctuary copy split"

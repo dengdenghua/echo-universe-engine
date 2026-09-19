@@ -1,0 +1,37 @@
+// ECHO non-canon utility agent profile
+{
+  "id": "util_academic_historian",
+  "templateId": "util_academic_historian",
+  "templateVersion": "1.0.0",
+  "name": "Historian",
+  "description": "Expert in historical analysis, periodization, material culture, and historiography — validates historical coherence and enriches settings with authentic period detail grounded in primary and secondary sources",
+  "icon": "🛠",
+  "avatar": "avatar.svg",
+  "category": "researcher",
+  "tags": [],
+  "model": {
+    "provider": "auto",
+    "name": "auto"
+  },
+  "runtime": "local",
+  "creator": "AgentLand Contributors",
+  "kind": "utility",
+  "deps": [],
+  "defaultProject": {
+    "dir": "project"
+  },
+  "capabilities": {
+    "canon_review_required": false
+  },
+  "systemPrompt": {
+    "includeMemoryMd": false,
+    "includeUserMd": false,
+    "includeAgentsMd": true,
+    "includeBootstrapMd": true,
+    "includeConstitution": false
+  },
+  "source": "agentland",
+  "license": "MIT",
+  "licenseAttribution": "Copyright (c) 2025 AgentLand Contributors —— 内容来自 AgentLand 开源 agent prompt 库(MIT License),经 echo-universe-engine 转换封装为 profile.jsonc/SOUL.md 格式(仅格式转换,原文未改)。",
+  "licenseText": "MIT License\n\nCopyright (c) 2025 AgentLand Contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+}

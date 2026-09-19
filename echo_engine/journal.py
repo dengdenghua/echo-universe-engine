@@ -106,7 +106,12 @@ def candidate_queue(root: Path | None = None, limit: int | None = None) -> list[
                 "latest_decision": decision.model_dump(mode="json") if decision else None,
                 "promotion": promotion.model_dump(mode="json") if promotion else None,
                 "status": status,
-                "can_promote": bool(decision and decision.canon_status == "accepted" and not promotion),
+                "can_promote": bool(
+                    event.event_type == "candidate_output"
+                    and decision
+                    and decision.canon_status == "accepted"
+                    and not promotion
+                ),
             }
         )
     return rows

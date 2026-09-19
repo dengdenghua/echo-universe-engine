@@ -1,0 +1,25 @@
+id: asset-scene-veterans-benefits-hall-ten-seconds-20260822-180024
+type: key_scene_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/story/20260822-180024-episode-04-ten-seconds-treatment-pass.md
+  - outputs/story/20260626-180234-story-beat-ten-seconds.md
+  - outputs/character/20260628-090358-candidate-character-013-tomas-vale.md
+prompt: "Grounded AI soulpunk veterans benefits hall in White Harbor, soft civic lighting, low white ceiling, framed service badges behind glass, quiet chairs, paper cup spilled on polished floor, care-status renewal desk with clean vendor seal, Home Core subsidy countdown as restrained retinal-overlay motif, sealed hearing chamber doors whitening under impact alarms, Tomas Vale as disabled veteran in worn civilian coat and subtle service prosthetic brace, Kane holding a nonlethal containment stance with injured shoulder tension, Shion diagnostic light on rehabilitation patch metadata, Eve speaking through hall speakers, Leon watching structural failure points, restrained cinematic manga composition, bureaucratic care system turning hostile, ECHO Universe visual system."
+negative_prompt: "magic, supernatural possession aura, fantasy spell effects, glowing sigils, multiverse imagery, time travel effects, monster transformation, gore, military battlefield flashback dominating scene, heroic team lineup, generic neon cyberpunk overload, readable private medical records, Project E-01 label, Omega symbols, God Fragment iconography, luxury hospital design"
+usage:
+  - Season 1 Episode 4 Ten Seconds benefits hall key scene
+  - Tomas Vale care-status renewal opening
+  - Kane Combat Download cost visual reference
+  - procedural occupation through care infrastructure visual language
+notes: >
+  The hall should feel publicly gentle and structurally coercive. The emotional
+  focus is the contrast between civic gratitude, a Home Core subsidy timer, and
+  a body moving without consent. Keep the White Ghost members functional and
+  restrained rather than posed as a full heroic team.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true
+

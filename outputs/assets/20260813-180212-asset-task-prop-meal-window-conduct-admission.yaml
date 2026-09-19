@@ -1,0 +1,24 @@
+id: asset-prop-meal-window-conduct-admission-20260813-180212
+type: prop_ui_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/story/20260813-180212-story-beat-the-meal-window-fails-review.md
+  - outputs/lore/20260813-130215-lore-entry-reserve-sufficiency-hearing.md
+  - outputs/technology/20260813-130215-technology-entry-care-reserve-sufficiency-packet.md
+prompt: "Grounded AI soulpunk orbital hospice prop, route insurer meal-window conduct admission form beside a reserve sufficiency hearing board, sealed Home Core afterword case visible in background with green no-copy custody band, paper meal roster clipped to worker sleeve, UI fields showing unpaid hold minutes counted in capacity but excluded from coverage, amber anti-starvation margin, worker bond exposure, CHASER physical-chain-only stamp, Memory Bank upstream cost displacement note, muted teal-gray civic interface, ledger green reserve bars, worn practical counter, underfunded care mood, no private phrase text visible."
+negative_prompt: "magic, supernatural aura, religious shrine, fantasy court, multiverse imagery, time travel effects, heroic command bridge, luxury tribunal, generic neon cyberpunk overload, readable private phrase text, exposed Home Layer family rooms, visible adapter location, confirmed Ghost portrait"
+usage:
+  - Season 1 Reserve Sufficiency Hearing scene prop
+  - Sana Velez conduct review closeup
+  - Nara Marr sealed afterword privacy consequence
+  - Route insurer pressure visual language reference
+notes: >
+  The prop should make the double-count conflict visible: the same unpaid
+  meal-window minutes are counted as care capacity and denied as covered labor.
+  Keep the sealed afterword present but unopened, with the emotional focus on
+  worker bond exposure and Nara's refusal staying intact.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true

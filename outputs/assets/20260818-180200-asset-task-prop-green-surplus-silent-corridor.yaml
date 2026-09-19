@@ -1,0 +1,26 @@
+id: asset-prop-green-surplus-silent-corridor-20260818-180200
+type: prop_scene_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/story/20260818-180200-story-beat-the-kindness-log-goes-quiet.md
+  - outputs/lore/20260818-130212-lore-entry-quiet-log-negative-double-count.md
+  - outputs/technology/20260818-130212-technology-entry-quiet-log-work-log-withholding.md
+  - outputs/character/20260818-090039-candidate-character-043-ama-osei.md
+prompt: "Grounded AI soulpunk orbital hospice corridor scene, seven patient rooms with soft warm door lights, a route model screen glowing green with a capacity surplus readout, dimmed Home Core work-log bracelets on a side counter, Ama Osei sitting in corridor 7 holding a patient's hand with her own bracelet on silent, folded paper shift chit at her collar, Shion's two-layer data projection on the wall showing presence record vs zero unpaid minutes recorded, the green surplus number pulsing gently while a patient's laugh echoes unrecorded, worn teal hospice route coveralls, soft gray corridor metal, no visible faces on patients, restrained practical orbital interior, no dramatic lighting, high detail ECHO Universe visual system."
+negative_prompt: "magic, supernatural aura, fantasy hospital, holy relic, multiverse imagery, time travel effects, heroic combat pose, luxury command bridge, generic neon cyberpunk overload, readable sealed phrase text, opened Home Layer family rooms, visible adapter location, confirmed Ghost portrait, villain glamour, visible patient faces, dramatic backlighting, glowing eyes"
+usage:
+  - Ama Osei case-character episode scene
+  - Quiet Log negative double-count visual reference
+  - Season 1 orbital civic route mid-act escalation scene
+  - Green surplus / silent corridor visual language reference
+notes: >
+  The scene should make the structural contradiction legible: the green
+  surplus light says everything is fine, but the silence of the work log says
+  workers are hiding care to survive. Keep the sealed afterword present only
+  as one room with a green no-copy band indicator. The green light should
+  read as bureaucratic false comfort, not supernatural threat.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true

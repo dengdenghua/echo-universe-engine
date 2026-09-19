@@ -50,7 +50,7 @@ button {
   inset: 0 0 auto 0;
   height: 42px;
   display: grid;
-  grid-template-columns: 220px 1fr 120px;
+  grid-template-columns: 220px 1fr auto;
   align-items: center;
   gap: 14px;
   padding: 0 16px;
@@ -60,10 +60,44 @@ button {
 }
 
 .system-brand,
-.system-center {
+.system-center,
+.system-actions {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.system-actions {
+  justify-self: end;
+}
+
+.locale-switch {
+  display: flex;
+  padding: 2px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.locale-switch button {
+  min-width: 36px;
+  height: 24px;
+  padding: 0 7px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.locale-switch button.active {
+  background: rgba(103, 221, 236, 0.14);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px rgba(103, 221, 236, 0.35);
+}
+
+.locale-switch button:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 1px;
 }
 
 .system-brand {
@@ -140,24 +174,29 @@ button {
   display: none;
 }
 
-.show-runtime .runtime-only {
-  display: block;
-}
-
 .show-runtime .dock .runtime-only {
   display: grid;
 }
 
+.show-runtime .window.runtime-only.active {
+  display: flex;
+}
+
 .desktop {
-  position: relative;
-  min-height: 100vh;
-  padding: 58px 24px 24px 82px;
+  position: fixed;
+  inset: 42px 0 0;
+  min-height: 0;
+  padding: 14px 24px 20px 88px;
 }
 
 .window {
-  position: absolute;
+  position: relative;
   display: none;
-  min-width: 300px;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
   border: 1px solid var(--line);
   background: var(--glass);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
@@ -166,7 +205,7 @@ button {
 }
 
 .window.active {
-  display: block;
+  display: flex;
 }
 
 .window.focused {
@@ -174,49 +213,31 @@ button {
 }
 
 .world-window {
-  left: 96px;
-  top: 70px;
-  width: min(860px, calc(100vw - 130px));
+  width: 100%;
 }
 
 .characters-window {
-  right: 30px;
-  top: 92px;
-  width: 430px;
-  max-width: calc(100vw - 120px);
-  max-height: calc(100vh - 124px);
+  width: 100%;
 }
 
 .factory-window {
-  left: 116px;
-  bottom: 28px;
-  width: 680px;
-  max-width: calc(100vw - 150px);
+  width: 100%;
 }
 
 .assets-window {
-  right: 34px;
-  top: 56px;
-  width: 760px;
-  max-width: calc(100vw - 130px);
-  max-height: calc(100vh - 96px);
+  width: 100%;
 }
 
 .memory-window {
-  right: 46px;
-  bottom: 44px;
-  width: 390px;
-  max-width: calc(100vw - 120px);
+  width: 100%;
 }
 
 .octopus-window {
-  left: 148px;
-  top: 120px;
-  width: 760px;
-  max-width: calc(100vw - 180px);
+  width: 100%;
 }
 
 .titlebar {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -225,8 +246,11 @@ button {
   padding: 12px 14px;
   border-bottom: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.035);
-  cursor: move;
   user-select: none;
+}
+
+.titlebar > div:first-child {
+  min-width: 0;
 }
 
 .titlebar h1,
@@ -261,16 +285,31 @@ button {
   padding: 0 12px;
 }
 
+.window-actions .window-close {
+  min-width: 32px;
+  padding: 0;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.window-actions .window-close:hover {
+  border-color: rgba(241, 141, 184, 0.72);
+  background: rgba(241, 141, 184, 0.12);
+}
+
 .window-actions button:hover,
 .forge-command:hover {
   border-color: var(--line-hot);
 }
 
 .world-body {
+  flex: 1 1 auto;
+  min-height: 0;
   display: grid;
-  grid-template-columns: minmax(260px, 360px) 1fr;
+  grid-template-columns: minmax(260px, 0.85fr) minmax(320px, 1.15fr);
   gap: 18px;
   padding: 18px;
+  overflow: auto;
 }
 
 .neural-core {
@@ -348,6 +387,7 @@ button {
 }
 
 .law-strip {
+  flex: 0 0 auto;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -364,10 +404,14 @@ button {
 }
 
 .agent-grid {
+  flex: 1 1 auto;
+  min-height: 0;
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  align-content: start;
   gap: 10px;
   padding: 12px;
-  max-height: calc(100vh - 196px);
+  max-height: none;
   overflow: auto;
 }
 
@@ -395,10 +439,12 @@ button {
 }
 
 .agent-tile p {
+  min-width: 0;
   color: #c8d4d8;
   line-height: 1.45;
   margin: 10px 0;
   font-size: 13px;
+  overflow-wrap: anywhere;
 }
 
 .agent-tags {
@@ -408,11 +454,14 @@ button {
 }
 
 .asset-grid {
+  flex: 1 1 auto;
+  min-height: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  align-content: start;
   gap: 10px;
   padding: 12px;
-  max-height: calc(100vh - 170px);
+  max-height: none;
   overflow: auto;
 }
 
@@ -440,6 +489,7 @@ button {
 }
 
 .asset-info {
+  min-width: 0;
   display: grid;
   gap: 7px;
   padding: 10px;
@@ -459,7 +509,9 @@ button {
 }
 
 .asset-title strong {
+  min-width: 0;
   font-size: 14px;
+  overflow-wrap: anywhere;
 }
 
 .asset-info p {
@@ -518,9 +570,11 @@ button {
 }
 
 pre {
+  flex: 1 1 auto;
+  min-height: 0;
   margin: 0;
   padding: 14px;
-  max-height: 320px;
+  max-height: none;
   overflow: auto;
   white-space: pre-wrap;
   word-break: break-word;
@@ -529,19 +583,31 @@ pre {
   font-size: 13px;
 }
 
-.stream {
+.memory-window.active {
   display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.memory-window .titlebar {
+  grid-column: 1 / -1;
+}
+
+.stream {
+  min-height: 0;
+  display: grid;
+  align-content: start;
   gap: 10px;
   margin: 0;
   padding: 12px;
   list-style: none;
-  max-height: 390px;
+  max-height: none;
   overflow: auto;
 }
 
 .stream li {
   display: grid;
-  grid-template-columns: 70px 1fr;
+  grid-template-columns: 70px minmax(0, 1fr);
   gap: 10px;
   border: 1px solid var(--line);
   padding: 10px;
@@ -554,9 +620,11 @@ pre {
 }
 
 .stream span {
+  min-width: 0;
   color: #cbd7da;
   line-height: 1.4;
   font-size: 13px;
+  overflow-wrap: anywhere;
 }
 
 .stream-name strong {
@@ -564,11 +632,14 @@ pre {
 }
 
 .candidate-grid {
+  min-height: 0;
   display: grid;
+  align-content: start;
   gap: 10px;
-  padding: 0 12px 12px;
-  max-height: 360px;
+  padding: 12px;
+  max-height: none;
   overflow: auto;
+  border-left: 1px solid var(--line);
 }
 
 .candidate-card,
@@ -641,6 +712,43 @@ pre {
   opacity: 0.42;
 }
 
+.governance-card {
+  border-color: rgba(143, 117, 222, 0.34);
+  background:
+    radial-gradient(circle at 100% 0, rgba(113, 84, 190, 0.15), transparent 42%),
+    rgba(255, 255, 255, 0.045);
+}
+
+.governance-meta span {
+  padding: 4px 6px;
+  border: 1px solid rgba(118, 212, 223, 0.16);
+  font-size: 11px;
+}
+
+.reviewer-select {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.reviewer-select select {
+  min-width: 0;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: #dce8ea;
+  background: #10181b;
+  font: inherit;
+}
+
+.governance-actions button:nth-last-child(1) {
+  border-color: rgba(121, 203, 168, 0.3);
+}
+
 .empty-state {
   color: var(--muted);
   padding: 12px;
@@ -648,24 +756,44 @@ pre {
 }
 
 @media (max-width: 960px) {
+  html,
   body {
-    overflow: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .os-shell {
+    min-height: 100dvh;
   }
 
   .system-bar {
-    grid-template-columns: 1fr;
+    position: sticky;
+    inset: auto;
+    top: 0;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand actions"
+      "center center";
     height: auto;
     gap: 8px;
     padding: 10px;
   }
 
+  .system-brand {
+    grid-area: brand;
+    min-width: 0;
+  }
+
   .system-center {
+    grid-area: center;
     justify-content: flex-start;
     flex-wrap: wrap;
   }
 
-  #system-clock {
-    justify-self: start;
+  .system-actions {
+    grid-area: actions;
+    justify-self: end;
   }
 
   .dock {
@@ -675,11 +803,24 @@ pre {
     right: 8px;
     bottom: 8px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    max-width: calc(100vw - 16px);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .dock::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dock-item {
+    flex: 0 0 auto;
   }
 
   .desktop {
-    padding: 130px 10px 82px;
+    position: static;
+    min-height: 0;
+    padding: 12px 10px 82px;
   }
 
   .window,
@@ -689,16 +830,106 @@ pre {
   .assets-window,
   .memory-window,
   .octopus-window {
-    position: static;
-    width: auto;
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
     max-width: none;
-    margin-bottom: 12px;
+    max-height: none;
+    margin: 0;
+    overflow: visible;
+  }
+
+  .memory-window.active {
+    display: flex;
+  }
+
+  .titlebar {
+    flex-wrap: wrap;
+  }
+
+  .world-body {
+    flex: 0 0 auto;
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .agent-grid,
+  .asset-grid,
+  .stream,
+  .candidate-grid {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .agent-grid {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+
+  .asset-grid {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  }
+
+  .forge-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .candidate-grid {
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  pre {
+    flex: 0 0 auto;
+    max-height: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .system-bar {
+    padding: 8px;
+  }
+
+  .system-chip {
+    padding-inline: 7px;
+    font-size: 11px;
+  }
+
+  .desktop {
+    padding-inline: 8px;
   }
 
   .world-body,
   .metric-grid,
-  .asset-grid,
-  .forge-controls {
+  .agent-grid,
+  .asset-grid {
     grid-template-columns: 1fr;
+  }
+
+  .world-body {
+    padding: 12px;
+  }
+
+  .neural-core {
+    min-height: 260px;
+  }
+
+  .titlebar {
+    align-items: flex-start;
+  }
+
+  .dock {
+    gap: 6px;
+    padding: 7px;
+  }
+
+  .dock-item {
+    width: 38px;
+    height: 38px;
   }
 }

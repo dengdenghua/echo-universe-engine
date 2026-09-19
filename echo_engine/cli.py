@@ -30,6 +30,7 @@ from echo_engine.identities import (
 from echo_engine.neural.simulator import UniverseEvent, simulate_event
 from echo_engine.neural.octopus_ecosystem import render_octopus_ecosystem_plan
 from echo_engine.neural.octopus_export import export_octopus_agents, sync_octopus_runtime_agents
+from echo_engine.neural.utility_foundry import mint_utility_agents, publish_registry_json
 from echo_engine.neural.octopus_runtime import reload_octopus_runtime_agents
 from echo_engine.npcs import NPCError, get_npc, list_npcs, route_npc_interaction
 from echo_engine.neural.digital_life import run_daily_life_tick
@@ -106,9 +107,16 @@ def main() -> None:
             "skin-policies",
             "check-skin-access",
             "export-octopus-agents",
+            "mint-utility-agents",
+            "rebuild-registry",
             "octopus-ecosystem-plan",
         ],
     )
+    parser.add_argument("--input-dir", default=None, help="mint-utility-agents: 工具角色 .md spec 源目录")
+    parser.add_argument("--publish-dir", default=None, help="mint-utility-agents: 发布扁平 registry JSON 的目标目录")
+    parser.add_argument("--skill-dir", default=None, help="mint-utility-agents: 插件包技能(能力包)发布目标目录")
+    parser.add_argument("--watch", action="store_true", help="rebuild-registry: 监听角色规格变化,自动重铸(常驻)")
+    parser.add_argument("--watch-interval", type=float, default=3.0, help="rebuild-registry --watch: 轮询间隔秒")
     parser.add_argument("--title", default="Ghost Attack on Atlas")
     parser.add_argument("--location", default="Atlas")
     parser.add_argument(
@@ -572,6 +580,79 @@ def main() -> None:
         if args.reload_octopus_runtime:
             payload["reload"] = reload_octopus_runtime_agents().__dict__
         print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return
+
+    if args.command == "mint-utility-agents":
+        input_dir = Path(args.input_dir) if args.input_dir else Path("utility_roles")
+        if not input_dir.is_dir():
+            parser.error(f"utility role spec dir not found: {input_dir} (传 --input-dir 或建 utility_roles/)")
+        out = Path(args.output_dir) if args.output_dir else Path("outputs/utility_agents")
+        skill_dest = Path(args.skill_dir) if args.skill_dir else None
+        minted = mint_utility_agents(input_dir, out, skill_dest=skill_dest)
+        published = publish_registry_json(out, Path(args.publish_dir)) if args.publish_dir else []
+        skills_pub = len(list(skill_dest.glob("*.md"))) if skill_dest and skill_dest.is_dir() else 0
+        print(json.dumps(
+            {"minted": len(minted), "output_dir": str(out),
+             "published": len(published), "publish_dir": args.publish_dir,
+             "capability_pack_skills": skills_pub, "skill_dir": args.skill_dir},
+            ensure_ascii=False, indent=2,
+        ))
+        return
+
+    if args.command == "rebuild-registry":
+        # 活管线生产端:echo 的角色资产一键重铸 + 发布到 registry 源(--publish-dir=enterprise sources 根)
+        if not args.publish_dir:
+            parser.error("--publish-dir is required (enterprise .../agent_assets/sources 根目录)")
+        sources = Path(args.publish_dir)
+        _watch_dirs = [Path("utility_roles"), Path("characters"), Path("assets/characters")]
+
+        def _rebuild() -> dict[str, object]:
+            roles_out = Path("outputs/utility_agents")
+            minted = mint_utility_agents(Path("utility_roles"), roles_out, skill_dest=sources / "plugin-skills")
+            pub_roles = publish_registry_json(roles_out, sources / "echo-utility")
+            chars_out = Path("outputs/octopus_agents")
+            export_octopus_agents(output_dir=chars_out)
+            char_dst = sources / "echo-characters"
+            char_dst.mkdir(parents=True, exist_ok=True)
+            pub_chars = 0
+            for prof in sorted(chars_out.glob("echo_*/profile.jsonc")):
+                (char_dst / f"{prof.parent.name}.json").write_text(prof.read_text(encoding="utf-8"), encoding="utf-8")
+                pub_chars += 1
+            return {"utility_roles_minted": len(minted), "utility_published": len(pub_roles),
+                    "characters_published": pub_chars}
+
+        def _spec_fp() -> str:
+            mt, cnt = 0.0, 0
+            for wd in _watch_dirs:
+                if wd.is_dir():
+                    for p in wd.rglob("*"):
+                        if p.is_file():
+                            cnt += 1
+                            try:
+                                mt = max(mt, p.stat().st_mtime)
+                            except OSError:
+                                pass
+            return f"{mt:.3f}:{cnt}"
+
+        if not args.watch:
+            out = _rebuild()
+            out.update(sources=str(sources), note="registry 消费端按 mtime 自动反映,无需重启")
+            print(json.dumps(out, ensure_ascii=False, indent=2))
+            return
+
+        # --watch:监听角色规格目录,变了就自动重铸(常驻)。registry 端再按 mtime 自动反映 → 全程无人工。
+        import time as _t
+        print(f"[watch] 监听 {[str(d) for d in _watch_dirs]},间隔 {args.watch_interval}s,自动重铸…")
+        out = _rebuild()
+        last = _spec_fp()
+        print(json.dumps({"event": "initial", **out, "fp": last}, ensure_ascii=False), flush=True)
+        while True:
+            _t.sleep(args.watch_interval)
+            fp = _spec_fp()
+            if fp != last:
+                last = fp
+                out = _rebuild()
+                print(json.dumps({"event": "rebuilt", **out, "fp": fp}, ensure_ascii=False), flush=True)
         return
 
     if args.command == "octopus-ecosystem-plan":

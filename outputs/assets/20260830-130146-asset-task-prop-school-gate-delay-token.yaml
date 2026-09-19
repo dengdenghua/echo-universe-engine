@@ -1,0 +1,35 @@
+type: prop_design
+asset_id: "prop-school-gate-delay-token"
+asset_name: "School Gate Civil Delay Token Interface"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Grounded AI Soulpunk prop design for a White Harbor school gate scanner and
+  Civil Delay Token interface, Episode 7 Probability Debt, rain at pickup lane,
+  guardian relation denied while citizen identity passes, twelve-minute delay
+  timer, Household Relation Graph edge mismatch, scoped Home Core witness
+  fragment request, custody transfer paused, restrained municipal UI, glass
+  scanner barrier, readable receipt strips, charcoal metal, cool civic light,
+  small warm reflection from parent and child hands on opposite sides of glass,
+  clean orthographic prop sheet, interface closeups, no fantasy symbols
+negative_prompt: >
+  magic, supernatural aura, occult symbols, ghost body, demon, angel, glowing
+  weapon, generic neon punk, hologram overload, monster design, horror
+  possession, time travel, fate visualization, physics breaking, illegible UI,
+  low detail
+size: "1024x1024"
+status: queued
+required_outputs:
+  - gate_front_view
+  - interface_closeup
+  - delay_token_receipt
+  - pickup_lane_context_thumbnail
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  technology_relation_graph: "technologies/household_relation_graph.md"
+  technology_delay_token: "technologies/civil_delay_token.md"
+  lore_promotion: "outputs/lore/20260830-130146-lore-promotion-episode-07-relation-delay-infrastructure.md"
+  audit: "outputs/consistency/20260830-130146-canon-audit-episode-07-relation-delay-infrastructure.md"
+  promotion_status: "promoted_narrow"

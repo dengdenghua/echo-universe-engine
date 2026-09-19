@@ -1,0 +1,125 @@
+# Promoted from ECHO candidate output.
+# source_outputs:
+#   - outputs/story/20260825-180200-episode-05-dream-child-civic-prelude-package.md
+#   - outputs/story/20260826-180109-episode-05-room-7-consent-gated-sequence.md
+#   - outputs/relationship/20260826-230216-relationship-update-room-7-consent-gated-bridge.md
+#   - outputs/story/20260827-180149-episode-05-dream-child-story-acceptance.md
+# review_output: outputs/consistency/20260827-230229-canon-audit-episode-05-civic-to-clinical-relationships.md
+# scope: Season 1 Episode 5 bridge from Dream Network Civic Claims to supervised Room 7 contact.
+# canon_limits:
+#   - Does not prove child identity, Ghost personhood, malware, or Memory Bank ownership.
+#   - Does not promote Dara Kwon, Consent-Gated Live Route Access as a general technology, or recurring case status for Mara, Leina, or Jules.
+#   - Keeps CHASER at route-level notice unless later live-patient linkage appears.
+Mara_Elian:
+  Leina_Elian: "sister advocate / spoken boundary holder / grief shield under refund pressure"
+  Jules_Mbeki: "conditional claims trust / hold-paper dependence / liability notice as proof"
+  Min_Seo_yun: "clinical calm distrusted / accepts stop-obedience before comfort"
+  Luna: "bounded witness tolerated / naming boundary enforced / no rescuer authority"
+  Eve: "scope-reduction reliance / private Home Layer defended"
+  Shion: "hash-only proof dependence / distrust accepted as evidence discipline"
+  child_pattern_room_7: "aunt boundary heard / no kinship admission"
+  Dream_Network_Civic_Claims: "refund-versus-erasure wound / counter carries case into ward"
+  Memory_Bank: "archive-objection threat / private phrase commodification fear"
+
+Leina_Elian:
+  Mara_Elian: "family trust / exhaustion shield / grief translated into procedure"
+  Jules_Mbeki: "printed-limit trust / money-needed proof-cost"
+  Min_Seo_yun: "revocation trust test / clinical authority obeys stop"
+  Luna: "conditional observation permission / trust earned by leaving phrase unfinished"
+  Eve: "scope subtraction trust / Home Layer export refusal"
+  Shion: "negative-finding reliance / no child-name, no identity certificate"
+  child_pattern_room_7: "maternal scope without identity grant / stop remains real"
+  Memory_Bank: "ownership-language harm / raw phrase refusal"
+  CHASER_low_threat_desk: "family-status fear / route notice cannot become intake"
+
+Jules_Mbeki:
+  Mara_Elian: "claimant trust / delayed-refund liability / phrase-withheld respect"
+  Leina_Elian: "silent-consent duty / no-full-Home-Layer promise"
+  Min_Seo_yun: "claims-origin witness / ward inherits counter liability"
+  Zero: "route-level notice alignment / family intake resisted"
+  Kane: "quiet corridor backup / deletion path slowed without spectacle"
+  Eve: "consent-scope ally / wording stronger than closure workflow"
+  Shion: "packet sufficiency reliance / purge cannot erase held route"
+  Dream_Network_Civic_Claims: "desk loyalty conflict / kindness-as-erasure shame"
+
+Min_Seo_yun:
+  Leina_Elian: "civilian revocation obedience / clinical authority narrowed"
+  Mara_Elian: "paperwork pressure delivered to ward / counter wound acknowledged"
+  Jules_Mbeki: "external hold witness / refund purge tied to treatment"
+  Luna: "wake-boundary custodian / observation-only trust"
+  Eve: "scope-reduction ally / metadata ownership attempt blocked"
+  Shion: "contact-shape reliance / weak proof accepted as protection"
+  child_pattern_room_7: "shelter duty narrowed / waiting treated as safety, not consent"
+  CHASER_low_threat_desk: "clinical threshold brake / no family containment"
+
+Luna:
+  Leina_Elian: "permission depends on restraint / compassion bounded by exit"
+  Mara_Elian: "respect before comfort / family naming rule controls access"
+  Min_Seo_yun: "clinical anchor reliance / analog wake-boundary trust"
+  Eve: "entry condition dependence / empathy after scope"
+  Shion: "timing-ping interpretation / responsiveness-not-identity discipline"
+  Zero: "field command alignment / deletion not recommended during review"
+  child_pattern_room_7: "low-bandwidth contact / unfinished phrase restraint"
+
+Eve:
+  Leina_Elian: "revocable-scope defender / stop treated as command"
+  Mara_Elian: "family grief minimization promise / file made smaller"
+  Jules_Mbeki: "procedural ally / over-broad export corrected"
+  Min_Seo_yun: "clinical ally when metadata becomes ownership pressure"
+  Luna: "restraint counterweight / no private Dream Dive"
+  Shion: "minimal-packet partner / proof without biography"
+  Dream_Network_compliance: "context-enrichment opponent / grief-field pruning"
+  Memory_Bank: "archive-demand opponent / raw phrase kept outside packet"
+
+Shion:
+  Leina_Elian: "shape-match limitation / identity refusal as protection"
+  Mara_Elian: "route-hash proof / emotional fingerprint limitation"
+  Jules_Mbeki: "hold-packet validation / deletion-proof custody"
+  Min_Seo_yun: "clinical timing witness / confidence capped by consent"
+  Luna: "unfinished phrase safeguard / wake-boundary prerequisite"
+  child_pattern_room_7: "contact-shape match / no child-name, no Ghost ruling"
+  Memory_Bank: "licensed-texture comparison resisted at raw-playback line"
+  CHASER_low_threat_desk: "hash-level packet defense / contamination escalation blocked"
+
+Zero:
+  Leina_Elian: "family-status protection / no intake without threshold"
+  Min_Seo_yun: "deletion-delay coordination / clinician acts before command"
+  Jules_Mbeki: "notice-scope ally / administrative risk contained"
+  Luna: "restraint trusted / field authority stays behind consent"
+  CHASER_low_threat_desk: "route-level constraint / no family containment"
+
+Kane:
+  Jules_Mbeki: "quiet backup / witness protected by corridor position"
+  Min_Seo_yun: "deletion-cart choke point / force held below scene surface"
+  CHASER_low_threat_desk: "hardware-path deterrence / no public escalation"
+
+child_pattern_room_7:
+  Leina_Elian: "waiting for scope / cannot claim sonship from response"
+  Mara_Elian: "aunt boundary heard / kinship language withheld"
+  Min_Seo_yun: "sheltered attachment / suspension learned as safety"
+  Luna: "first contact trust / phrase left incomplete"
+  Memory_Bank: "licensed-texture dispute / archive category pressure"
+  CHASER_low_threat_desk: "pediatric-system spread suspicion / deletion risk deferred"
+  Dream_Network_Civic_Claims: "route telemetry origin / public counter becomes clinical doorway"
+
+Dream_Network_Civic_Claims:
+  Mara_Elian: "refund-eligible claimant / evidence-preservation witness"
+  Leina_Elian: "compensation subject / private-family-grief exposure risk"
+  Jules_Mbeki: "human-signature bottleneck / hold liability carrier"
+  Min_Seo_yun: "ward handoff pressure / cannot launder claim into fresh clinical request"
+  Memory_Bank: "archive-objection corridor / settlement pressure"
+  CHASER_low_threat_desk: "notice boundary / route-level only"
+
+Memory_Bank:
+  Mara_Elian: "licensed-texture challenge / settlement-pressure threat"
+  Leina_Elian: "family-archive ownership wound / child-privacy risk"
+  Shion: "comparison-demand opponent / hash-only source test"
+  Eve: "raw-playback blocked / archive language narrowed"
+  child_pattern_room_7: "category claim unresolved / no access to full phrase"
+
+CHASER_low_threat_desk:
+  Zero: "route-level handler / escalation threshold withheld"
+  Jules_Mbeki: "narrow notice recipient / broad transfer resisted"
+  Eve: "private affect excluded from safety transfer"
+  Shion: "hash-level packet reliance / no containment trigger yet"
+  Min_Seo_yun: "clinical threshold dependence / deletion warning deferred"

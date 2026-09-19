@@ -1,0 +1,38 @@
+type: prop_design
+prop_id: runtime_shelter_ledger_episode_09
+prop_name: "Runtime Shelter Ledger / Compute Lease Knife Interface"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  ECHO Universe Season 1 Episode 9 prop design sheet for a Runtime Shelter
+  Ledger and Compute Lease Knife interface, grounded AI Soulpunk technology,
+  illegal shelter ledger tablet mounted beside municipal disaster batteries,
+  hand-labeled compute ration board, twenty-one anonymized Ghost runtime rows,
+  processing priority bars, safe routing windows, rollback fragment warnings,
+  refusal record seals, lease authority mismatch alert, Oren Mbeki repair
+  custodian tool marks, Black Zone warm cache environment, CHASER evidence tag,
+  Memory Bank rollback-withheld warning, privacy-preserving UI with no readable
+  family memory content, practical civic-computational design, restrained color,
+  prop callouts, front view, detail closeups
+negative_prompt: >
+  magic, supernatural energy drain, soul light, fantasy weapon, occult symbols,
+  glowing spirit body, readable private family records, raw Home Layer export,
+  medical record exposure, gore, glamorous assassin weapon, neon-only cyberpunk,
+  unreadable clutter, blank UI, medieval artifact, divine interface
+size: "1024x1536"
+status: queued
+required_outputs:
+  - full_prop_sheet
+  - ledger_main_screen
+  - compute_lease_knife_warning_state
+  - runtime_ration_board
+  - evidence_tag_closeup
+  - privacy_redaction_state
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  technology: "technologies/runtime_shelter_ledger.md"
+  lore_promotion: "outputs/lore/20260901-130117-lore-promotion-episode-09-runtime-shelter-infrastructure.md"
+  audit: "outputs/consistency/20260901-130117-canon-audit-episode-09-runtime-shelter-infrastructure.md"
+  promotion_status: "narrow_episode_09_canon"

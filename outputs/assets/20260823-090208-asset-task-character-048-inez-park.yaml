@@ -1,0 +1,35 @@
+type: character_image
+character_id: "048"
+character_name: "Inez Park"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Full-body anime character sheet for Inez Park, CHASER civil contamination
+  intake registrar in the ECHO Universe, compact tired public-service
+  silhouette, CHASER gray short field jacket, squared tablet harness, muted red
+  intake cuff tab, paper appeal-notice sleeve at the hip, subtle
+  neural-interface studs behind one ear, old wrist brace, low-brightness
+  retinal case UI, White Harbor transit intake hall mood, restrained AI
+  Soulpunk design, Home Core and Memory Sea bureaucracy atmosphere, no weapons,
+  grounded near-future materials, clean front side back views, head closeup,
+  expression sheet
+negative_prompt: >
+  magic, fantasy, supernatural aura, angel wings, demon horns, medieval armor,
+  glowing weapon, generic neon punk, oversized military armor, halo, low detail,
+  childlike proportions
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  candidate: "outputs/character/20260823-090208-candidate-character-048-inez-park.md"
+  audit: "outputs/consistency/20260823-090208-canon-audit-inez-park.md"
+  promotion_status: "candidate_only"

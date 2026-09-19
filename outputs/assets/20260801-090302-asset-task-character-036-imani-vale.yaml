@@ -1,0 +1,24 @@
+type: character_image
+character_id: "036"
+character_name: "Imani Vale"
+style: echo_universe_v1
+provider: flux
+prompt: "Anime character design, grounded AI soulpunk White Harbor night clinic battery steward, Afro-Caribbean woman age 29, tired alert expression, practical dark teal clinic work jacket over gray thermal layers, amber battery-status lanyard, insulated cable gloves, small analog patient ledger tucked under arm, respiratory monitor light reflected on face, paper CHASER sweep notice clipped to belt, subtle Home Layer maintenance strip tags, clinic battery cabinet and concrete stairwell background, full body front view character sheet, high detail ECHO Universe visual system."
+negative_prompt: "magic, fantasy, supernatural, glowing aura, angelic saint imagery, cyber-medic glamour, combat armor, gun pose, sexy nurse costume, generic neon cyberpunk, low detail"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+notes: >
+  Keep Imani visually grounded as a civilian night clinic battery steward: clinic
+  work jacket, cable gloves, amber reserve indicator, analog ledger, respiratory
+  monitor, CHASER sweep notice, and stairwell clinic setting. No fantasy, no
+  supernatural glow, no glamorous medic styling, no combat armor.

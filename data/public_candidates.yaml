@@ -1,0 +1,18 @@
+schema: echo_public_candidates_v1
+candidates:
+  stranger-memory:
+    version: candidate-r1
+    mode: story
+    title:
+      zh: 陌生记忆
+      en: Stranger Memory
+    work:
+      zh: 回响纪元
+      en: ECHO AGE
+    source_path: universe/novel/content/stranger-memory.zh.md
+    public_href: /universe/novel/stranger-memory/
+    target_path: stories/stranger-memory.md
+    reviewer_group: canon_promotion_board
+    required_approvals: 2
+    continuity_reviewers: [continuity_editor]
+    resonance_enabled: true

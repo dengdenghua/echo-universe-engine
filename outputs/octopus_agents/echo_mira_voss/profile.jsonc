@@ -6,7 +6,7 @@
   "name": "Mira Voss / Glass Vein",
   "description": "A battlefield medic who repairs Echo Core trauma after Ghost incursions. She can stitch broken memory sequences, but every repair leaves a visible glass-like scar in the patient's neural map.\n",
   "icon": "E",
-  "avatar": "avatar.svg",
+  "avatar": "avatar.png",
   "category": "creative",
   "tags": [
     "echo-universe",
@@ -52,10 +52,16 @@
     "future": "Forces White Ghost Team to decide whether restored memory is enough to make someone legally human again.\n",
     "visual_design": "White clinical techwear coat over black compression armor, translucent vein lights along forearms, compact surgical drone halo, pale green diagnostic visor.\n",
     "illustration_prompt": "Anime character design, cyberpunk techwear, full body front view character sheet, young female forensic medic, white clinical tactical coat, black compression armor, translucent biotech vein lights, compact surgical drone halo, pale green diagnostic visor, Ghost in the Shell and Arknights inspired, high detail concept art, dark industrial background.\n",
-    "visual_assets": {},
+    "visual_assets": {
+      "avatar_image": "visuals/avatar.png",
+      "front_image": "visuals/front.png",
+      "side_image": "visuals/side.png",
+      "back_image": "visuals/back.png",
+      "source_turnaround": "visuals/source_turnaround.png"
+    },
     "source_assets": {
-      "echo_asset_dir": null,
-      "octopus_source_agent": null
+      "echo_asset_dir": "assets/characters/009_mira_voss/octopus_refs",
+      "octopus_source_agent": "echo_mira_voss"
     }
   },
   "capabilities": {

@@ -1,0 +1,25 @@
+id: asset-prop-red-adverse-reviewer-file-20260817-180232
+type: prop_ui_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/story/20260817-180232-story-beat-the-covered-stamp-turns-red.md
+  - outputs/lore/20260817-130122-lore-entry-coverage-condition-review.md
+  - outputs/technology/20260817-130122-technology-entry-coverage-condition-letter.md
+prompt: "Grounded AI soulpunk route-insurer reviewer desk prop, Coverage-Condition Letter stamped covered care in blue beside a red adverse reviewer file warning light, appeal timer nearly expired, fields showing unpaid hold minutes used as reserve capacity, worker bond drawdown paused, reviewer immunity at risk, no named safety event, sealed Home Core afterword visible only as hash and green no-copy custody band, Priya Chand's folded old denial letter half hidden in coat pocket, restrained graphite gray civic desk, faded teal interface, one sharp red audit indicator, practical paper and translucent policy UI, no private phrase text visible."
+negative_prompt: "magic, supernatural aura, fantasy court, holy relic, multiverse imagery, time travel effects, heroic combat pose, luxury command bridge, generic neon cyberpunk overload, readable sealed phrase text, opened Home Layer family rooms, visible adapter location, confirmed Ghost portrait, villain glamour"
+usage:
+  - Priya Chand case-character episode prop
+  - Coverage-Condition Letter reviewer retaliation insert
+  - Season 1 orbital civic route appeal-window visual
+  - Route insurer conduct desk visual language reference
+notes: >
+  The prop should make the emotional contradiction legible: the honest covered
+  stamp protects Sana for one window but turns Priya into the exposed risk
+  surface. Keep the sealed afterword present only as a protected hash and
+  no-copy band. The red indicator should read as bureaucratic danger, not
+  supernatural threat.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true

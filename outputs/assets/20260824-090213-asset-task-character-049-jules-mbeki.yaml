@@ -1,0 +1,34 @@
+type: character_image
+character_id: "049"
+character_name: "Jules Mbeki"
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Full-body anime character sheet for Jules Mbeki, Dream Network civic claims
+  clerk in the ECHO Universe, adult public-service silhouette, charcoal public
+  claims coat, off-white receipt-paper sash, muted teal consent-status tabs,
+  handheld analog receipt printer, subtle neural-interface studs behind one
+  ear, ink-smudged fingers, tired precise expression, quiet White Harbor Dream
+  Network claims counter background, low-brightness Home Core grief-texture
+  consent screens, grounded AI Soulpunk emotional bureaucracy, no weapons,
+  clean front side back views, head closeup, expression sheet
+negative_prompt: >
+  magic, fantasy, supernatural aura, occult dream symbols, angel wings, demon
+  horns, halo, glowing weapon, generic neon punk, oversized armor, sleep wizard,
+  childlike proportions, low detail
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+canon_links:
+  candidate: "outputs/character/20260824-090213-candidate-character-049-jules-mbeki.md"
+  audit: "outputs/consistency/20260824-090213-canon-audit-jules-mbeki.md"
+  promotion_status: "candidate_only"

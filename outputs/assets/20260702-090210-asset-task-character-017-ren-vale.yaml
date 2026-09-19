@@ -1,0 +1,30 @@
+type: character_image
+character_id: "017"
+character_name: Ren Vale
+style: echo_universe_v1
+provider: flux
+prompt: >
+  Anime character design, grounded AI soulpunk memory portrait of a middle-aged
+  White Harbor trauma surgeon, off-white surgical coat over muted gray pressure
+  scrubs, pale cyan medical interface tag at collar, tired eyes, practical hands,
+  faint transparent Home Core archive fragments and transit emergency overlays,
+  full body front view character sheet plus expression notes, restrained hospital
+  and apartment mood, high detail concept art.
+negative_prompt: "magic, fantasy, supernatural, ghost aura, angel halo, medieval, weapons, low detail, generic neon punk"
+size: "1024x1536"
+status: queued
+reference_lock: "assets/characters/white_ghost_team_visual_locks.yaml"
+required_outputs:
+  - front_view
+  - side_view
+  - back_view
+  - head_closeup
+  - expression_sheet
+consistency_review:
+  required: true
+  checklist: "asset_factory/comic_consistency_checklist.md"
+pipeline:
+  stage: asset_task_generation
+  source_candidate: "outputs/character/20260702-090210-candidate-character-017-ren-vale.md"
+  created_at: "2026-07-02T09:02:10+08:00"
+  promotion_required_before_asset_lock: true

@@ -1,0 +1,23 @@
+id: asset-prop-corridor-transfer-board-20260811-180144
+type: prop_and_ui_concept
+status: candidate_asset_task
+priority: medium
+canon_source:
+  - outputs/story/20260811-180144-story-beat-the-corridor-keeps-the-meter.md
+  - outputs/story/20260810-180147-story-beat-the-empty-window-counts-fees.md
+prompt: "Grounded AI soulpunk orbital custody-transfer UI prop, Ceres Transfer Gate C-17 corridor board, sealed Home Core afterword case status, matte black transit display with muted ledger green routing lines and cold amber countdown, appeal fee pause timer, source custody Memory Bank sealed-asset storage, destination Free Orbital Mutual Hospice Network escrow, phrase text not exported, adapter location not exported, Ghost Union reserve objection marker, Mars Authority liability hold marker, CHASER physical-chain observation stamp, Vera Qadir underwriter release pending, Nara Marr paper transfer chit tucked under case handle, practical orbital civic corridor lighting, procedural and human, not heroic."
+negative_prompt: "magic, supernatural aura, fantasy portal, multiverse imagery, time travel effects, glowing religious symbols, readable sealed phrase text, exposed Home Layer family room, luxury bank advertisement, generic cyberpunk neon overload, heroic combat pose"
+usage:
+  - Season 1 orbital civic case prop
+  - Nara Marr sealed-phrase custody transfer visual anchor
+  - Memory Bank delay-cost and route-insurance UI reference
+  - Free Orbital Mutual Hospice Network escrow scene detail
+notes: >
+  The asset should show that transfer is officially allowed but practically
+  stalled. The board must preserve the sealed center: no phrase text, no
+  adapter location, and no private Home Layer room are visible. The emotional
+  focus is the countdown and the many lawful holds around it.
+pipeline:
+  stage: asset_task_generation
+  canon_promotion: false
+  requires_story_or_lore_promotion_before_final_asset: true
