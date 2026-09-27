@@ -5,6 +5,8 @@ const state = {
   candidates: [],
   governanceCandidates: [],
   events: [],
+  dataErrors: {},
+  refreshing: false,
   engineState: { key: "connecting", params: {}, ok: false },
   outputModeKey: "idle",
   outputContentKey: "awaitingSignal",
@@ -46,7 +48,9 @@ async function requestJson(url, options = {}) {
     } catch {
       // Keep the HTTP status fallback when the server did not return JSON.
     }
-    throw new Error(message);
+    const error = new Error(message);
+    error.status = response.status;
+    throw error;
   }
   return response.json();
 }
@@ -85,6 +89,7 @@ function openWindow(name) {
   panel.classList.add("active", "focused");
   $all(".dock-item").forEach((item) => {
     item.classList.toggle("active", item.dataset.window === name);
+    item.setAttribute("aria-pressed", String(item.dataset.window === name));
   });
 }
 
@@ -93,8 +98,12 @@ function closeWindow(panel) {
   const name = panel.dataset.windowPanel;
   panel.classList.remove("active", "focused");
   $all(".dock-item").forEach((item) => {
-    if (item.dataset.window === name) item.classList.remove("active");
+    if (item.dataset.window === name) {
+      item.classList.remove("active");
+      item.setAttribute("aria-pressed", "false");
+    }
   });
+  $("#restore-world").focus();
 }
 
 function installRuntimeVisibility() {
@@ -297,37 +306,76 @@ function renderCandidates(candidates, governanceCandidates = []) {
 }
 
 async function refresh() {
+  if (state.refreshing) return;
+  state.refreshing = true;
+  $("#refresh-btn").disabled = true;
+  $("#desktop").setAttribute("aria-busy", "true");
   try {
     setEngineState("syncing");
-    const [health, characters, plan, octopus, assets, events, candidates, governanceCandidates] = await Promise.all([
+    const results = await Promise.allSettled([
       requestJson("/api/health"),
       requestJson("/api/canon/characters"),
-      requestJson("/api/integrations/octopus/plan"),
-      requestJson("/api/integrations/octopus/status"),
       requestJson("/api/assets/characters"),
       requestJson("/api/journal/events?limit=16"),
       requestJson("/api/journal/candidates?limit=24"),
       requestJson("/api/canon/governance/candidates"),
+      ...(state.runtimeVisible ? [requestJson("/api/integrations/octopus/plan"), requestJson("/api/integrations/octopus/status")] : []),
     ]);
-    state.status = health.canon;
-    state.characters = characters;
-    state.assets = assets;
-    state.candidates = candidates;
-    state.governanceCandidates = governanceCandidates;
-    state.events = events;
-    renderMetrics(health.canon);
-    renderCharacters(characters);
-    renderAssets(assets);
-    renderJournal(events);
-    renderCandidates(candidates, governanceCandidates);
-    state.octopusPlanKey = null;
-    $("#octopus-plan").textContent = plan.content;
-    state.octopusStatusKey = octopus.configured ? "linked" : "notLinked";
-    $("#octopus-status").textContent = t(state.octopusStatusKey);
-    setEngineState("online", true);
+    const [health, characters, assets, events, candidates, governanceCandidates, plan, octopus] = results;
+    state.dataErrors = {};
+    const update = (result, key, selector, render) => {
+      if (result.status === "fulfilled") {
+        state[key] = result.value;
+        render(result.value);
+      } else {
+        state[key] = key === "assets" || key === "status" ? null : [];
+        state.dataErrors[selector] = result.reason.status || 0;
+      }
+    };
+    update(health, "status", "#metrics", (value) => { state.status = value.canon; renderMetrics(value.canon); });
+    update(characters, "characters", "#character-grid", renderCharacters);
+    update(assets, "assets", "#asset-grid", renderAssets);
+    update(events, "events", "#memory-stream", renderJournal);
+    state.candidates = candidates.status === "fulfilled" ? candidates.value : [];
+    state.governanceCandidates = governanceCandidates.status === "fulfilled" ? governanceCandidates.value : [];
+    renderCandidates(state.candidates, state.governanceCandidates);
+    // Keep readable sections available when a protected source cannot be loaded.
+    if (candidates.status === "rejected" || governanceCandidates.status === "rejected") {
+      const failed = candidates.status === "rejected" ? candidates : governanceCandidates;
+      state.dataErrors["#candidate-grid"] = failed.reason.status || 0;
+    }
+    if (state.runtimeVisible) {
+      if (plan.status === "fulfilled") {
+        state.octopusPlanKey = null;
+        $("#octopus-plan").textContent = plan.value.content;
+      } else state.dataErrors["#octopus-plan"] = plan.reason.status || 0;
+      state.octopusStatusKey = octopus.status === "fulfilled" && octopus.value.configured ? "linked" : "notLinked";
+      $("#octopus-status").textContent = t(state.octopusStatusKey);
+    }
+    renderDataErrors();
+    if (health.status === "fulfilled") setEngineState(results.some((result) => result.status === "rejected") ? "partial" : "online", true);
+    else setEngineState("offline", false, { message: health.reason.message });
   } catch (error) {
     setEngineState("offline", false, { message: error.message });
+  } finally {
+    state.refreshing = false;
+    $("#refresh-btn").disabled = false;
+    $("#desktop").setAttribute("aria-busy", "false");
   }
+}
+
+function renderDataErrors() {
+  Object.entries(state.dataErrors).forEach(([selector, status]) => {
+    const target = $(selector);
+    if (selector !== "#candidate-grid" || (!state.candidates.length && !state.governanceCandidates.length)) target.replaceChildren();
+    const notice = document.createElement(target.tagName === "OL" ? "li" : "div");
+    notice.className = "panel-notice";
+    notice.setAttribute("role", "status");
+    notice.textContent = status ? t("dataUnavailable", { status }) : t("networkUnavailable");
+    target.append(notice);
+  });
+  if ("#character-grid" in state.dataErrors) $("#character-count").textContent = "—";
+  if ("#asset-grid" in state.dataErrors) $("#asset-count").textContent = "—";
 }
 
 async function reviewCandidate(eventId, decision) {
@@ -399,6 +447,7 @@ async function runCommand(url, label = t("running")) {
 }
 
 function installDock() {
+  $("#restore-world").addEventListener("click", () => openWindow("world"));
   $all(".dock-item").forEach((item) => {
     item.addEventListener("click", () => openWindow(item.dataset.window));
   });
@@ -489,10 +538,11 @@ function tickClock() {
 
 function renderCurrentLocale() {
   if (state.status) renderMetrics(state.status);
-  if (state.characters.length) renderCharacters(state.characters);
+  renderCharacters(state.characters);
   if (state.assets) renderAssets(state.assets);
-  if (state.events.length) renderJournal(state.events);
+  renderJournal(state.events);
   if (state.candidates || state.governanceCandidates) renderCandidates(state.candidates, state.governanceCandidates);
+  renderDataErrors();
   setEngineState(state.engineState.key, state.engineState.ok, state.engineState.params);
   if (state.outputModeKey) $("#output-mode").textContent = t(state.outputModeKey);
   if (state.outputContentKey) $("#factory-output").textContent = t(state.outputContentKey);

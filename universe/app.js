@@ -1,5 +1,6 @@
 const universeCopy = {
   zh: {
+    futureTitle: "如果记忆不灭，生命有无尽头？",
     navStory: "故事", navNovel: "小说", navAtlas: "图谱", navMedia: "媒介", navCommunity: "社区", navCanon: "正典", backEcho: "返回 ECHO", navDevelopers: "开发者",
     heroTitle: "回响宇宙", heroLead: "2147 年，人类、ECHO 与 Ghost 围绕记忆、死亡和身份共同生活。",
     startStory: "从主线开始", browseAtlas: "浏览世界图谱", enterMemorySea: "进入记忆海",
@@ -19,6 +20,7 @@ const universeCopy = {
     finalUniverseTitle: "你在这里留下的，不只是故事。", startMainline: "开始主线", readNovel: "阅读小说", returnEcosystem: "返回 ECHO 生态",
   },
   en: {
+    futureTitle: "If memory lives on, where does life end?",
     navStory: "Story", navNovel: "Novel", navAtlas: "Atlas", navMedia: "Media", navCommunity: "Community", navCanon: "Canon", backEcho: "Back to ECHO", navDevelopers: "Developers",
     heroTitle: "Echo Age", heroLead: "In 2147, humans, ECHO and Ghosts live together around memory, death and identity.",
     startStory: "Begin the mainline", browseAtlas: "Explore the world atlas", enterMemorySea: "Enter the Memory Sea",
@@ -257,34 +259,6 @@ document.querySelectorAll("[data-media]").forEach((button) => button.addEventLis
 document.querySelector("#spoiler-toggle")?.addEventListener("click", () => { spoilersVisible = !spoilersVisible; try { localStorage.setItem("echo.universe.spoilers", String(spoilersVisible)); } catch (_) {} syncSpoilerButton(); renderSeason(); renderAtlas(); });
 try { spoilersVisible = localStorage.getItem("echo.universe.spoilers") === "true"; } catch (_) {}
 
-const canvas = document.querySelector("#memory-sea");
-const context = canvas.getContext("2d", { alpha: true });
-const main = document.querySelector("main");
-let frame = 0;
-function randomFactory(seed) { let state = seed >>> 0; return () => { state += 0x6D2B79F5; let value = state; value = Math.imul(value ^ value >>> 15, value | 1); value ^= value + Math.imul(value ^ value >>> 7, value | 61); return ((value ^ value >>> 14) >>> 0) / 4294967296; }; }
-function drawMemorySea() {
-  frame = 0;
-  const width = main.clientWidth;
-  const height = main.scrollHeight;
-  const ratio = Math.max(.7, Math.min(devicePixelRatio || 1, 1.55, Math.sqrt(7500000 / Math.max(1, width * height))));
-  canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio); canvas.style.width = `${width}px`; canvas.style.height = `${height}px`;
-  context.setTransform(ratio, 0, 0, ratio, 0, 0); context.clearRect(0, 0, width, height);
-  const random = randomFactory(2147001 + width);
-  context.globalCompositeOperation = "lighter";
-  for (let index = 0; index < Math.min(2100, width * height / 2200); index += 1) {
-    const x = random() * width, y = random() * height, radius = index % 83 === 0 ? 1.15 : .2 + random() * .5;
-    context.globalAlpha = .06 + Math.pow(random(), 2) * .38; context.fillStyle = random() > .84 ? "#ba8cff" : "#8dacff"; context.beginPath(); context.arc(x,y,radius,0,Math.PI*2); context.fill();
-  }
-  const cx = width * .67, cy = Math.min(980, innerHeight) * .5, reach = Math.min(width * .35, 430);
-  for (let index = 0; index < 1800; index += 1) {
-    const t = Math.pow(random(), .7), arm = index % 5, angle = arm * Math.PI * .4 + t * 5.1 + (random() - .5) * (.7 - t * .3), distance = reach * (.08 + t);
-    const x = cx + Math.cos(angle) * distance, y = cy + Math.sin(angle) * distance * .62;
-    context.globalAlpha = .12 + t * .4; context.fillStyle = random() > .78 ? "#c19aff" : "#a8c4ff"; context.beginPath(); context.arc(x,y,.18 + random() * .54,0,Math.PI*2); context.fill();
-  }
-  context.globalAlpha = 1; context.globalCompositeOperation = "source-over";
-}
-function scheduleSea() { if (frame) cancelAnimationFrame(frame); frame = requestAnimationFrame(drawMemorySea); }
-
 const header = document.querySelector(".universe-header");
 const navLinks = Array.from(document.querySelectorAll('.universe-nav a[href^="#"]'));
 let chromeFrame = 0;
@@ -295,6 +269,5 @@ function syncChrome() {
   navLinks.forEach((link) => link.classList.toggle("active", link === active));
 }
 window.addEventListener("scroll", () => { if (!chromeFrame) chromeFrame = requestAnimationFrame(syncChrome); }, { passive: true });
-window.addEventListener("resize", () => { scheduleSea(); syncChrome(); }, { passive: true });
-window.addEventListener("load", scheduleSea, { once: true });
-applyUniverseLocale(initialLocale(), false); scheduleSea(); syncChrome();
+window.addEventListener("resize", syncChrome, { passive: true });
+applyUniverseLocale(initialLocale(), false); syncChrome();

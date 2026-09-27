@@ -30,6 +30,8 @@ const enCopy = {
   navPlayground: "Playground",
   navLimits: "Limits",
   heroTitle: "Read the universe over HTTP",
+  apiArchitecture: "Content API architecture",
+  apiDiagram: "Public content interface diagram",
   heroLead:
     "Characters, factions, canon status and the economy catalogue are served as plain JSON. No key needed for the public layer, no SDK to install.",
   factEndpoints: "public read endpoints",
@@ -342,4 +344,3 @@ addEventListener("scroll", onScroll, { passive: true });
 applyLocale(resolveInitialLocale(), false);
 loadFacts();
 onScroll();
-

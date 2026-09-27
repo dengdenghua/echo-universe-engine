@@ -230,7 +230,9 @@ def test_api_serves_public_homepage_local_console_and_characters():
     client = TestClient(app)
     homepage = client.get("/")
     assert homepage.status_code == 200
-    assert "THE ECHO AGE" in homepage.text
+    assert "<title>ECHO AGE" in homepage.text
+    assert client.get("/home/future.css").status_code == 200
+    assert client.get("/home/scene.js").status_code == 200
     assert "ECHO STATION" in homepage.text
     assert "ECHO STUDIO" in homepage.text
     assert "/console/" not in homepage.text
@@ -302,25 +304,21 @@ def test_homepage_exposes_bilingual_locale_controls():
     assert "<h3>ECHO WORKSPACE</h3>" not in html
     assert "<h3>ECHO VAULT</h3>" not in html
     assert "ECHO HEALTH" in html
-    assert "THE ECHO AGE" in html
+    assert "BEYOND" in html
     assert "MEMORY SEA" in html
     assert "echo-age-logo.svg" in html
     assert "action-flow" in html
-    assert 'id="cosmos-field"' in html
-    assert 'id="hero-motion"' in html
-    assert 'id="memory-motion"' in html
-    assert '<button class="play-button" id="motion-toggle"' in html
+    assert 'id="echo-singularity"' in html
+    assert "/home/scene.js" in html
+    assert "/home/future.css" in html
+    assert 'id="motion-toggle"' in html
     assert "universe-section" in html
     assert '<a href="/universe/" data-i18n="navUniverse">' in html
     assert "status-concept" in html
     assert "/console/" not in html
     assert "will-reveal" not in javascript
     assert "will-reveal" not in styles
-    assert "reducedMotionQuery" in javascript
-    assert "strokeEchoArc" in javascript
-    assert "echoGapHalfAngle" in javascript
     assert "is-flowing" in javascript
-    assert 'motionToggle?.addEventListener("click"' in javascript
     assert "prefers-reduced-motion" in styles
     for key in set(re.findall(r'data-i18n(?:-html|-aria)?="([^"]+)"', html)):
         assert len(re.findall(rf"(?m)^\s*{re.escape(key)}:", javascript)) == 2, key

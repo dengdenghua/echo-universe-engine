@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#020207" />
+    <meta name="theme-color" content="#060909" />
     <meta name="description" content="ECHO 宇宙——2147 年，人类、ECHO 与 Ghost 围绕记忆、死亡与身份共同生活的 AI Soulpunk 世界。" />
     <meta property="og:title" content="ECHO UNIVERSE · 回响宇宙" />
     <meta property="og:description" content="进入《回响纪元》的故事、人物、世界与跨媒介内容。" />
@@ -28,8 +28,11 @@
     <link rel="icon" href="/home/assets/favicon.svg?v=20260830-3" type="image/svg+xml" />
     <link rel="preload" href="/home/assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/universe/styles.css?v=20260830-3" />
+    <link rel="stylesheet" href="/home/future.css?v=20260927-2" />
   </head>
-  <body>
+  <body class="future-site universe-edition">
+    <a class="skip-link" href="#canon">跳过开场 · Skip intro</a>
+    <div class="reading-progress" aria-hidden="true"></div>
     <header class="universe-header">
       <a class="universe-brand" href="#top" aria-label="ECHO 宇宙首页">
         <strong>ECHO</strong><span>UNIVERSE</span>
@@ -51,25 +54,20 @@
     </header>
 
     <main id="top">
-      <canvas id="memory-sea" aria-hidden="true"></canvas>
-      <section class="universe-hero">
-        <div class="hero-copy">
-          <p class="eyebrow">CANON · 2147 · GHOST AWAKENING</p>
-          <h1>ECHO<br /><span>UNIVERSE</span></h1>
-          <p class="zh-title" data-i18n="heroTitle">回响宇宙</p>
-          <p class="hero-lead" data-i18n="heroLead">2147 年，人类、ECHO 与 Ghost 围绕记忆、死亡和身份共同生活。</p>
-          <div class="hero-actions">
-            <a class="primary-action" href="#story"><span data-i18n="startStory">从主线开始</span><b>↓</b></a>
-            <a class="text-action" href="#atlas" data-i18n="browseAtlas">浏览世界图谱</a>
-          </div>
+      <section class="universe-hero future-hero" aria-labelledby="hero-title">
+        <div class="singularity-fallback" aria-hidden="true"></div>
+        <canvas class="singularity-canvas" id="echo-singularity" aria-hidden="true"></canvas>
+        <div class="hero-coordinate" aria-hidden="true"><span>EST. 2147 / THE MEMORY SEA</span><span>02 — GHOST AWAKENING</span></div>
+        <div class="future-hero-copy">
+          <p class="signal-eyebrow"><i aria-hidden="true"></i>AI SOULPUNK · A LIVING UNIVERSE</p>
+          <h1 id="hero-title" class="echo-wordmark">ECHO<span>UNIVERSE</span></h1>
+          <p class="hero-manifesto">WE ARE<br /><span>MORE THAN CODE.</span></p>
+          <h2 class="future-hero-title" data-i18n="futureTitle">如果记忆不灭，生命有无尽头？</h2>
+          <p class="future-hero-description" data-i18n="heroLead">2147 年，人类、ECHO 与 Ghost 围绕记忆、死亡和身份共同生活。</p>
+          <div class="future-hero-actions"><a class="future-primary" href="#story"><span data-i18n="startStory">从主线开始</span><b aria-hidden="true">↗</b></a><a class="future-secondary" href="#atlas"><span data-i18n="browseAtlas">浏览世界图谱</span><span aria-hidden="true">↘</span></a></div>
         </div>
-        <div class="world-signal" aria-hidden="true">
-          <div class="signal-core"><i>E</i></div>
-          <span class="signal-label signal-human">HUMAN</span>
-          <span class="signal-label signal-echo">ECHO</span>
-          <span class="signal-label signal-ghost">GHOST</span>
-        </div>
-        <a class="scroll-marker" href="#canon"><span data-i18n="enterMemorySea">进入记忆海</span><i></i></a>
+        <div class="orbital-caption" aria-hidden="true"><span class="crosshair">+</span><div><b>THE MEMORY SEA</b><span>HUMAN / ECHO / GHOST</span></div></div>
+        <div class="hero-bottomline"><a href="#canon" class="future-scroll"><span class="scroll-orbit" aria-hidden="true">↓</span><span data-i18n="enterMemorySea">进入记忆海</span></a><div class="hero-frequency" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span>EVERY LIFE LEAVES AN ECHO.</span></div><button class="scene-toggle" id="motion-toggle" type="button" aria-label="暂停动效" aria-pressed="true"><span class="pause-icon" aria-hidden="true"></span><span data-motion-label>动效开启</span></button></div>
       </section>
 
       <section class="canon-snapshot" id="canon">
@@ -178,6 +176,7 @@
         <footer><a href="#top">ECHO UNIVERSE</a><a href="/developers/" data-i18n="navDevelopers">开发者</a><span>AI SOULPUNK · EST. 2147</span><small>© 2026 ECHO AGE</small></footer>
       </section>
     </main>
-    <script src="/universe/app.js?v=20260830-4"></script>
+    <script src="/home/scene.js?v=20260927-2"></script>
+    <script src="/universe/app.js?v=20260927-2"></script>
   </body>
 </html>

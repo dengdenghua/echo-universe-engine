@@ -14,19 +14,20 @@
     <link rel="icon" href="/home/assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/universe/styles.css?v=20260830-3" />
     <link rel="stylesheet" href="/universe/novel/styles.css?v=20260830-3" />
+    <link rel="stylesheet" href="/home/interiors.css?v=20260927-4" />
   </head>
-  <body class="novel-site reader-site" data-theme="night">
+  <body class="novel-site reader-site echo-interior reader-edition" data-theme="night">
     <div class="reading-progress" aria-hidden="true"><i id="reading-progress-bar"></i></div>
     <header class="reader-header">
       <a class="reader-back" data-catalog-link href="/universe/novel/?lang=zh"><span>←</span><b data-i18n="backCatalog">小说目录</b></a>
       <div class="reader-title"><small>ECHO AGE · CHAPTER 01</small><strong data-i18n="chapterTitle">陌生记忆</strong></div>
-      <div class="reader-actions" aria-label="阅读设置">
-        <div class="locale-switch" role="group" aria-label="语言">
+      <div class="reader-actions" aria-label="阅读设置" data-i18n-aria="readingSettings">
+        <div class="locale-switch" role="group" aria-label="语言" data-i18n-aria="languageSelector">
           <button type="button" data-locale="zh" aria-pressed="true">中</button><span>/</span><button type="button" data-locale="en" aria-pressed="false">EN</button>
         </div>
-        <button type="button" id="font-down" aria-label="减小字号">A−</button>
-        <button type="button" id="font-up" aria-label="增大字号">A＋</button>
-        <button type="button" id="theme-toggle" aria-label="切换阅读主题"><i></i><span data-i18n="themeLabel">纸色</span></button>
+        <button type="button" id="font-down" aria-label="减小字号" data-i18n-aria="fontDown">A−</button>
+        <button type="button" id="font-up" aria-label="增大字号" data-i18n-aria="fontUp">A＋</button>
+        <button type="button" id="theme-toggle" aria-label="切换阅读主题" data-i18n-aria="toggleTheme"><i></i><span data-i18n="themeLabel">纸色</span></button>
       </div>
     </header>
 
@@ -51,6 +52,7 @@
           <h1><span data-i18n="chapterTitle">陌生记忆</span><small>ECHO: ECHO AGE</small></h1>
           <p class="chapter-logline" data-i18n="chapterLogline">她从未学过外科，却用一个死者留下的双手救活了孩子。</p>
           <div class="chapter-byline"><span data-i18n="editionLabel">候选试读版</span><i></i><span data-i18n="revisionDate">依据 2026.08.22 编辑核对</span></div>
+          <figure class="reader-frontispiece" data-illustration="white-harbor"><img src="/universe/novel/assets/illustration-white-harbor-agnes-v2.png" alt="晨雾中的白港与垂直交通轨道" fetchpriority="high" /><figcaption>WHITE HARBOR / 2147<br />A MEMORY THAT IS NOT YOURS.</figcaption></figure>
         </header>
 
         <div class="language-note" id="language-note" hidden><b>ZH ORIGINAL</b><p data-i18n="englishNotice">This candidate preview is currently presented in its Chinese original. The English literary edition is in editorial translation.</p></div>
@@ -77,6 +79,6 @@
     </main>
 
     <div class="novel-toast" id="novel-toast" role="status" aria-live="polite"></div>
-    <script src="/universe/novel/stranger-memory/reader.js?v=20260830-3"></script>
+    <script src="/universe/novel/stranger-memory/reader.js?v=20260927-3"></script>
   </body>
 </html>

@@ -1,8 +1,10 @@
 const readerCopy = {
   zh: {
+    readingSettings: "阅读设置", languageSelector: "语言", fontDown: "减小字号", fontUp: "增大字号", toggleTheme: "切换阅读主题",
     backCatalog: "小说目录", chapterTitle: "陌生记忆", themeLabel: "纸色", themePaper: "纸色", themeNight: "深色", railStatus: "状态", candidateStatus: "候选精修中", railLocation: "地点", railViewpoint: "视角", railReading: "阅读", fiveMinutes: "约 5 分钟", candidateBanner: "候选试读 · 非最终正典。内容可能在连续性审核后调整。", chapterLogline: "她从未学过外科，却用一个死者留下的双手救活了孩子。", editionLabel: "候选试读版", revisionDate: "依据 2026.08.22 编辑核对", englishNotice: "当前候选试读以中文原文呈现；英文文学版本正在编辑翻译中。", savedAt: "上次读到", resumeReading: "继续上次进度", restartReading: "从头阅读", loadingChapter: "正在打开记忆档案……", loadError: "试读内容暂时无法载入，请稍后重试。", previewEndTitle: "第一道封锁线落下之后，白幽灵小队才会抵达。", previewEndBody: "后续精修将进入白幽灵调查、可撤回的同步同意程序，以及 ECHO 网络中尚未命名的信号。本次停在已经通过设定核对的公开边界。", backDirectory: "返回章节目录", saveSerial: "收藏连载", savedSerial: "已收藏", notCanon: "尚未晋升正典", savedToast: "已收藏在当前设备", removedToast: "已取消收藏", pageTitle: "第一章：陌生记忆 · ECHO NOVEL", pageDescription: "《回响纪元》第一章《陌生记忆》候选试读：她从未学过外科，却用一个死者留下的双手救活了孩子。"
   },
   en: {
+    readingSettings: "Reading settings", languageSelector: "Language", fontDown: "Decrease font size", fontUp: "Increase font size", toggleTheme: "Switch reading theme",
     backCatalog: "Novel index", chapterTitle: "Stranger Memory", themeLabel: "Paper", themePaper: "Paper", themeNight: "Night", railStatus: "Status", candidateStatus: "Candidate revision", railLocation: "Location", railViewpoint: "Viewpoint", railReading: "Reading", fiveMinutes: "About 5 minutes", candidateBanner: "Candidate preview · Not final canon. Text may change after continuity review.", chapterLogline: "She never studied surgery, yet saves a child with the hands a dead doctor left behind.", editionLabel: "Candidate preview edition", revisionDate: "Based on the 2026.08.22 editorial review", englishNotice: "This candidate preview is currently presented in its Chinese original. The English literary edition is in editorial translation.", savedAt: "Last position", resumeReading: "Resume", restartReading: "Start over", loadingChapter: "Opening memory archive…", loadError: "The preview could not be loaded. Please try again shortly.", previewEndTitle: "White Ghost Team arrives after the first containment line falls.", previewEndBody: "The revision continues into the White Ghost investigation, a revocable memory-sync consent procedure and an unnamed signal inside ECHO. This preview stops at the boundary already cleared for public reading.", backDirectory: "Back to chapters", saveSerial: "Save serial", savedSerial: "Saved", notCanon: "Not promoted to canon", savedToast: "Saved on this device", removedToast: "Removed from saved", pageTitle: "Chapter 01: Stranger Memory · ECHO NOVEL", pageDescription: "Candidate preview of Stranger Memory, Chapter One of ECHO: Echo Age."
   }
 };
@@ -11,57 +13,57 @@ const chapterIllustrations = [
   {
     id: "white-harbor",
     anchor: "回响纪元的人把家装进脊柱。",
-    src: "/universe/novel/assets/illustration-white-harbor-agnes-v1.png",
-    width: 1248,
-    height: 832,
+    src: "/universe/novel/assets/illustration-white-harbor-agnes-v2.png",
+    width: 1536,
+    height: 1024,
     copy: {
       zh: {
         title: "白港晨醒",
-        caption: "家园核心逐层点亮，城市把昨日未能记住的事保存下来。",
-        alt: "银白晨雾中的白港，高层住宅、垂直交通轨道与蓝紫色家园核心灯光在海岸线上苏醒。"
+        caption: "遮光板逐层开启，垂直轨道的安全灯沿海雾依次亮起。",
+        alt: "银灰海雾中的白港，高层住宅、跨海轨道与青蓝安全灯在晨光中苏醒。"
       },
       en: {
         title: "White Harbor Wakes",
-        caption: "Home cores light floor by floor, preserving what the city could not remember yesterday.",
-        alt: "White Harbor waking in silver morning fog, with coastal towers, vertical transit rails and blue-violet home-core lights."
+        caption: "Sleep shutters rise by level as vertical rail safety lights switch on through the sea mist.",
+        alt: "White Harbor waking in silver sea mist, with coastal towers, elevated transit rails and cyan safety lights."
       }
     }
   },
   {
     id: "l7-collapse",
     anchor: "亮到每个乘客都能清楚看见城市是如何精确地失败。",
-    src: "/universe/novel/assets/illustration-l7-collapse-agnes-v1.png",
-    width: 1248,
-    height: 832,
+    src: "/universe/novel/assets/illustration-l7-collapse-agnes-v2.png",
+    width: 1536,
+    height: 1024,
     copy: {
       zh: {
         title: "精确地失败",
-        caption: "安全系统没有黑屏；它让每个人清楚看见城市如何精确地失败。",
-        alt: "L-7 交通车厢坍塌后的内部，应急灯照亮碎裂的白色复合玻璃、变形座椅和奔向受困孩子的林乔。"
+        caption: "白色应急灯仍然亮着，照见折叠的车厢结构、被困的孩子和刚醒来的林乔。",
+        alt: "L-7 车厢挤压坍塌，林乔在折断的扶手旁醒来；母亲守着座椅下的受困男孩，无人机被变形结构挡住。"
       },
       en: {
         title: "A Precise Failure",
-        caption: "The safety system never went dark; it made everyone watch the city fail precisely.",
-        alt: "Inside the collapsed L-7 carriage, emergency lights reveal shattered white composite glass, twisted seats and Lin Qiao moving toward a trapped child."
+        caption: "White emergency strips stay on, exposing the buckled carriage, the trapped boy and Lin Qiao just waking up.",
+        alt: "The L-7 carriage has buckled inward. Lin Qiao wakes beside a snapped rail as the mother stays by a boy trapped beneath a seat and a drone is blocked by wreckage."
       }
     }
   },
   {
     id: "stranger-hands",
     anchor: "三分钟后，男孩活了下来。",
-    src: "/universe/novel/assets/illustration-stranger-hands-agnes-v1.png",
-    width: 1248,
-    height: 832,
+    src: "/universe/novel/assets/illustration-stranger-hands-agnes-v2.png",
+    width: 1536,
+    height: 1024,
     copy: {
       zh: {
         title: "陌生的手",
-        caption: "林乔从未学过外科，但她的双手知道如何救下那个孩子。",
-        alt: "冷蓝诊断光下，林乔以陌生却精准的动作操作医疗无人机急救组件，身旁的男孩恢复生命体征。"
+        caption: "一只手按住撕下的袖口，另一只手打开无人机底部的急救组件。",
+        alt: "林乔跪在受困男孩身旁，一手隔着衣物按压布条，一手操作悬停医疗无人机的释放槽；男孩母亲在旁守候。"
       },
       en: {
         title: "Stranger Hands",
-        caption: "Lin Qiao never studied surgery, yet her hands know how to save the child.",
-        alt: "Under cold blue diagnostic light, Lin Qiao handles a medical-drone emergency cartridge with unfamiliar precision as the child stabilizes beside her."
+        caption: "One hand holds the torn cuff in place while the other opens the drone’s emergency cartridge slot.",
+        alt: "Lin Qiao kneels beside the trapped boy, holding cloth pressure over his clothing while operating the hovering medical drone; his mother stays close."
       }
     }
   }
@@ -86,7 +88,7 @@ function preferredLocale() {
   return navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
 }
 
-function getStoredNumber(key, fallback) { try { const value = Number(localStorage.getItem(key)); return Number.isFinite(value) ? value : fallback; } catch (_) { return fallback; } }
+function getStoredNumber(key, fallback) { try { const stored = localStorage.getItem(key); if (stored === null) return fallback; const value = Number(stored); return Number.isFinite(value) ? value : fallback; } catch (_) { return fallback; } }
 function followed() { try { return localStorage.getItem(followKey) === "true"; } catch (_) { return false; } }
 
 function showToast(message) {
@@ -103,6 +105,7 @@ function applyLocale(next, updateUrl = true) {
   locale = next === "en" ? "en" : "zh"; const copy = readerCopy[locale];
   document.documentElement.lang = locale === "en" ? "en" : "zh-CN";
   document.querySelectorAll("[data-i18n]").forEach((element) => { if (copy[element.dataset.i18n] !== undefined) element.textContent = copy[element.dataset.i18n]; });
+  document.querySelectorAll("[data-i18n-aria]").forEach((element) => { if (copy[element.dataset.i18nAria]) element.setAttribute("aria-label", copy[element.dataset.i18nAria]); });
   document.querySelectorAll("[data-locale]").forEach((button) => { const active = button.dataset.locale === locale; button.classList.toggle("active", active); button.setAttribute("aria-pressed", String(active)); });
   document.querySelectorAll("[data-catalog-link]").forEach((link) => { const url = new URL(link.href); url.searchParams.set("lang", locale); link.href = `${url.pathname}${url.search}`; });
   document.querySelector("#language-note").hidden = locale !== "en";
@@ -178,6 +181,7 @@ function buildChapter(text) {
     if (index === 0) paragraph.className = "chapter-opening";
     container.append(paragraph);
     chapterIllustrations.forEach((illustration, illustrationIndex) => {
+      if (document.querySelector(`.reader-frontispiece[data-illustration="${illustration.id}"]`)) return;
       if (paragraph.textContent.includes(illustration.anchor)) container.append(createChapterIllustration(illustration, illustrationIndex));
     });
   });
@@ -205,7 +209,7 @@ function scrollToProgress(progress) { const article = document.querySelector("#r
 savedProgress = Math.max(0, Math.min(100, getStoredNumber(progressKey, 0)));
 if (savedProgress > 4 && savedProgress < 96) { const prompt = document.querySelector("#resume-prompt"); prompt.hidden = false; document.querySelector("#resume-percent").textContent = `${Math.round(savedProgress)}%`; }
 document.querySelector("#resume-button")?.addEventListener("click", () => { document.querySelector("#resume-prompt").hidden = true; scrollToProgress(savedProgress); });
-document.querySelector("#restart-button")?.addEventListener("click", () => { try { localStorage.setItem(progressKey, "0"); } catch (_) {} document.querySelector("#resume-prompt").hidden = true; scrollTo({ top: document.querySelector(".chapter-heading").offsetTop - 80, behavior: "smooth" }); });
+document.querySelector("#restart-button")?.addEventListener("click", () => { try { localStorage.setItem(progressKey, "0"); } catch (_) {} document.querySelector("#resume-prompt").hidden = true; scrollTo({ top: document.querySelector(".chapter-heading").offsetTop - 80, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); });
 document.querySelector("#font-down")?.addEventListener("click", () => setFontSize(fontSize - 1)); document.querySelector("#font-up")?.addEventListener("click", () => setFontSize(fontSize + 1));
 document.querySelector("#theme-toggle")?.addEventListener("click", () => { theme = theme === "night" ? "paper" : "night"; document.body.dataset.theme = theme; syncThemeControl(); try { localStorage.setItem(themeKey, theme); } catch (_) {} });
 document.querySelector("#reader-follow")?.addEventListener("click", () => { const value = !followed(); try { localStorage.setItem(followKey, String(value)); } catch (_) {} syncFollow(); showToast(readerCopy[locale][value ? "savedToast" : "removedToast"]); });

@@ -7,14 +7,15 @@
     <meta name="robots" content="noindex, nofollow, noarchive" />
     <title>ECHO INTERNAL · 宇宙管理平台</title>
     <link rel="stylesheet" href="/console/styles.css?v=20260830-3" />
+    <link rel="stylesheet" href="/home/interiors.css?v=20260927-4" />
   </head>
-  <body>
+  <body class="echo-interior console-edition">
     <div class="os-shell">
       <header class="system-bar">
-        <div class="system-brand">
+        <a class="system-brand" href="/" aria-label="ECHO 首页" data-i18n-aria="home">
           <span class="brand-mark">E</span>
           <span>ECHO INTERNAL</span>
-        </div>
+        </a>
         <div class="system-center">
           <span class="system-chip" id="engine-state">连接中</span>
           <span class="system-chip">2147 / Echo Age</span>
@@ -30,15 +31,22 @@
       </header>
 
       <aside class="dock" aria-label="ECHO 空间" data-i18n-aria="echoRooms">
-        <button class="dock-item active" data-window="world" title="世界大脑" data-i18n-title="worldBrain">WB</button>
-        <button class="dock-item" data-window="characters" title="角色智能体" data-i18n-title="characterAgents">CA</button>
-        <button class="dock-item" data-window="factory" title="宇宙工厂" data-i18n-title="universeFactory">UF</button>
-        <button class="dock-item" data-window="assets" title="资产锁定" data-i18n-title="assetLocks">AL</button>
-        <button class="dock-item" data-window="memory" title="记忆流" data-i18n-title="memoryStream">MS</button>
-        <button class="dock-item runtime-only" data-window="octopus" title="Octopus 运行时" data-i18n-title="octopusRuntime">OR</button>
+        <div class="dock-caption">MISSION CONTROL<span>2147 / ECHO AGE</span></div>
+        <button class="dock-item active" data-window="world" aria-pressed="true" title="世界大脑" data-i18n-title="worldBrain"><i aria-hidden="true">◎</i><span data-i18n="worldBrain">世界大脑</span><small>01</small></button>
+        <button class="dock-item" data-window="characters" aria-pressed="false" title="角色智能体" data-i18n-title="characterAgents"><i aria-hidden="true">⌘</i><span data-i18n="characterAgents">角色智能体</span><small>02</small></button>
+        <button class="dock-item" data-window="factory" aria-pressed="false" title="宇宙工厂" data-i18n-title="universeFactory"><i aria-hidden="true">◇</i><span data-i18n="universeFactory">宇宙工厂</span><small>03</small></button>
+        <button class="dock-item" data-window="assets" aria-pressed="false" title="资产锁定" data-i18n-title="assetLocks"><i aria-hidden="true">▧</i><span data-i18n="assetLocks">资产锁定</span><small>04</small></button>
+        <button class="dock-item" data-window="memory" aria-pressed="false" title="记忆流" data-i18n-title="memoryStream"><i aria-hidden="true">≋</i><span data-i18n="memoryStream">记忆流</span><small>05</small></button>
+        <button class="dock-item runtime-only" data-window="octopus" aria-pressed="false" title="Octopus 运行时" data-i18n-title="octopusRuntime"><i aria-hidden="true">⌁</i><span data-i18n="octopusRuntime">Octopus 运行时</span><small>06</small></button>
+        <a class="dock-return" href="/universe/"><span data-i18n="exploreUniverse">探索宇宙</span><span aria-hidden="true">↗</span></a>
       </aside>
 
       <main class="desktop" id="desktop">
+        <div class="desktop-welcome">
+          <span>MISSION CONTROL / ECHO</span><strong>ECHO.</strong>
+          <p data-i18n="workspaceReady">选择一个空间，继续探索。</p>
+          <button id="restore-world" type="button" data-i18n="returnOverview">打开世界大脑</button>
+        </div>
         <section class="window world-window active" data-window-panel="world">
           <div class="titlebar">
             <div>
@@ -52,6 +60,7 @@
           </div>
           <div class="world-body">
             <div class="neural-core" aria-label="ECHO 神经核心" data-i18n-aria="neuralCore">
+              <span class="core-coordinate">WORLD ENGINE / 01</span>
               <div class="core-ring ring-a"></div>
               <div class="core-ring ring-b"></div>
               <div class="core-ring ring-c"></div>
@@ -59,6 +68,7 @@
                 <strong>ECHO</strong>
                 <span data-i18n="worldBrain">世界大脑</span>
               </div>
+              <span class="core-caption">INTELLIGENCE WITH CONTINUITY.</span>
             </div>
             <div class="metric-grid" id="metrics"></div>
           </div>
@@ -172,7 +182,7 @@
       </main>
     </div>
 
-    <script src="/console/i18n.js?v=20260830-3"></script>
-    <script src="/console/app.js?v=20260830-3"></script>
+    <script src="/console/i18n.js?v=20260927-3"></script>
+    <script src="/console/app.js?v=20260927-3"></script>
   </body>
 </html>

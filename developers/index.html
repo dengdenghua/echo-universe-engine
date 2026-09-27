@@ -28,8 +28,9 @@
     <link rel="icon" href="/home/assets/favicon.svg?v=20260830-3" type="image/svg+xml" />
     <link rel="preload" href="/home/assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/developers/styles.css?v=20260830-6" />
+    <link rel="stylesheet" href="/home/interiors.css?v=20260927-4" />
   </head>
-  <body>
+  <body class="echo-interior developer-edition">
     <a class="skip-link" href="#main" data-i18n="skipToContent">跳到主要内容</a>
 
     <header class="dev-header">
@@ -55,9 +56,20 @@
 
     <main id="main">
       <section class="dev-hero">
+        <div class="dev-hero-copy">
         <p class="kicker">ECHO UNIVERSE · CONTENT API</p>
+        <div class="dev-wordmark" aria-hidden="true">BUILD<br />WITH <em>ECHO.</em></div>
         <h1 data-i18n="heroTitle">读取一个持续生长的世界</h1>
         <p class="lead" data-i18n="heroLead">ECHO Universe 把角色、派系、正典状态与世界事件以只读 JSON 暴露出来。下面每个接口都来自运行中的服务，不是规划稿。</p>
+        <div class="interior-actions"><a class="interior-primary" href="#start"><span data-i18n="navStart">开始</span><span aria-hidden="true">↗</span></a><a href="#playground"><span data-i18n="navPlayground">试调</span><span aria-hidden="true"> →</span></a></div>
+        </div>
+        <aside class="api-observatory" aria-label="API 架构" data-i18n-aria="apiArchitecture">
+          <div class="observatory-top"><span>UNIVERSE INTERFACE</span><b>01 / HTTP</b></div>
+          <div class="api-orbit" aria-hidden="true"><i></i><i></i><i></i><strong>E</strong><span>CONTENT API</span></div>
+          <div class="api-route"><span>GET</span><code>/api/canon/status</code><b aria-hidden="true">↗</b></div>
+          <div class="api-nodes"><span>CHARACTERS</span><span>FACTIONS</span><span>WORLD EVENTS</span></div>
+          <div class="observatory-bottom"><span data-i18n="apiDiagram">公开内容接口示意</span><span>JSON / UTF-8</span></div>
+        </aside>
         <div class="hero-facts" role="list">
           <span role="listitem"><b id="fact-endpoints">—</b><small data-i18n="factEndpoints">公开只读接口</small></span>
           <span role="listitem"><b id="fact-characters">—</b><small data-i18n="factCharacters">角色档案</small></span>
@@ -195,6 +207,6 @@
       </footer>
     </main>
 
-    <script src="/developers/app.js?v=20260830-3"></script>
+    <script src="/developers/app.js?v=20260927-3"></script>
   </body>
 </html>
