@@ -21,7 +21,7 @@
   // Canon facts from characters/*.md and colours from bible/visual_system_v1.md.
   const CHARACTERS = {
     "001": { dir: "001_zero", name: "ZERO", codename: "WHITE GHOST", role: "CAPTAIN", rank: "S", core: "NEURAL SYNC", shell: "IRIDESCENT WHITE", accent: "#bff4ff", accent2: "#f5a8ca", line: "Memory is evidence." },
-    "002": { dir: "002_kane", name: "KANE", codename: "PALADIN", role: "VICE CAPTAIN", rank: "A", core: "COMBAT DOWNLOAD", shell: "WHITE ARMOR / GOLD", accent: "#e3c27a", accent2: "#f4f9fb", line: "Ten seconds to learn." },
+    "002": { dir: "002_kane", name: "KANE", codename: "PALADIN", role: "VICE CAPTAIN", rank: "A", core: "COMBAT DOWNLOAD", shell: "BLACK COAT / VIOLET", accent: "#9479ff", accent2: "#e3c27a", line: "Ten seconds to learn." },
     "003": { dir: "003_eve", name: "EVE", codename: "SIREN", role: "EMOTION HACKER", rank: "A", core: "EMOTION HACK", shell: "SILVER / ROSE SIGNAL", accent: "#f49ac1", accent2: "#e9ecf4", line: "Every feeling has a port." },
     "004": { dir: "004_leon", name: "LEON", codename: "CHRONOS", role: "SWORDSMAN", rank: "A", core: "TIME ECHO", shell: "WHITE STEEL / COLD BLUE", accent: "#98bfff", accent2: "#eef4ff", line: "Three seconds ahead." },
     "005": { dir: "005_raven", name: "RAVEN", codename: "NIGHT CROW", role: "ASSASSIN", rank: "A", core: "SHADOW LINK", shell: "BLACK / WHITE EDGE", accent: "#a993f2", accent2: "#f3c873", line: "Blind spots are doors." },
@@ -918,9 +918,37 @@
     requestAnimationFrame(loop);
   }
 
+  // The reference sheets are large; show the file loading instead of a black frame.
+  function drawLoading(done, total) {
+    ctx.fillStyle = "#030506";
+    ctx.fillRect(0, 0, W, H);
+    mono(14, 600);
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#eef6f8";
+    ctx.fillText(`ECHO // LOADING SUBJECT FILE ${id} · ${who.name}`, 96, H / 2 - 18);
+    ctx.fillStyle = "rgba(238, 246, 248, 0.18)";
+    ctx.fillRect(96, H / 2 + 8, 420, 2);
+    ctx.fillStyle = who.accent;
+    ctx.fillRect(96, H / 2 + 8, (420 * done) / total, 2);
+    mono(11);
+    ctx.fillStyle = rgba(who.accent, 0.85);
+    ctx.fillText(`REFERENCE SHEETS ${done} / ${total}`, 96, H / 2 + 30);
+  }
+
   async function boot() {
     const base = `/assets/characters/${who.dir}/octopus_refs/`;
-    const [front, side, back, head, avatar] = await Promise.all(["front", "side", "back", "head", "avatar"].map((name) => loadImage(`${base}${name}.png`)));
+    const sheets = ["front", "side", "back", "head", "avatar"];
+    let loaded = 0;
+    drawLoading(0, sheets.length);
+    const [front, side, back, head, avatar] = await Promise.all(
+      sheets.map((name) =>
+        loadImage(`${base}${name}.png`).then((img) => {
+          loaded += 1;
+          drawLoading(loaded, sheets.length);
+          return img;
+        }),
+      ),
+    );
     for (const sheet of [front, side, back]) if (sheet) sheet.box = silhouette(sheet);
     Object.assign(art, { front, side: side || front, back: back || front, head, avatar });
     try {

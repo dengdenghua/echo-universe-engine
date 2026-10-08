@@ -92,16 +92,16 @@ characters:
       side: assets/characters/002_kane/octopus_refs/side.png
       back: assets/characters/002_kane/octopus_refs/back.png
       source_turnaround: assets/characters/002_kane/octopus_refs/source-turnaround.png
-    silhouette: broad protective vice-captain, military white armored jacket, heavy gauntlets
-    hair: black or very dark brown, short practical cut
+    silhouette: broad protective vice-captain, knee-length black hooded field coat, katana slung across the back
+    hair: black, short tousled cut
     face: mature young adult, warm eyes, restrained intensity
-    eyes: warm brown or dark amber
-    accent_color: muted gold
+    eyes: warm dark brown
+    accent_color: electric violet, with muted gold hardware
     required_items:
-      - white armored jacket
-      - black tactical straps
-      - heavy gauntlets
-      - command earpiece
+      - black hooded field coat with electric violet straps and piping
+      - katana with a violet-wrapped hilt slung across the back
+      - fingerless tactical gloves
+      - black and violet combat sneakers
     forbidden_drift:
       - fantasy knight armor
       - oversized cape
@@ -109,8 +109,9 @@ characters:
       - glowing holy effects
     base_prompt: >
       Kane, Paladin vice captain, young male military cyberpunk operator,
-      white armored jacket, black tactical straps, heavy gauntlets, warm eyes,
-      muted gold accents, protective posture, snow white industrial techwear.
+      knee-length black hooded field coat, electric violet straps and piping,
+      katana slung across the back, fingerless tactical gloves, black and violet
+      combat sneakers, warm dark eyes, muted gold hardware, protective posture.
     expression_set:
       - calm command
       - protective anger

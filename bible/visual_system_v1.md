@@ -17,7 +17,7 @@ Base:
 Accent:
 
 - Zero: iridescent white / pale cyan / soft pink
-- Kane: white armor / black straps / muted gold
+- Kane: black hooded field coat / electric violet straps / muted gold hardware
 - Eve: silver white / rose signal / soft magenta
 - Leon: white steel / cold blue
 - Raven: black underlayer / white edge armor / shadow violet
