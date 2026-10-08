@@ -57,7 +57,7 @@ case "$ACTION" in
 set -euo pipefail
 root=/var/www/echo-universe
 echo "current:  $(readlink -f "$root/current")"
-echo "previous: $(readlink -f "$root/previous" 2>/dev/null || echo none)"
+if [[ -L "$root/previous" ]]; then echo "previous: $(readlink -f "$root/previous")"; else echo "previous: none"; fi
 echo "recent releases:"
 ls -1t "$root/releases" | head -5 | sed 's/^/  /'
 REMOTE
