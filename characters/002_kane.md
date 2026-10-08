@@ -29,10 +29,12 @@ secret: >
 future: Sacrifice Arc
 quote: "Give me ten seconds. Then follow me."
 visual_design: >
-  White armored jacket, black tactical straps, restrained military silhouette,
-  warm eyes, heavy gauntlets.
+  Knee-length black hooded field coat with electric-violet straps and piping,
+  katana slung across the back, fingerless tactical gloves, black-and-violet
+  combat sneakers, restrained military silhouette, warm dark eyes.
 illustration_prompt: >
-  Anime character design, young male, military cyberpunk techwear, white
-  armored jacket, black tactical straps, full body front view, character sheet,
-  high detail concept art, dark industrial background.
+  Anime character design, young male, military cyberpunk techwear, black
+  hooded field coat with electric violet straps, katana on back, fingerless
+  gloves, full body front view, character sheet, high detail concept art, dark
+  industrial background.
 ```
