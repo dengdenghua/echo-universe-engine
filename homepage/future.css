@@ -44,7 +44,7 @@
 
 /* A single viewport-sized canvas, with a CSS fallback when canvas is unavailable. */
 .future-site .future-hero { position: relative; isolation: isolate; display: block; height: min(980px, 100svh); min-height: 820px; max-height: none; overflow: hidden; background: #060909; }
-.future-site .future-hero::before { content: ""; position: absolute; z-index: 2; inset: 0; opacity: .16; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' opacity='.3' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E"); background-size: 180px; mask-image: none; pointer-events: none; }
+.future-site .future-hero::before { content: ""; position: absolute; z-index: 2; inset: 0; opacity: .16; background-image: url("/home/assets/grain.svg"); background-size: 180px; mask-image: none; pointer-events: none; }
 .future-site .future-hero::after { content: ""; position: absolute; z-index: 1; inset: 0; background: linear-gradient(90deg, #06090977 0%, transparent 56%), linear-gradient(0deg, #060909 0%, transparent 25%); pointer-events: none; }
 .singularity-canvas { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .singularity-fallback { position: absolute; right: -4%; top: 17%; width: 54%; aspect-ratio: 1; border: 1px solid #b5ffd14f; border-radius: 50%; background: radial-gradient(ellipse, #060909 42%, #65897677 43%, #bdffba80 44%, transparent 45%, #5cb7a524 53%, transparent 69%); transform: rotate(-30deg) scaleY(.7); box-shadow: 0 0 110px #86ffcd17; }
@@ -56,8 +56,8 @@
 .future-hero-copy a { pointer-events: auto; }
 .signal-eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 24px; color: #b6ccb9; font: 10px var(--mono); letter-spacing: .16em; }
 .signal-eyebrow > i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px #c5ffb244; }
-.future-site h1.echo-wordmark { position: relative; display: block; width: fit-content; margin: 0 0 30px -8px; font-size: clamp(130px, 15vw, 218px); line-height: .74; font-weight: 650; font-stretch: expanded; letter-spacing: -.085em; text-indent: 0; color: #edf1e9; text-shadow: none; }
-.future-site h1.echo-wordmark > span { position: absolute; left: calc(100% + 20px); bottom: 6px; width: max-content; padding: 0; margin: 0; color: #b1c5b5; font: 9px var(--mono); letter-spacing: .12em; writing-mode: vertical-rl; white-space: nowrap; }
+.future-site .echo-wordmark { position: relative; display: block; width: fit-content; margin: 0 0 30px -8px; font-size: clamp(130px, 15vw, 218px); line-height: .74; font-weight: 650; font-stretch: expanded; letter-spacing: -.085em; text-indent: 0; color: #edf1e9; text-shadow: none; }
+.future-site .echo-wordmark > span { position: absolute; left: calc(100% + 20px); bottom: 6px; width: max-content; padding: 0; margin: 0; color: #b1c5b5; font: 9px var(--mono); letter-spacing: .12em; writing-mode: vertical-rl; white-space: nowrap; }
 .hero-manifesto { margin: 0 0 23px; color: #e0e7de; font-size: clamp(25px, 3.3vw, 46px); line-height: 1.12; font-weight: 360; letter-spacing: -.045em; }
 .hero-manifesto > span { color: #9ea9a0; }
 .future-hero-title { margin: 0 0 14px; color: #e2eade; font-size: 19px; font-weight: 400; letter-spacing: .17em; line-height: 1.5; }
@@ -217,7 +217,7 @@
   .future-site .future-hero { min-height: 850px; }
   .hero-coordinate { top: 146px; font-size: 8px; }
   .future-hero-copy { padding-top: 206px; }
-  .future-site h1.echo-wordmark { font-size: clamp(120px, 20vw, 175px); }
+  .future-site .echo-wordmark { font-size: clamp(120px, 20vw, 175px); }
   .hero-manifesto { font-size: 34px; }
   .future-hero-description { max-width: 320px; }
   .orbital-caption { bottom: 150px; right: 26px; font-size: 8px; }
@@ -246,8 +246,8 @@
   .hero-coordinate > span:last-child { display: none; }
   .future-hero-copy { padding-top: 185px; padding-bottom: 130px; }
   .signal-eyebrow { font-size: 8px; margin-bottom: 24px; }
-  .future-site h1.echo-wordmark { font-size: clamp(100px, 27vw, 160px); margin-left: -4px; margin-bottom: 21px; }
-  .future-site h1.echo-wordmark > span { left: calc(100% + 12px); font-size: 7px; }
+  .future-site .echo-wordmark { font-size: clamp(100px, 27vw, 160px); margin-left: -4px; margin-bottom: 21px; }
+  .future-site .echo-wordmark > span { left: calc(100% + 12px); font-size: 7px; }
   .hero-manifesto { font-size: 27px; margin-bottom: 288px; }
   .future-hero-title { font-size: 17px; letter-spacing: .11em; }
   .future-hero-description { max-width: 340px; font-size: 12px; }
@@ -287,7 +287,7 @@
   .future-site .header-actions .enter-link { display: none; }
   .future-hero-actions { gap: 12px; }
   .future-primary { min-width: 151px; font-size: 10px; }
-  .future-site h1.echo-wordmark > span { left: calc(100% + 9px); }
+  .future-site .echo-wordmark > span { left: calc(100% + 9px); }
 }
 @media (pointer: coarse) {
   .future-site .locale-switch button { min-width: 44px; min-height: 44px; }
