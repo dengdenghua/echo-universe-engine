@@ -54,7 +54,7 @@ Open the console:
 http://localhost:8010/
 ```
 
-Octopus runtime controls are intentionally hidden from the default Hub view. Use this development URL when you need to inspect the reserved adapter panel:
+Echo AI runtime controls are intentionally hidden from the default Hub view. Use this development URL when you need to inspect the reserved adapter panel:
 
 ```text
 http://localhost:8010/?runtime=1
@@ -73,13 +73,13 @@ uv run python agents/art_director_agent.py
 uv run python agents/consistency_agent.py
 uv run python agents/event_agent.py
 uv run python agents/daily_life_agent.py
-uv run python agents/export_octopus_agents.py
+uv run python agents/export_echo_ai_agents.py
 uv run python -m echo_engine.cli status
 uv run python -m echo_engine.cli event --title "Ghost Attack on Atlas"
 uv run python -m echo_engine.cli daily-life
-uv run python -m echo_engine.cli export-octopus-agents
-uv run python -m echo_engine.cli export-octopus-agents --sync-octopus-runtime
-uv run python -m echo_engine.cli octopus-ecosystem-plan
+uv run python -m echo_engine.cli export-echo-ai-agents
+uv run python -m echo_engine.cli export-echo-ai-agents --sync-echo-ai-runtime
+uv run python -m echo_engine.cli echo-ai-ecosystem-plan
 ```
 
 ## Model Provider
@@ -95,7 +95,7 @@ ECHO_MODEL_API_KEY=...
 ECHO_MODEL_NAME=agnes-2.0-flash
 ```
 
-`ECHO_MODEL_PROVIDER=octopus` and `ECHO_MODEL_PROVIDER=relay` use the same
+`ECHO_MODEL_PROVIDER=echo-ai` and `ECHO_MODEL_PROVIDER=relay` use the same
 OpenAI-compatible `/chat/completions` contract. The base URL should include the
 `/v1` prefix when the upstream expects it.
 
@@ -129,9 +129,9 @@ API:
 - `POST /api/agents/consistency/run`
 - `POST /api/neural/event/run`
 - `POST /api/neural/daily-life/run`
-- `GET /api/integrations/octopus/plan`
-- `GET /api/integrations/octopus/status`
-- `POST /api/integrations/octopus/sync-agents`
+- `GET /api/integrations/echo-ai/plan`
+- `GET /api/integrations/echo-ai/status`
+- `POST /api/integrations/echo-ai/sync-agents`
 
 Deployment notes live in `workflows/deployment.md`.
 
@@ -152,45 +152,61 @@ status: queued
 
 Later workers can implement ComfyUI, SDXL, Flux, storyboard, and manga layout without changing canon logic.
 
-## Octopus Ecosystem
+## Echo AI Ecosystem
 
-ECHO stays as the canon/IP repository. Octopus becomes the runtime nervous system.
+ECHO stays as the canon/IP repository. Echo AI becomes the runtime nervous system.
 
-- `octopus-agent`: World Brain runtime, scheduler, model routing, knowledge graph, journal, multi-agent character execution.
-- `octopus-mobile`: future embodied gateway for mobile sensing, notification, camera/screen context, and user interaction.
-- `octopus-storage`: Memory Vault for long-term character memory, embeddings, generated documents, generated images, and asset libraries.
+- `echo-ai`: World Brain runtime, scheduler, model routing, knowledge graph, journal, multi-agent character execution.
+- `echo-mobile`: future embodied gateway for mobile sensing, notification, camera/screen context, and user interaction.
+- `echo-storage`: Memory Vault for long-term character memory, embeddings, generated documents, generated images, and asset libraries.
 
-The integration contract lives in `integrations/octopus_ecosystem.yaml`.
+The integration contract lives in `integrations/echo_ai_ecosystem.yaml`.
 
 The architecture codex lives in `workflows/architecture_codex.md`. It defines
 the product boundary: ECHO is an AI-native interactive universe, not a generic
 AI character chat app.
 
-The hidden Hub interface rules live in `workflows/octopus_hub_interface.md`.
+The hidden Hub interface rules live in `workflows/echo_ai_hub_interface.md`.
 
-To sync exported character agents directly into an Octopus runtime, set:
+To sync exported character agents directly into an Echo AI runtime, set:
 
 ```bash
-ECHO_OCTOPUS_AGENTS_ROOT=/Users/dangbei/Public/octopus/octopus-agent/agents
-uv run python -m echo_engine.cli export-octopus-agents --sync-octopus-runtime
+ECHO_AI_AGENTS_ROOT=/path/to/echo-ai/agents
+uv run python -m echo_engine.cli export-echo-ai-agents --sync-echo-ai-runtime
 ```
 
-If the Octopus runtime API is running, ECHO can also ask it to hot-reload the
+If the Echo AI runtime API is running, ECHO can also ask it to hot-reload the
 agent registry after sync:
 
 ```bash
-ECHO_OCTOPUS_RUNTIME_URL=http://127.0.0.1:8000
-ECHO_OCTOPUS_RUNTIME_API_KEY=... # only needed when octopus-agent auth is enabled
-uv run python -m echo_engine.cli export-octopus-agents --sync-octopus-runtime --reload-octopus-runtime
+ECHO_AI_RUNTIME_URL=http://127.0.0.1:8000
+ECHO_AI_RUNTIME_API_KEY=... # only needed when Echo AI auth is enabled
+uv run python -m echo_engine.cli export-echo-ai-agents --sync-echo-ai-runtime --reload-echo-ai-runtime
 ```
 
-The API equivalent is `POST /api/integrations/octopus/sync-agents` with
+The API equivalent is `POST /api/integrations/echo-ai/sync-agents` with
 `{"reload_runtime": true}`.
+
+### Renamed from Octopus
+
+The ecosystem was previously called Octopus: `octopus-agent` is now Echo AI, and
+`octopus-mobile` / `octopus-storage` are now `echo-mobile` / `echo-storage`. The
+old names below still work as deprecated aliases:
+
+- Environment: `ECHO_OCTOPUS_AGENTS_ROOT`, `ECHO_OCTOPUS_RUNTIME_URL`,
+  `ECHO_OCTOPUS_RUNTIME_API_KEY`, `ECHO_OCTOPUS_RUNTIME_TIMEOUT_SECONDS` (the
+  `ECHO_AI_*` name wins when both are set) and `ECHO_MODEL_PROVIDER=octopus`.
+- CLI: `export-octopus-agents`, `octopus-ecosystem-plan`, `--sync-octopus-runtime`,
+  `--reload-octopus-runtime`, `--no-refresh-octopus-agents`, and
+  `agents/export_octopus_agents.py`.
+- API: `/api/integrations/octopus/{plan,status,sync-agents}` and the
+  `refresh_octopus_agents` field of `POST /api/canon/promotions`.
+- Static files: `/assets/characters/<id>/octopus_refs/...` and `/outputs/octopus_agents/...`.
 
 ## User Bindings
 
 The first mobile-facing universe slice is a simple ownership binding:
-`mobile user -> ECHO character -> Octopus agent`.
+`mobile user -> ECHO character -> Echo AI agent`.
 
 ```bash
 uv run python -m echo_engine.cli bind-character --user-id mobile-user-1 --character-id 001
@@ -270,7 +286,7 @@ generic chat skins.
 Current classes:
 
 - Anchor NPCs: protected main-canon characters backed by character cards and
-  exported Octopus agents.
+  exported Echo AI agents.
 - Realm NPCs: local characters for cities, planets, countries, or arcs.
 - Utility NPCs: guides, clerks, review liaisons, and quest givers.
 - Creator NPCs: future reviewed submissions from Realm operators or users.

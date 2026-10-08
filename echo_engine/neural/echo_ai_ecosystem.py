@@ -5,21 +5,25 @@ from typing import Any
 
 import yaml
 
-CONFIG_PATH = Path("integrations/octopus_ecosystem.yaml")
+CONFIG_PATH = Path("integrations/echo_ai_ecosystem.yaml")
+# Renamed from Octopus. A mounted integrations/ volume that predates the rename only has this file.
+LEGACY_CONFIG_PATH = Path("integrations/octopus_ecosystem.yaml")
 
 
-def load_octopus_ecosystem(root: Path | None = None) -> dict[str, Any]:
+def load_echo_ai_ecosystem(root: Path | None = None) -> dict[str, Any]:
     base = root or Path.cwd()
-    path = base / CONFIG_PATH
-    data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    config_path = CONFIG_PATH
+    if not (base / CONFIG_PATH).exists() and (base / LEGACY_CONFIG_PATH).exists():
+        config_path = LEGACY_CONFIG_PATH
+    data = yaml.safe_load((base / config_path).read_text(encoding="utf-8")) or {}
     if not isinstance(data, dict):
-        msg = f"{CONFIG_PATH} must contain a YAML mapping."
+        msg = f"{config_path} must contain a YAML mapping."
         raise ValueError(msg)
     return data
 
 
-def render_octopus_ecosystem_plan(root: Path | None = None) -> str:
-    config = load_octopus_ecosystem(root)
+def render_echo_ai_ecosystem_plan(root: Path | None = None) -> str:
+    config = load_echo_ai_ecosystem(root)
     repos = config.get("repositories", {})
     layers = config.get("layers", {})
     flows = config.get("flows", {})
@@ -28,9 +32,9 @@ def render_octopus_ecosystem_plan(root: Path | None = None) -> str:
     realm_governance = config.get("realm_governance", {})
 
     lines = [
-        "# Octopus Ecosystem Integration Plan",
+        "# Echo AI Ecosystem Integration Plan",
         "",
-        f"- Ecosystem: {config.get('ecosystem', 'octopus')}",
+        f"- Ecosystem: {config.get('ecosystem', 'echo_ai')}",
         f"- Mode: {config.get('mode', 'neural_universe')}",
         f"- Version: {config.get('version', '0.1')}",
         f"- Architecture codex: {config.get('architecture_codex', 'unset')}",
@@ -126,14 +130,14 @@ def render_octopus_ecosystem_plan(root: Path | None = None) -> str:
         [
             "## Implementation Rule",
             "",
-            "ECHO owns canon. Octopus runs the nervous system. Mobile and storage layers extend sensing, memory, and assets without rewriting canon directly.",
+            "ECHO owns canon. Echo AI runs the nervous system. Mobile and storage layers extend sensing, memory, and assets without rewriting canon directly.",
         ]
     )
     return "\n".join(lines)
 
 
 def ecosystem_paths(root: Path | None = None) -> dict[str, Path]:
-    config = load_octopus_ecosystem(root)
+    config = load_echo_ai_ecosystem(root)
     repos = config.get("repositories", {})
     return {
         repo_id: Path(str(repo.get("default_path", "")))

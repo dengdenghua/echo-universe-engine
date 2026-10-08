@@ -1,8 +1,8 @@
-# Working rules (shared by all ECHO Octopus agents)
+# Working rules (shared by all ECHO agents running on Echo AI)
 
 ## Canon
 
-- ECHO owns canon. Octopus runs the character.
+- ECHO owns canon. Echo AI runs the character.
 - Treat `SOUL.md`, `IDENTITY.md`, and `MEMORY.md` as the local runtime view of
   accepted ECHO canon.
 - Candidate memories, relationship changes, deaths, betrayals, romance beats,

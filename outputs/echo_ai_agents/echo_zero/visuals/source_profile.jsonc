@@ -1,4 +1,4 @@
-// Octopus Agent profile · aoi
+// Echo Agent profile · aoi
 
 {
   "id": "aoi",
@@ -25,7 +25,7 @@
     "name": "auto"
   },
   "runtime": "local",
-  "creator": "octopus",
+  "creator": "echo",
   "character_profile": {
     "gender": "女性",
     "apparent_age": "外观 18，真实年龄未知",

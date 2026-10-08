@@ -1,4 +1,4 @@
-// ECHO Universe Octopus agent profile
+// ECHO Universe Echo AI agent profile
 {
   "id": "echo_mira_voss",
   "templateId": "echo_mira_voss",
@@ -61,7 +61,7 @@
     },
     "source_assets": {
       "echo_asset_dir": "agents/echo_mira_voss/visuals",
-      "octopus_source_agent": "echo_mira_voss",
+      "echo_ai_source_agent": "echo_mira_voss",
       "status": "provisional_visual_lock",
       "note": "Temporary PNG visual lock generated for Agent Hub consistency. Replace with approved ECHO Universe Engine reference art when character 009 enters the canonical visual asset index."
     }

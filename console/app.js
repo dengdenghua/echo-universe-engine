@@ -60,7 +60,7 @@ function openWindow(name) {
 function installRuntimeVisibility() {
   document.body.classList.toggle("show-runtime", state.runtimeVisible);
   if (!state.runtimeVisible) {
-    const panel = document.querySelector('[data-window-panel="octopus"]');
+    const panel = document.querySelector('[data-window-panel="echo-ai"]');
     panel?.classList.remove("active");
   }
 }
@@ -217,11 +217,11 @@ function renderCandidates(candidates) {
 async function refresh() {
   try {
     setEngineState("Syncing");
-    const [health, characters, plan, octopus, assets, events, candidates] = await Promise.all([
+    const [health, characters, plan, echoAI, assets, events, candidates] = await Promise.all([
       requestJson("/api/health"),
       requestJson("/api/canon/characters"),
-      requestJson("/api/integrations/octopus/plan"),
-      requestJson("/api/integrations/octopus/status"),
+      requestJson("/api/integrations/echo-ai/plan"),
+      requestJson("/api/integrations/echo-ai/status"),
       requestJson("/api/assets/characters"),
       requestJson("/api/journal/events?limit=16"),
       requestJson("/api/journal/candidates?limit=24"),
@@ -235,8 +235,8 @@ async function refresh() {
     renderAssets(assets);
     renderJournal(events);
     renderCandidates(candidates);
-    $("#octopus-plan").textContent = plan.content;
-    $("#octopus-status").textContent = octopus.configured ? "Linked" : "Not linked";
+    $("#echo-ai-plan").textContent = plan.content;
+    $("#echo-ai-status").textContent = echoAI.configured ? "Linked" : "Not linked";
     setEngineState("Online", true);
   } catch (error) {
     setEngineState(`Offline: ${error.message}`);
@@ -263,8 +263,8 @@ async function promoteCandidate(eventId) {
   });
 }
 
-async function syncOctopusRuntime() {
-  return requestJson("/api/integrations/octopus/sync-agents", {
+async function syncEchoAIRuntime() {
+  return requestJson("/api/integrations/echo-ai/sync-agents", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({}),
@@ -328,12 +328,12 @@ function installDrag() {
 
 function installCommands() {
   $("#refresh-btn").addEventListener("click", refresh);
-  $("#octopus-sync-btn").addEventListener("click", async () => {
-    openWindow("octopus");
-    $("#output-mode").textContent = "Octopus Sync";
+  $("#echo-ai-sync-btn").addEventListener("click", async () => {
+    openWindow("echo-ai");
+    $("#output-mode").textContent = "Echo AI Sync";
     $("#factory-output").textContent = "Syncing agents...";
     try {
-      const result = await syncOctopusRuntime();
+      const result = await syncEchoAIRuntime();
       $("#factory-output").textContent = JSON.stringify(result, null, 2);
       await refresh();
     } catch (error) {

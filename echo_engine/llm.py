@@ -14,7 +14,9 @@ SUPPORTED_OPENAI_COMPATIBLE_PROVIDERS = {
     "openai-compatible",
     "openai_compatible",
     "openai",
-    "octopus",
+    "echo-ai",
+    "echo_ai",
+    "octopus",  # renamed to echo-ai; kept as an alias
     "relay",
 }
 
@@ -47,7 +49,7 @@ def generate_candidate_content(request: LLMRequest) -> str:
         return request.reference_draft
     if provider not in SUPPORTED_OPENAI_COMPATIBLE_PROVIDERS:
         raise LLMConfigurationError(
-            "Unsupported ECHO_MODEL_PROVIDER. Use stub, openai-compatible, octopus, or relay."
+            "Unsupported ECHO_MODEL_PROVIDER. Use stub, openai-compatible, echo-ai, or relay."
         )
 
     base_url = (settings.model_base_url or "").rstrip("/")

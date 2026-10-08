@@ -209,7 +209,7 @@ button {
   max-width: calc(100vw - 120px);
 }
 
-.octopus-window {
+.echo-ai-window {
   left: 148px;
   top: 120px;
   width: 760px;
@@ -688,7 +688,7 @@ pre {
   .factory-window,
   .assets-window,
   .memory-window,
-  .octopus-window {
+  .echo-ai-window {
     position: static;
     width: auto;
     max-width: none;

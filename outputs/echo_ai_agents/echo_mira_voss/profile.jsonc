@@ -1,4 +1,4 @@
-// ECHO Universe Octopus agent profile
+// ECHO Universe Echo AI agent profile
 {
   "id": "echo_mira_voss",
   "templateId": "echo_mira_voss",
@@ -55,7 +55,7 @@
     "visual_assets": {},
     "source_assets": {
       "echo_asset_dir": null,
-      "octopus_source_agent": null
+      "echo_ai_source_agent": null
     }
   },
   "capabilities": {

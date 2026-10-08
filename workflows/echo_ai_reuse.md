@@ -1,57 +1,57 @@
-# Octopus Reuse Plan
+# Echo AI Reuse Plan
 
-ECHO Universe should remain a standalone IP repository, while Octopus-Agent provides the runtime nervous system.
+ECHO Universe should remain a standalone IP repository, while Echo AI provides the runtime nervous system.
 
 ```text
-octopus-agent
+echo-ai
   runtime, scheduling, memory, knowledge graph, model routing, multi-agent execution
 
 echo-universe-engine
   canon, characters, factions, timeline, stories, visual assets, universe pipeline
 ```
 
-## Reusable Octopus Components
+## Reusable Echo AI Components
 
-| ECHO layer | Octopus component | Reuse strategy |
+| ECHO layer | Echo AI component | Reuse strategy |
 |---|---|---|
 | World Brain | `GraphRuntime`, team runner, generator/evaluator topology | Use to execute event workflows and canon audits |
 | Timeline Brain | `Journal`, scheduler | Use as append-only history and daily/monthly evolution log |
 | Relationship Graph | `KnowledgeGraph` / `SqliteKnowledgeGraph` | Store character relationships as triples |
-| Character Agents | `agents/<id>/agent-core/SOUL.md`, `IDENTITY.md`, `MEMORY.md` | Export Zero/Kane/etc. into Octopus agent folders |
+| Character Agents | `agents/<id>/agent-core/SOUL.md`, `IDENTITY.md`, `MEMORY.md` | Export Zero/Kane/etc. into Echo AI agent folders |
 | Memory Vault | agent `MEMORY.md`, runtime memory, journal | Store long-term character growth and event memory |
 | Event Agent | `TeamRunner`, subagents, parallel agents, blackboard | Fan out one event to many characters and aggregate reactions |
 | Model Routing | OpenAI/Anthropic/MultiModelRouter | Use cheap models for minor reactions, strong models for World Brain |
 | Scheduler | `BackgroundRunner` and cron | Run daily lives, event ticks, audits, and monthly bible upgrades |
 
-## Octopus Ecosystem Split
+## Echo AI Ecosystem Split
 
-ECHO should reuse the wider Octopus ecosystem without becoming a subfolder of it.
+ECHO should reuse the wider Echo AI ecosystem without becoming a subfolder of it.
 
 | System | ECHO role | What it should run |
 |---|---|---|
 | `echo-universe-engine` | Canon source | Bible, characters, timeline, relationships, stories, prompts, candidate outputs |
-| `octopus-agent` | Runtime brain | World Brain review, Character Agent execution, scheduler, KG, Journal, model routing |
-| `octopus-mobile` | Embodied gateway | Future mobile notifications, camera/screen context, field interaction, companion UI |
-| `octopus-storage` | Memory vault | Long-term memory, embeddings, documents, images, generated assets, searchable archives |
+| `echo-ai` | Runtime brain | World Brain review, Character Agent execution, scheduler, KG, Journal, model routing |
+| `echo-mobile` | Embodied gateway | Future mobile notifications, camera/screen context, field interaction, companion UI |
+| `echo-storage` | Memory vault | Long-term memory, embeddings, documents, images, generated assets, searchable archives |
 
-This keeps the IP clean. Octopus can execute the universe, but only ECHO canon folders decide what becomes official.
+This keeps the IP clean. Echo AI can execute the universe, but only ECHO canon folders decide what becomes official.
 
 ## Recommended Integration Shape
 
-Do not merge ECHO canon directly into Octopus core code.
+Do not merge ECHO canon directly into Echo AI core code.
 
 Instead:
 
-1. Keep `/Users/dangbei/Public/octopus/echo-universe-engine` as the canon repository.
-2. Add an Octopus adapter that can export ECHO characters into an Octopus agents root.
-3. Let Octopus run character agents and event simulations.
+1. Keep `/path/to/echo-universe-engine` as the canon repository.
+2. Add an Echo AI adapter that can export ECHO characters into an Echo AI agents root.
+3. Let Echo AI run character agents and event simulations.
 4. Write generated outputs back into ECHO `outputs/` first.
 5. Promote reviewed material into canon folders.
 
 The machine-readable contract for this split lives in:
 
 ```text
-integrations/octopus_ecosystem.yaml
+integrations/echo_ai_ecosystem.yaml
 ```
 
 Use it as the single source for paths, layer ownership, flow status, and canon boundaries.
@@ -72,7 +72,7 @@ Then:
 
 ```text
 event yaml/json
-  -> Octopus character agents
+  -> Echo AI character agents
   -> KnowledgeGraph relationship update
   -> Journal history write
   -> ECHO canon candidate
@@ -80,7 +80,7 @@ event yaml/json
 
 ## Digital Life Runtime
 
-The long-term target is one persistent Octopus agent per major ECHO character:
+The long-term target is one persistent Echo AI agent per major ECHO character:
 
 ```text
 Zero Agent

@@ -1,12 +1,12 @@
-# Octopus Hub Interface
+# Echo AI Hub Interface
 
-Octopus integration should exist as a reserved runtime interface, not as a primary user-facing surface.
+Echo AI integration should exist as a reserved runtime interface, not as a primary user-facing surface.
 
 ## Product Rule
 
 ECHO OS should feel like a universe console, not an engineering control panel.
 
-Keep Octopus controls available for development and automation, but hide them from the default Hub view until the runtime is production-ready.
+Keep Echo AI controls available for development and automation, but hide them from the default Hub view until the runtime is production-ready.
 
 ## Default Visibility
 
@@ -20,7 +20,7 @@ Visible by default:
 
 Hidden by default:
 
-- Octopus Runtime
+- Echo AI Runtime
 - raw adapter contract
 - model routing details
 - execution traces
@@ -37,18 +37,18 @@ http://127.0.0.1:8010/?runtime=1
 Keep these API surfaces stable:
 
 ```text
-GET /api/integrations/octopus/plan
+GET /api/integrations/echo-ai/plan
 POST /api/neural/event/run
 POST /api/neural/daily-life/run
 ```
 
-Future Octopus execution endpoints should follow this shape:
+Future Echo AI execution endpoints should follow this shape:
 
 ```text
-POST /api/integrations/octopus/events/run
-POST /api/integrations/octopus/characters/{character_id}/tick
-POST /api/integrations/octopus/story-room/run
-GET  /api/integrations/octopus/status
+POST /api/integrations/echo-ai/events/run
+POST /api/integrations/echo-ai/characters/{character_id}/tick
+POST /api/integrations/echo-ai/story-room/run
+GET  /api/integrations/echo-ai/status
 ```
 
 ## Responsibility Split
@@ -62,7 +62,7 @@ ECHO owns:
 - consistency gates
 - candidate outputs
 
-Octopus owns:
+Echo AI owns:
 
 - multi-agent execution
 - character reaction fan-out
@@ -73,12 +73,12 @@ Octopus owns:
 
 ## Canon Gate
 
-Octopus output must not write directly into canon folders.
+Echo AI output must not write directly into canon folders.
 
 Allowed flow:
 
 ```text
-Octopus run
+Echo AI run
   -> ECHO outputs/
   -> ConsistencyAgent review
   -> World Brain approval

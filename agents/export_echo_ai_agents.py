@@ -3,11 +3,11 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from echo_engine.neural.octopus_export import export_octopus_agents
+from echo_engine.neural.echo_ai_export import export_echo_ai_agents
 
 
 if __name__ == "__main__":
-    written = export_octopus_agents()
+    written = export_echo_ai_agents()
     print(f"Exported {len(written)} files")
     for path in written[:12]:
         print(path)

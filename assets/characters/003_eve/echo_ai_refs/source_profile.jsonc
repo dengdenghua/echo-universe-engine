@@ -1,8 +1,8 @@
-// Octopus Agent profile · general
+// Echo Agent profile · general
 
 {
   "id": "general",
-  "templateId": "octopus",
+  "templateId": "echo",
   "templateVersion": "1.0.0",
   "name": "Eve",
   "icon": "🐙",
@@ -25,7 +25,7 @@
     "name": "auto"
   },
   "runtime": "local",
-  "creator": "octopus",
+  "creator": "echo",
   "defaultProject": {
     "dir": "project"
   },

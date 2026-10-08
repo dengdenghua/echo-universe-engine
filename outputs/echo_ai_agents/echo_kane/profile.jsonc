@@ -1,4 +1,4 @@
-// ECHO Universe Octopus agent profile
+// ECHO Universe Echo AI agent profile
 {
   "id": "echo_kane",
   "templateId": "echo_kane",
@@ -59,8 +59,8 @@
       "source_turnaround": "visuals/source_turnaround.png"
     },
     "source_assets": {
-      "echo_asset_dir": "assets/characters/002_kane/octopus_refs",
-      "octopus_source_agent": "coder"
+      "echo_asset_dir": "assets/characters/002_kane/echo_ai_refs",
+      "echo_ai_source_agent": "coder"
     }
   },
   "capabilities": {

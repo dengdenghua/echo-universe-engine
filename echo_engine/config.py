@@ -3,8 +3,13 @@ from __future__ import annotations
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import Field
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+def _echo_ai_env(name: str) -> AliasChoices:
+    """ECHO_AI_<name>, still accepting the pre-rename ECHO_OCTOPUS_<name> as a fallback."""
+    return AliasChoices(f"ECHO_AI_{name}", f"ECHO_OCTOPUS_{name}")
 
 
 class Settings(BaseSettings):
@@ -21,10 +26,14 @@ class Settings(BaseSettings):
     database_path: Path = Path("data/echo.sqlite3")
     journal_path: Path = Path("data/echo_journal.jsonl")
     economy_state_path: Path = Path("data/economy_state.json")
-    octopus_agents_root: Path | None = None
-    octopus_runtime_url: str | None = None
-    octopus_runtime_api_key: str | None = None
-    octopus_runtime_timeout_seconds: float = 15
+    echo_ai_agents_root: Path | None = Field(None, validation_alias=_echo_ai_env("AGENTS_ROOT"))
+    echo_ai_runtime_url: str | None = Field(None, validation_alias=_echo_ai_env("RUNTIME_URL"))
+    echo_ai_runtime_api_key: str | None = Field(
+        None, validation_alias=_echo_ai_env("RUNTIME_API_KEY")
+    )
+    echo_ai_runtime_timeout_seconds: float = Field(
+        15, validation_alias=_echo_ai_env("RUNTIME_TIMEOUT_SECONDS")
+    )
     vector_backend: str = "none"
     asset_provider: str = "none"
     scheduler_enabled: bool = False

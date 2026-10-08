@@ -1,4 +1,4 @@
-ecosystem: octopus
+ecosystem: echo_ai
 version: 0.1
 mode: neural_universe
 architecture_codex: workflows/architecture_codex.md
@@ -10,7 +10,7 @@ product_doctrine:
   mvp_loop:
     - bind Ghost
     - read current diary and focus
-    - speak through octopus-agent in main chat
+    - speak through echo-ai in main chat
     - advance one daily tick
     - see visible canon-safe change
   success_criteria:
@@ -105,7 +105,7 @@ economy:
 repositories:
   echo_universe_engine:
     role: canon_source
-    default_path: /Users/dangbei/Public/octopus/echo-universe-engine
+    default_path: /path/to/echo-universe-engine
     owns:
       - bible
       - characters
@@ -117,9 +117,9 @@ repositories:
       - stories
       - prompts
       - outputs
-  octopus_agent:
+  echo_ai:
     role: runtime_brain
-    default_path: /Users/dangbei/Public/octopus/octopus-agent
+    default_path: /path/to/echo-ai
     reuses:
       - agent_runtime
       - scheduler
@@ -127,17 +127,17 @@ repositories:
       - journal
       - model_routing
       - multi_agent_execution
-  octopus_mobile:
+  echo_mobile:
     role: embodied_gateway
-    default_path: /Users/dangbei/Public/octopus/octopus-mobile
+    default_path: /path/to/echo-mobile
     reuses:
       - mobile_sensing
       - notifications
       - camera_or_screen_context
       - user_interaction_gateway
-  octopus_storage:
+  echo_storage:
     role: memory_vault
-    default_path: /Users/dangbei/Public/octopus/octopus-storage
+    default_path: /path/to/echo-storage
     reuses:
       - long_term_memory
       - asset_store
@@ -148,67 +148,67 @@ repositories:
 layers:
   world_brain:
     owner: echo_universe_engine
-    runtime: octopus_agent
+    runtime: echo_ai
     purpose: Review canon, enforce rules, approve candidate events.
     writes_to:
       - outputs/world_brain
       - bible
   timeline_brain:
     owner: echo_universe_engine
-    runtime: octopus_agent
+    runtime: echo_ai
     purpose: Maintain chronology from 2025 to 2200 and append approved history.
     writes_to:
       - timeline
       - outputs/timeline
   relationship_graph:
     owner: echo_universe_engine
-    runtime: octopus_agent
-    storage: octopus_storage
+    runtime: echo_ai
+    storage: echo_storage
     purpose: Track trust, love, debt, fear, rivalry, betrayal, and faction links.
     writes_to:
       - relationships
       - outputs/relationships
   character_agents:
     owner: echo_universe_engine
-    runtime: octopus_agent
-    storage: octopus_storage
+    runtime: echo_ai
+    storage: echo_storage
     purpose: Run Zero, Kane, Eve, Leon, Raven, Shion, Noah, and Luna as persistent personalities.
-    exported_to: outputs/octopus_agents
-    runtime_agents_root_env: ECHO_OCTOPUS_AGENTS_ROOT
-    runtime_sync_runner: "uv run python -m echo_engine.cli export-octopus-agents --sync-octopus-runtime"
+    exported_to: outputs/echo_ai_agents
+    runtime_agents_root_env: ECHO_AI_AGENTS_ROOT
+    runtime_sync_runner: "uv run python -m echo_engine.cli export-echo-ai-agents --sync-echo-ai-runtime"
   npc_catalog:
     owner: echo_universe_engine
-    runtime: octopus_agent
-    entry: octopus_mobile
+    runtime: echo_ai
+    entry: echo_mobile
     purpose: Expose anchor, Realm, utility, and creator NPCs as governed social nodes.
     source: data/npcs.yaml
   economy:
     owner: echo_universe_engine
-    entry: octopus_mobile
+    entry: echo_mobile
     settlement: future_mobile_relay_or_payment_gateway
     purpose: Track catalog products, wallet credits, user entitlements, and Ghost life subscriptions.
     writes_to:
       - data/economy_state.json
   story_generator:
     owner: echo_universe_engine
-    runtime: octopus_agent
+    runtime: echo_ai
     purpose: Turn approved events and character conflicts into manga chapters.
     writes_to:
       - stories
       - outputs/story
   image_generator:
     owner: echo_universe_engine
-    runtime: octopus_agent
+    runtime: echo_ai
     worker: asset_factory
-    storage: octopus_storage
+    storage: echo_storage
     purpose: Produce character image tasks for ComfyUI, SDXL, Flux, and later storyboard workers.
     writes_to:
       - outputs/assets
   comic_generator:
     owner: echo_universe_engine
-    runtime: octopus_agent
+    runtime: echo_ai
     worker: asset_factory
-    storage: octopus_storage
+    storage: echo_storage
     purpose: Convert storyboards, prompts, and approved visual assets into comic-page candidates.
     writes_to:
       - outputs/comics
@@ -226,13 +226,13 @@ flows:
     approval: world_brain_required
   export_character_agents:
     schedule: after_character_or_relationship_change
-    runner: "uv run python -m echo_engine.cli export-octopus-agents"
-    runtime_sync_runner: "uv run python -m echo_engine.cli export-octopus-agents --sync-octopus-runtime"
+    runner: "uv run python -m echo_engine.cli export-echo-ai-agents"
+    runtime_sync_runner: "uv run python -m echo_engine.cli export-echo-ai-agents --sync-echo-ai-runtime"
     status: runtime_sync
     approval: not_required
   ecosystem_plan:
     schedule: manual
-    runner: "uv run python -m echo_engine.cli octopus-ecosystem-plan"
+    runner: "uv run python -m echo_engine.cli echo-ai-ecosystem-plan"
     status: integration_report
     approval: not_required
 

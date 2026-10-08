@@ -9,7 +9,7 @@ from echo_engine.config import get_settings
 
 
 @dataclass(frozen=True)
-class OctopusReloadResult:
+class EchoAIReloadResult:
     configured: bool
     attempted: bool
     ok: bool
@@ -19,32 +19,32 @@ class OctopusReloadResult:
     error: str | None = None
 
 
-def configured_octopus_runtime_url() -> str | None:
-    raw = get_settings().octopus_runtime_url
+def configured_echo_ai_runtime_url() -> str | None:
+    raw = get_settings().echo_ai_runtime_url
     if raw is None:
         return None
     normalized = raw.strip().rstrip("/")
     return normalized or None
 
 
-def reload_octopus_runtime_agents() -> OctopusReloadResult:
-    base_url = configured_octopus_runtime_url()
+def reload_echo_ai_runtime_agents() -> EchoAIReloadResult:
+    base_url = configured_echo_ai_runtime_url()
     if base_url is None:
-        return OctopusReloadResult(configured=False, attempted=False, ok=False)
+        return EchoAIReloadResult(configured=False, attempted=False, ok=False)
 
     settings = get_settings()
     endpoint = f"{base_url}/api/agents/reload"
     headers: dict[str, str] = {}
-    if settings.octopus_runtime_api_key:
-        headers["Authorization"] = f"Bearer {settings.octopus_runtime_api_key}"
+    if settings.echo_ai_runtime_api_key:
+        headers["Authorization"] = f"Bearer {settings.echo_ai_runtime_api_key}"
 
     try:
-        with httpx.Client(timeout=settings.octopus_runtime_timeout_seconds) as client:
+        with httpx.Client(timeout=settings.echo_ai_runtime_timeout_seconds) as client:
             response = client.post(endpoint, headers=headers)
             body = _safe_json(response)
             response.raise_for_status()
     except httpx.HTTPStatusError as exc:
-        return OctopusReloadResult(
+        return EchoAIReloadResult(
             configured=True,
             attempted=True,
             ok=False,
@@ -54,7 +54,7 @@ def reload_octopus_runtime_agents() -> OctopusReloadResult:
             error=str(exc),
         )
     except httpx.HTTPError as exc:
-        return OctopusReloadResult(
+        return EchoAIReloadResult(
             configured=True,
             attempted=True,
             ok=False,
@@ -62,7 +62,7 @@ def reload_octopus_runtime_agents() -> OctopusReloadResult:
             error=str(exc),
         )
 
-    return OctopusReloadResult(
+    return EchoAIReloadResult(
         configured=True,
         attempted=True,
         ok=True,

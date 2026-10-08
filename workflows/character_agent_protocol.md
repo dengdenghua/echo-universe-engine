@@ -182,10 +182,10 @@ Every output should include:
 
 ## Export Target
 
-ECHO character cards export to Octopus agent folders:
+ECHO character cards export to Echo AI agent folders:
 
 ```text
-outputs/octopus_agents/<character>/agent-core/
+outputs/echo_ai_agents/<character>/agent-core/
 ```
 
 Required files:

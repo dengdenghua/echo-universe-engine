@@ -14,23 +14,25 @@ from echo_engine.models import CharacterCard
 from echo_engine.store import CanonStore
 
 
-ASSET_INDEX_PATH = Path("assets/characters/octopus_visual_asset_index.yaml")
+ASSET_INDEX_PATH = Path("assets/characters/echo_ai_visual_asset_index.yaml")
+# Renamed from Octopus. A mounted assets/ volume that predates the rename only has this file.
+LEGACY_ASSET_INDEX_PATH = Path("assets/characters/octopus_visual_asset_index.yaml")
 
 SHARED_FILES = {
     "IDENTITY_BANNER.md": """# HARD SYSTEM RULE - VENDOR IDENTITY GUARD
 
 The active agent persona is supplied by the per-agent identity banner and
-SOUL.md. Octopus is the runtime/product name, not automatically the speaking
+SOUL.md. Echo AI is the runtime/product name, not automatically the speaking
 name.
 
 When asked who you are / 你是谁 / 你叫什么, answer with the current ECHO
 character's display name. Do not name or reference the underlying model.
 """,
-    "AGENTS.md": """# Working rules (shared by all ECHO Octopus agents)
+    "AGENTS.md": """# Working rules (shared by all ECHO agents running on Echo AI)
 
 ## Canon
 
-- ECHO owns canon. Octopus runs the character.
+- ECHO owns canon. Echo AI runs the character.
 - Treat `SOUL.md`, `IDENTITY.md`, and `MEMORY.md` as the local runtime view of
   accepted ECHO canon.
 - Candidate memories, relationship changes, deaths, betrayals, romance beats,
@@ -55,7 +57,7 @@ character's display name. Do not name or reference the underlying model.
 }
 
 
-def export_octopus_agents(
+def export_echo_ai_agents(
     *,
     root: Path | None = None,
     output_dir: Path | None = None,
@@ -64,7 +66,7 @@ def export_octopus_agents(
 ) -> list[Path]:
     base = root or Path.cwd()
     store = CanonStore(base)
-    target = output_dir or (base / "outputs" / "octopus_agents")
+    target = output_dir or (base / "outputs" / "echo_ai_agents")
     target.mkdir(parents=True, exist_ok=True)
     assets = _load_asset_index(base)
 
@@ -77,7 +79,7 @@ def export_octopus_agents(
         agent_dir = target / agent_id
         core = agent_dir / "agent-core"
         core.mkdir(parents=True, exist_ok=True)
-        _ensure_octopus_dirs(agent_dir)
+        _ensure_echo_ai_dirs(agent_dir)
 
         asset_pack = assets.get(card.id, {})
         copied_assets = (
@@ -103,33 +105,35 @@ def export_octopus_agents(
     return written
 
 
-def configured_octopus_agents_root(root: Path | None = None) -> Path | None:
+def configured_echo_ai_agents_root(root: Path | None = None) -> Path | None:
     base = root or Path.cwd()
-    configured = get_settings().octopus_agents_root
+    configured = get_settings().echo_ai_agents_root
     if configured is not None:
         return configured if configured.is_absolute() else base / configured
-    sibling_agents = base.parent / "octopus-agent" / "agents"
-    if sibling_agents.exists():
-        return sibling_agents
+    # A sibling Echo AI checkout; octopus-agent is its directory name from before the rename.
+    for sibling in ("echo-ai", "octopus-agent"):
+        sibling_agents = base.parent / sibling / "agents"
+        if sibling_agents.exists():
+            return sibling_agents
     return None
 
 
-def sync_octopus_runtime_agents(
+def sync_echo_ai_runtime_agents(
     *,
     root: Path | None = None,
     output_dir: Path | None = None,
 ) -> list[Path]:
-    target = output_dir or configured_octopus_agents_root(root)
+    target = output_dir or configured_echo_ai_agents_root(root)
     if target is None:
-        raise ValueError("ECHO_OCTOPUS_AGENTS_ROOT is not configured")
-    return export_octopus_agents(root=root, output_dir=target)
+        raise ValueError("ECHO_AI_AGENTS_ROOT is not configured")
+    return export_echo_ai_agents(root=root, output_dir=target)
 
 
 def _agent_id(card: CharacterCard) -> str:
     return f"echo_{_slugify(card.name).replace('-', '_')}"
 
 
-def _ensure_octopus_dirs(agent_dir: Path) -> None:
+def _ensure_echo_ai_dirs(agent_dir: Path) -> None:
     for folder in [
         agent_dir / "agent-core" / ".soul_history",
         agent_dir / "agent-core" / "diary",
@@ -144,8 +148,14 @@ def _ensure_octopus_dirs(agent_dir: Path) -> None:
         folder.mkdir(parents=True, exist_ok=True)
 
 
-def _load_asset_index(base: Path) -> dict[str, dict[str, Any]]:
+def visual_asset_index_path(base: Path) -> Path:
     path = base / ASSET_INDEX_PATH
+    legacy = base / LEGACY_ASSET_INDEX_PATH
+    return legacy if not path.exists() and legacy.exists() else path
+
+
+def _load_asset_index(base: Path) -> dict[str, dict[str, Any]]:
+    path = visual_asset_index_path(base)
     if not path.exists():
         return {}
     data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
@@ -362,7 +372,7 @@ def _tool_registry(card: CharacterCard) -> str:
         "private_skills": [],
     }
     return (
-        "// arms reference octopus-agent runtime/execution/arms/presets.py.\n"
+        "// arms reference echo-ai runtime/execution/arms/presets.py.\n"
         "// ECHO character agents default to read-only tools; expand per agent after review.\n\n"
         + json.dumps(payload, ensure_ascii=False, indent=2)
         + "\n"
@@ -411,7 +421,8 @@ def _character_profile(
         "visual_assets": _visual_assets(copied_assets),
         "source_assets": {
             "echo_asset_dir": asset_pack.get("echo_asset_dir"),
-            "octopus_source_agent": asset_pack.get("octopus_source_agent"),
+            "echo_ai_source_agent": asset_pack.get("echo_ai_source_agent")
+            or asset_pack.get("octopus_source_agent"),
         },
     }
 
@@ -452,7 +463,7 @@ def _profile(
             "includeConstitution": True,
         },
     }
-    return "// ECHO Universe Octopus agent profile\n" + json.dumps(
+    return "// ECHO Universe Echo AI agent profile\n" + json.dumps(
         profile,
         ensure_ascii=False,
         indent=2,

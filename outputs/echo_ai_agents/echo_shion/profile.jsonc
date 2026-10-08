@@ -1,4 +1,4 @@
-// ECHO Universe Octopus agent profile
+// ECHO Universe Echo AI agent profile
 {
   "id": "echo_shion",
   "templateId": "echo_shion",
@@ -58,8 +58,8 @@
       "source_turnaround": "visuals/source_turnaround.png"
     },
     "source_assets": {
-      "echo_asset_dir": "assets/characters/006_shion/octopus_refs",
-      "octopus_source_agent": "ecommerce_mind"
+      "echo_asset_dir": "assets/characters/006_shion/echo_ai_refs",
+      "echo_ai_source_agent": "ecommerce_mind"
     }
   },
   "capabilities": {

@@ -5,10 +5,10 @@ from fastapi.testclient import TestClient
 
 from echo_engine.api import app
 from echo_engine.config import get_settings
-from echo_engine.neural.octopus_runtime import reload_octopus_runtime_agents
+from echo_engine.neural.echo_ai_runtime import reload_echo_ai_runtime_agents
 
 
-def test_reload_octopus_runtime_agents_posts_bulk_reload(monkeypatch):
+def test_reload_echo_ai_runtime_agents_posts_bulk_reload(monkeypatch):
     requests: list[httpx.Request] = []
     client_cls = httpx.Client
 
@@ -16,8 +16,8 @@ def test_reload_octopus_runtime_agents_posts_bulk_reload(monkeypatch):
         requests.append(request)
         return httpx.Response(200, json={"ok": True, "added": 8, "replaced": 0, "total": 8})
 
-    monkeypatch.setenv("ECHO_OCTOPUS_RUNTIME_URL", "http://runtime.local")
-    monkeypatch.setenv("ECHO_OCTOPUS_RUNTIME_API_KEY", "admin-key")
+    monkeypatch.setenv("ECHO_AI_RUNTIME_URL", "http://runtime.local")
+    monkeypatch.setenv("ECHO_AI_RUNTIME_API_KEY", "admin-key")
     monkeypatch.setattr(
         httpx,
         "Client",
@@ -25,7 +25,7 @@ def test_reload_octopus_runtime_agents_posts_bulk_reload(monkeypatch):
     )
     get_settings.cache_clear()
 
-    result = reload_octopus_runtime_agents()
+    result = reload_echo_ai_runtime_agents()
 
     assert result.ok is True
     assert result.endpoint == "http://runtime.local/api/agents/reload"
@@ -34,14 +34,14 @@ def test_reload_octopus_runtime_agents_posts_bulk_reload(monkeypatch):
     get_settings.cache_clear()
 
 
-def test_api_sync_can_reload_octopus_runtime(tmp_path, monkeypatch):
+def test_api_sync_can_reload_echo_ai_runtime(tmp_path, monkeypatch):
     client_cls = httpx.Client
 
     def handler(_: httpx.Request) -> httpx.Response:
         return httpx.Response(200, json={"ok": True, "added": 8, "replaced": 0, "total": 8})
 
-    monkeypatch.setenv("ECHO_OCTOPUS_AGENTS_ROOT", str(tmp_path / "agents"))
-    monkeypatch.setenv("ECHO_OCTOPUS_RUNTIME_URL", "http://runtime.local")
+    monkeypatch.setenv("ECHO_AI_AGENTS_ROOT", str(tmp_path / "agents"))
+    monkeypatch.setenv("ECHO_AI_RUNTIME_URL", "http://runtime.local")
     monkeypatch.setattr(
         httpx,
         "Client",
@@ -50,7 +50,7 @@ def test_api_sync_can_reload_octopus_runtime(tmp_path, monkeypatch):
     get_settings.cache_clear()
 
     response = TestClient(app).post(
-        "/api/integrations/octopus/sync-agents",
+        "/api/integrations/echo-ai/sync-agents",
         json={"reload_runtime": True},
     )
 
