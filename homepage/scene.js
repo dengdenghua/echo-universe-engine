@@ -26,13 +26,6 @@
   let background;
   let coreImage;
   let progressFrame = 0;
-  // Sound and touch (homepage/soundtrack.js is optional; the ring works without it).
-  const audio = window.EchoAudio || null;
-  const ripples = [];
-  const sparks = [];
-  let level = 0;
-  let beat = 0;
-  let strum = null;
 
   function rng(seed) {
     let state = seed;
@@ -67,8 +60,6 @@
       previousTime = time;
       smoothX += (pointerX - smoothX) * .055;
       smoothY += (pointerY - smoothY) * .055;
-      level += ((audio ? audio.level() : 0) - level) * .25;
-      beat *= .88;
       draw();
     }
     frame = requestAnimationFrame(tick);
@@ -91,7 +82,7 @@
       const v = random() * tau;
       const tube = .16 + random() * .025;
       const radius = 1 + tube * Math.cos(v);
-      return { u, x: Math.cos(u) * radius, y: Math.sin(u) * radius, z: tube * Math.sin(v), a: .2 + random() * .8, light: random() > .72, sx: 0, sy: 0 };
+      return { x: Math.cos(u) * radius, y: Math.sin(u) * radius, z: tube * Math.sin(v), a: .2 + random() * .8, light: random() > .72 };
     });
     background = ctx.createRadialGradient(width * .72, height * .45, 0, width * .72, height * .45, width * .68);
     background.addColorStop(0, "#12221c");
@@ -145,8 +136,7 @@
     ctx.globalAlpha = 1;
     const cx = compact ? width * .55 : width * .745 + smoothX * 14;
     const cy = compact ? 510 : height * .48 + smoothY * 12;
-    // With the soundtrack on, the ring breathes with the music.
-    const scale = (compact ? width * .345 : Math.min(width * .285, height * .435)) * (1 + level * .018 + beat * .012);
+    const scale = compact ? width * .345 : Math.min(width * .285, height * .435);
     const turn = elapsed * .000055;
     const tilt = .66 + Math.sin(elapsed * .0001) * .05 + smoothY * .03;
     const angle = -.57 + smoothX * .035;
@@ -172,14 +162,9 @@
     glow.addColorStop(1, "#00000000");
     ctx.fillStyle = glow;
     ctx.fillRect(cx - scale * 2, cy - scale * 2, scale * 4, scale * 4);
-    // Opening: the ring traces itself in, filament by filament, then fills with light.
-    const intro = paused ? 1 : Math.min(1, elapsed / 2800);
-    const settled = 1 - (1 - intro) ** 3;
     if (coreImage) {
       const diameter = scale * 1.65;
-      ctx.globalAlpha = settled;
       ctx.drawImage(coreImage, cx - diameter / 2, cy - diameter / 2, diameter, diameter);
-      ctx.globalAlpha = 1;
     }
 
     // Thin orbital guide marks retain scale without competing with the object.
@@ -195,92 +180,52 @@
     ctx.setLineDash([]);
     ctx.restore();
 
-    // Echo waves: a touch on the ring sends a swell travelling both ways around it.
-    for (let i = ripples.length - 1; i >= 0; i--) if (elapsed - ripples[i].t0 > 2600) ripples.splice(i, 1);
-    const rippling = ripples.length > 0;
-    function wave(u) {
-      let bump = 0;
-      for (const ripple of ripples) {
-        const age = (elapsed - ripple.t0) / 1000;
-        let distance = Math.abs(u - ripple.u) % tau;
-        if (distance > Math.PI) distance = tau - distance;
-        const offset = distance - age * 2.1;
-        bump += Math.exp(-(offset * offset) / .03) * (1 - age / 2.6) * ripple.power;
-      }
-      return bump;
-    }
-
     // Thirty longitudinal filaments form a luminous, sculptural memory ring.
     ctx.globalCompositeOperation = "lighter";
     for (let band = 0; band < 30; band++) {
       const v = band / 30 * tau;
       const radius = 1 + .18 * Math.cos(v);
       const z = .18 * Math.sin(v);
-      const steps = Math.ceil(160 * Math.min(1, Math.max(0, intro * 1.8 - band / 30 * .8)));
-      if (steps < 2) continue;
       ctx.beginPath();
-      for (let i = 0; i <= steps; i++) {
+      for (let i = 0; i <= 160; i++) {
         const u = i / 160 * tau;
-        const swell = rippling ? 1 + wave(u) * .1 : 1;
-        const p = project(Math.cos(u) * radius * swell, Math.sin(u) * radius * swell, z * swell);
+        const p = project(Math.cos(u) * radius, Math.sin(u) * radius, z);
         if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
       }
       ctx.strokeStyle = band % 5 === 0 ? "#c0ffb9a0" : "#a3d9c246";
-      ctx.lineWidth = (band % 5 === 0 ? 1 : .6) * (1 + level * 1.1 + beat * .5);
+      ctx.lineWidth = band % 5 === 0 ? 1 : .6;
       ctx.stroke();
     }
     // Cross sections describe the volume and rotate slowly through the light.
-    ctx.globalAlpha = Math.max(0, Math.min(1, intro * 2.2 - 1.2));
-    for (let i = 0; i < 84 && ctx.globalAlpha > 0; i++) {
+    for (let i = 0; i < 84; i++) {
       const u = i / 84 * tau;
-      const swell = rippling ? 1 + wave(u) * .1 : 1;
       ctx.beginPath();
       for (let j = 0; j <= 28; j++) {
         const v = j / 28 * tau;
-        const p = project(Math.cos(u) * (1 + .18 * Math.cos(v)) * swell, Math.sin(u) * (1 + .18 * Math.cos(v)) * swell, .18 * Math.sin(v) * swell);
+        const p = project(Math.cos(u) * (1 + .18 * Math.cos(v)), Math.sin(u) * (1 + .18 * Math.cos(v)), .18 * Math.sin(v));
         if (!j) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
       }
       ctx.strokeStyle = i % 7 === 0 ? "#c6ffd47a" : "#9bbf9f29";
       ctx.lineWidth = .55;
       ctx.stroke();
     }
-    const dust = Math.max(0, intro * 1.6 - .6);
     for (const particle of particles) {
-      const bump = rippling ? wave(particle.u) : 0;
-      const swell = 1 + bump * .1;
-      const p = project(particle.x * swell, particle.y * swell, particle.z * swell);
-      particle.sx = p.x;
-      particle.sy = p.y;
+      const p = project(particle.x, particle.y, particle.z);
       const light = .32 + .68 * Math.max(0, (particle.x + particle.z + 1) / 2);
-      ctx.globalAlpha = Math.min(1, particle.a * light * (p.z > 0 ? .9 : .37) * dust + bump * .5);
-      ctx.fillStyle = particle.light || bump > .3 ? "#eaffc7" : "#86cbb6";
-      const r = (particle.light ? 1.15 : .7) * p.p * (1 + bump * .6);
+      ctx.globalAlpha = particle.a * light * (p.z > 0 ? .9 : .37);
+      ctx.fillStyle = particle.light ? "#eaffc7" : "#86cbb6";
+      const r = (particle.light ? 1.15 : .7) * p.p;
       ctx.fillRect(p.x, p.y, r, r);
     }
     ctx.globalAlpha = 1;
     // Traveling glints are deliberately slow; no flashes or strobing.
-    const glint = 25 * (1 + level * .8 + beat * .4);
-    for (let i = 0; i < 4 && intro > .85; i++) {
+    for (let i = 0; i < 4; i++) {
       const u = i * 1.55 - turn * 1.2;
       const p = project(Math.cos(u), Math.sin(u), .185);
-      const flare = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glint);
+      const flare = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 25);
       flare.addColorStop(0, "#e4ffbfaa"); flare.addColorStop(.1, "#caffc14d"); flare.addColorStop(1, "#a6ffc000");
-      ctx.fillStyle = flare; ctx.fillRect(p.x - glint, p.y - glint, glint * 2, glint * 2);
+      ctx.fillStyle = flare; ctx.fillRect(p.x - 25, p.y - 25, 50, 50);
       ctx.fillStyle = "#e8ffd9"; ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
-    }
-    // Notes from the score bloom where they land on the ring, then fade.
-    for (let i = sparks.length - 1; i >= 0; i--) {
-      const spark = sparks[i];
-      const life = 1 - (elapsed - spark.t0) / 1600;
-      if (life <= 0) { sparks.splice(i, 1); continue; }
-      const p = project(Math.cos(spark.u), Math.sin(spark.u), .19);
-      const size = 34 * life * spark.strength;
-      const bloom = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, size);
-      bloom.addColorStop(0, `rgba(236, 255, 214, ${.85 * life})`);
-      bloom.addColorStop(.25, `rgba(197, 255, 178, ${.3 * life})`);
-      bloom.addColorStop(1, "rgba(166, 255, 192, 0)");
-      ctx.fillStyle = bloom;
-      ctx.fillRect(p.x - size, p.y - size, size * 2, size * 2);
     }
     ctx.globalCompositeOperation = "source-over";
     // The central reticle identifies the shared memory anchor.
@@ -290,6 +235,11 @@
     ctx.font = "7px monospace";
     ctx.textAlign = "center";
     ctx.fillText("E C H O  /  2 1 4 7", cx, cy + 24);
+    if (!compact) {
+      ctx.textAlign = "left";
+      ctx.fillText("CONTINUITY FIELD", cx + scale * .62, cy - scale * .9);
+      ctx.fillText("01 : ∞", cx - scale * 1.1, cy + scale * .5);
+    }
   }
 
   toggle?.addEventListener("click", () => {
@@ -318,60 +268,6 @@
       pointerY = (event.clientY - rect.top) / height - .5;
     }, { passive: true });
     hero.addEventListener("pointerleave", () => { pointerX = 0; pointerY = 0; });
-
-    // The ring is an instrument: tap it to send an echo, drag across it to strum.
-    const slots = 14;
-    function locate(event) {
-      const rect = hero.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-      let nearest = null;
-      let best = Infinity;
-      for (let i = 0; i < particles.length; i += 3) {
-        const particle = particles[i];
-        const d = (particle.sx - x) ** 2 + (particle.sy - y) ** 2;
-        if (d < best) { best = d; nearest = particle; }
-      }
-      if (!nearest) return null;
-      const u = ((nearest.u % tau) + tau) % tau;
-      return { u, slot: Math.floor(u / tau * slots), pan: Math.max(-.8, Math.min(.8, x / width * 2 - 1)) };
-    }
-    function touch(hit, power) {
-      if (!paused) {
-        ripples.push({ u: hit.u, t0: elapsed, power });
-        if (ripples.length > 8) ripples.shift();
-      }
-      audio?.sfx("ring", { index: hit.slot, pan: hit.pan });
-      document.dispatchEvent(new CustomEvent("echo:ring", { detail: { slot: hit.slot } }));
-    }
-    hero.addEventListener("pointerdown", event => {
-      if (event.button !== 0 || event.target.closest("a, button")) return;
-      const hit = locate(event);
-      if (!hit) return;
-      touch(hit, 1);
-      strum = { slot: hit.slot, at: performance.now() };
-    });
-    hero.addEventListener("pointermove", event => {
-      if (!strum || !(event.buttons & 1)) return;
-      const hit = locate(event);
-      const now = performance.now();
-      if (!hit || hit.slot === strum.slot || now - strum.at < 70) return;
-      touch(hit, .55);
-      strum = { slot: hit.slot, at: now };
-    }, { passive: true });
-    addEventListener("pointerup", () => { strum = null; });
-    addEventListener("pointercancel", () => { strum = null; });
-
-    audio?.on(event => {
-      if (event.type === "beat") beat = Math.max(beat, event.strength);
-      else if (event.type === "note" && !paused) {
-        const u = (event.pan + 1) * Math.PI + (Math.random() - .5) * .6;
-        sparks.push({ u, t0: elapsed, strength: event.soft ? .6 : 1 });
-        if (!event.soft) ripples.push({ u, t0: elapsed, power: .18 });
-        if (sparks.length > 12) sparks.shift();
-        if (ripples.length > 8) ripples.shift();
-      }
-    });
     size();
   } else if (toggle) {
     toggle.hidden = true;
