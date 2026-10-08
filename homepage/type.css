@@ -1,0 +1,120 @@
+/* Readable type scale and hierarchy for the ECHO site, layered after future.css.
+   Information-bearing text never drops below 11px (Latin labels) or 12px (Chinese),
+   body copy reads at 15px, and the hero leads with one promise instead of a stack of
+   competing labels. Decorative micro-labels inside illustrations stay small but legible. */
+
+/* No orphaned last words or characters; balanced headline lines where supported. */
+.future-site .future-hero-description, .future-site .section-body, .future-site .localized-line, .future-site .product-copy p, .future-site .capability-card p, .future-site .agent-card > p, .future-site .roadmap-stages p, .future-site .enter-panel > p { text-wrap: pretty; }
+.future-site .future-hero-title, .future-site .section-copy h2, .future-site .enter-panel h3 { text-wrap: balance; }
+
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+/* ---------- header ---------- */
+.future-site .main-nav a { font-size: 12px; letter-spacing: .08em; }
+.future-site .locale-switch button { font-size: 11px; }
+.future-site .enter-link { gap: 10px; font-size: 11px; }
+
+/* ---------- hero: brand, tagline, then one promise ---------- */
+.future-site .signal-eyebrow { font-size: 12px; letter-spacing: .14em; }
+.future-site .hero-manifesto { margin-bottom: 22px; font-size: clamp(19px, 1.75vw, 26px); line-height: 1.25; letter-spacing: -.02em; font-weight: 400; }
+.future-site .future-hero .future-hero-title { display: block; max-width: min(15em, 640px); margin: 0 0 18px; color: #eef3ea; font-size: clamp(30px, 3vw, 46px); font-weight: 500; line-height: 1.25; letter-spacing: .04em; text-align: left; text-indent: 0; text-shadow: none; }
+.future-site .future-hero .future-hero-title span { display: inline; white-space: normal; color: inherit; font-weight: inherit; }
+.future-site .future-hero-description { max-width: 460px; font-size: 15px; line-height: 1.85; letter-spacing: .02em; color: #a8b4ac; }
+.future-site .future-primary, .future-site .future-secondary { font-size: 13px; }
+.future-site .future-scroll { font-size: 12px; }
+.future-site .scene-toggle { font-size: 11px; }
+.future-site .hero-frequency { font-size: 10px; }
+
+/* ---------- gateways ---------- */
+.future-site .gateway-intro > p { font-size: 13px; }
+.future-site .gateway-index { font-size: 11px; }
+.future-site .gateway > strong { max-width: 230px; font-size: 16px; }
+.future-site .gateway-bottom { font-size: 11px; }
+
+/* ---------- shared section rhythm ---------- */
+.future-site .section-copy .kicker, .future-site .kicker { font-size: 11px; }
+.future-site .section-body { font-size: 15px; line-height: 1.85; }
+.future-site .localized-line { font-size: 17px; line-height: 1.6; }
+.future-site .status { min-height: 26px; font-size: 11px; }
+.future-site .outline-link { font-size: 12px; }
+
+/* ---------- ecosystem map ---------- */
+.future-site .era-signals b { font-size: 11px; }
+.future-site .era-signals small { font-size: 12px; }
+.future-site .ecosystem-node b { font-size: 10px; }
+.future-site .ecosystem-node strong, .future-site .ecosystem-node small { font-size: 12px; }
+.future-site .identity-anchor { font-size: 11px; }
+.future-site .identity-anchor small { font-size: 12px; }
+.future-site .epoch-map::after { font-size: 9px; }
+.future-site .ecosystem-core span, .future-site .epoch-core span { font-size: 8px; }
+
+/* ---------- products ---------- */
+.future-site .product-index { font-size: 11px; }
+.future-site .product-signal { font-size: 10px; }
+.future-site .product-role { font-size: 11px !important; }
+.future-site .product-copy > p:last-child { font-size: 13px; line-height: 1.7; }
+.future-site .station-layout .product-copy > p:last-of-type { font-size: 14px; }
+.future-site .product-route { font-size: 10px; }
+.future-site .product-graphic { font-size: 9px; }
+.future-site .station-telemetry, .future-site .station-device small { font-size: 8px; }
+.future-site .memory-graphic b, .future-site .universe-graphic b { font-size: 8px; }
+.future-site .product-backplane { font-size: 10px; }
+.future-site .product-backplane strong { font-size: 9px; }
+.future-site .system-card:not(.product-station) { min-height: 268px; }
+
+/* ---------- capabilities and labs ---------- */
+.future-site .capability-card > span { font-size: 11px; }
+.future-site .capability-card h3, .future-site .agent-card h3 { font-size: 14px; }
+.future-site .capability-card p, .future-site .agent-card > p { font-size: 13px; line-height: 1.7; }
+.future-site .capability-core span { font-size: 11px; }
+.future-site .capability-identity span { font-size: 13px; }
+.future-site .agent-planet i { font-size: 10px; }
+
+/* ---------- "Context moves": a full-width statement that breaks the card rhythm ---------- */
+.future-site .collaboration-layout { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 72px; padding: 150px 0 130px; }
+.future-site .collaboration-copy { max-width: 1000px; text-align: center; }
+.future-site .collaboration-copy h2 { font-size: clamp(44px, 7.6vw, 116px); line-height: .98; letter-spacing: -.055em; font-weight: 330; }
+.future-site .collaboration-copy .localized-line { font-size: clamp(17px, 1.5vw, 21px); }
+.future-site .collaboration-copy .section-body { max-width: 560px; margin-inline: auto; }
+.future-site .flow-board { width: 100%; }
+.future-site .flow-agent i { font-size: 10px; }
+.future-site .flow-agent strong { font-size: 12px; }
+.future-site .flow-agent small { font-size: 11px; }
+.future-site .request-bubble { font-size: 14px; }
+.future-site .request-avatar, .future-site .result-bubble i { font-size: 10px; }
+.future-site .result-bubble { font-size: 13px; }
+
+/* ---------- universe, roadmap, footer ---------- */
+.future-site .universe-manifesto { font-size: 15px; }
+.future-site .universe-feature { width: 214px; }
+.future-site .universe-feature b { font-size: 11px; }
+.future-site .universe-feature span { font-size: 13px; }
+.future-site .universe-sun small { font-size: 9px; }
+.future-site .roadmap-stages span { font-size: 11px; }
+.future-site .roadmap-stages strong { font-size: 15px; }
+.future-site .roadmap-stages p { font-size: 13px; line-height: 1.7; }
+.future-site .panel-kicker { font-size: 11px; }
+.future-site .enter-panel h3 { font-size: 20px; }
+.future-site .enter-panel > p { font-size: 14px; line-height: 1.75; }
+.future-site .enter-panel > a { font-size: 11px; }
+.future-site .site-footer nav a { font-size: 12px; }
+.future-site .site-footer small { font-size: 11px; }
+
+/* Chinese glyphs need a pixel more than Latin capitals at label sizes. */
+:root[lang^="zh"] .future-site .status,
+:root[lang^="zh"] .future-site .product-role,
+:root[lang^="zh"] .future-site .scene-toggle,
+:root[lang^="zh"] .future-site .enter-link,
+:root[lang^="zh"] .future-site .flow-agent small,
+:root[lang^="zh"] .future-site .enter-panel > a { font-size: 12px !important; }
+
+@media (max-width: 900px) {
+  .future-site .collaboration-layout { gap: 48px; padding: 96px 0 90px; }
+}
+@media (max-width: 600px) {
+  /* The ring sits under the tagline on phones; keep its clearance. */
+  .future-site .hero-manifesto { margin-bottom: 288px; font-size: 22px; }
+  .future-site .future-hero .future-hero-title { font-size: 28px; }
+  .future-site .system-card:not(.product-station) { min-height: 210px; }
+  .future-site .universe-feature { width: calc(100% - 36px); }
+}
