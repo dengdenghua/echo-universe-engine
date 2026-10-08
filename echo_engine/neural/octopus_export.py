@@ -184,7 +184,7 @@ def _copy_visual_assets(base: Path, agent_dir: Path, asset_pack: dict[str, Any])
             continue
         dest = visuals / _asset_filename(key, source.suffix)
         shutil.copy2(source, dest)
-        copied[key] = str(dest.relative_to(agent_dir))
+        copied[key] = dest.relative_to(agent_dir).as_posix()
 
     avatar = copied.get("avatar") or copied.get("front")
     if avatar:

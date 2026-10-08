@@ -75,8 +75,8 @@ def promote_candidate(
     target.write_text(promoted_content, encoding="utf-8")
     result = PromotionResult(
         event_id=str(event.event_id),
-        source_path=str(source.relative_to(base)),
-        promoted_path=str(target.relative_to(base)),
+        source_path=source.relative_to(base).as_posix(),
+        promoted_path=target.relative_to(base).as_posix(),
         mode=event.mode,
         title=event.title,
     )
