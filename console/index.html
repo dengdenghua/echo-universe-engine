@@ -3,35 +3,150 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#04060a" />
     <title>ECHO OS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    />
     <link rel="stylesheet" href="/console/styles.css" />
   </head>
-  <body>
+  <body class="is-booting">
+    <canvas id="neural-sky" aria-hidden="true"></canvas>
+    <div class="fx-vignette" aria-hidden="true"></div>
+    <div class="ghost-layer" id="ghost-layer" aria-hidden="true"></div>
+
+    <div class="boot" id="boot" role="dialog" aria-modal="true" aria-labelledby="boot-title">
+      <div class="boot-inner">
+        <svg class="boot-sigil" viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="sigil-orbit" cx="100" cy="100" r="92" />
+          <circle class="sigil-arc" cx="100" cy="100" r="74" />
+          <circle class="sigil-ring" cx="100" cy="100" r="54" />
+          <path class="sigil-e" d="M118 76H84v48h34M84 100h26" />
+          <circle class="sigil-core" cx="128" cy="100" r="5" />
+        </svg>
+        <div class="boot-title" id="boot-title" data-text="ECHO OS">ECHO OS</div>
+        <p class="boot-sub">ECHO: 回响纪元 · Season 1 · Ghost Awakening</p>
+        <ol class="boot-log" id="boot-log" aria-live="polite"></ol>
+        <p class="boot-question" id="boot-question"></p>
+        <div class="boot-actions">
+          <button class="boot-enter primary" data-enter="sound" data-audio-control>
+            <span class="boot-enter-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+            Enter with sound
+          </button>
+          <button class="boot-enter" data-enter="silent" data-audio-control>Enter silent</button>
+        </div>
+        <p class="boot-hint">Enter ↵ with sound · Esc silent · press M anytime to toggle music</p>
+      </div>
+    </div>
+
     <div class="os-shell">
       <header class="system-bar">
         <div class="system-brand">
-          <span class="brand-mark">E</span>
-          <span>ECHO OS</span>
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <circle class="brand-orbit" cx="16" cy="16" r="14" />
+            <path class="brand-e" d="M20.5 10H12v12h8.5M12 16h6.5" />
+          </svg>
+          <span class="brand-name">ECHO OS</span>
+          <span class="brand-version">2147.1</span>
         </div>
         <div class="system-center">
           <span class="system-chip" id="engine-state">Connecting</span>
           <span class="system-chip">2147 / Echo Age</span>
           <span class="system-chip">White Ghost Network</span>
         </div>
-        <time id="system-clock">--:--</time>
+        <div class="system-tray">
+          <div class="sound-control" id="sound-control">
+            <button
+              class="sound-toggle"
+              id="sound-toggle"
+              aria-pressed="false"
+              aria-label="Toggle soundtrack (M)"
+              data-audio-control
+            >
+              <span class="eq" id="sound-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+              <span class="sound-label" id="sound-label">Sound off</span>
+            </button>
+            <button
+              class="sound-more"
+              id="sound-more"
+              aria-expanded="false"
+              aria-controls="sound-panel"
+              aria-label="Sound settings"
+              data-audio-control
+            >
+              <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="sound-panel" id="sound-panel" hidden>
+              <div class="sound-track">
+                <span>Now playing</span>
+                <strong>Ghost Awakening</strong>
+                <em id="sound-chord">generative score · synthesised live</em>
+              </div>
+              <label class="sound-row">
+                <span>Volume</span>
+                <input type="range" id="sound-volume" min="0" max="100" value="60" />
+              </label>
+              <label class="sound-row switch">
+                <span>Interface sounds</span>
+                <input type="checkbox" id="sound-sfx" role="switch" checked />
+              </label>
+            </div>
+          </div>
+          <time id="system-clock">--:--</time>
+        </div>
       </header>
 
       <aside class="dock" aria-label="ECHO rooms">
-        <button class="dock-item active" data-window="world" title="World Brain">WB</button>
-        <button class="dock-item" data-window="characters" title="Character Agents">CA</button>
-        <button class="dock-item" data-window="factory" title="Universe Factory">UF</button>
-        <button class="dock-item" data-window="assets" title="Asset Locks">AL</button>
-        <button class="dock-item" data-window="memory" title="Memory Stream">MS</button>
-        <button class="dock-item runtime-only" data-window="octopus" title="Octopus Runtime">OR</button>
+        <button class="dock-item active" data-window="world" aria-label="World Brain">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="8.5" />
+            <ellipse cx="12" cy="12" rx="3.6" ry="8.5" />
+            <path d="M3.5 12h17M5 7.5h14M5 16.5h14" />
+          </svg>
+          <span class="dock-code">WB</span>
+        </button>
+        <button class="dock-item" data-window="characters" aria-label="Character Agents">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8.5" r="3.4" />
+            <path d="M5.5 19.5c1.1-3.5 3.6-5.3 6.5-5.3s5.4 1.8 6.5 5.3" />
+            <path d="M18.5 4.5a6 6 0 0 1 0 8M5.5 4.5a6 6 0 0 0 0 8" />
+          </svg>
+          <span class="dock-code">CA</span>
+        </button>
+        <button class="dock-item" data-window="factory" aria-label="Universe Forge">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2.8 20 7.4v9.2L12 21.2 4 16.6V7.4z" />
+            <path d="m12 7.5-2.2 4.8H13l-1.5 4.2" />
+          </svg>
+          <span class="dock-code">UF</span>
+        </button>
+        <button class="dock-item" data-window="assets" aria-label="Asset Locks">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="5" y="10.5" width="14" height="10" rx="1.6" />
+            <path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7M12 14.5v2.4" />
+          </svg>
+          <span class="dock-code">AL</span>
+        </button>
+        <button class="dock-item" data-window="memory" aria-label="Memory Stream">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2.5 12h3l2-5.5 3.2 11 3.1-8.5 2 5 1.7-2H21.5" />
+          </svg>
+          <span class="dock-code">MS</span>
+        </button>
+        <button class="dock-item runtime-only" data-window="octopus" aria-label="Octopus Runtime">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 11a5 5 0 0 1 10 0" />
+            <path d="M7 11c0 3-2 4-3 7M10 12c0 3-1 5-1.5 8M14 12c0 3 1 5 1.5 8M17 11c0 3 2 4 3 7" />
+          </svg>
+          <span class="dock-code">OR</span>
+        </button>
       </aside>
 
       <main class="desktop" id="desktop">
-        <section class="window world-window active" data-window-panel="world">
+        <section class="window world-window active" data-window-panel="world" style="--i: 0">
           <div class="titlebar">
             <div>
               <span class="window-kicker">Layer 1</span>
@@ -46,6 +161,15 @@
               <div class="core-ring ring-a"></div>
               <div class="core-ring ring-b"></div>
               <div class="core-ring ring-c"></div>
+              <canvas id="core-canvas" aria-hidden="true"></canvas>
+              <div class="core-hud core-hud-left">
+                <span>Planetary mesh</span>
+                <strong id="core-longitude">LON 000.0°</strong>
+              </div>
+              <div class="core-hud core-hud-right">
+                <span>Sync</span>
+                <strong id="core-sync">99.20%</strong>
+              </div>
               <div class="core-label">
                 <strong>ECHO</strong>
                 <span>World Brain</span>
@@ -54,14 +178,14 @@
             <div class="metric-grid" id="metrics"></div>
           </div>
           <div class="law-strip">
-            <span>No magic</span>
-            <span>Ghosts are digital personalities</span>
-            <span>Every power is technological</span>
-            <span>Canon requires review</span>
+            <span style="--n: 0"><b>Law 01</b>No magic</span>
+            <span style="--n: 1"><b>Law 02</b>Ghosts are digital personalities</span>
+            <span style="--n: 2"><b>Law 03</b>Every power is technological</span>
+            <span style="--n: 3"><b>Law 04</b>Canon requires review</span>
           </div>
         </section>
 
-        <section class="window characters-window active" data-window-panel="characters">
+        <section class="window characters-window active" data-window-panel="characters" style="--i: 2">
           <div class="titlebar">
             <div>
               <span class="window-kicker">Layer 4</span>
@@ -72,7 +196,7 @@
           <div class="agent-grid" id="character-grid"></div>
         </section>
 
-        <section class="window factory-window active" data-window-panel="factory">
+        <section class="window factory-window active" data-window-panel="factory" style="--i: 1">
           <div class="titlebar">
             <div>
               <span class="window-kicker">Factory</span>
@@ -102,10 +226,16 @@
               <strong>Audit</strong>
             </button>
           </div>
-          <pre id="factory-output">Awaiting signal.</pre>
+          <div class="terminal" id="factory-terminal">
+            <div class="terminal-head" aria-hidden="true">
+              <i></i><i></i><i></i>
+              <span>forge://stdout</span>
+            </div>
+            <pre id="factory-output">Awaiting signal.</pre>
+          </div>
         </section>
 
-        <section class="window assets-window active" data-window-panel="assets">
+        <section class="window assets-window active" data-window-panel="assets" style="--i: 3">
           <div class="titlebar">
             <div>
               <span class="window-kicker">Visual Canon</span>
@@ -116,7 +246,7 @@
           <div class="asset-grid" id="asset-grid"></div>
         </section>
 
-        <section class="window memory-window" data-window-panel="memory">
+        <section class="window memory-window" data-window-panel="memory" style="--i: 4">
           <div class="titlebar">
             <div>
               <span class="window-kicker">Layer 3</span>
@@ -134,7 +264,7 @@
           <div class="candidate-grid" id="candidate-grid"></div>
         </section>
 
-        <section class="window octopus-window runtime-only" data-window-panel="octopus">
+        <section class="window octopus-window runtime-only" data-window-panel="octopus" style="--i: 5">
           <div class="titlebar">
             <div>
               <span class="window-kicker">Runtime</span>
@@ -150,6 +280,14 @@
       </main>
     </div>
 
+    <div class="fx-overlay" aria-hidden="true">
+      <span class="fx-scanlines"></span>
+      <span class="fx-grain"></span>
+    </div>
+    <div class="echo-toast" id="echo-toast" role="status" aria-live="polite"></div>
+
+    <script src="/console/soundtrack.js"></script>
+    <script src="/console/fx.js"></script>
     <script src="/console/app.js"></script>
   </body>
 </html>
