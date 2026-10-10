@@ -103,9 +103,10 @@ def test_user_jwt_is_self_scoped_and_cannot_call_admin_routes(monkeypatch):
         get_settings.cache_clear()
 
 
-def test_governance_review_requires_an_explicit_reviewer_role_and_seat(monkeypatch):
+def test_governance_review_requires_an_explicit_reviewer_role_and_seat(monkeypatch, tmp_path):
     monkeypatch.setenv("ECHO_ADMIN_API_KEY", "test-admin-key")
     monkeypatch.setenv("ECHO_USER_JWT_SECRET", "test-user-secret")
+    monkeypatch.setenv("ECHO_DATABASE_PATH", str(tmp_path / "echo.sqlite3"))
     get_settings.cache_clear()
     try:
         client = TestClient(app)

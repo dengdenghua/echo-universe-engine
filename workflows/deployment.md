@@ -1,6 +1,6 @@
 # Deployment
 
-ECHO Universe Engine should deploy as an independent service. Octopus services can run beside it, but ECHO keeps canon ownership.
+ECHO Universe Engine should deploy as an independent service. Echo AI services can run beside it, but ECHO keeps canon ownership.
 
 ## Recommended Topology
 
@@ -11,13 +11,13 @@ echo-universe-engine
 echo-scheduler
   optional container that runs daily universe ticks
 
-octopus-agent
+echo-ai
   future runtime brain for multi-agent execution, Journal, KG, model routing
 
-octopus-storage
+echo-storage
   future long-term memory, embeddings, documents, images, generated assets
 
-octopus-mobile
+echo-mobile
   future mobile review, notifications, embodied interaction gateway
 ```
 
@@ -33,12 +33,12 @@ API:
 ```text
 http://localhost:8010/api/health
 http://localhost:8010/api/canon/status
-http://localhost:8010/api/integrations/octopus/plan
+http://localhost:8010/api/integrations/echo-ai/plan
 ```
 
 ## Enable Built-In Scheduler
 
-The scheduler is optional because production may use cron, systemd timers, or Octopus-Agent instead.
+The scheduler is optional because production may use cron, systemd timers, or Echo AI instead.
 
 ```bash
 docker compose --profile scheduler up --build -d
@@ -93,11 +93,11 @@ The scheduler intentionally commits candidate output folders, not the whole repo
 
 ## Deployment Rule
 
-Deploy ECHO independently. Reuse Octopus as runtime infrastructure.
+Deploy ECHO independently. Reuse Echo AI as runtime infrastructure.
 
 ```text
 ECHO owns canon.
-Octopus runs agents.
+Echo AI runs agents.
 Storage remembers.
 Mobile interacts.
 ```

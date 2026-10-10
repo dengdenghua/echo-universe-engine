@@ -936,13 +936,13 @@
   }
 
   async function boot() {
-    const base = `/assets/characters/${who.dir}/octopus_refs/`;
+    const base = `/universe/dossier/assets/${who.dir}/`;
     const sheets = ["front", "side", "back", "head", "avatar"];
     let loaded = 0;
     drawLoading(0, sheets.length);
     const [front, side, back, head, avatar] = await Promise.all(
       sheets.map((name) =>
-        loadImage(`${base}${name}.png`).then((img) => {
+        loadImage(`${base}${name}.webp`).then((img) => {
           loaded += 1;
           drawLoading(loaded, sheets.length);
           return img;

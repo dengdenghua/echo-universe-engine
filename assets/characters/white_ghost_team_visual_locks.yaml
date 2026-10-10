@@ -1,7 +1,7 @@
 style_authority: bible/visual_system_v1.md
-asset_index: assets/characters/octopus_visual_asset_index.yaml
+asset_index: assets/characters/echo_ai_visual_asset_index.yaml
 team: White Ghost Team
-status: octopus_reference_assets_copied
+status: echo_ai_reference_assets_copied
 global_constraints:
   palette: snow white industrial uniforms, graphite black modular straps, restrained character accent color
   world_feel: clean, surgical, monitored, post-AI, emotionally haunted
@@ -21,7 +21,7 @@ global_constraints:
     - random outfit redesign between panels
 generation_policy:
   source_of_truth:
-    - use copied Octopus references in assets/characters/*/octopus_refs before any fresh generation
+    - use copied Echo AI references in assets/characters/*/echo_ai_refs before any fresh generation
     - never generate recurring comic panels from text prompts alone
     - every new image must preserve face, hair, silhouette, outfit language, and accent colors from the copied references
   first_pass:
@@ -46,15 +46,15 @@ characters:
   "001":
     name: Zero
     codename: White Ghost
-    octopus_source_agent: aoi
-    reference_pack: assets/characters/001_zero/octopus_refs
+    echo_ai_source_agent: aoi
+    reference_pack: assets/characters/001_zero/echo_ai_refs
     approved_references:
-      avatar: assets/characters/001_zero/octopus_refs/avatar.png
-      front: assets/characters/001_zero/octopus_refs/front.png
-      side: assets/characters/001_zero/octopus_refs/side.png
-      back: assets/characters/001_zero/octopus_refs/back.png
-      head: assets/characters/001_zero/octopus_refs/head.png
-      source_turnaround: assets/characters/001_zero/octopus_refs/source-turnaround.png
+      avatar: assets/characters/001_zero/echo_ai_refs/avatar.png
+      front: assets/characters/001_zero/echo_ai_refs/front.png
+      side: assets/characters/001_zero/echo_ai_refs/side.png
+      back: assets/characters/001_zero/echo_ai_refs/back.png
+      head: assets/characters/001_zero/echo_ai_refs/head.png
+      source_turnaround: assets/characters/001_zero/echo_ai_refs/source-turnaround.png
     silhouette: slim captain profile, high-collar iridescent white tactical jacket, precise calm posture
     hair: silver-white, clean layered cut, luminous but not glowing like magic
     face: apparent 18, calm expression, controlled sadness, pure features
@@ -84,14 +84,14 @@ characters:
   "002":
     name: Kane
     codename: Paladin
-    octopus_source_agent: coder
-    reference_pack: assets/characters/002_kane/octopus_refs
+    echo_ai_source_agent: coder
+    reference_pack: assets/characters/002_kane/echo_ai_refs
     approved_references:
-      avatar: assets/characters/002_kane/octopus_refs/avatar.png
-      front: assets/characters/002_kane/octopus_refs/front.png
-      side: assets/characters/002_kane/octopus_refs/side.png
-      back: assets/characters/002_kane/octopus_refs/back.png
-      source_turnaround: assets/characters/002_kane/octopus_refs/source-turnaround.png
+      avatar: assets/characters/002_kane/echo_ai_refs/avatar.png
+      front: assets/characters/002_kane/echo_ai_refs/front.png
+      side: assets/characters/002_kane/echo_ai_refs/side.png
+      back: assets/characters/002_kane/echo_ai_refs/back.png
+      source_turnaround: assets/characters/002_kane/echo_ai_refs/source-turnaround.png
     silhouette: broad protective vice-captain, knee-length black hooded field coat, katana slung across the back
     hair: black, short tousled cut
     face: mature young adult, warm eyes, restrained intensity
@@ -121,15 +121,15 @@ characters:
   "003":
     name: Eve
     codename: Siren
-    octopus_source_agent: general
-    reference_pack: assets/characters/003_eve/octopus_refs
+    echo_ai_source_agent: general
+    reference_pack: assets/characters/003_eve/echo_ai_refs
     approved_references:
-      avatar: assets/characters/003_eve/octopus_refs/avatar.png
-      front: assets/characters/003_eve/octopus_refs/front.png
-      side: assets/characters/003_eve/octopus_refs/side.png
-      back: assets/characters/003_eve/octopus_refs/back.png
-      head: assets/characters/003_eve/octopus_refs/head.png
-      source_turnaround: assets/characters/003_eve/octopus_refs/source-turnaround.png
+      avatar: assets/characters/003_eve/echo_ai_refs/avatar.png
+      front: assets/characters/003_eve/echo_ai_refs/front.png
+      side: assets/characters/003_eve/echo_ai_refs/side.png
+      back: assets/characters/003_eve/echo_ai_refs/back.png
+      head: assets/characters/003_eve/echo_ai_refs/head.png
+      source_turnaround: assets/characters/003_eve/echo_ai_refs/source-turnaround.png
     silhouette: elegant negotiator, white tactical coat, soft emotional interface lines
     hair: silver hair with soft pink accents
     face: composed, empathetic, slightly dangerous
@@ -158,14 +158,14 @@ characters:
   "004":
     name: Leon
     codename: Chronos
-    octopus_source_agent: admin
-    reference_pack: assets/characters/004_leon/octopus_refs
+    echo_ai_source_agent: admin
+    reference_pack: assets/characters/004_leon/echo_ai_refs
     approved_references:
-      avatar: assets/characters/004_leon/octopus_refs/avatar.png
-      front: assets/characters/004_leon/octopus_refs/front.png
-      side: assets/characters/004_leon/octopus_refs/side.png
-      back: assets/characters/004_leon/octopus_refs/back.png
-      source_turnaround: assets/characters/004_leon/octopus_refs/source-turnaround.png
+      avatar: assets/characters/004_leon/echo_ai_refs/avatar.png
+      front: assets/characters/004_leon/echo_ai_refs/front.png
+      side: assets/characters/004_leon/echo_ai_refs/side.png
+      back: assets/characters/004_leon/echo_ai_refs/back.png
+      source_turnaround: assets/characters/004_leon/echo_ai_refs/source-turnaround.png
     silhouette: lean swordsman, white blade harness, black undersuit, narrow sword
     hair: white or very pale silver, clean and sharp
     face: calm, tired, precise
@@ -194,14 +194,14 @@ characters:
   "005":
     name: Raven
     codename: Night Crow
-    octopus_source_agent: desktop_operator
-    reference_pack: assets/characters/005_raven/octopus_refs
+    echo_ai_source_agent: desktop_operator
+    reference_pack: assets/characters/005_raven/echo_ai_refs
     approved_references:
-      avatar: assets/characters/005_raven/octopus_refs/avatar.png
-      front: assets/characters/005_raven/octopus_refs/front.png
-      side: assets/characters/005_raven/octopus_refs/side.png
-      back: assets/characters/005_raven/octopus_refs/back.png
-      source_turnaround: assets/characters/005_raven/octopus_refs/source-turnaround.png
+      avatar: assets/characters/005_raven/echo_ai_refs/avatar.png
+      front: assets/characters/005_raven/echo_ai_refs/front.png
+      side: assets/characters/005_raven/echo_ai_refs/side.png
+      back: assets/characters/005_raven/echo_ai_refs/back.png
+      source_turnaround: assets/characters/005_raven/echo_ai_refs/source-turnaround.png
     silhouette: dark underlayer with white stealth cloak, asymmetric hood, compact assassin profile
     hair: black, partially hidden by hood
     face: sharp, guarded, low-emotion
@@ -231,14 +231,14 @@ characters:
   "006":
     name: Shion
     codename: Virus Queen
-    octopus_source_agent: ecommerce_mind
-    reference_pack: assets/characters/006_shion/octopus_refs
+    echo_ai_source_agent: ecommerce_mind
+    reference_pack: assets/characters/006_shion/echo_ai_refs
     approved_references:
-      avatar: assets/characters/006_shion/octopus_refs/avatar.png
-      front: assets/characters/006_shion/octopus_refs/front.png
-      side: assets/characters/006_shion/octopus_refs/side.png
-      back: assets/characters/006_shion/octopus_refs/back.png
-      source_turnaround: assets/characters/006_shion/octopus_refs/source-turnaround.png
+      avatar: assets/characters/006_shion/echo_ai_refs/avatar.png
+      front: assets/characters/006_shion/echo_ai_refs/front.png
+      side: assets/characters/006_shion/echo_ai_refs/side.png
+      back: assets/characters/006_shion/echo_ai_refs/back.png
+      source_turnaround: assets/characters/006_shion/echo_ai_refs/source-turnaround.png
     silhouette: oversized white techwear, black gloves, orbiting nano-particle field
     hair: purple or dark violet, techwear messy cut
     face: sharp, mischievous, analytical
@@ -267,14 +267,14 @@ characters:
   "007":
     name: Noah
     codename: Probability
-    octopus_source_agent: market_researcher
-    reference_pack: assets/characters/007_noah/octopus_refs
+    echo_ai_source_agent: market_researcher
+    reference_pack: assets/characters/007_noah/echo_ai_refs
     approved_references:
-      avatar: assets/characters/007_noah/octopus_refs/avatar.png
-      front: assets/characters/007_noah/octopus_refs/front.png
-      side: assets/characters/007_noah/octopus_refs/side.png
-      back: assets/characters/007_noah/octopus_refs/back.png
-      source_turnaround: assets/characters/007_noah/octopus_refs/source-turnaround.png
+      avatar: assets/characters/007_noah/echo_ai_refs/avatar.png
+      front: assets/characters/007_noah/echo_ai_refs/front.png
+      side: assets/characters/007_noah/echo_ai_refs/side.png
+      back: assets/characters/007_noah/echo_ai_refs/back.png
+      source_turnaround: assets/characters/007_noah/echo_ai_refs/source-turnaround.png
     silhouette: slim strategist, white analyst coat, translucent data scarf, narrow glasses
     hair: yellow-brown or warm light brown
     face: young, thoughtful, tense
@@ -303,14 +303,14 @@ characters:
   "008":
     name: Luna
     codename: Dream Walker
-    octopus_source_agent: vibe_selling
-    reference_pack: assets/characters/008_luna/octopus_refs
+    echo_ai_source_agent: vibe_selling
+    reference_pack: assets/characters/008_luna/echo_ai_refs
     approved_references:
-      avatar: assets/characters/008_luna/octopus_refs/avatar.png
-      front: assets/characters/008_luna/octopus_refs/front.png
-      side: assets/characters/008_luna/octopus_refs/side.png
-      back: assets/characters/008_luna/octopus_refs/back.png
-      source_turnaround: assets/characters/008_luna/octopus_refs/source-turnaround.png
+      avatar: assets/characters/008_luna/echo_ai_refs/avatar.png
+      front: assets/characters/008_luna/echo_ai_refs/front.png
+      side: assets/characters/008_luna/echo_ai_refs/side.png
+      back: assets/characters/008_luna/echo_ai_refs/back.png
+      source_turnaround: assets/characters/008_luna/echo_ai_refs/source-turnaround.png
     silhouette: soft white tactical suit, translucent neural veil, gentle but uncanny
     hair: pink, soft layered style
     face: gentle, haunted, curious
@@ -339,15 +339,15 @@ characters:
   "009":
     name: Mira Voss
     codename: Glass Vein
-    octopus_source_agent: echo_mira_voss
-    reference_pack: assets/characters/009_mira_voss/octopus_refs
+    echo_ai_source_agent: echo_mira_voss
+    reference_pack: assets/characters/009_mira_voss/echo_ai_refs
     status: provisional_visual_lock
     approved_references:
-      avatar: assets/characters/009_mira_voss/octopus_refs/avatar.png
-      front: assets/characters/009_mira_voss/octopus_refs/front.png
-      side: assets/characters/009_mira_voss/octopus_refs/side.png
-      back: assets/characters/009_mira_voss/octopus_refs/back.png
-      source_turnaround: assets/characters/009_mira_voss/octopus_refs/source-turnaround.png
+      avatar: assets/characters/009_mira_voss/echo_ai_refs/avatar.png
+      front: assets/characters/009_mira_voss/echo_ai_refs/front.png
+      side: assets/characters/009_mira_voss/echo_ai_refs/side.png
+      back: assets/characters/009_mira_voss/echo_ai_refs/back.png
+      source_turnaround: assets/characters/009_mira_voss/echo_ai_refs/source-turnaround.png
     silhouette: clinical Echo Core medic, white medical techwear coat over dark compression layer, surgical drone ring
     hair: pale silver-white, clean medical silhouette
     face: adult, calm, precise, empathetic but guarded

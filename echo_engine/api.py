@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import hmac
+import os
 from pathlib import Path
 import re
 import secrets
@@ -16,7 +17,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import FileResponse
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import AliasChoices, BaseModel, Field
 import yaml
 
 from echo_engine.config import get_settings
@@ -66,11 +67,15 @@ from echo_engine.identities import (
 )
 from echo_engine.neural.simulator import UniverseEvent, simulate_event
 from echo_engine.neural.digital_life import run_daily_life_tick
-from echo_engine.neural.octopus_ecosystem import render_octopus_ecosystem_plan
-from echo_engine.neural.octopus_export import configured_octopus_agents_root, sync_octopus_runtime_agents
-from echo_engine.neural.octopus_runtime import (
-    configured_octopus_runtime_url,
-    reload_octopus_runtime_agents,
+from echo_engine.neural.echo_ai_ecosystem import render_echo_ai_ecosystem_plan
+from echo_engine.neural.echo_ai_export import (
+    configured_echo_ai_agents_root,
+    sync_echo_ai_runtime_agents,
+    visual_asset_index_path,
+)
+from echo_engine.neural.echo_ai_runtime import (
+    configured_echo_ai_runtime_url,
+    reload_echo_ai_runtime_agents,
 )
 from echo_engine.npcs import NPCError, get_npc, list_npcs, route_npc_interaction
 from echo_engine.journal import CanonDecision, candidate_queue, journal, record_canon_decision
@@ -86,6 +91,30 @@ from echo_engine.reviewers import (
 from echo_engine.skins import SkinError, check_skin_access, list_skin_policies
 from echo_engine.store import CanonStore
 from echo_engine.universe_feed import UniverseFeedError, get_universe_feed_for_user
+
+# Renamed from Octopus: published URLs such as /assets/characters/<id>/octopus_refs/front.png
+# keep resolving after the move, and new URLs still resolve on a volume that predates it.
+_LEGACY_PATH_SEGMENTS = {
+    "octopus_refs": "echo_ai_refs",
+    "octopus_agents": "echo_ai_agents",
+    "octopus_visual_asset_index.yaml": "echo_ai_visual_asset_index.yaml",
+}
+_RENAMED_PATH_SEGMENTS = {
+    **_LEGACY_PATH_SEGMENTS,
+    **{new: old for old, new in _LEGACY_PATH_SEGMENTS.items()},
+}
+
+
+class RenamedStaticFiles(StaticFiles):
+    def lookup_path(self, path: str) -> tuple[str, os.stat_result | None]:
+        full_path, stat_result = super().lookup_path(path)
+        if stat_result is None:
+            parts = Path(path).parts
+            renamed = [_RENAMED_PATH_SEGMENTS.get(part, part) for part in parts]
+            if renamed != list(parts):
+                return super().lookup_path(str(Path(*renamed)))
+        return full_path, stat_result
+
 
 app = FastAPI(title="ECHO Universe Engine", version="0.1.0")
 
@@ -415,11 +444,11 @@ if review_dir.exists():
     app.mount("/review", StaticFiles(directory=review_dir, html=True), name="review")
 assets_dir = Path("assets")
 if assets_dir.exists():
-    app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+    app.mount("/assets", RenamedStaticFiles(directory=assets_dir), name="assets")
 for static_name in ["outputs", "stories", "characters", "relationships", "bible", "factions", "technologies"]:
     static_dir = Path(static_name)
     if static_dir.exists():
-        app.mount(f"/{static_name}", StaticFiles(directory=static_dir), name=static_name)
+        app.mount(f"/{static_name}", RenamedStaticFiles(directory=static_dir), name=static_name)
 
 
 def get_root() -> Path:
@@ -477,10 +506,13 @@ class PromoteCandidateRequest(BaseModel):
     event_id: str
     target_dir: str | None = None
     filename: str | None = None
-    refresh_octopus_agents: bool = True
+    # Renamed from Octopus: refresh_octopus_agents is still accepted.
+    refresh_echo_ai_agents: bool = Field(
+        True, validation_alias=AliasChoices("refresh_echo_ai_agents", "refresh_octopus_agents")
+    )
 
 
-class OctopusSyncRequest(BaseModel):
+class EchoAISyncRequest(BaseModel):
     output_dir: str | None = None
     reload_runtime: bool = False
 
@@ -747,7 +779,7 @@ def canon_promotion(body: PromoteCandidateRequest):
             body.event_id,
             target_dir=body.target_dir,
             filename=body.filename,
-            refresh_octopus_agents=body.refresh_octopus_agents,
+            refresh_echo_ai_agents=body.refresh_echo_ai_agents,
         )
     except PromotionError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -1067,9 +1099,9 @@ def economy_ghost_subscription(body: GhostSubscriptionRequest, root: Path = Depe
 
 @app.get("/api/assets/characters")
 def character_visual_assets() -> dict[str, object]:
-    index_path = Path("assets/characters/octopus_visual_asset_index.yaml")
+    index_path = visual_asset_index_path(Path())
     if not index_path.exists():
-        return {"schema": "echo_octopus_visual_asset_index_v1", "characters": {}}
+        return {"schema": "echo_ai_visual_asset_index_v1", "characters": {}}
     data = yaml.safe_load(index_path.read_text(encoding="utf-8"))
     for character in data.get("characters", {}).values():
         files = character.get("files", {})
@@ -1129,15 +1161,18 @@ def neural_daily_life_run(root: Path = Depends(get_root)):
     return run_daily_life_tick(root=root)
 
 
-@app.get("/api/integrations/octopus/plan")
-def octopus_integration_plan() -> dict[str, str]:
-    return {"content": render_octopus_ecosystem_plan()}
+# Renamed from Octopus: the /api/integrations/octopus/* routes stay as deprecated aliases.
+@app.get("/api/integrations/echo-ai/plan")
+@app.get("/api/integrations/octopus/plan", deprecated=True)
+def echo_ai_integration_plan() -> dict[str, str]:
+    return {"content": render_echo_ai_ecosystem_plan()}
 
 
-@app.get("/api/integrations/octopus/status")
-def octopus_integration_status() -> dict[str, object]:
-    root = configured_octopus_agents_root()
-    runtime_url = configured_octopus_runtime_url()
+@app.get("/api/integrations/echo-ai/status")
+@app.get("/api/integrations/octopus/status", deprecated=True)
+def echo_ai_integration_status() -> dict[str, object]:
+    root = configured_echo_ai_agents_root()
+    runtime_url = configured_echo_ai_runtime_url()
     return {
         "agents_root": str(root) if root else None,
         "configured": root is not None,
@@ -1147,15 +1182,16 @@ def octopus_integration_status() -> dict[str, object]:
     }
 
 
-@app.post("/api/integrations/octopus/sync-agents")
-def octopus_sync_agents(body: OctopusSyncRequest):
+@app.post("/api/integrations/echo-ai/sync-agents")
+@app.post("/api/integrations/octopus/sync-agents", deprecated=True)
+def echo_ai_sync_agents(body: EchoAISyncRequest):
     try:
-        written = sync_octopus_runtime_agents(
+        written = sync_echo_ai_runtime_agents(
             output_dir=Path(body.output_dir) if body.output_dir else None,
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
-    reload_result = reload_octopus_runtime_agents() if body.reload_runtime else None
+    reload_result = reload_echo_ai_runtime_agents() if body.reload_runtime else None
     return {
         "ok": True,
         "written": [str(path) for path in written],

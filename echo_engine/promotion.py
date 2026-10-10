@@ -47,8 +47,11 @@ def promote_candidate(
     root: Path | None = None,
     target_dir: str | None = None,
     filename: str | None = None,
-    refresh_octopus_agents: bool = True,
+    refresh_echo_ai_agents: bool = True,
+    refresh_octopus_agents: bool | None = None,
 ) -> PromotionResult:
+    if refresh_octopus_agents is not None:  # pre-rename keyword, still accepted
+        refresh_echo_ai_agents = refresh_octopus_agents
     base = (root or Path.cwd()).resolve()
     event = _candidate_event(event_id, root)
     decision = candidate_review_state(root).get(str(event.event_id))
@@ -85,8 +88,8 @@ def promote_candidate(
     target.write_text(promoted_content, encoding="utf-8")
     result = PromotionResult(
         event_id=str(event.event_id),
-        source_path=str(source.relative_to(base)),
-        promoted_path=str(target.relative_to(base)),
+        source_path=source.relative_to(base).as_posix(),
+        promoted_path=target.relative_to(base).as_posix(),
         mode=event.mode,
         title=event.title,
     )
@@ -98,8 +101,8 @@ def promote_candidate(
         promoted_path=result.promoted_path,
         root=root,
     )
-    if refresh_octopus_agents and result.mode == "character":
-        _refresh_octopus_agents(root)
+    if refresh_echo_ai_agents and result.mode == "character":
+        _refresh_echo_ai_agents(root)
     return result
 
 
@@ -126,10 +129,10 @@ def _inside_root(base: Path, relative: str, *, label: str) -> Path:
     return candidate
 
 
-def _refresh_octopus_agents(root: Path | None = None) -> None:
-    from echo_engine.neural.octopus_export import export_octopus_agents
+def _refresh_echo_ai_agents(root: Path | None = None) -> None:
+    from echo_engine.neural.echo_ai_export import export_echo_ai_agents
 
-    export_octopus_agents(root=root)
+    export_echo_ai_agents(root=root)
 
 
 def _candidate_event(event_id: str, root: Path | None = None) -> JournalEvent:

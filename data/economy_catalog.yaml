@@ -19,7 +19,7 @@ products:
     category: subscription
     price_credits: 300
     scope: personal
-    description: Keep a bound Ghost awake for daily life ticks, diary growth, and Octopus runtime chat.
+    description: Keep a bound Ghost awake for daily life ticks, diary growth, and Echo AI runtime chat.
     grants:
       ghost_subscription:
         duration_days: 30

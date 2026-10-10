@@ -3,51 +3,157 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="ECHO 内部宇宙管理平台" />
+    <meta name="theme-color" content="#04060a" />
+    <title>ECHO OS · Internal Console</title>
     <meta name="robots" content="noindex, nofollow, noarchive" />
-    <title>ECHO INTERNAL · 宇宙管理平台</title>
-    <link rel="stylesheet" href="/console/styles.css?v=20260830-3" />
-    <link rel="stylesheet" href="/home/interiors.css?v=20260927-4" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="/console/styles.css" />
   </head>
-  <body class="echo-interior console-edition">
+  <body class="is-booting">
+    <canvas id="neural-sky" aria-hidden="true"></canvas>
+    <div class="fx-vignette" aria-hidden="true"></div>
+    <div class="ghost-layer" id="ghost-layer" aria-hidden="true"></div>
+
+    <div class="boot" id="boot" role="dialog" aria-modal="true" aria-labelledby="boot-title">
+      <div class="boot-inner">
+        <svg class="boot-sigil" viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="sigil-orbit" cx="100" cy="100" r="92" />
+          <circle class="sigil-arc" cx="100" cy="100" r="74" />
+          <circle class="sigil-ring" cx="100" cy="100" r="54" />
+          <path class="sigil-e" d="M118 76H84v48h34M84 100h26" />
+          <circle class="sigil-core" cx="128" cy="100" r="5" />
+        </svg>
+        <div class="boot-title" id="boot-title" data-text="ECHO OS">ECHO OS</div>
+        <p class="boot-sub">ECHO: 回响纪元 · Season 1 · Ghost Awakening</p>
+        <ol class="boot-log" id="boot-log" aria-live="polite"></ol>
+        <p class="boot-question" id="boot-question"></p>
+        <div class="boot-actions">
+          <button class="boot-enter primary" data-enter="sound" data-audio-control>
+            <span class="boot-enter-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+            Enter with sound
+          </button>
+          <button class="boot-enter" data-enter="silent" data-audio-control>Enter silent</button>
+        </div>
+        <p class="boot-hint">Enter ↵ with sound · Esc silent · press M anytime to toggle music</p>
+      </div>
+    </div>
+
     <div class="os-shell">
       <header class="system-bar">
-        <a class="system-brand" href="/" aria-label="ECHO 首页" data-i18n-aria="home">
-          <span class="brand-mark">E</span>
-          <span>ECHO INTERNAL</span>
-        </a>
+        <div class="system-brand">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <circle class="brand-orbit" cx="16" cy="16" r="14" />
+            <path class="brand-e" d="M20.5 10H12v12h8.5M12 16h6.5" />
+          </svg>
+          <span class="brand-name">ECHO OS</span>
+          <span class="brand-version">2147.1</span>
+        </div>
         <div class="system-center">
           <span class="system-chip" id="engine-state">连接中</span>
           <span class="system-chip">2147 / Echo Age</span>
           <span class="system-chip" data-i18n="whiteGhostNetwork">白幽灵网络</span>
         </div>
-        <div class="system-actions">
+        <div class="system-tray">
+          <button id="restore-world" type="button" title="World Brain">World</button>
           <div class="locale-switch" role="group" aria-label="语言" data-i18n-aria="languageSelector">
             <button type="button" data-locale="zh" aria-pressed="true">中文</button>
             <button type="button" data-locale="en" aria-pressed="false">EN</button>
+          </div>
+
+          <div class="sound-control" id="sound-control">
+            <button
+              class="sound-toggle"
+              id="sound-toggle"
+              aria-pressed="false"
+              aria-label="Toggle soundtrack (M)"
+              data-audio-control
+            >
+              <span class="eq" id="sound-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+              <span class="sound-label" id="sound-label">Sound off</span>
+            </button>
+            <button
+              class="sound-more"
+              id="sound-more"
+              aria-expanded="false"
+              aria-controls="sound-panel"
+              aria-label="Sound settings"
+              data-audio-control
+            >
+              <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="sound-panel" id="sound-panel" hidden>
+              <div class="sound-track">
+                <span>Now playing</span>
+                <strong>Ghost Awakening</strong>
+                <em id="sound-chord">generative score · synthesised live</em>
+              </div>
+              <label class="sound-row">
+                <span>Volume</span>
+                <input type="range" id="sound-volume" min="0" max="100" value="60" />
+              </label>
+              <label class="sound-row switch">
+                <span>Interface sounds</span>
+                <input type="checkbox" id="sound-sfx" role="switch" checked />
+              </label>
+            </div>
           </div>
           <time id="system-clock">--:--</time>
         </div>
       </header>
 
-      <aside class="dock" aria-label="ECHO 空间" data-i18n-aria="echoRooms">
-        <div class="dock-caption">MISSION CONTROL<span>2147 / ECHO AGE</span></div>
-        <button class="dock-item active" data-window="world" aria-pressed="true" title="世界大脑" data-i18n-title="worldBrain"><i aria-hidden="true">◎</i><span data-i18n="worldBrain">世界大脑</span><small>01</small></button>
-        <button class="dock-item" data-window="characters" aria-pressed="false" title="角色智能体" data-i18n-title="characterAgents"><i aria-hidden="true">⌘</i><span data-i18n="characterAgents">角色智能体</span><small>02</small></button>
-        <button class="dock-item" data-window="factory" aria-pressed="false" title="宇宙工厂" data-i18n-title="universeFactory"><i aria-hidden="true">◇</i><span data-i18n="universeFactory">宇宙工厂</span><small>03</small></button>
-        <button class="dock-item" data-window="assets" aria-pressed="false" title="资产锁定" data-i18n-title="assetLocks"><i aria-hidden="true">▧</i><span data-i18n="assetLocks">资产锁定</span><small>04</small></button>
-        <button class="dock-item" data-window="memory" aria-pressed="false" title="记忆流" data-i18n-title="memoryStream"><i aria-hidden="true">≋</i><span data-i18n="memoryStream">记忆流</span><small>05</small></button>
-        <button class="dock-item runtime-only" data-window="octopus" aria-pressed="false" title="Octopus 运行时" data-i18n-title="octopusRuntime"><i aria-hidden="true">⌁</i><span data-i18n="octopusRuntime">Octopus 运行时</span><small>06</small></button>
-        <a class="dock-return" href="/universe/"><span data-i18n="exploreUniverse">探索宇宙</span><span aria-hidden="true">↗</span></a>
+      <aside class="dock" aria-label="ECHO rooms">
+        <button class="dock-item active" data-window="world" aria-label="World Brain">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="8.5" />
+            <ellipse cx="12" cy="12" rx="3.6" ry="8.5" />
+            <path d="M3.5 12h17M5 7.5h14M5 16.5h14" />
+          </svg>
+          <span class="dock-code">WB</span>
+        </button>
+        <button class="dock-item" data-window="characters" aria-label="Character Agents">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8.5" r="3.4" />
+            <path d="M5.5 19.5c1.1-3.5 3.6-5.3 6.5-5.3s5.4 1.8 6.5 5.3" />
+            <path d="M18.5 4.5a6 6 0 0 1 0 8M5.5 4.5a6 6 0 0 0 0 8" />
+          </svg>
+          <span class="dock-code">CA</span>
+        </button>
+        <button class="dock-item" data-window="factory" aria-label="Universe Forge">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2.8 20 7.4v9.2L12 21.2 4 16.6V7.4z" />
+            <path d="m12 7.5-2.2 4.8H13l-1.5 4.2" />
+          </svg>
+          <span class="dock-code">UF</span>
+        </button>
+        <button class="dock-item" data-window="assets" aria-label="Asset Locks">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="5" y="10.5" width="14" height="10" rx="1.6" />
+            <path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7M12 14.5v2.4" />
+          </svg>
+          <span class="dock-code">AL</span>
+        </button>
+        <button class="dock-item" data-window="memory" aria-label="Memory Stream">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2.5 12h3l2-5.5 3.2 11 3.1-8.5 2 5 1.7-2H21.5" />
+          </svg>
+          <span class="dock-code">MS</span>
+        </button>
+        <button class="dock-item runtime-only" data-window="echo-ai" aria-label="Echo AI Runtime">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 11a5 5 0 0 1 10 0" />
+            <path d="M7 11c0 3-2 4-3 7M10 12c0 3-1 5-1.5 8M14 12c0 3 1 5 1.5 8M17 11c0 3 2 4 3 7" />
+          </svg>
+          <span class="dock-code">AI</span>
+        </button>
       </aside>
 
       <main class="desktop" id="desktop">
-        <div class="desktop-welcome">
-          <span>MISSION CONTROL / ECHO</span><strong>ECHO.</strong>
-          <p data-i18n="workspaceReady">选择一个空间，继续探索。</p>
-          <button id="restore-world" type="button" data-i18n="returnOverview">打开世界大脑</button>
-        </div>
-        <section class="window world-window active" data-window-panel="world">
+        <section class="window world-window active" data-window-panel="world" style="--i: 0">
           <div class="titlebar">
             <div>
               <span class="window-kicker" data-i18n="layerOne">第 1 层</span>
@@ -64,6 +170,15 @@
               <div class="core-ring ring-a"></div>
               <div class="core-ring ring-b"></div>
               <div class="core-ring ring-c"></div>
+              <canvas id="core-canvas" aria-hidden="true"></canvas>
+              <div class="core-hud core-hud-left">
+                <span>Planetary mesh</span>
+                <strong id="core-longitude">LON 000.0°</strong>
+              </div>
+              <div class="core-hud core-hud-right">
+                <span>Sync</span>
+                <strong id="core-sync">99.20%</strong>
+              </div>
               <div class="core-label">
                 <strong>ECHO</strong>
                 <span data-i18n="worldBrain">世界大脑</span>
@@ -73,14 +188,14 @@
             <div class="metric-grid" id="metrics"></div>
           </div>
           <div class="law-strip">
-            <span data-i18n="lawNoMagic">不存在魔法</span>
-            <span data-i18n="lawDigitalGhosts">Ghost 是数字人格</span>
-            <span data-i18n="lawTechnology">一切能力源于技术</span>
-            <span data-i18n="lawCanonReview">正典必须经过审核</span>
+            <span style="--n: 0"><b>Law 01</b>No magic</span>
+            <span style="--n: 1"><b>Law 02</b>Ghosts are digital personalities</span>
+            <span style="--n: 2"><b>Law 03</b>Every power is technological</span>
+            <span style="--n: 3"><b>Law 04</b>Canon requires review</span>
           </div>
         </section>
 
-        <section class="window characters-window" data-window-panel="characters">
+        <section class="window characters-window active" data-window-panel="characters" style="--i: 2">
           <div class="titlebar">
             <div>
               <span class="window-kicker" data-i18n="layerFour">第 4 层</span>
@@ -94,7 +209,7 @@
           <div class="agent-grid" id="character-grid"></div>
         </section>
 
-        <section class="window factory-window" data-window-panel="factory">
+        <section class="window factory-window active" data-window-panel="factory" style="--i: 1">
           <div class="titlebar">
             <div>
               <span class="window-kicker" data-i18n="factory">工厂</span>
@@ -127,10 +242,16 @@
               <strong data-i18n="audit">审核</strong>
             </button>
           </div>
-          <pre id="factory-output">等待信号。</pre>
+          <div class="terminal" id="factory-terminal">
+            <div class="terminal-head" aria-hidden="true">
+              <i></i><i></i><i></i>
+              <span>forge://stdout</span>
+            </div>
+            <pre id="factory-output">Awaiting signal.</pre>
+          </div>
         </section>
 
-        <section class="window assets-window" data-window-panel="assets">
+        <section class="window assets-window active" data-window-panel="assets" style="--i: 3">
           <div class="titlebar">
             <div>
               <span class="window-kicker" data-i18n="visualCanon">视觉正典</span>
@@ -144,7 +265,7 @@
           <div class="asset-grid" id="asset-grid"></div>
         </section>
 
-        <section class="window memory-window" data-window-panel="memory">
+        <section class="window memory-window" data-window-panel="memory" style="--i: 4">
           <div class="titlebar">
             <div>
               <span class="window-kicker" data-i18n="layerThree">第 3 层</span>
@@ -165,24 +286,32 @@
           <div class="candidate-grid" id="candidate-grid"></div>
         </section>
 
-        <section class="window octopus-window runtime-only" data-window-panel="octopus">
+        <section class="window echo-ai-window runtime-only" data-window-panel="echo-ai" style="--i: 5">
           <div class="titlebar">
             <div>
-              <span class="window-kicker" data-i18n="runtime">运行时</span>
-              <h2>Octopus Link</h2>
+              <span class="window-kicker">Runtime</span>
+              <h2>Echo AI Link</h2>
             </div>
             <div class="window-actions">
-              <span class="window-badge" id="octopus-status">适配器</span>
-              <button id="octopus-sync-btn" title="将智能体同步到 Octopus 运行时" data-i18n-title="syncAgents" data-i18n="sync">同步</button>
+              <span class="window-badge" id="echo-ai-status">Adapter</span>
+              <button id="echo-ai-sync-btn" title="Sync agents into Echo AI runtime">Sync</button>
               <button class="window-close" type="button" title="关闭窗口" aria-label="关闭窗口" data-i18n-title="closeWindow" data-i18n-aria="closeWindow">×</button>
             </div>
           </div>
-          <pre id="octopus-plan">正在加载运行时契约。</pre>
+          <pre id="echo-ai-plan">Loading runtime contract.</pre>
         </section>
       </main>
     </div>
 
-    <script src="/console/i18n.js?v=20260927-3"></script>
-    <script src="/console/app.js?v=20260927-3"></script>
+    <div class="fx-overlay" aria-hidden="true">
+      <span class="fx-scanlines"></span>
+      <span class="fx-grain"></span>
+    </div>
+    <div class="echo-toast" id="echo-toast" role="status" aria-live="polite"></div>
+
+    <script src="/console/soundtrack.js"></script>
+    <script src="/console/fx.js"></script>
+    <script src="/console/i18n.js?v=20261011"></script>
+    <script src="/console/app.js"></script>
   </body>
 </html>

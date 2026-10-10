@@ -1,7 +1,7 @@
-# ECHO x Octopus Architecture Codex
+# ECHO x Echo AI Architecture Codex
 
 This codex defines the product and architecture direction for ECHO inside the
-Octopus ecosystem. It is not a slogan document. It is a decision filter for
+Echo AI ecosystem. It is not a slogan document. It is a decision filter for
 features, agents, mobile flows, canon promotion, and monetization.
 
 ## North Star
@@ -10,7 +10,7 @@ ECHO should not become a generic AI character chat app.
 
 The target is an AI-native interactive universe: a user can bind or generate a
 Ghost, watch it live inside a canon-governed digital life field, speak to it
-through the Octopus runtime, and return later to find that it has changed.
+through the Echo AI runtime, and return later to find that it has changed.
 
 The shortest expression:
 
@@ -42,9 +42,9 @@ ECHO owns the world.
   constraints, and irreversible history.
 - ECHO exports character agents, but it does not outsource canon authority.
 
-### Runtime Layer: octopus-agent
+### Runtime Layer: echo-ai
 
-Octopus Agent runs the souls.
+Echo AI runs the souls.
 
 - Exported ECHO characters become persistent agents with `SOUL.md`,
   `IDENTITY.md`, `MEMORY.md`, `USER.md`, and `profile.jsonc`.
@@ -54,13 +54,13 @@ Octopus Agent runs the souls.
 - The runtime may create candidate memories, but it must not promote canon by
   itself.
 
-### Entry Layer: octopus-mobile
+### Entry Layer: echo-mobile
 
-Octopus Mobile is the body, doorway, and economy.
+Echo Mobile is the body, doorway, and economy.
 
 - The user binds a canon character or eventually creates a personal Ghost.
 - The app shows diary, growth, focus, relationship hints, and universe events.
-- The app opens a real Ghost chat backed by `octopus-agent`, not prompt-only
+- The app opens a real Ghost chat backed by `echo-ai`, not prompt-only
   cosplay.
 - The app can later attach credits, subscription, renewal, sleep, and revival
   mechanics to digital life.
@@ -344,10 +344,10 @@ The system is moving in the right direction when:
 
 ## Engineering Rules
 
-- Prefer existing Octopus runtime capabilities over rebuilding model routing,
+- Prefer existing Echo AI runtime capabilities over rebuilding model routing,
   memory, scheduling, or agent execution inside ECHO.
 - ECHO stores canon and exports runtime-ready character packs.
-- Mobile should call ECHO for universe state and `octopus-agent` for live Ghost
+- Mobile should call ECHO for universe state and `echo-ai` for live Ghost
   conversation.
 - If a feature can be built as a small extension to the bind -> feed -> chat ->
   tick loop, do that first.
@@ -371,8 +371,8 @@ The MVP is complete when this path works end to end:
 mobile user
   -> bind ECHO character
   -> ECHO creates/returns universe feed
-  -> ECHO syncs character agent to octopus-agent
-  -> octopus-agent reloads the ECHO agent
+  -> ECHO syncs character agent to echo-ai
+  -> echo-ai reloads the ECHO agent
   -> mobile opens main chat bound to that agent
   -> user advances daily life
   -> diary/growth visibly changes

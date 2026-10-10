@@ -7,11 +7,12 @@ const state = {
   events: [],
   dataErrors: {},
   refreshing: false,
+  zIndex: 10,
   engineState: { key: "connecting", params: {}, ok: false },
   outputModeKey: "idle",
   outputContentKey: "awaitingSignal",
-  octopusStatusKey: "adapter",
-  octopusPlanKey: "loadingRuntime",
+  echoAIStatusKey: "adapter",
+  echoAIPlanKey: "loadingRuntime",
   runtimeVisible: new URLSearchParams(window.location.search).get("runtime") === "1",
 };
 
@@ -82,11 +83,17 @@ function setOutputContentRaw(value) {
   $("#factory-output").textContent = value;
 }
 
+function bringToFront(panel) {
+  state.zIndex += 1;
+  panel.style.zIndex = state.zIndex;
+  $all(".window").forEach((item) => item.classList.toggle("focused", item === panel));
+}
+
 function openWindow(name) {
   const panel = document.querySelector(`[data-window-panel="${name}"]`);
   if (!panel) return;
-  $all(".window").forEach((item) => item.classList.remove("active", "focused"));
-  panel.classList.add("active", "focused");
+  panel.classList.add("active");
+  bringToFront(panel);
   $all(".dock-item").forEach((item) => {
     item.classList.toggle("active", item.dataset.window === name);
     item.setAttribute("aria-pressed", String(item.dataset.window === name));
@@ -109,7 +116,7 @@ function closeWindow(panel) {
 function installRuntimeVisibility() {
   document.body.classList.toggle("show-runtime", state.runtimeVisible);
   if (!state.runtimeVisible) {
-    const panel = document.querySelector('[data-window-panel="octopus"]');
+    const panel = document.querySelector('[data-window-panel="echo-ai"]');
     panel?.classList.remove("active");
   }
 }
@@ -137,26 +144,37 @@ function renderMetrics(status) {
     .join("");
 }
 
-function renderCharacters(cards) {
+function renderCharacters(cards, assets) {
+  const visuals = assets?.characters || {};
   $("#character-count").textContent = t("onlineCount", { count: cards.length });
   $("#character-grid").innerHTML = cards
-    .map(
-      (card) => `
-        <article class="agent-tile">
-          <div class="agent-head">
-            <span>${card.id}</span>
-            <strong>${card.name}</strong>
+    .map((card) => {
+      const avatar = visuals[card.id]?.urls?.avatar;
+      return `
+        <article class="agent-tile" data-character-id="${card.id}">
+          <div class="agent-avatar">
+            ${
+              avatar
+                ? `<img src="${avatar}" alt="" loading="lazy" decoding="async" />`
+                : `<span class="agent-initial">${card.name.slice(0, 1)}</span>`
+            }
           </div>
-          <div class="agent-code">${card.codename || card.name}</div>
-          <p>${truncate(card.description)}</p>
-          <div class="agent-tags">
-            <span>${card.role || t("unassigned")}</span>
-            <span>${card.rank || t("noRank")}</span>
-            ${(card.abilities || []).slice(0, 1).map((ability) => `<span>${ability}</span>`).join("")}
+          <div class="agent-body">
+            <div class="agent-head">
+              <span>${card.id}</span>
+              <strong>${card.name}</strong>
+            </div>
+            <div class="agent-code">${card.codename || card.name}</div>
+            <p>${truncate(card.description)}</p>
+            <div class="agent-tags">
+              <span>${card.role || t("unassigned")}</span>
+              <span>${card.rank || t("noRank")}</span>
+              ${(card.abilities || []).slice(0, 1).map((ability) => `<span>${ability}</span>`).join("")}
+            </div>
           </div>
         </article>
-      `,
-    )
+      `;
+    })
     .join("");
 }
 
@@ -168,9 +186,9 @@ function renderAssets(index) {
       const urls = item.urls || {};
       const portrait = urls.front || urls.avatar;
       return `
-        <article class="asset-card">
+        <article class="asset-card" data-character-id="${id}">
           <div class="asset-preview">
-            ${portrait ? `<img src="${portrait}" alt="${t("frontReference", { name: item.name })}" />` : ""}
+            ${portrait ? `<img src="${portrait}" alt="${t("frontReference", { name: item.name })}" loading="lazy" decoding="async" />` : ""}
           </div>
           <div class="asset-info">
             <div class="asset-title">
@@ -282,7 +300,7 @@ function renderCandidates(candidates, governanceCandidates = []) {
       const promotion = row.promotion;
       const reason = decision?.summary || event.summary || t("awaitingReview");
       return `
-        <article class="candidate-card" data-event-id="${event.event_id}">
+        <article class="candidate-card" data-event-id="${event.event_id}" data-status="${row.status}">
           <div class="candidate-head">
             <span>${i18n.translateMode(event.mode)}</span>
             <strong>${event.title}</strong>
@@ -319,9 +337,9 @@ async function refresh() {
       requestJson("/api/journal/events?limit=16"),
       requestJson("/api/journal/candidates?limit=24"),
       requestJson("/api/canon/governance/candidates"),
-      ...(state.runtimeVisible ? [requestJson("/api/integrations/octopus/plan"), requestJson("/api/integrations/octopus/status")] : []),
+      ...(state.runtimeVisible ? [requestJson("/api/integrations/echo-ai/plan"), requestJson("/api/integrations/echo-ai/status")] : []),
     ]);
-    const [health, characters, assets, events, candidates, governanceCandidates, plan, octopus] = results;
+    const [health, characters, assets, events, candidates, governanceCandidates, plan, echoAI] = results;
     state.dataErrors = {};
     const update = (result, key, selector, render) => {
       if (result.status === "fulfilled") {
@@ -335,6 +353,7 @@ async function refresh() {
     update(health, "status", "#metrics", (value) => { state.status = value.canon; renderMetrics(value.canon); });
     update(characters, "characters", "#character-grid", renderCharacters);
     update(assets, "assets", "#asset-grid", renderAssets);
+    if (characters.status === "fulfilled") renderCharacters(state.characters, state.assets);
     update(events, "events", "#memory-stream", renderJournal);
     state.candidates = candidates.status === "fulfilled" ? candidates.value : [];
     state.governanceCandidates = governanceCandidates.status === "fulfilled" ? governanceCandidates.value : [];
@@ -346,11 +365,11 @@ async function refresh() {
     }
     if (state.runtimeVisible) {
       if (plan.status === "fulfilled") {
-        state.octopusPlanKey = null;
-        $("#octopus-plan").textContent = plan.value.content;
-      } else state.dataErrors["#octopus-plan"] = plan.reason.status || 0;
-      state.octopusStatusKey = octopus.status === "fulfilled" && octopus.value.configured ? "linked" : "notLinked";
-      $("#octopus-status").textContent = t(state.octopusStatusKey);
+        state.echoAIPlanKey = null;
+        $("#echo-ai-plan").textContent = plan.value.content;
+      } else state.dataErrors["#echo-ai-plan"] = plan.reason.status || 0;
+      state.echoAIStatusKey = echoAI.status === "fulfilled" && echoAI.value.configured ? "linked" : "notLinked";
+      $("#echo-ai-status").textContent = t(state.echoAIStatusKey);
     }
     renderDataErrors();
     if (health.status === "fulfilled") setEngineState(results.some((result) => result.status === "rejected") ? "partial" : "online", true);
@@ -422,27 +441,34 @@ async function promoteGovernanceCandidate(candidateId, revision) {
   });
 }
 
-async function syncOctopusRuntime() {
-  return requestJson("/api/integrations/octopus/sync-agents", {
+async function syncEchoAIRuntime() {
+  return requestJson("/api/integrations/echo-ai/sync-agents", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({}),
   });
 }
 
+function signalForge(phase, detail = {}) {
+  document.dispatchEvent(new CustomEvent("echo:forge", { detail: { phase, ...detail } }));
+}
+
 async function runCommand(url, label = t("running")) {
   openWindow("factory");
   setOutputModeRaw(label);
   setOutputContent("runningDots");
+  signalForge("start", { label });
   try {
     const result = await requestJson(url, { method: "POST" });
     setOutputModeRaw(result.mode ? i18n.translateMode(result.mode) : t("done"));
     setOutputContentRaw(result.content || JSON.stringify(result, null, 2));
     renderMemory(result);
+    signalForge("complete", { mode: result.mode });
     await refresh();
   } catch (error) {
     setOutputMode("error");
     setOutputContentRaw(error.message);
+    signalForge("error", { message: error.message });
   }
 }
 
@@ -459,14 +485,49 @@ function installWindowControls() {
   });
 }
 
+function installDrag() {
+  const stacked = window.matchMedia("(max-width: 960px)");
+  $all(".window").forEach((panel) => {
+    const handle = panel.querySelector(".titlebar");
+    let drag = null;
+    panel.addEventListener("pointerdown", () => bringToFront(panel));
+    handle.addEventListener("pointerdown", (event) => {
+      if (stacked.matches || event.button !== 0 || event.target.closest("button")) return;
+      const rect = panel.getBoundingClientRect();
+      drag = {
+        dx: event.clientX - rect.left,
+        dy: event.clientY - rect.top,
+      };
+      // Capturing the pointer keeps the drag alive when it outruns the title bar.
+      handle.setPointerCapture(event.pointerId);
+      panel.classList.add("dragging");
+    });
+    handle.addEventListener("pointermove", (event) => {
+      if (!drag) return;
+      const left = Math.max(74, event.clientX - drag.dx);
+      const top = Math.max(58, event.clientY - drag.dy);
+      panel.style.left = `${left}px`;
+      panel.style.top = `${top}px`;
+      panel.style.right = "auto";
+      panel.style.bottom = "auto";
+    });
+    const endDrag = () => {
+      drag = null;
+      panel.classList.remove("dragging");
+    };
+    handle.addEventListener("pointerup", endDrag);
+    handle.addEventListener("pointercancel", endDrag);
+  });
+}
+
 function installCommands() {
   $("#refresh-btn").addEventListener("click", refresh);
-  $("#octopus-sync-btn").addEventListener("click", async () => {
-    openWindow("octopus");
-    setOutputMode("octopusSync");
+  $("#echo-ai-sync-btn").addEventListener("click", async () => {
+    openWindow("echo-ai");
+    setOutputMode("echoAISync");
     setOutputContent("syncingAgents");
     try {
-      const result = await syncOctopusRuntime();
+      const result = await syncEchoAIRuntime();
       setOutputContentRaw(JSON.stringify(result, null, 2));
       await refresh();
     } catch (error) {
@@ -538,7 +599,7 @@ function tickClock() {
 
 function renderCurrentLocale() {
   if (state.status) renderMetrics(state.status);
-  renderCharacters(state.characters);
+  renderCharacters(state.characters, state.assets);
   if (state.assets) renderAssets(state.assets);
   renderJournal(state.events);
   if (state.candidates || state.governanceCandidates) renderCandidates(state.candidates, state.governanceCandidates);
@@ -546,20 +607,21 @@ function renderCurrentLocale() {
   setEngineState(state.engineState.key, state.engineState.ok, state.engineState.params);
   if (state.outputModeKey) $("#output-mode").textContent = t(state.outputModeKey);
   if (state.outputContentKey) $("#factory-output").textContent = t(state.outputContentKey);
-  if (state.octopusStatusKey) $("#octopus-status").textContent = t(state.octopusStatusKey);
-  if (state.octopusPlanKey) $("#octopus-plan").textContent = t(state.octopusPlanKey);
+  if (state.echoAIStatusKey) $("#echo-ai-status").textContent = t(state.echoAIStatusKey);
+  if (state.echoAIPlanKey) $("#echo-ai-plan").textContent = t(state.echoAIPlanKey);
   tickClock();
 }
 
 installDock();
 installWindowControls();
+installDrag();
 installCommands();
 installRuntimeVisibility();
 setEngineState("connecting");
 setOutputMode("idle");
 setOutputContent("awaitingSignal");
-$("#octopus-status").textContent = t("adapter");
-$("#octopus-plan").textContent = t("loadingRuntime");
+$("#echo-ai-status").textContent = t("adapter");
+$("#echo-ai-plan").textContent = t("loadingRuntime");
 i18n.subscribe(renderCurrentLocale);
 tickClock();
 setInterval(tickClock, 30_000);

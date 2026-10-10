@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 from echo_engine.bindings import (
@@ -28,10 +29,10 @@ from echo_engine.identities import (
     list_identity_tiers,
 )
 from echo_engine.neural.simulator import UniverseEvent, simulate_event
-from echo_engine.neural.octopus_ecosystem import render_octopus_ecosystem_plan
-from echo_engine.neural.octopus_export import export_octopus_agents, sync_octopus_runtime_agents
+from echo_engine.neural.echo_ai_ecosystem import render_echo_ai_ecosystem_plan
+from echo_engine.neural.echo_ai_export import export_echo_ai_agents, sync_echo_ai_runtime_agents
 from echo_engine.neural.utility_foundry import mint_utility_agents, publish_registry_json
-from echo_engine.neural.octopus_runtime import reload_octopus_runtime_agents
+from echo_engine.neural.echo_ai_runtime import reload_echo_ai_runtime_agents
 from echo_engine.npcs import NPCError, get_npc, list_npcs, route_npc_interaction
 from echo_engine.neural.digital_life import run_daily_life_tick
 from echo_engine.journal import record_canon_decision, journal
@@ -57,6 +58,24 @@ from echo_engine.generators import (
     run_technology_agent,
 )
 from echo_engine.store import CanonStore
+
+# Renamed from Octopus: the old command and flag names keep working as hidden aliases.
+LEGACY_ARGS = {
+    "export-octopus-agents": "export-echo-ai-agents",
+    "octopus-ecosystem-plan": "echo-ai-ecosystem-plan",
+    "--sync-octopus-runtime": "--sync-echo-ai-runtime",
+    "--reload-octopus-runtime": "--reload-echo-ai-runtime",
+    "--no-refresh-octopus-agents": "--no-refresh-echo-ai-agents",
+}
+
+
+def _resolve_legacy_args(argv: list[str]) -> list[str]:
+    resolved = []
+    for arg in argv:
+        if arg in LEGACY_ARGS:
+            print(f"echo-engine: {arg} is deprecated, use {LEGACY_ARGS[arg]}", file=sys.stderr)
+        resolved.append(LEGACY_ARGS.get(arg, arg))
+    return resolved
 
 
 def main() -> None:
@@ -106,10 +125,10 @@ def main() -> None:
             "check-npc-access",
             "skin-policies",
             "check-skin-access",
-            "export-octopus-agents",
+            "export-echo-ai-agents",
             "mint-utility-agents",
             "rebuild-registry",
-            "octopus-ecosystem-plan",
+            "echo-ai-ecosystem-plan",
         ],
     )
     parser.add_argument("--input-dir", default=None, help="mint-utility-agents: 工具角色 .md spec 源目录")
@@ -157,17 +176,17 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         default=None,
-        help="Output directory for export commands, for example ../octopus-agent/agents",
+        help="Output directory for export commands, for example ../echo-ai/agents",
     )
     parser.add_argument(
-        "--sync-octopus-runtime",
+        "--sync-echo-ai-runtime",
         action="store_true",
-        help="Write exported ECHO agents into ECHO_OCTOPUS_AGENTS_ROOT or --output-dir.",
+        help="Write exported ECHO agents into ECHO_AI_AGENTS_ROOT or --output-dir.",
     )
     parser.add_argument(
-        "--reload-octopus-runtime",
+        "--reload-echo-ai-runtime",
         action="store_true",
-        help="After syncing agent files, call ECHO_OCTOPUS_RUNTIME_URL/api/agents/reload.",
+        help="After syncing agent files, call ECHO_AI_RUNTIME_URL/api/agents/reload.",
     )
     parser.add_argument(
         "--target-dir",
@@ -175,11 +194,11 @@ def main() -> None:
         help="Canon target directory for promote-candidate, for example stories",
     )
     parser.add_argument(
-        "--no-refresh-octopus-agents",
+        "--no-refresh-echo-ai-agents",
         action="store_true",
-        help="Do not refresh outputs/octopus_agents after promoting a character.",
+        help="Do not refresh outputs/echo_ai_agents after promoting a character.",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(_resolve_legacy_args(sys.argv[1:]))
 
     if args.command == "status":
         print(json.dumps(CanonStore().status().model_dump(), ensure_ascii=False, indent=2))
@@ -237,7 +256,7 @@ def main() -> None:
                 args.event_id,
                 target_dir=args.target_dir,
                 filename=args.filename,
-                refresh_octopus_agents=not args.no_refresh_octopus_agents,
+                refresh_echo_ai_agents=not args.no_refresh_echo_ai_agents,
             )
         except PromotionError as exc:
             parser.error(str(exc))
@@ -567,18 +586,18 @@ def main() -> None:
         print(decision.model_dump_json(indent=2))
         return
 
-    if args.command == "export-octopus-agents":
+    if args.command == "export-echo-ai-agents":
         output_dir = Path(args.output_dir) if args.output_dir else None
-        if args.sync_octopus_runtime:
+        if args.sync_echo_ai_runtime:
             try:
-                written = sync_octopus_runtime_agents(output_dir=output_dir)
+                written = sync_echo_ai_runtime_agents(output_dir=output_dir)
             except ValueError as exc:
                 parser.error(str(exc))
         else:
-            written = export_octopus_agents(output_dir=output_dir)
+            written = export_echo_ai_agents(output_dir=output_dir)
         payload: dict[str, object] = {"written": [str(path) for path in written]}
-        if args.reload_octopus_runtime:
-            payload["reload"] = reload_octopus_runtime_agents().__dict__
+        if args.reload_echo_ai_runtime:
+            payload["reload"] = reload_echo_ai_runtime_agents().__dict__
         print(json.dumps(payload, ensure_ascii=False, indent=2))
         return
 
@@ -610,8 +629,8 @@ def main() -> None:
             roles_out = Path("outputs/utility_agents")
             minted = mint_utility_agents(Path("utility_roles"), roles_out, skill_dest=sources / "plugin-skills")
             pub_roles = publish_registry_json(roles_out, sources / "echo-utility")
-            chars_out = Path("outputs/octopus_agents")
-            export_octopus_agents(output_dir=chars_out)
+            chars_out = Path("outputs/echo_ai_agents")
+            export_echo_ai_agents(output_dir=chars_out)
             char_dst = sources / "echo-characters"
             char_dst.mkdir(parents=True, exist_ok=True)
             pub_chars = 0
@@ -655,8 +674,8 @@ def main() -> None:
                 print(json.dumps({"event": "rebuilt", **out, "fp": fp}, ensure_ascii=False), flush=True)
         return
 
-    if args.command == "octopus-ecosystem-plan":
-        print(render_octopus_ecosystem_plan())
+    if args.command == "echo-ai-ecosystem-plan":
+        print(render_echo_ai_ecosystem_plan())
         return
 
     runners = {

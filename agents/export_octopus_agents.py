@@ -1,15 +1,10 @@
+"""Renamed to export_echo_ai_agents.py; this shim keeps the old entry point working."""
+
 from pathlib import Path
+import runpy
 import sys
-
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from echo_engine.neural.octopus_export import export_octopus_agents
 
 
 if __name__ == "__main__":
-    written = export_octopus_agents()
-    print(f"Exported {len(written)} files")
-    for path in written[:12]:
-        print(path)
-    if len(written) > 12:
-        print(f"... {len(written) - 12} more")
+    print("export_octopus_agents.py is deprecated, use export_echo_ai_agents.py", file=sys.stderr)
+    runpy.run_path(str(Path(__file__).with_name("export_echo_ai_agents.py")), run_name="__main__")

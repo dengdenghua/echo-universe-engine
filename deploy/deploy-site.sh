@@ -14,7 +14,7 @@
 #
 # Runs as the low-privilege `echo-deploy` user through the `echo-prod` SSH alias (see ~/.ssh/config).
 # That account owns /var/www/echo-universe only. Releases are never modified once built, and the
-# switch is an atomic symlink rename, so a failed deploy leaves the live site untouched.
+# switch is an atomic symlink rename. Failed public verification restores the previous release.
 set -euo pipefail
 
 HOST="${ECHO_DEPLOY_HOST:-echo-prod}"
@@ -116,7 +116,11 @@ echo "live:     $(readlink -f "$root/current")"
 echo "previous: $(readlink -f "$root/previous")"
 REMOTE
     echo "verifying $SITE"
-    verify || { echo "verification failed: run 'deploy/deploy-site.sh rollback' to restore the previous release" >&2; exit 1; }
+    if ! verify; then
+      echo "verification failed; restoring the previous release" >&2
+      "$0" rollback
+      exit 1
+    fi
     echo "deployed."
     ;;
 esac

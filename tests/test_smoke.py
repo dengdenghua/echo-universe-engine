@@ -1,7 +1,7 @@
 from echo_engine.generators import run_consistency_agent
-from echo_engine.neural.octopus_ecosystem import (
+from echo_engine.neural.echo_ai_ecosystem import (
     ecosystem_paths,
-    render_octopus_ecosystem_plan,
+    render_echo_ai_ecosystem_plan,
 )
 from echo_engine.scheduler import auto_commit, due_task_keys
 from echo_engine.store import CanonStore
@@ -18,7 +18,7 @@ from echo_engine.config import get_settings
 from echo_engine.generators import run_story_agent
 from echo_engine.journal import JSONLJournal, JournalEvent, candidate_queue, journal, record_canon_decision
 from echo_engine.generators import run_character_agent, run_relationship_agent
-from echo_engine.neural.octopus_export import configured_octopus_agents_root, export_octopus_agents
+from echo_engine.neural.echo_ai_export import configured_echo_ai_agents_root, export_echo_ai_agents
 from echo_engine.promotion import PromotionError, promote_candidate
 import yaml
 
@@ -82,7 +82,7 @@ def test_candidate_queue_merges_review_and_promotion_state(tmp_path):
         reason="Canon-safe story seed.",
         root=tmp_path,
     )
-    promoted = promote_candidate(str(source.event_id), root=tmp_path, refresh_octopus_agents=False)
+    promoted = promote_candidate(str(source.event_id), root=tmp_path, refresh_echo_ai_agents=False)
     rows = candidate_queue(tmp_path)
     assert len(rows) == 1
     assert rows[0]["status"] == "promoted"
@@ -109,7 +109,7 @@ def test_promote_candidate_requires_acceptance(tmp_path):
     run_story_agent(tmp_path)
     source = journal(tmp_path).read_all()[0]
     try:
-        promote_candidate(str(source.event_id), root=tmp_path, refresh_octopus_agents=False)
+        promote_candidate(str(source.event_id), root=tmp_path, refresh_echo_ai_agents=False)
     except PromotionError as exc:
         assert "accepted" in str(exc)
     else:
@@ -125,7 +125,7 @@ def test_promote_candidate_writes_canon_file_and_journal_event(tmp_path):
         reason="Canon-safe story seed.",
         root=tmp_path,
     )
-    result = promote_candidate(str(source.event_id), root=tmp_path, refresh_octopus_agents=False)
+    result = promote_candidate(str(source.event_id), root=tmp_path, refresh_echo_ai_agents=False)
     promoted = tmp_path / result.promoted_path
     assert promoted.exists()
     assert result.promoted_path.startswith("stories/promoted_")
@@ -142,13 +142,13 @@ def test_promote_candidate_rejects_duplicate_promotion_from_journal(tmp_path):
         reason="Canon-safe story seed.",
         root=tmp_path,
     )
-    promote_candidate(str(source.event_id), root=tmp_path, refresh_octopus_agents=False)
+    promote_candidate(str(source.event_id), root=tmp_path, refresh_echo_ai_agents=False)
     try:
         promote_candidate(
             str(source.event_id),
             root=tmp_path,
             filename="different-target.md",
-            refresh_octopus_agents=False,
+            refresh_echo_ai_agents=False,
         )
     except PromotionError as exc:
         assert "already promoted" in str(exc)
@@ -165,7 +165,7 @@ def test_promote_character_candidate_writes_character_card(tmp_path):
         reason="Approved character seed.",
         root=tmp_path,
     )
-    result = promote_candidate(str(source.event_id), root=tmp_path, refresh_octopus_agents=False)
+    result = promote_candidate(str(source.event_id), root=tmp_path, refresh_echo_ai_agents=False)
     assert result.promoted_path == "characters/001_mira_voss.md"
     cards = CanonStore(tmp_path).load_character_cards()
     assert cards[0].name == "Mira Voss"
@@ -181,14 +181,14 @@ def test_promote_relationship_candidate_writes_yaml(tmp_path):
         reason="Approved relationship delta.",
         root=tmp_path,
     )
-    result = promote_candidate(str(source.event_id), root=tmp_path, refresh_octopus_agents=False)
+    result = promote_candidate(str(source.event_id), root=tmp_path, refresh_echo_ai_agents=False)
     promoted = tmp_path / result.promoted_path
     data = yaml.safe_load("\n".join(line for line in promoted.read_text(encoding="utf-8").splitlines() if not line.startswith("#")))
     assert result.promoted_path.endswith(".yaml")
     assert data["Zero"]["Mother"] == "origin threat / possible creator"
 
 
-def test_character_promotion_refreshes_octopus_agent_pack(tmp_path):
+def test_character_promotion_refreshes_echo_ai_agent_pack(tmp_path):
     run_character_agent(tmp_path)
     source = journal(tmp_path).read_all()[0]
     record_canon_decision(
@@ -198,7 +198,7 @@ def test_character_promotion_refreshes_octopus_agent_pack(tmp_path):
         root=tmp_path,
     )
     promote_candidate(str(source.event_id), root=tmp_path)
-    agent_dir = tmp_path / "outputs" / "octopus_agents" / "echo_mira_voss"
+    agent_dir = tmp_path / "outputs" / "echo_ai_agents" / "echo_mira_voss"
     assert (agent_dir / "profile.jsonc").exists()
     assert (agent_dir / "avatar.svg").exists()
     assert (agent_dir / "agent-core" / "SOUL.md").read_text(encoding="utf-8").startswith(
@@ -206,15 +206,15 @@ def test_character_promotion_refreshes_octopus_agent_pack(tmp_path):
     )
 
 
-def test_octopus_ecosystem_plan_loads():
-    plan = render_octopus_ecosystem_plan()
+def test_echo_ai_ecosystem_plan_loads():
+    plan = render_echo_ai_ecosystem_plan()
     paths = ecosystem_paths()
-    assert "Octopus Ecosystem Integration Plan" in plan
+    assert "Echo AI Ecosystem Integration Plan" in plan
     assert "Architecture codex: workflows/architecture_codex.md" in plan
     assert "AI-native interactive universe" in plan
     assert "bind Ghost" in plan
     assert "character_agents" in plan
-    assert "octopus_agent" in paths
+    assert "echo_ai" in paths
 
 
 def test_scheduler_due_task_keys():
@@ -242,7 +242,7 @@ def test_api_serves_public_homepage_local_console_and_characters():
     assert "ACROSS MEDIA" in universe.text
     console = client.get("/console/")
     assert console.status_code == 200
-    assert "ECHO INTERNAL" in console.text
+    assert "ECHO OS · Internal Console" in console.text
     response = client.get("/api/canon/characters")
     assert response.status_code == 200
     assert len(response.json()) >= 8
@@ -384,9 +384,9 @@ def test_novel_serial_exposes_candidate_preview_reader_and_local_preferences():
     assert "/api/canon/candidates/stranger-memory/resonance" in catalog_js
     assert "resonanceBoundary" in catalog_js
     illustration_names = [
-        "illustration-white-harbor-agnes-v1.png",
-        "illustration-l7-collapse-agnes-v1.png",
-        "illustration-stranger-hands-agnes-v1.png",
+        "illustration-white-harbor-agnes-v2.png",
+        "illustration-l7-collapse-agnes-v2.png",
+        "illustration-stranger-hands-agnes-v2.png",
     ]
     for illustration_name in illustration_names:
         illustration = root / "universe" / "novel" / "assets" / illustration_name
@@ -419,12 +419,12 @@ def test_api_serves_candidate_queue():
     assert isinstance(response.json(), list)
 
 
-def test_api_reports_octopus_runtime_status(tmp_path, monkeypatch):
-    monkeypatch.setenv("ECHO_OCTOPUS_AGENTS_ROOT", str(tmp_path / "agents"))
-    monkeypatch.setenv("ECHO_OCTOPUS_RUNTIME_URL", "http://127.0.0.1:18000")
+def test_api_reports_echo_ai_runtime_status(tmp_path, monkeypatch):
+    monkeypatch.setenv("ECHO_AI_AGENTS_ROOT", str(tmp_path / "agents"))
+    monkeypatch.setenv("ECHO_AI_RUNTIME_URL", "http://127.0.0.1:18000")
     get_settings.cache_clear()
     client = TestClient(app)
-    response = client.get("/api/integrations/octopus/status")
+    response = client.get("/api/integrations/echo-ai/status")
     assert response.status_code == 200
     assert response.json()["agents_root"] == str(tmp_path / "agents")
     assert response.json()["configured"] is True
@@ -433,12 +433,12 @@ def test_api_reports_octopus_runtime_status(tmp_path, monkeypatch):
     get_settings.cache_clear()
 
 
-def test_api_syncs_octopus_runtime_agents_to_configured_root(tmp_path, monkeypatch):
+def test_api_syncs_echo_ai_runtime_agents_to_configured_root(tmp_path, monkeypatch):
     target = tmp_path / "runtime_agents"
-    monkeypatch.setenv("ECHO_OCTOPUS_AGENTS_ROOT", str(target))
+    monkeypatch.setenv("ECHO_AI_AGENTS_ROOT", str(target))
     get_settings.cache_clear()
     client = TestClient(app)
-    response = client.post("/api/integrations/octopus/sync-agents", json={})
+    response = client.post("/api/integrations/echo-ai/sync-agents", json={})
     assert response.status_code == 200
     assert response.json()["ok"] is True
     assert response.json()["reload"] is None
@@ -446,22 +446,23 @@ def test_api_syncs_octopus_runtime_agents_to_configured_root(tmp_path, monkeypat
     get_settings.cache_clear()
 
 
-def test_configured_octopus_agents_root_supports_relative_path(tmp_path, monkeypatch):
+def test_configured_echo_ai_agents_root_supports_relative_path(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
-    monkeypatch.setenv("ECHO_OCTOPUS_AGENTS_ROOT", "octopus-agents")
+    monkeypatch.setenv("ECHO_AI_AGENTS_ROOT", "echo-ai-agents")
     get_settings.cache_clear()
-    assert configured_octopus_agents_root() == tmp_path / "octopus-agents"
+    assert configured_echo_ai_agents_root() == tmp_path / "echo-ai-agents"
     get_settings.cache_clear()
 
 
-def test_configured_octopus_agents_root_discovers_sibling_runtime(tmp_path, monkeypatch):
-    echo_root = tmp_path / "octopus" / "echo-universe-engine"
-    agents_root = tmp_path / "octopus" / "octopus-agent" / "agents"
+def test_configured_echo_ai_agents_root_discovers_sibling_runtime(tmp_path, monkeypatch):
+    echo_root = tmp_path / "workspace" / "echo-universe-engine"
+    agents_root = tmp_path / "workspace" / "echo-ai" / "agents"
     echo_root.mkdir(parents=True)
     agents_root.mkdir(parents=True)
+    monkeypatch.delenv("ECHO_AI_AGENTS_ROOT", raising=False)
     monkeypatch.delenv("ECHO_OCTOPUS_AGENTS_ROOT", raising=False)
     get_settings.cache_clear()
-    assert configured_octopus_agents_root(echo_root) == agents_root
+    assert configured_echo_ai_agents_root(echo_root) == agents_root
     get_settings.cache_clear()
 
 
@@ -505,7 +506,7 @@ def test_white_ghost_visual_assets_are_copied():
         "007_noah",
         "008_luna",
     ]:
-        refs = root / folder / "octopus_refs"
+        refs = root / folder / "echo_ai_refs"
         for filename in ["avatar.png", "front.png", "side.png", "back.png", "source_profile.jsonc"]:
             assert (refs / filename).exists()
 
@@ -519,13 +520,13 @@ def test_api_serves_character_visual_assets():
     assert {"001", "008"}.issubset(data["characters"])
     zero = data["characters"]["001"]
     assert zero["name"] == "Zero"
-    assert zero["urls"]["front"].endswith("/assets/characters/001_zero/octopus_refs/front.png")
+    assert zero["urls"]["front"].endswith("/assets/characters/001_zero/echo_ai_refs/front.png")
 
 
-def test_console_keeps_octopus_runtime_hidden_by_default():
+def test_console_keeps_echo_ai_runtime_hidden_by_default():
     html = (CanonStore().root / "console" / "index.html").read_text(encoding="utf-8")
     js = (CanonStore().root / "console" / "app.js").read_text(encoding="utf-8")
-    assert 'data-window="octopus"' in html
+    assert 'data-window="echo-ai"' in html
     assert "runtime-only" in html
     assert 'get("runtime") === "1"' in js
 
@@ -543,20 +544,20 @@ def test_console_exposes_bilingual_locale_controls():
     assert 'hour12: locale !== "zh"' in i18n_js
 
 
-def test_console_uses_single_window_navigation_without_overlap():
+def test_console_keeps_desktop_focus_drag_and_close_controls():
     root = CanonStore().root
     html = (root / "console" / "index.html").read_text(encoding="utf-8")
     app_js = (root / "console" / "app.js").read_text(encoding="utf-8")
     styles = (root / "console" / "styles.css").read_text(encoding="utf-8")
     assert 'window world-window active' in html
-    for name in ("characters", "factory", "assets", "memory", "octopus"):
-        assert f'window {name}-window active' not in html
-    assert 'item.classList.remove("active", "focused")' in app_js
-    assert "installDrag" not in app_js
+    assert 'window factory-window active' in html
+    assert 'window characters-window active' in html
+    assert "bringToFront(panel)" in app_js
+    assert "installDrag();" in app_js
     assert html.count('class="window-close"') == 6
     assert "function closeWindow(panel)" in app_js
     assert "installWindowControls();" in app_js
-    assert ".memory-window.active" in styles
+    assert ".window.active" in styles
 
 
 def test_console_exposes_internal_canon_governance_controls():
@@ -580,16 +581,16 @@ def test_console_exposes_candidate_review_controls():
     assert "/api/canon/promotions" in js
 
 
-def test_console_exposes_hidden_octopus_sync_controls():
+def test_console_exposes_hidden_echo_ai_sync_controls():
     html = (CanonStore().root / "console" / "index.html").read_text(encoding="utf-8")
     js = (CanonStore().root / "console" / "app.js").read_text(encoding="utf-8")
-    assert 'id="octopus-sync-btn"' in html
-    assert "/api/integrations/octopus/status" in js
-    assert "/api/integrations/octopus/sync-agents" in js
+    assert 'id="echo-ai-sync-btn"' in html
+    assert "/api/integrations/echo-ai/status" in js
+    assert "/api/integrations/echo-ai/sync-agents" in js
 
 
-def test_octopus_export_matches_agent_loader_layout(tmp_path):
-    written = export_octopus_agents(output_dir=tmp_path)
+def test_echo_ai_export_matches_agent_loader_layout(tmp_path):
+    written = export_echo_ai_agents(output_dir=tmp_path)
     assert tmp_path / "_shared" / "IDENTITY_BANNER.md" in written
 
     zero = tmp_path / "echo_zero"
@@ -630,13 +631,13 @@ def test_octopus_export_matches_agent_loader_layout(tmp_path):
     assert '"web_read"' in tool_registry
 
 
-def test_cli_export_octopus_agents_accepts_output_dir(tmp_path):
+def test_cli_export_echo_ai_agents_accepts_output_dir(tmp_path):
     result = subprocess.run(
         [
             sys.executable,
             "-m",
             "echo_engine.cli",
-            "export-octopus-agents",
+            "export-echo-ai-agents",
             "--output-dir",
             str(tmp_path),
         ],
