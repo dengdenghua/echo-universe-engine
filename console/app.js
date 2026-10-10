@@ -88,26 +88,37 @@ function renderMetrics(status) {
     .join("");
 }
 
-function renderCharacters(cards) {
+function renderCharacters(cards, assets) {
+  const visuals = assets?.characters || {};
   $("#character-count").textContent = `${cards.length} online`;
   $("#character-grid").innerHTML = cards
-    .map(
-      (card) => `
-        <article class="agent-tile">
-          <div class="agent-head">
-            <span>${card.id}</span>
-            <strong>${card.name}</strong>
+    .map((card) => {
+      const avatar = visuals[card.id]?.urls?.avatar;
+      return `
+        <article class="agent-tile" data-character-id="${card.id}">
+          <div class="agent-avatar">
+            ${
+              avatar
+                ? `<img src="${avatar}" alt="" loading="lazy" decoding="async" />`
+                : `<span class="agent-initial">${card.name.slice(0, 1)}</span>`
+            }
           </div>
-          <div class="agent-code">${card.codename || card.name}</div>
-          <p>${truncate(card.description)}</p>
-          <div class="agent-tags">
-            <span>${card.role || "Unassigned"}</span>
-            <span>${card.rank || "No rank"}</span>
-            ${(card.abilities || []).slice(0, 1).map((ability) => `<span>${ability}</span>`).join("")}
+          <div class="agent-body">
+            <div class="agent-head">
+              <span>${card.id}</span>
+              <strong>${card.name}</strong>
+            </div>
+            <div class="agent-code">${card.codename || card.name}</div>
+            <p>${truncate(card.description)}</p>
+            <div class="agent-tags">
+              <span>${card.role || "Unassigned"}</span>
+              <span>${card.rank || "No rank"}</span>
+              ${(card.abilities || []).slice(0, 1).map((ability) => `<span>${ability}</span>`).join("")}
+            </div>
           </div>
         </article>
-      `,
-    )
+      `;
+    })
     .join("");
 }
 
@@ -119,9 +130,9 @@ function renderAssets(index) {
       const urls = item.urls || {};
       const portrait = urls.front || urls.avatar;
       return `
-        <article class="asset-card">
+        <article class="asset-card" data-character-id="${id}">
           <div class="asset-preview">
-            ${portrait ? `<img src="${portrait}" alt="${item.name} front reference" />` : ""}
+            ${portrait ? `<img src="${portrait}" alt="${item.name} front reference" loading="lazy" decoding="async" />` : ""}
           </div>
           <div class="asset-info">
             <div class="asset-title">
@@ -192,7 +203,7 @@ function renderCandidates(candidates) {
       const promotion = row.promotion;
       const reason = decision?.summary || event.summary || "Awaiting review.";
       return `
-        <article class="candidate-card" data-event-id="${event.event_id}">
+        <article class="candidate-card" data-event-id="${event.event_id}" data-status="${row.status}">
           <div class="candidate-head">
             <span>${event.mode}</span>
             <strong>${event.title}</strong>
@@ -231,7 +242,7 @@ async function refresh() {
     state.assets = assets;
     state.candidates = candidates;
     renderMetrics(health.canon);
-    renderCharacters(characters);
+    renderCharacters(characters, assets);
     renderAssets(assets);
     renderJournal(events);
     renderCandidates(candidates);
@@ -271,19 +282,27 @@ async function syncEchoAIRuntime() {
   });
 }
 
+// The visual layer (fx.js) listens for these to drive the Forge's light and music.
+function signalForge(phase, detail = {}) {
+  document.dispatchEvent(new CustomEvent("echo:forge", { detail: { phase, ...detail } }));
+}
+
 async function runCommand(url, label = "Running") {
   openWindow("factory");
   $("#output-mode").textContent = label;
   $("#factory-output").textContent = "Running...";
+  signalForge("start", { url });
   try {
     const result = await requestJson(url, { method: "POST" });
     $("#output-mode").textContent = result.mode || "Done";
     $("#factory-output").textContent = result.content || JSON.stringify(result, null, 2);
+    signalForge("done", { url });
     renderMemory(result);
     await refresh();
   } catch (error) {
     $("#output-mode").textContent = "Error";
     $("#factory-output").textContent = error.message;
+    signalForge("error", { url });
   }
 }
 
@@ -294,21 +313,23 @@ function installDock() {
 }
 
 function installDrag() {
+  const stacked = window.matchMedia("(max-width: 960px)");
   $all(".window").forEach((panel) => {
     const handle = panel.querySelector(".titlebar");
     let drag = null;
-    panel.addEventListener("mousedown", () => bringToFront(panel));
-    handle.addEventListener("mousedown", (event) => {
-      if (event.target.closest("button")) return;
+    panel.addEventListener("pointerdown", () => bringToFront(panel));
+    handle.addEventListener("pointerdown", (event) => {
+      if (stacked.matches || event.button !== 0 || event.target.closest("button")) return;
       const rect = panel.getBoundingClientRect();
       drag = {
-        pointerId: event.pointerId,
         dx: event.clientX - rect.left,
         dy: event.clientY - rect.top,
       };
-      handle.setPointerCapture?.(event.pointerId);
+      // Capturing the pointer keeps the drag alive when it outruns the title bar.
+      handle.setPointerCapture(event.pointerId);
+      panel.classList.add("dragging");
     });
-    handle.addEventListener("mousemove", (event) => {
+    handle.addEventListener("pointermove", (event) => {
       if (!drag) return;
       const left = Math.max(74, event.clientX - drag.dx);
       const top = Math.max(58, event.clientY - drag.dy);
@@ -317,12 +338,12 @@ function installDrag() {
       panel.style.right = "auto";
       panel.style.bottom = "auto";
     });
-    handle.addEventListener("mouseup", () => {
+    const endDrag = () => {
       drag = null;
-    });
-    handle.addEventListener("mouseleave", () => {
-      drag = null;
-    });
+      panel.classList.remove("dragging");
+    };
+    handle.addEventListener("pointerup", endDrag);
+    handle.addEventListener("pointercancel", endDrag);
   });
 }
 
