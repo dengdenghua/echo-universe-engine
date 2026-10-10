@@ -60,8 +60,10 @@
       "source_turnaround": "visuals/source_turnaround.png"
     },
     "source_assets": {
-      "echo_asset_dir": "assets/characters/009_mira_voss/echo_ai_refs",
-      "echo_ai_source_agent": "echo_mira_voss"
+      "echo_asset_dir": "agents/echo_mira_voss/visuals",
+      "echo_ai_source_agent": "echo_mira_voss",
+      "status": "provisional_visual_lock",
+      "note": "Temporary PNG visual lock generated for Agent Hub consistency. Replace with approved ECHO Universe Engine reference art when character 009 enters the canonical visual asset index."
     }
   },
   "capabilities": {
