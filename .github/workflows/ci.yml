@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# 同一分支的新 push 取消仍在排队/运行的旧任务，避免重命名迁移这类
+# 连续提交把 runner 打满。
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: pytest + ruff (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 与 pyproject.toml 的 requires-python 下限保持一致。
+        python-version: ["3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      # tests/ 依赖 data/ 下的真实 yaml/json 种子数据，因此必须整仓安装，
+      # 不能只装 echo_engine 这个包。
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      # 只做 lint。ruff format 是风格统一而非缺陷检测，当前仓库有 18 个
+      # 自有文件未按默认风格格式化；一次性重排会产生千行级无关 diff，
+      # 应当作为独立的排期改动，而不是夹在 CI 首次落地里。
+      - name: Ruff check
+        run: ruff check .
+
+      - name: Pytest
+        run: pytest -q
+
+      - name: Verify no state leaked into data/
+        if: always()
+        run: |
+          echo "Checking for leaked runtime state in data/ ..."
+          leaked=$(git status --porcelain -- data/ | grep -v '\.sqlite3' || true)
+          if [ -n "$leaked" ]; then
+            echo "::error::Tests mutated tracked files under data/"
+            echo "$leaked"
+            git --no-pager diff -- data/
+            exit 1
+          fi
+          echo "data/ is clean."
