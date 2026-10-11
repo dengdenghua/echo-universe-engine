@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import json
 import os
-from pathlib import Path
 import subprocess
 import sys
+from pathlib import Path
 
 from echo_engine.bindings import bind_user_to_character
 from echo_engine.neural.digital_life import run_daily_life_tick

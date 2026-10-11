@@ -20,7 +20,6 @@ from echo_engine.models import (
 )
 from echo_engine.store import CanonStore, atomic_write_text
 
-
 CATALOG_PATH = Path("data/economy_catalog.yaml")
 STATE_SCHEMA = "echo_economy_state_v1"
 

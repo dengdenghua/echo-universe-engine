@@ -9,7 +9,6 @@ from echo_engine.models import NPCInteractionRoute, NPCProfile
 from echo_engine.realms import RealmError, get_realm, route_realm_review
 from echo_engine.store import CanonStore
 
-
 NPCS_PATH = Path("data/npcs.yaml")
 
 

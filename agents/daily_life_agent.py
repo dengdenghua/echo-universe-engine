@@ -1,10 +1,9 @@
-from pathlib import Path
 import sys
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from echo_engine.neural.digital_life import run_daily_life_tick
-
 
 if __name__ == "__main__":
     result = run_daily_life_tick()

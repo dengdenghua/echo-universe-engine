@@ -10,7 +10,6 @@ from pydantic import BaseModel, Field
 
 from echo_engine.config import get_settings
 
-
 CURRENT_SCHEMA_VERSION = 1
 JournalEventType = Literal["candidate_output", "canon_decision", "promotion", "realm_event"]
 CanonDecision = Literal["candidate", "accepted", "rejected", "superseded"]

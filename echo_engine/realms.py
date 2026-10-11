@@ -6,7 +6,6 @@ import yaml
 
 from echo_engine.models import Realm, RealmReviewRoute
 
-
 REALMS_PATH = Path("data/realms.yaml")
 SCOPE_FALLBACK_REALM = {
     "personal": "personal_instance",

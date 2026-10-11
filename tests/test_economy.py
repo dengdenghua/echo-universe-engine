@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import sys
+from pathlib import Path
 
 from echo_engine.bindings import bind_user_to_character
 from echo_engine.economy import (
@@ -17,7 +17,6 @@ from echo_engine.economy import (
     record_wallet_entry,
     wallet_balance,
 )
-
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

@@ -1,10 +1,9 @@
-from pathlib import Path
 import sys
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from echo_engine.neural.echo_ai_export import export_echo_ai_agents
-
 
 if __name__ == "__main__":
     written = export_echo_ai_agents()

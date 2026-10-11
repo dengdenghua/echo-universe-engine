@@ -1,26 +1,36 @@
-from echo_engine.generators import run_consistency_agent
-from echo_engine.neural.echo_ai_ecosystem import (
-    ecosystem_paths,
-    render_echo_ai_ecosystem_plan,
-)
-from echo_engine.scheduler import auto_commit, due_task_keys
-from echo_engine.store import CanonStore
-from datetime import datetime
-from fastapi.testclient import TestClient
 import json
 import os
 import re
 import subprocess
 import sys
+from datetime import datetime
+
+import yaml
+from fastapi.testclient import TestClient
 
 from echo_engine.api import app
 from echo_engine.config import get_settings
-from echo_engine.generators import run_story_agent
-from echo_engine.journal import JSONLJournal, JournalEvent, candidate_queue, journal, record_canon_decision
-from echo_engine.generators import run_character_agent, run_relationship_agent
+from echo_engine.generators import (
+    run_character_agent,
+    run_consistency_agent,
+    run_relationship_agent,
+    run_story_agent,
+)
+from echo_engine.journal import (
+    JournalEvent,
+    JSONLJournal,
+    candidate_queue,
+    journal,
+    record_canon_decision,
+)
+from echo_engine.neural.echo_ai_ecosystem import (
+    ecosystem_paths,
+    render_echo_ai_ecosystem_plan,
+)
 from echo_engine.neural.echo_ai_export import configured_echo_ai_agents_root, export_echo_ai_agents
 from echo_engine.promotion import PromotionError, promote_candidate
-import yaml
+from echo_engine.scheduler import auto_commit, due_task_keys
+from echo_engine.store import CanonStore
 
 
 def test_canon_status_counts_initial_files():

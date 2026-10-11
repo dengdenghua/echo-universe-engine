@@ -9,7 +9,6 @@ from echo_engine.generators import _slugify
 from echo_engine.models import CharacterCard, UserCharacterBinding
 from echo_engine.store import CanonStore, atomic_write_text
 
-
 BINDINGS_PATH = Path("data/user_bindings.json")
 
 

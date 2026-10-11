@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
 import json
 import sys
 from pathlib import Path
@@ -20,33 +21,6 @@ from echo_engine.economy import (
     purchase_product,
     record_wallet_entry,
 )
-from echo_engine.identities import (
-    IdentityError,
-    assign_identity,
-    check_npc_access,
-    check_realm_event_access,
-    get_universe_identity,
-    list_identity_tiers,
-)
-from echo_engine.neural.simulator import UniverseEvent, simulate_event
-from echo_engine.neural.echo_ai_ecosystem import render_echo_ai_ecosystem_plan
-from echo_engine.neural.echo_ai_export import export_echo_ai_agents, sync_echo_ai_runtime_agents
-from echo_engine.neural.utility_foundry import mint_utility_agents, publish_registry_json
-from echo_engine.neural.echo_ai_runtime import reload_echo_ai_runtime_agents
-from echo_engine.npcs import NPCError, get_npc, list_npcs, route_npc_interaction
-from echo_engine.neural.digital_life import run_daily_life_tick
-from echo_engine.journal import record_canon_decision, journal
-from echo_engine.promotion import PromotionError, promote_candidate
-from echo_engine.realm_events import RealmEventError, realm_event_queue, submit_realm_event
-from echo_engine.realms import RealmError, get_realm, list_realms, route_realm_review
-from echo_engine.reviewers import (
-    ReviewerError,
-    authorize_reviewer_for_event,
-    get_reviewer_group,
-    list_reviewer_groups,
-)
-from echo_engine.skins import SkinError, check_skin_access, list_skin_policies
-from echo_engine.universe_feed import UniverseFeedError, get_universe_feed_for_user
 from echo_engine.generators import (
     run_art_director_agent,
     run_character_agent,
@@ -57,7 +31,34 @@ from echo_engine.generators import (
     run_story_agent,
     run_technology_agent,
 )
+from echo_engine.identities import (
+    IdentityError,
+    assign_identity,
+    check_npc_access,
+    check_realm_event_access,
+    get_universe_identity,
+    list_identity_tiers,
+)
+from echo_engine.journal import journal, record_canon_decision
+from echo_engine.neural.digital_life import run_daily_life_tick
+from echo_engine.neural.echo_ai_ecosystem import render_echo_ai_ecosystem_plan
+from echo_engine.neural.echo_ai_export import export_echo_ai_agents, sync_echo_ai_runtime_agents
+from echo_engine.neural.echo_ai_runtime import reload_echo_ai_runtime_agents
+from echo_engine.neural.simulator import UniverseEvent, simulate_event
+from echo_engine.neural.utility_foundry import mint_utility_agents, publish_registry_json
+from echo_engine.npcs import NPCError, get_npc, list_npcs, route_npc_interaction
+from echo_engine.promotion import PromotionError, promote_candidate
+from echo_engine.realm_events import RealmEventError, realm_event_queue, submit_realm_event
+from echo_engine.realms import RealmError, get_realm, list_realms, route_realm_review
+from echo_engine.reviewers import (
+    ReviewerError,
+    authorize_reviewer_for_event,
+    get_reviewer_group,
+    list_reviewer_groups,
+)
+from echo_engine.skins import SkinError, check_skin_access, list_skin_policies
 from echo_engine.store import CanonStore
+from echo_engine.universe_feed import UniverseFeedError, get_universe_feed_for_user
 
 # Renamed from Octopus: the old command and flag names keep working as hidden aliases.
 LEGACY_ARGS = {
@@ -647,10 +648,8 @@ def main() -> None:
                     for p in wd.rglob("*"):
                         if p.is_file():
                             cnt += 1
-                            try:
+                            with contextlib.suppress(OSError):
                                 mt = max(mt, p.stat().st_mtime)
-                            except OSError:
-                                pass
             return f"{mt:.3f}:{cnt}"
 
         if not args.watch:

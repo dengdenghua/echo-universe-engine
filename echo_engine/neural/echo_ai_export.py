@@ -13,7 +13,6 @@ from echo_engine.generators import _slugify
 from echo_engine.models import CharacterCard
 from echo_engine.store import CanonStore
 
-
 ASSET_INDEX_PATH = Path("assets/characters/echo_ai_visual_asset_index.yaml")
 # Renamed from Octopus. A mounted assets/ volume that predates the rename only has this file.
 LEGACY_ASSET_INDEX_PATH = Path("assets/characters/octopus_visual_asset_index.yaml")

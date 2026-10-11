@@ -8,7 +8,6 @@ from echo_engine.identities import get_universe_identity
 from echo_engine.models import SkinAccessDecision, SkinPolicy
 from echo_engine.realms import RealmError, route_realm_review
 
-
 SKIN_POLICY_PATH = Path("data/skin_policy.yaml")
 
 

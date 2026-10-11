@@ -2,17 +2,16 @@ from __future__ import annotations
 
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import sys
+from pathlib import Path
 
 from fastapi.testclient import TestClient
 
 from echo_engine.api import app
 from echo_engine.economy import grant_entitlement
 from echo_engine.skins import check_skin_access, list_skin_policies
-
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

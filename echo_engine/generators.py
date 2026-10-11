@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import re
 from datetime import datetime
 from pathlib import Path
-import re
 
 from echo_engine.llm import LLMRequest, generate_candidate_content
 from echo_engine.models import GenerationResult

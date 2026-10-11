@@ -7,7 +7,6 @@ import yaml
 from echo_engine.journal import JournalEvent
 from echo_engine.models import ReviewerAuthorization, ReviewerGroup
 
-
 REVIEWERS_PATH = Path("data/reviewers.yaml")
 
 

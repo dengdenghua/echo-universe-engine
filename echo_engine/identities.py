@@ -19,7 +19,6 @@ from echo_engine.npcs import NPCError, route_npc_interaction
 from echo_engine.realms import RealmError, route_realm_review
 from echo_engine.store import atomic_write_text
 
-
 ACCESS_POLICY_PATH = Path("data/access_policy.yaml")
 IDENTITIES_PATH = Path("data/user_identities.json")
 PERSONAL_NPC_ACTIONS = {"bind", "chat", "diary", "personal_memory", "mission_prompt"}

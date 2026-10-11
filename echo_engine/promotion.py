@@ -8,7 +8,6 @@ import yaml
 
 from echo_engine.generators import _slugify
 from echo_engine.governance import GovernanceError, list_public_candidates
-from echo_engine.models import CharacterCard
 from echo_engine.journal import (
     JournalEvent,
     candidate_promotion_state,
@@ -16,7 +15,7 @@ from echo_engine.journal import (
     journal,
     record_promotion,
 )
-
+from echo_engine.models import CharacterCard
 
 PROMOTION_TARGETS = {
     "story": "stories",

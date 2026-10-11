@@ -2,16 +2,15 @@ from __future__ import annotations
 
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import sys
+from pathlib import Path
 
 from fastapi.testclient import TestClient
 
 from echo_engine.api import app
 from echo_engine.npcs import get_npc, list_npcs, route_npc_interaction
-
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

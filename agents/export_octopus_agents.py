@@ -1,9 +1,8 @@
 """Renamed to export_echo_ai_agents.py; this shim keeps the old entry point working."""
 
-from pathlib import Path
 import runpy
 import sys
-
+from pathlib import Path
 
 if __name__ == "__main__":
     print("export_octopus_agents.py is deprecated, use export_echo_ai_agents.py", file=sys.stderr)

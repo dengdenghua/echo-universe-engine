@@ -9,7 +9,6 @@ import httpx
 from echo_engine.config import get_settings
 from echo_engine.store import CanonStore
 
-
 SUPPORTED_OPENAI_COMPATIBLE_PROVIDERS = {
     "openai-compatible",
     "openai_compatible",

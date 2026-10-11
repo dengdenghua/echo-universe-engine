@@ -17,7 +17,6 @@ from pydantic import BaseModel, Field, model_validator
 from echo_engine.config import get_settings
 from echo_engine.reviewers import ReviewerError, get_reviewer_group
 
-
 ResonanceChoice = Literal["support", "revise"]
 CommitteeDecision = Literal["approve", "reject"]
 ContinuityVerdict = Literal["pass", "veto"]
@@ -42,7 +41,7 @@ class PublicCanonCandidate(BaseModel):
     resonance_enabled: bool = True
 
     @model_validator(mode="after")
-    def validate_localized_copy(self) -> "PublicCanonCandidate":
+    def validate_localized_copy(self) -> PublicCanonCandidate:
         for field_name in ("title", "work"):
             value = getattr(self, field_name)
             if not value.get("zh") or not value.get("en"):
@@ -83,7 +82,7 @@ def voter_key(candidate_id: str, identity: str, secret: str) -> str:
         raise GovernanceError("governance secret is required")
     digest = hmac.new(
         clean_secret.encode("utf-8"),
-        f"{_clean_id(candidate_id)}:{clean_identity}".encode("utf-8"),
+        f"{_clean_id(candidate_id)}:{clean_identity}".encode(),
         hashlib.sha256,
     ).hexdigest()
     return f"rv1:{digest}"
@@ -401,7 +400,7 @@ def promote_public_candidate(
             f"revision_sha256: {revision}\n"
             f"committee_rule: {candidate.required_approvals}/{len(members)}\n"
             "-->\n\n"
-        ).encode("utf-8")
+        ).encode()
         promoted_bytes = header + content
         if target.exists():
             if target.read_bytes() != promoted_bytes:
@@ -570,11 +569,7 @@ def _state_from_connection(
     can_promote = not blockers
     if promotion_is_current:
         gate_state = "promoted"
-    elif promotion_row:
-        gate_state = "blocked"
-    elif promotion_history_count:
-        gate_state = "blocked"
-    elif continuity_veto:
+    elif promotion_row or promotion_history_count or continuity_veto:
         gate_state = "blocked"
     elif can_promote:
         gate_state = "ready"

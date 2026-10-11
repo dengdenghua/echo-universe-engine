@@ -4,23 +4,18 @@ import base64
 import hashlib
 import hmac
 import os
-from pathlib import Path
 import re
 import secrets
+from pathlib import Path
 from typing import Literal
 
-from fastapi import Depends
-from fastapi import FastAPI
-from fastapi import HTTPException
-from fastapi import Request
+import yaml
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.responses import FileResponse
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import AliasChoices, BaseModel, Field
-import yaml
 
-from echo_engine.config import get_settings
 from echo_engine.auth import JWTError, decode_hs256
 from echo_engine.bindings import (
     BindingError,
@@ -29,6 +24,7 @@ from echo_engine.bindings import (
     list_user_bindings,
     release_user_binding,
 )
+from echo_engine.config import get_settings
 from echo_engine.economy import (
     EconomyError,
     activate_ghost_subscription,
@@ -65,7 +61,7 @@ from echo_engine.identities import (
     get_universe_identity,
     list_identity_tiers,
 )
-from echo_engine.neural.simulator import UniverseEvent, simulate_event
+from echo_engine.journal import CanonDecision, candidate_queue, journal, record_canon_decision
 from echo_engine.neural.digital_life import run_daily_life_tick
 from echo_engine.neural.echo_ai_ecosystem import render_echo_ai_ecosystem_plan
 from echo_engine.neural.echo_ai_export import (
@@ -77,8 +73,8 @@ from echo_engine.neural.echo_ai_runtime import (
     configured_echo_ai_runtime_url,
     reload_echo_ai_runtime_agents,
 )
+from echo_engine.neural.simulator import UniverseEvent, simulate_event
 from echo_engine.npcs import NPCError, get_npc, list_npcs, route_npc_interaction
-from echo_engine.journal import CanonDecision, candidate_queue, journal, record_canon_decision
 from echo_engine.promotion import PromotionError, promote_candidate
 from echo_engine.realm_events import RealmEventError, realm_event_queue, submit_realm_event
 from echo_engine.realms import RealmError, get_realm, list_realms, route_realm_review
