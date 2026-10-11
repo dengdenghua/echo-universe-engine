@@ -39,5 +39,19 @@ include = ["echo_engine*"]
 line-length = 100
 target-version = "py312"
 
+[tool.ruff.lint]
+# 与 echo-ai / echo-os 的 pyproject.toml 保持同一档规则集，避免同一个组织下
+# 三个项目出现三套 lint 口径。
+select = ["E", "F", "W", "I", "UP", "B", "N", "SIM", "RET"]
+ignore = [
+    # 行宽交给 formatter；本仓库尚未整体跑过 ruff format（见 README 的工程约定），
+    # 先在 lint 侧放行，避免 CI 一上线就红。
+    "E501",
+    # FastAPI 的依赖注入写法 `x: T = Depends(...)` 是框架规定的标准形式，
+    # 不是可变默认参数陷阱。本仓库 api.py 有 23 处这类注入。
+    "B008",
+    "N818",  # exception naming（InvariantViolation 不加 Error 后缀，与 echo-os 一致）
+]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
