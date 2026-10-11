@@ -1,13 +1,20 @@
-# 同一作者在历史提交中使用过多个邮箱/姓名，在此统一为 canonical 身份，
-# 避免在 GitHub 上分裂成多个贡献者、把提交统计打散。
+# 本仓库全部历史提交均由同一作者完成，只是历史上用过不同的
+# 机器名、用户名和邮箱。在此统一为 canonical 身份，避免在 GitHub 上
+# 分裂成多个贡献者、把提交统计打散。
 #
 # Canonical 身份：邓登华 <ddh1203514889@gmail.com>（GitHub: dengdenghua）
 #
 # 格式：<proper-name> <proper-email> <commit-email>
 # 左侧两列是提交上显示的统一身份，右侧是被折叠的历史邮箱。
 
-# 中文名 + 中文邮箱变体
+# Mac mini 上用 dangbei 这个用户名（历史提交最多，32 次）
+邓登华 <ddh1203514889@gmail.com> dangbei@dangbeideMac-mini.local
+
+# 拼音用户名 + 另一个 gmail
+邓登华 <ddh1203514889@gmail.com> dengdenghua495@gmail.com
+
+# 域名邮箱
 邓登华 <ddh1203514889@gmail.com> dengdenghua@dangbei.com
 
-# 拼音名 + 另一个 gmail
-邓登华 <ddh1203514889@gmail.com> dengdenghua495@gmail.com
+# Windows 机器未配置 git 身份时 git 落下的默认值（unknown <host>）
+邓登华 <ddh1203514889@gmail.com> Administrator@DESKTOP-RBJANOE.dbad.com
