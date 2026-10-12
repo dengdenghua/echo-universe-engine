@@ -123,7 +123,7 @@ function syncThemeControl() {
 function applyReaderPreferences() {
   fontSize = Math.max(17, Math.min(25, getStoredNumber(sizeKey, 19)));
   try { theme = localStorage.getItem(themeKey) === "paper" ? "paper" : "night"; } catch (_) { theme = "night"; }
-  document.documentElement.style.setProperty("--reader-size", `${fontSize}px`); document.body.dataset.theme = theme;
+  document.documentElement.style.setProperty("--reader-size", `${fontSize}px`); document.body.dataset.theme = theme; document.body.dataset.echoTheme = theme === "paper" ? "snow" : "graphite";
   syncThemeControl();
 }
 
@@ -211,7 +211,7 @@ if (savedProgress > 4 && savedProgress < 96) { const prompt = document.querySele
 document.querySelector("#resume-button")?.addEventListener("click", () => { document.querySelector("#resume-prompt").hidden = true; scrollToProgress(savedProgress); });
 document.querySelector("#restart-button")?.addEventListener("click", () => { try { localStorage.setItem(progressKey, "0"); } catch (_) {} document.querySelector("#resume-prompt").hidden = true; scrollTo({ top: document.querySelector(".chapter-heading").offsetTop - 80, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); });
 document.querySelector("#font-down")?.addEventListener("click", () => setFontSize(fontSize - 1)); document.querySelector("#font-up")?.addEventListener("click", () => setFontSize(fontSize + 1));
-document.querySelector("#theme-toggle")?.addEventListener("click", () => { theme = theme === "night" ? "paper" : "night"; document.body.dataset.theme = theme; syncThemeControl(); try { localStorage.setItem(themeKey, theme); } catch (_) {} });
+document.querySelector("#theme-toggle")?.addEventListener("click", () => { theme = theme === "night" ? "paper" : "night"; document.body.dataset.theme = theme; document.body.dataset.echoTheme = theme === "paper" ? "snow" : "graphite"; syncThemeControl(); try { localStorage.setItem(themeKey, theme); } catch (_) {} });
 document.querySelector("#reader-follow")?.addEventListener("click", () => { const value = !followed(); try { localStorage.setItem(followKey, String(value)); } catch (_) {} syncFollow(); showToast(readerCopy[locale][value ? "savedToast" : "removedToast"]); });
 document.querySelectorAll("[data-locale]").forEach((button) => button.addEventListener("click", () => applyLocale(button.dataset.locale)));
 window.addEventListener("scroll", () => { if (!progressFrame) progressFrame = requestAnimationFrame(syncProgress); }, { passive: true }); window.addEventListener("resize", syncProgress, { passive: true });

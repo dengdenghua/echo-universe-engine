@@ -206,10 +206,10 @@ function renderSeason() {
 function renderAtlas() {
   const items = atlasData[currentLocale][currentAtlas];
   if (currentAtlasIndex >= items.length) currentAtlasIndex = 0;
-  document.querySelector("#atlas-network").innerHTML = `<div class="atlas-core">E</div>${items.map((item, index) => `<button class="atlas-node${index === currentAtlasIndex ? " active" : ""}" type="button" data-atlas-index="${index}"><small>${item.id}</small><strong>${item.name}</strong></button>`).join("")}`;
+  document.querySelector("#atlas-network").innerHTML = `<div class="atlas-core"><svg class="echo-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M50 17H24a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26" fill="none" stroke="currentColor" stroke-width="6"/><circle class="echo-mark-core" cx="38" cy="32" r="5" fill="currentColor"/></svg></div>${items.map((item, index) => `<button class="atlas-node${index === currentAtlasIndex ? " active" : ""}" type="button" data-atlas-index="${index}"><small>${item.id}</small><strong>${item.name}</strong></button>`).join("")}`;
   const item = items[currentAtlasIndex];
   const detailBody = spoilersVisible && item.spoiler ? `${item.body} ${item.spoiler}` : item.body;
-  document.querySelector("#atlas-detail").innerHTML = `<div class="detail-status"><b class="badge canon">CANON</b><b class="badge development">AVAILABLE</b></div><span class="detail-type">${item.type}</span><h3>${item.name}</h3><p>${detailBody}</p><small>SOURCE · ${item.source}</small>`;
+  document.querySelector("#atlas-detail").innerHTML = `<div class="detail-status"><b class="badge canon">CANON</b><b class="badge available">AVAILABLE</b></div><span class="detail-type">${item.type}</span><h3>${item.name}</h3><p>${detailBody}</p><small>SOURCE · ${item.source}</small>`;
   document.querySelectorAll("[data-atlas]").forEach((button) => button.classList.toggle("active", button.dataset.atlas === currentAtlas));
   document.querySelectorAll("[data-atlas-index]").forEach((button) => button.addEventListener("click", () => { currentAtlasIndex = Number(button.dataset.atlasIndex); renderAtlas(); }));
 }

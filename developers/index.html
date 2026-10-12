@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-echo-theme="graphite">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#020308" />
+    <meta name="theme-color" content="#090a0c" />
     <meta name="description" content="ECHO 开发者中心：ECHO Universe 内容 API 的公开只读接口、身份分层与调用约束。" />
     <meta property="og:title" content="ECHO DEVELOPERS · 开发者中心" />
     <meta property="og:description" content="ECHO Universe 内容 API 的公开只读接口、身份分层与调用约束。" />
@@ -12,30 +12,34 @@
     <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:url" content="https://universe.echo-age.com/developers/" />
     <meta property="og:site_name" content="ECHO" />
-    <meta property="og:image" content="https://universe.echo-age.com/home/assets/og-cover.jpg?v=20260830-3" />
+    <meta property="og:image" content="https://universe.echo-age.com/home/assets/og-cover.jpg?v=20261013-brand" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="ECHO DEVELOPERS · 开发者中心" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="ECHO DEVELOPERS · 开发者中心" />
     <meta name="twitter:description" content="ECHO Universe 内容 API 的公开只读接口、身份分层与调用约束。" />
-    <meta name="twitter:image" content="https://universe.echo-age.com/home/assets/og-cover.jpg?v=20260830-3" />
+    <meta name="twitter:image" content="https://universe.echo-age.com/home/assets/og-cover.jpg?v=20261013-brand" />
     <title>ECHO DEVELOPERS · 开发者中心</title>
     <link rel="canonical" href="https://universe.echo-age.com/developers/" />
     <link rel="alternate" hreflang="zh-CN" href="https://universe.echo-age.com/developers/?lang=zh" />
     <link rel="alternate" hreflang="en" href="https://universe.echo-age.com/developers/?lang=en" />
     <link rel="alternate" hreflang="x-default" href="https://universe.echo-age.com/developers/" />
-    <link rel="icon" href="/home/assets/favicon.svg?v=20260830-3" type="image/svg+xml" />
+    <link rel="icon" href="/home/assets/brand/echo-app-icon-32.png?v=20261013-brand" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/home/assets/brand/echo-favicon.svg?v=20261013-brand" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/home/assets/brand/echo-app-icon-180.png?v=20261013-brand" />
     <link rel="preload" href="/home/assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/developers/styles.css?v=20260830-6" />
-    <link rel="stylesheet" href="/home/interiors.css?v=20260927-4" />
+    <link rel="stylesheet" href="/home/assets/echo-tokens.css?v=20261013-brand" />
+    <link rel="stylesheet" href="/home/assets/echo-brand.css?v=20261013-brand" />
+    <link rel="stylesheet" href="/developers/styles.css?v=20261013-brand" />
+    <link rel="stylesheet" href="/home/interiors.css?v=20261013-brand" />
   </head>
   <body class="echo-interior developer-edition">
     <a class="skip-link" href="#main" data-i18n="skipToContent">跳到主要内容</a>
 
     <header class="dev-header">
-      <a class="dev-brand" href="/" aria-label="ECHO 首页" data-i18n-aria="brandHome">
-        <strong>ECHO</strong><span>DEVELOPERS</span>
+      <a class="dev-brand echo-lockup" href="/" aria-label="ECHO 首页" data-i18n-aria="brandHome">
+        <svg class="echo-wordmark-svg" viewBox="14 14 174 36" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="6"><path d="M50 17H24a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26"/><path d="M93 17H67a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26"/><path d="M104 14v36M137 14v36M104 32h33"/><rect x="152" y="17" width="33" height="30" rx="7"/></g><circle class="echo-mark-core" cx="38" cy="32" r="5" fill="currentColor"/></svg><span class="echo-lockup-product">DEVELOPERS</span>
       </a>
       <nav class="dev-nav" aria-label="开发者中心导航" data-i18n-aria="devNavigation">
         <a href="#start" data-i18n="navStart">开始</a>
@@ -65,7 +69,7 @@
         </div>
         <aside class="api-observatory" aria-label="API 架构" data-i18n-aria="apiArchitecture">
           <div class="observatory-top"><span>UNIVERSE INTERFACE</span><b>01 / HTTP</b></div>
-          <div class="api-orbit" aria-hidden="true"><i></i><i></i><i></i><strong>E</strong><span>CONTENT API</span></div>
+          <div class="api-orbit" aria-hidden="true"><i></i><i></i><i></i><strong><svg class="echo-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M50 17H24a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26" fill="none" stroke="currentColor" stroke-width="6"/><circle class="echo-mark-core" cx="38" cy="32" r="5" fill="currentColor"/></svg></strong><span>CONTENT API</span></div>
           <div class="api-route"><span>GET</span><code>/api/canon/status</code><b aria-hidden="true">↗</b></div>
           <div class="api-nodes"><span>CHARACTERS</span><span>FACTIONS</span><span>WORLD EVENTS</span></div>
           <div class="observatory-bottom"><span data-i18n="apiDiagram">公开内容接口示意</span><span>JSON / UTF-8</span></div>

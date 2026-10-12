@@ -1,19 +1,41 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-echo-theme="graphite">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#090a0c" />
+    <meta name="description" content="ECHO 正典审核台：委员按席位处理候选内容的连续性审校、委员会审核与正典晋升。" />
+    <meta property="og:title" content="ECHO REVIEW · 正典审核台" />
+    <meta property="og:description" content="让每一次正典晋升，都能被追溯。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:url" content="https://universe.echo-age.com/review/" />
+    <meta property="og:site_name" content="ECHO" />
+    <meta property="og:image" content="https://universe.echo-age.com/home/assets/og-cover.jpg?v=20261013-brand" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ECHO REVIEW · 正典审核台" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ECHO REVIEW · 正典审核台" />
+    <meta name="twitter:description" content="让每一次正典晋升，都能被追溯。" />
+    <meta name="twitter:image" content="https://universe.echo-age.com/home/assets/og-cover.jpg?v=20261013-brand" />
     <title>ECHO Canon Review</title>
-    <link rel="stylesheet" href="/review/styles.css?v=20260830-3" />
-    <link rel="stylesheet" href="/home/interiors.css?v=20260927-4" />
+    <link rel="icon" href="/home/assets/brand/echo-app-icon-32.png?v=20261013-brand" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/home/assets/brand/echo-favicon.svg?v=20261013-brand" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/home/assets/brand/echo-app-icon-180.png?v=20261013-brand" />
+    <link rel="preload" href="/home/assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/home/assets/echo-tokens.css?v=20261013-brand" />
+    <link rel="stylesheet" href="/home/assets/echo-brand.css?v=20261013-brand" />
+    <link rel="stylesheet" href="/review/styles.css?v=20261013-brand" />
+    <link rel="stylesheet" href="/home/interiors.css?v=20261013-brand" />
   </head>
   <body class="echo-interior review-edition">
-    <div class="aurora" aria-hidden="true"></div>
     <header class="topbar">
       <a class="brand" href="/universe/novel/" aria-label="ECHO Universe">
-        <span class="brand-mark">E</span>
-        <span><b>ECHO</b><small data-copy="reviewDesk">正典审核台</small></span>
+        <span class="echo-lockup"><svg class="echo-wordmark-svg" viewBox="14 14 174 36" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="6"><path d="M50 17H24a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26"/><path d="M93 17H67a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26"/><path d="M104 14v36M137 14v36M104 32h33"/><rect x="152" y="17" width="33" height="30" rx="7"/></g><circle class="echo-mark-core" cx="38" cy="32" r="5" fill="currentColor"/></svg><span class="echo-lockup-product">REVIEW</span></span>
+        <small class="brand-desk" data-copy="reviewDesk">正典审核台</small>
       </a>
       <div class="top-actions">
         <span class="identity" id="reviewer-identity" hidden></span>
@@ -31,7 +53,7 @@
         <p data-copy="subtitle">每位委员只能操作自己的席位。社区共鸣提供参考，不代替连续性审校与委员会决定。</p>
         </div>
         <aside class="canon-seal" aria-label="正典晋升流程" data-copy-aria="protocolLabel">
-          <div class="seal-geometry" aria-hidden="true"><i></i><i></i><strong>C</strong><span>CANON / PROTOCOL</span></div>
+          <div class="seal-geometry" aria-hidden="true"><i></i><i></i><strong><svg class="echo-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M50 17H24a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26" fill="none" stroke="currentColor" stroke-width="6"/></svg></strong><span>CANON / PROTOCOL</span></div>
           <ol class="seal-steps"><li><span>01</span><b data-copy="protocolContinuity">连续性审校</b></li><li><span>02</span><b data-copy="protocolCommittee">委员会审核</b></li><li><span>03</span><b data-copy="protocolCanon">正典晋升</b></li></ol>
         </aside>
       </section>

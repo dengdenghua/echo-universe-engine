@@ -270,24 +270,37 @@
         const a = arm + t * 2.5 + gauss() * (0.16 / (t + 0.25));
         return [Math.cos(a) * t, gauss() * 0.045 * (1.4 - t * 0.5), Math.sin(a) * t];
       }),
-    // The horizon: the ECHO mark, an open ring with an inner arc and a signal dot.
+    // The horizon: the ECHO mark, its open frame and the Echo Core, sampled from the brand-kit geometry
+    // (64-unit grid: frame M50 17H24a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26 at stroke 6, core at 38,32 r 5).
     symbol: () =>
       build((i, f) => {
-        const turn = 0.75;
-        if (f < 0.5) {
-          const a = turn + 0.42 + random() * (tau - 0.84);
-          const r = 1.05 + gauss() * 0.03;
-          return [Math.cos(a) * r, Math.sin(a) * r, gauss() * 0.03];
-        }
+        const k = 0.07;
+        const at = (x, y) => [(x - 33.5) * k + gauss() * 0.01, (32 - y) * k + gauss() * 0.01, gauss() * 0.03];
         if (f < 0.78) {
-          const a = turn + Math.PI + 0.55 + random() * (tau - 1.1);
-          const r = 0.64 + gauss() * 0.02;
-          return [Math.cos(a) * r, Math.sin(a) * r, gauss() * 0.02];
+          const w = (random() - 0.5) * 6;
+          let d = random() * 90;
+          if (d < 26) return at(50 - d, 17 + w);
+          d -= 26;
+          if (d < 11) {
+            const a = -Math.PI / 2 - (d / 11) * (Math.PI / 2);
+            return at(24 + Math.cos(a) * (7 - w), 24 + Math.sin(a) * (7 - w));
+          }
+          d -= 11;
+          if (d < 16) return at(17 + w, 24 + d);
+          d -= 16;
+          if (d < 11) {
+            const a = Math.PI - (d / 11) * (Math.PI / 2);
+            return at(24 + Math.cos(a) * (7 - w), 40 + Math.sin(a) * (7 - w));
+          }
+          d -= 11;
+          return at(24 + d, 47 + w);
         }
-        if (f < 0.88) return [Math.cos(turn) * 1.24 + gauss() * 0.045, Math.sin(turn) * 1.24 + gauss() * 0.045, gauss() * 0.04];
-        const a = random() * tau;
-        const r = 1.55 + gauss() * 0.1;
-        return [Math.cos(a) * r, Math.sin(a) * r, gauss() * 0.06];
+        if (f < 0.9) {
+          const a = random() * tau;
+          const r = 5 * Math.sqrt(random());
+          return at(38 + Math.cos(a) * r, 32 + Math.sin(a) * r);
+        }
+        return [(random() * 2 - 1) * 2.6, (random() * 2 - 1) * 1.5, gauss() * 0.25];
       }),
   };
 
@@ -295,14 +308,14 @@
   // params = [rotate with camera, sea swell, travelling wave, spin on own axis].
   // Formations with speed 0 hold a fixed heading so they always face the visitor the same way.
   const LOOK = {
-    sea: { params: [0, 1, 0, 0], speed: 0, pitch: 0, a: [0.62, 0.88, 0.77], b: [0.77, 1, 0.7] },
-    globe: { params: [1, 0, 0, 0], speed: 0.12, pitch: 0.38, a: [0.77, 1, 0.7], b: [0.94, 1, 0.9] },
-    six: { params: [1, 0, 0, 0], speed: 0.16, pitch: 0.55, a: [0.72, 1, 0.86], b: [0.9, 1, 0.82] },
-    knot: { params: [1, 0, 0, 0], speed: 0.2, pitch: 0.3, a: [0.65, 0.8, 0.76], b: [0.82, 1, 0.75] },
-    helix: { params: [1, 0, 0, 1], speed: 0, pitch: 0.12, a: [0.77, 1, 0.7], b: [1, 0.86, 0.66] },
-    stream: { params: [1, 0, 1, 0], speed: 0, pitch: 0.28, a: [0.62, 0.88, 0.94], b: [0.77, 1, 0.7] },
-    galaxy: { params: [1, 0, 0, 0], speed: 0.07, pitch: 0.62, a: [0.78, 0.72, 1], b: [0.77, 1, 0.7] },
-    symbol: { params: [0, 0, 0, 0], speed: 0, pitch: 0, a: [1, 0.95, 0.84], b: [0.77, 1, 0.7] },
+    sea: { params: [0, 1, 0, 0], speed: 0, pitch: 0, a: [0.6, 0.64, 0.68], b: [0.93, 0.945, 0.957] },
+    globe: { params: [1, 0, 0, 0], speed: 0.12, pitch: 0.38, a: [0.6, 0.64, 0.68], b: [0.93, 0.945, 0.957] },
+    six: { params: [1, 0, 0, 0], speed: 0.16, pitch: 0.55, a: [0.6, 0.64, 0.68], b: [0.93, 0.945, 0.957] },
+    knot: { params: [1, 0, 0, 0], speed: 0.2, pitch: 0.3, a: [0.6, 0.64, 0.68], b: [0.93, 0.945, 0.957] },
+    helix: { params: [1, 0, 0, 1], speed: 0, pitch: 0.12, a: [0.6, 0.64, 0.68], b: [0.93, 0.945, 0.957] },
+    stream: { params: [1, 0, 1, 0], speed: 0, pitch: 0.28, a: [0.6, 0.64, 0.68], b: [0.93, 0.945, 0.957] },
+    galaxy: { params: [1, 0, 0, 0], speed: 0.07, pitch: 0.62, a: [0.6, 0.64, 0.68], b: [0.93, 0.945, 0.957] },
+    symbol: { params: [0, 0, 0, 0], speed: 0, pitch: 0, a: [0.6, 0.64, 0.68], b: [0.93, 0.945, 0.957] },
   };
 
   const VERTEX = `

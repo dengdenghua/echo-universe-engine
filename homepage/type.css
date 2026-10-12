@@ -17,9 +17,9 @@
 /* ---------- hero: brand, tagline, then one promise ---------- */
 .future-site .signal-eyebrow { font-size: 12px; letter-spacing: .14em; }
 .future-site .hero-manifesto { margin-bottom: 22px; font-size: clamp(19px, 1.75vw, 26px); line-height: 1.25; letter-spacing: -.02em; font-weight: 400; }
-.future-site .future-hero .future-hero-title { display: block; max-width: min(15em, 640px); margin: 0 0 18px; color: #eef3ea; font-size: clamp(30px, 3vw, 46px); font-weight: 500; line-height: 1.25; letter-spacing: .04em; text-align: left; text-indent: 0; text-shadow: none; }
+.future-site .future-hero .future-hero-title { display: block; max-width: min(15em, 640px); margin: 0 0 18px; color: var(--echo-ink); font-size: clamp(30px, 3vw, 46px); font-weight: 500; line-height: 1.25; letter-spacing: .04em; text-align: left; text-indent: 0; text-shadow: none; }
 .future-site .future-hero .future-hero-title span { display: inline; white-space: normal; color: inherit; font-weight: inherit; }
-.future-site .future-hero-description { max-width: 460px; font-size: 15px; line-height: 1.85; letter-spacing: .02em; color: #a8b4ac; }
+.future-site .future-hero-description { max-width: 460px; font-size: 15px; line-height: 1.85; letter-spacing: .02em; color: var(--echo-ink-muted); }
 .future-site .future-primary, .future-site .future-secondary { font-size: 13px; }
 .future-site .future-scroll { font-size: 12px; }
 .future-site .scene-toggle { font-size: 11px; }
@@ -108,12 +108,28 @@
 :root[lang^="zh"] .future-site .flow-agent small,
 :root[lang^="zh"] .future-site .enter-panel > a { font-size: 12px !important; }
 
+/* ---------- ECHO family type roles ----------
+   Display (Michroma): short English uppercase phrases only — slogans, product names, eyebrows. Never Chinese.
+   Telemetry (JetBrains Mono): IDs, indices, codes and status lines, uppercase at 0.08em.
+   Everything else stays in the sans stack (Inter + CJK) inherited from the page. */
+.future-site :is(.hero-manifesto, .gateway-intro > span, .product-copy h3, .capability-card h3, .agent-card h3, .capability-identity b, .panel-kicker, .universe-feature b, .ecosystem-node strong, .universe-copy h2, .final-universe > p, .format-frame span) { font-family: var(--echo-font-display); font-weight: 400; text-transform: uppercase; }
+.future-site .hero-manifesto { font-size: clamp(19px, 1.9vw, 30px); line-height: 1.3; letter-spacing: .02em; }
+.future-site .gateway-intro > span { font-size: 14px; line-height: 1.55; letter-spacing: .06em; }
+.future-site .product-copy h3, .future-site .capability-card h3, .future-site .agent-card h3 { font-size: 13px; line-height: 1.4; letter-spacing: .08em; }
+.future-site .station-layout .product-copy h3 { font-size: clamp(20px, 2vw, 27px); letter-spacing: .04em; }
+.future-site :is(.capability-identity b, .panel-kicker, .universe-feature b, .final-universe > p) { font-size: 11px; letter-spacing: .22em; }
+.future-site .ecosystem-node strong { font-size: 10px; letter-spacing: .08em; }
+.future-site .universe-copy h2 { font-size: clamp(36px, 3.8vw, 56px); line-height: 1.08; letter-spacing: .02em; }
+.future-site .universe-copy h2 span { font-family: var(--echo-font-sans); letter-spacing: .24em; }
+.future-site .format-frame span { font-size: clamp(16px, 1.7vw, 22px); letter-spacing: .12em; }
+.future-site :is(.gateway-index, .gateway-bottom, .product-index, .product-signal, .product-route, .station-telemetry, .station-device small, .product-graphic, .product-backplane, .hero-frequency, .era-signals b, .ecosystem-node b, .identity-anchor > span, .capability-card > span, .roadmap-stages span, .ecosystem-core span, .capability-core span, .universe-sun small, .agent-planet i, .flow-agent i, .request-avatar, .result-bubble i, .question-grid article > span, .season-index, .season-meta, .story-beats span, .season-tab > span, .atlas-node small, .detail-type, .media-number, .media-kicker, .governance-flow article > span, .protocol-list b, .canon-notes footer, .epoch-map::after) { font-family: var(--echo-font-telemetry); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+
 @media (max-width: 900px) {
   .future-site .collaboration-layout { gap: 48px; padding: 96px 0 90px; }
 }
 @media (max-width: 600px) {
   /* The ring sits under the tagline on phones; keep its clearance. */
-  .future-site .hero-manifesto { margin-bottom: 288px; font-size: 22px; }
+  .future-site .hero-manifesto { margin-bottom: 288px; font-size: 19px; }
   .future-site .future-hero .future-hero-title { font-size: 28px; }
   .future-site .system-card:not(.product-station) { min-height: 210px; }
   .future-site .universe-feature { width: calc(100% - 36px); }

@@ -435,7 +435,7 @@
       ctx.fillStyle = "rgba(238, 246, 248, 0.55)";
       ctx.fillText(k, W - 330, 170 + i * 46);
       mono(15, 600);
-      ctx.fillStyle = i === 3 ? "#96e0aa" : "#eef6f8";
+      ctx.fillStyle = i === 3 ? "#6fe3f0" : "#eef6f8";
       ctx.fillText(v, W - 330, 188 + i * 46);
       ctx.globalAlpha = 1;
     });

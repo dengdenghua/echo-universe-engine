@@ -443,7 +443,7 @@
       for (const link of links) {
         ctx.setLineDash([2, 6]);
         ctx.lineWidth = 1;
-        ctx.strokeStyle = `rgba(197, 255, 178, ${0.16 * Math.min(energy, 2)})`;
+        ctx.strokeStyle = `rgba(238, 241, 244, ${0.14 * Math.min(energy, 2)})`;
         ctx.beginPath();
         ctx.moveTo(link.a.x, link.a.y);
         ctx.quadraticCurveTo(link.c.x, link.c.y, link.b.x, link.b.y);
@@ -454,15 +454,15 @@
           const head = point(link, s);
           const tail = point(link, Math.max(0, s - 0.08));
           const trail = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y);
-          trail.addColorStop(0, "rgba(197, 255, 178, 0)");
-          trail.addColorStop(1, "rgba(220, 255, 205, 0.9)");
+          trail.addColorStop(0, "rgba(238, 241, 244, 0)");
+          trail.addColorStop(1, "rgba(238, 241, 244, 0.75)");
           ctx.strokeStyle = trail;
           ctx.lineWidth = 1.6;
           ctx.beginPath();
           ctx.moveTo(tail.x, tail.y);
           ctx.lineTo(head.x, head.y);
           ctx.stroke();
-          ctx.fillStyle = "rgba(236, 255, 214, 0.95)";
+          ctx.fillStyle = "rgba(111, 227, 240, 0.95)";
           ctx.fillRect(head.x - 1.2, head.y - 1.2, 2.4, 2.4);
         }
       }

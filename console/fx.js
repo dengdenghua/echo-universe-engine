@@ -18,20 +18,17 @@
   const $ = (selector) => document.querySelector(selector);
   const $all = (selector) => Array.from(document.querySelectorAll(selector));
 
-  // Echo Core light language (bible/visual_system_v1.md).
+  // Echo Core light language (ECHO brand tokens, Graphite theme). The canvases stay
+  // graphite and snow; core cyan only lights tiny points, breach only marks errors.
   const LIGHT = {
-    snow: [236, 246, 250],
-    cyan: [127, 230, 242],
-    signal: [159, 200, 255],
-    pink: [245, 168, 202],
-    violet: [185, 162, 255],
-    amber: [243, 200, 115],
-    green: [150, 224, 170],
-    red: [255, 111, 125],
+    snow: [238, 241, 244],
+    cyan: [111, 227, 240],
+    signal: [169, 199, 255],
+    red: [255, 107, 120],
   };
-  const NODE_COLORS = ["snow", "snow", "snow", "cyan", "cyan", "cyan", "signal", "signal", "pink", "pink", "violet", "amber"];
+  const NODE_COLORS = ["snow", "snow", "snow", "snow", "snow", "snow", "snow", "snow", "snow", "snow", "signal", "cyan"];
   // Pitch class of a soundtrack note -> the light it fires through the network.
-  const NOTE_COLORS = { 0: "signal", 2: "cyan", 4: "violet", 5: "pink", 7: "green", 9: "snow", 10: "amber" };
+  const NOTE_COLORS = { 0: "snow", 2: "signal", 4: "snow", 5: "snow", 7: "cyan", 9: "snow", 10: "signal" };
   const rgba = ([r, g, b], alpha) => `rgba(${r}, ${g}, ${b}, ${alpha})`;
 
   function readPref(key) {
@@ -221,7 +218,7 @@
       for (const target of neighbours(node, null, 2)) launch(node, target, color, depth);
     }
 
-    function ring(x, y, strength = 1, color = "cyan") {
+    function ring(x, y, strength = 1, color = "snow") {
       rings.push({ x, y, r: 0, life: 0, strength, color, hit: new Set() });
     }
 
@@ -230,11 +227,11 @@
       const x = ((event.pan + 1) / 2) * width;
       const candidates = nodes.filter((node) => Math.abs(node.sx - x) < width * 0.18);
       const node = pick(candidates.length ? candidates : nodes);
-      const color = NOTE_COLORS[((event.midi % 12) + 12) % 12] || "cyan";
+      const color = NOTE_COLORS[((event.midi % 12) + 12) % 12] || "snow";
       fire(node, color, event.soft ? 1 : 3);
     }
 
-    function burst(x, y, color = "cyan") {
+    function burst(x, y, color = "snow") {
       ring(x, y, 1.5, color);
       setTimeout(() => ring(x, y, 1, color), 180);
     }
@@ -294,8 +291,8 @@
           if (dx > reach || dx < -reach || dy > reach || dy < -reach) continue;
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d > reach) continue;
-          const alpha = (1 - d / reach) * (0.04 + 0.11 * a.z) * breathe + (a.flash + b.flash) * 0.16;
-          ctx.strokeStyle = `rgba(150, 215, 232, ${Math.min(alpha, 0.7)})`;
+          const alpha = (1 - d / reach) * (0.03 + 0.08 * a.z) * breathe + (a.flash + b.flash) * 0.12;
+          ctx.strokeStyle = `rgba(238, 241, 244, ${Math.min(alpha, 0.5)})`;
           ctx.beginPath();
           ctx.moveTo(a.sx, a.sy);
           ctx.lineTo(b.sx, b.sy);
@@ -324,13 +321,13 @@
         echo.r += dt * (360 + 140 * echo.strength);
         const remaining = 1 - echo.life / 1.9;
         if (remaining <= 0) continue;
-        ctx.lineWidth = 1.4;
-        ctx.strokeStyle = rgba(LIGHT[echo.color], 0.5 * remaining * Math.min(1, echo.strength));
+        ctx.lineWidth = 1.2;
+        ctx.strokeStyle = rgba(LIGHT[echo.color], 0.4 * remaining * Math.min(1, echo.strength));
         ctx.beginPath();
         ctx.arc(echo.x, echo.y, echo.r, 0, TAU);
         ctx.stroke();
         ctx.lineWidth = 1;
-        ctx.strokeStyle = rgba(LIGHT.pink, 0.22 * remaining * Math.min(1, echo.strength));
+        ctx.strokeStyle = rgba(LIGHT.snow, 0.14 * remaining * Math.min(1, echo.strength));
         ctx.beginPath();
         ctx.arc(echo.x, echo.y, echo.r * 0.7, 0, TAU);
         ctx.stroke();
@@ -356,7 +353,7 @@
         const ty = lerp(pulse.from.sy, pulse.to.sy, tail);
         const trail = ctx.createLinearGradient(tx, ty, hx, hy);
         trail.addColorStop(0, rgba(LIGHT[pulse.color], 0));
-        trail.addColorStop(1, rgba(LIGHT[pulse.color], 0.85));
+        trail.addColorStop(1, rgba(LIGHT[pulse.color], 0.7));
         ctx.strokeStyle = trail;
         ctx.beginPath();
         ctx.moveTo(tx, ty);
@@ -380,7 +377,7 @@
       for (const node of nodes) {
         const twinkle = 0.75 + 0.25 * Math.sin(t * (0.6 + node.z) + node.phase);
         const size = (5 + 12 * node.z) * (twinkle + node.flash * 1.4) * (1 + frame.level * 0.6);
-        ctx.globalAlpha = clamp((0.22 + 0.55 * node.z) * twinkle + node.flash * 0.6, 0, 1);
+        ctx.globalAlpha = clamp((0.16 + 0.42 * node.z) * twinkle + node.flash * 0.5, 0, 1);
         ctx.drawImage(sprite(node.color), node.sx - size / 2, node.sy - size / 2, size, size);
       }
       ctx.globalAlpha = 1;
@@ -416,9 +413,9 @@
       return { x: Math.cos(golden * i) * r, y, z: Math.sin(golden * i) * r, city: Math.random() < 0.09, phase: rand(0, TAU) };
     });
     const orbits = [
-      { radius: 1.3, incline: 1.18, yaw: 0.3, speed: 0.5, color: "cyan", dash: [3, 5] },
-      { radius: 1.47, incline: 1.92, yaw: -0.6, speed: -0.32, color: "pink", dash: [12, 7] },
-      { radius: 1.64, incline: 1.42, yaw: 1.2, speed: 0.22, color: "green", dash: [1, 6] },
+      { radius: 1.3, incline: 1.18, yaw: 0.3, speed: 0.5, color: "snow", sat: "cyan", dash: [3, 5] },
+      { radius: 1.47, incline: 1.92, yaw: -0.6, speed: -0.32, color: "snow", sat: "snow", dash: [12, 7] },
+      { radius: 1.64, incline: 1.42, yaw: 1.2, speed: 0.22, color: "signal", sat: "signal", dash: [1, 6] },
     ];
     let arcs = [];
     let width = 0;
@@ -443,7 +440,7 @@
         if (dot < 0.85 && dot > -0.2) break;
         b = pick(points);
       }
-      return { a, b, head: Math.random(), speed: rand(0.25, 0.55), lift: rand(0.14, 0.32), color: pick(["cyan", "pink", "snow", "signal"]), age: 0, life: rand(3, 7) };
+      return { a, b, head: Math.random(), speed: rand(0.25, 0.55), lift: rand(0.14, 0.32), color: pick(["snow", "snow", "snow", "signal"]), age: 0, life: rand(3, 7) };
     }
     arcs = Array.from({ length: 14 }, makeArc);
 
@@ -492,9 +489,9 @@
       ctx.clearRect(0, 0, width, height);
 
       const glow = ctx.createRadialGradient(cx, cy, r * 0.2, cx, cy, r * 1.9);
-      glow.addColorStop(0, `rgba(127, 230, 242, ${0.16 + frame.level * 0.25 + frame.beat * 0.1})`);
-      glow.addColorStop(0.5, "rgba(127, 230, 242, 0.04)");
-      glow.addColorStop(1, "rgba(127, 230, 242, 0)");
+      glow.addColorStop(0, `rgba(238, 241, 244, ${0.05 + frame.level * 0.08 + frame.beat * 0.03})`);
+      glow.addColorStop(0.5, "rgba(238, 241, 244, 0.015)");
+      glow.addColorStop(1, "rgba(238, 241, 244, 0)");
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, width, height);
 
@@ -514,7 +511,7 @@
           const path = orbitPaths[index];
           ctx.setLineDash(orbit.dash);
           ctx.lineWidth = 1;
-          ctx.strokeStyle = rgba(LIGHT[orbit.color], front ? 0.55 : 0.16);
+          ctx.strokeStyle = rgba(LIGHT[orbit.color], front ? 0.38 : 0.12);
           ctx.beginPath();
           let pen = false;
           for (const p of path) {
@@ -531,20 +528,17 @@
           const sz = Math.sin(angle) * orbit.radius;
           const sat = project(view(sx, -sz * Math.sin(orbit.incline), sz * Math.cos(orbit.incline), orbit.yaw + t * 0.05), r);
           if (sat.z >= 0 === front) {
-            ctx.fillStyle = rgba(LIGHT[orbit.color], front ? 1 : 0.35);
-            ctx.shadowColor = rgba(LIGHT[orbit.color], 1);
-            ctx.shadowBlur = front ? 12 : 0;
+            ctx.fillStyle = rgba(LIGHT[orbit.sat], front ? 1 : 0.35);
             ctx.beginPath();
-            ctx.arc(sat.x, sat.y, front ? 2.6 : 1.8, 0, TAU);
+            ctx.arc(sat.x, sat.y, front ? 2.4 : 1.8, 0, TAU);
             ctx.fill();
-            ctx.shadowBlur = 0;
           }
         });
       };
 
       drawOrbits(false);
 
-      // Surface: household cores, with a latitude scan sweeping the planet.
+      // Surface: household cores (tiny core points), with a latitude scan sweeping the planet.
       const scan = Math.sin(t * 0.45) * 0.92;
       for (const point of points) {
         const p = project(view(point.x, point.y, point.z, rotation), r);
@@ -552,21 +546,21 @@
         const scanned = Math.abs(point.y - scan) < 0.05;
         if (point.city && front) {
           const pulse = 0.6 + 0.4 * Math.sin(t * 2 + point.phase) + frame.beat * 0.6;
-          ctx.fillStyle = `rgba(245, 168, 202, ${clamp(0.35 + pulse * 0.45, 0, 1)})`;
+          ctx.fillStyle = `rgba(111, 227, 240, ${clamp(0.3 + pulse * 0.4, 0, 1)})`;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, 1.6 + pulse * 0.9, 0, TAU);
+          ctx.arc(p.x, p.y, 1.2 + pulse * 0.6, 0, TAU);
           ctx.fill();
           continue;
         }
         const alpha = front ? 0.22 + 0.7 * p.z : 0.07 + 0.08 * (1 + p.z);
         const size = front ? 1 + p.z * 1.3 : 0.8;
-        ctx.fillStyle = scanned && front ? `rgba(127, 230, 242, ${Math.min(1, alpha + 0.5)})` : `rgba(222, 240, 246, ${alpha})`;
+        ctx.fillStyle = `rgba(238, 241, 244, ${scanned && front ? Math.min(1, alpha + 0.4) : alpha * 0.85})`;
         ctx.fillRect(p.x - size / 2, p.y - size / 2, size, size);
       }
 
       // Atmosphere rim.
       ctx.lineWidth = 1;
-      ctx.strokeStyle = `rgba(201, 247, 255, ${0.18 + frame.level * 0.3})`;
+      ctx.strokeStyle = `rgba(238, 241, 244, ${0.14 + frame.level * 0.2})`;
       ctx.beginPath();
       ctx.arc(cx, cy, r * 1.02, 0, TAU);
       ctx.stroke();
@@ -592,7 +586,7 @@
             const near = Math.abs(s - arc.head);
             const lit = near < 0.12 ? 1 - near / 0.12 : 0;
             const depth = p.z > -0.1 ? 1 : 0.2;
-            ctx.strokeStyle = rgba(LIGHT[arc.color], (0.12 + lit * 0.85) * depth * envelope);
+            ctx.strokeStyle = rgba(LIGHT[arc.color], (0.08 + lit * 0.6) * depth * envelope);
             ctx.lineWidth = 1 + lit * 1.2;
             ctx.beginPath();
             ctx.moveTo(previous.x, previous.y);

@@ -94,10 +94,10 @@
       return { u, x: Math.cos(u) * radius, y: Math.sin(u) * radius, z: tube * Math.sin(v), a: .2 + random() * .8, light: random() > .72, sx: 0, sy: 0 };
     });
     background = ctx.createRadialGradient(width * .72, height * .45, 0, width * .72, height * .45, width * .68);
-    background.addColorStop(0, "#12221c");
-    background.addColorStop(.32, "#0b1511");
-    background.addColorStop(.72, "#060b09");
-    background.addColorStop(1, "#060909");
+    background.addColorStop(0, "#15181d");
+    background.addColorStop(.32, "#0e1014");
+    background.addColorStop(.72, "#0a0b0d");
+    background.addColorStop(1, "#090a0c");
     // Cache the small planetary core instead of rebuilding its texture each frame.
     coreImage = document.createElement("canvas");
     coreImage.width = 600;
@@ -105,10 +105,10 @@
     const core = coreImage.getContext("2d");
     if (core) {
       const surface = core.createRadialGradient(395, 130, 15, 220, 380, 350);
-      surface.addColorStop(0, "#293e31");
-      surface.addColorStop(.4, "#101e17");
-      surface.addColorStop(.75, "#080e0b");
-      surface.addColorStop(1, "#030706");
+      surface.addColorStop(0, "#262a31");
+      surface.addColorStop(.4, "#121418");
+      surface.addColorStop(.75, "#0b0c0f");
+      surface.addColorStop(1, "#060708");
       core.beginPath(); core.arc(300, 300, 246, 0, tau); core.fillStyle = surface; core.fill();
       core.save(); core.clip();
       for (let i = 0; i < 9500; i++) {
@@ -117,15 +117,15 @@
         if (x * x + y * y > 246 * 246) continue;
         const terrain = Math.sin(x * .038 + Math.sin(y * .02) * 3) * Math.cos(y * .033 + x * .012);
         const light = Math.max(0, (x - y + 246) / 738);
-        core.fillStyle = terrain > .26 ? `rgba(160,188,129,${light * .28})` : `rgba(0,5,2,${.08 + light * .1})`;
+        core.fillStyle = terrain > .26 ? `rgba(154,163,174,${light * .28})` : `rgba(0,0,0,${.08 + light * .1})`;
         const radius = terrain > .54 ? 1.2 : .6;
         core.fillRect(x + 300, y + 300, radius, radius);
       }
       core.restore();
-      core.strokeStyle = "#c6f8bd55"; core.lineWidth = 1;
+      core.strokeStyle = "#eef1f455"; core.lineWidth = 1;
       core.beginPath(); core.arc(300, 300, 246, -1.85, .24); core.stroke();
-      core.shadowColor = "#b0ffc9"; core.shadowBlur = 14;
-      core.strokeStyle = "#c6f8bd77"; core.lineWidth = 1.5;
+      core.shadowColor = "rgba(238, 241, 244, .5)"; core.shadowBlur = 10;
+      core.strokeStyle = "#eef1f477"; core.lineWidth = 1.5;
       core.beginPath(); core.arc(300, 300, 247, -1.45, -.45); core.stroke();
     }
     draw();
@@ -135,11 +135,11 @@
 
   function draw() {
     if (!ctx) return;
-    ctx.fillStyle = background || "#060909";
+    ctx.fillStyle = background || "#090a0c";
     ctx.fillRect(0, 0, width, height);
     for (const star of stars) {
       ctx.globalAlpha = star.a;
-      ctx.fillStyle = "#cee8d9";
+      ctx.fillStyle = "#eef1f4";
       ctx.fillRect(star.x, star.y, star.r, star.r);
     }
     ctx.globalAlpha = 1;
@@ -165,10 +165,10 @@
 
     // Soft scattered light surrounding an open, dark centre.
     const glow = ctx.createRadialGradient(cx, cy, scale * .2, cx, cy, scale * 1.65);
-    glow.addColorStop(0, "#06090900");
-    glow.addColorStop(.48, "#a0e4ac03");
-    glow.addColorStop(.62, "#90e8b40d");
-    glow.addColorStop(.77, "#8bc5a307");
+    glow.addColorStop(0, "#090a0c00");
+    glow.addColorStop(.48, "#eef1f403");
+    glow.addColorStop(.62, "#eef1f40a");
+    glow.addColorStop(.77, "#eef1f405");
     glow.addColorStop(1, "#00000000");
     ctx.fillStyle = glow;
     ctx.fillRect(cx - scale * 2, cy - scale * 2, scale * 4, scale * 4);
@@ -186,11 +186,11 @@
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(angle);
-    ctx.strokeStyle = "#bce1c323";
+    ctx.strokeStyle = "#eef1f423";
     ctx.lineWidth = .65;
     ctx.beginPath(); ctx.ellipse(0, 0, scale * 1.52, scale * .88, 0, -.8, 4.7); ctx.stroke();
     ctx.setLineDash([2, 7]);
-    ctx.strokeStyle = "#bce1c328";
+    ctx.strokeStyle = "#eef1f428";
     ctx.beginPath(); ctx.ellipse(0, 0, scale * 1.39, scale * .86, 0, 0, tau); ctx.stroke();
     ctx.setLineDash([]);
     ctx.restore();
@@ -225,7 +225,7 @@
         const p = project(Math.cos(u) * radius * swell, Math.sin(u) * radius * swell, z * swell);
         if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
       }
-      ctx.strokeStyle = band % 5 === 0 ? "#c0ffb9a0" : "#a3d9c246";
+      ctx.strokeStyle = band % 5 === 0 ? "#eef1f4a0" : "#9aa3ae46";
       ctx.lineWidth = (band % 5 === 0 ? 1 : .6) * (1 + level * 1.1 + beat * .5);
       ctx.stroke();
     }
@@ -240,7 +240,7 @@
         const p = project(Math.cos(u) * (1 + .18 * Math.cos(v)) * swell, Math.sin(u) * (1 + .18 * Math.cos(v)) * swell, .18 * Math.sin(v) * swell);
         if (!j) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
       }
-      ctx.strokeStyle = i % 7 === 0 ? "#c6ffd47a" : "#9bbf9f29";
+      ctx.strokeStyle = i % 7 === 0 ? "#eef1f47a" : "#9aa3ae29";
       ctx.lineWidth = .55;
       ctx.stroke();
     }
@@ -253,7 +253,7 @@
       particle.sy = p.y;
       const light = .32 + .68 * Math.max(0, (particle.x + particle.z + 1) / 2);
       ctx.globalAlpha = Math.min(1, particle.a * light * (p.z > 0 ? .9 : .37) * dust + bump * .5);
-      ctx.fillStyle = particle.light || bump > .3 ? "#eaffc7" : "#86cbb6";
+      ctx.fillStyle = particle.light || bump > .3 ? "#eef1f4" : "#8f98a3";
       const r = (particle.light ? 1.15 : .7) * p.p * (1 + bump * .6);
       ctx.fillRect(p.x, p.y, r, r);
     }
@@ -264,9 +264,9 @@
       const u = i * 1.55 - turn * 1.2;
       const p = project(Math.cos(u), Math.sin(u), .185);
       const flare = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glint);
-      flare.addColorStop(0, "#e4ffbfaa"); flare.addColorStop(.1, "#caffc14d"); flare.addColorStop(1, "#a6ffc000");
+      flare.addColorStop(0, "#eef1f4aa"); flare.addColorStop(.1, "#eef1f44d"); flare.addColorStop(1, "#eef1f400");
       ctx.fillStyle = flare; ctx.fillRect(p.x - glint, p.y - glint, glint * 2, glint * 2);
-      ctx.fillStyle = "#e8ffd9"; ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
+      ctx.fillStyle = "#ffffff"; ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
     }
     // Notes from the score bloom where they land on the ring, then fade.
     for (let i = sparks.length - 1; i >= 0; i--) {
@@ -276,18 +276,18 @@
       const p = project(Math.cos(spark.u), Math.sin(spark.u), .19);
       const size = 34 * life * spark.strength;
       const bloom = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, size);
-      bloom.addColorStop(0, `rgba(236, 255, 214, ${.85 * life})`);
-      bloom.addColorStop(.25, `rgba(197, 255, 178, ${.3 * life})`);
-      bloom.addColorStop(1, "rgba(166, 255, 192, 0)");
+      bloom.addColorStop(0, `rgba(238, 241, 244, ${.85 * life})`);
+      bloom.addColorStop(.25, `rgba(238, 241, 244, ${.3 * life})`);
+      bloom.addColorStop(1, "rgba(238, 241, 244, 0)");
       ctx.fillStyle = bloom;
       ctx.fillRect(p.x - size, p.y - size, size * 2, size * 2);
     }
     ctx.globalCompositeOperation = "source-over";
     // The central reticle identifies the shared memory anchor.
-    ctx.strokeStyle = "#bdd5bc57"; ctx.lineWidth = .7;
+    ctx.strokeStyle = "#eef1f457"; ctx.lineWidth = .7;
     ctx.beginPath(); ctx.moveTo(cx - 7, cy); ctx.lineTo(cx + 7, cy); ctx.moveTo(cx, cy - 7); ctx.lineTo(cx, cy + 7); ctx.stroke();
-    ctx.fillStyle = "#93ac9680";
-    ctx.font = "7px monospace";
+    ctx.fillStyle = "#9aa3ae80";
+    ctx.font = "7px \"JetBrains Mono\", Consolas, monospace";
     ctx.textAlign = "center";
     ctx.fillText("E C H O  /  2 1 4 7", cx, cy + 24);
   }
