@@ -1021,12 +1021,14 @@ button {
 }
 
 .world-window {
+  --i: 0;
   left: 96px;
   top: 70px;
   width: min(880px, calc(100vw - 130px));
 }
 
 .characters-window {
+  --i: 2;
   right: 30px;
   top: 92px;
   width: 440px;
@@ -1035,6 +1037,7 @@ button {
 }
 
 .factory-window {
+  --i: 1;
   left: 116px;
   bottom: 28px;
   width: 700px;
@@ -1042,6 +1045,7 @@ button {
 }
 
 .assets-window {
+  --i: 3;
   right: 34px;
   top: 60px;
   width: 760px;
@@ -1050,6 +1054,7 @@ button {
 }
 
 .memory-window {
+  --i: 4;
   right: 46px;
   bottom: 44px;
   width: 400px;
@@ -1057,6 +1062,7 @@ button {
 }
 
 .echo-ai-window {
+  --i: 5;
   left: 148px;
   top: 120px;
   width: 760px;

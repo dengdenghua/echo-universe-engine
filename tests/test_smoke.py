@@ -570,6 +570,22 @@ def test_console_keeps_desktop_focus_drag_and_close_controls():
     assert ".window.active" in styles
 
 
+def test_site_pages_carry_no_inline_styles_for_the_production_csp():
+    # Production serves style-src 'self', which blocks style attributes and <style> blocks;
+    # per-element values must come from stylesheets or the CSSOM.
+    root = CanonStore().root
+    pages = [
+        page
+        for folder in ("homepage", "universe", "developers", "review", "console")
+        for page in sorted((root / folder).rglob("*.html"))
+    ]
+    assert len(pages) >= 8
+    for page in pages:
+        html = page.read_text(encoding="utf-8")
+        assert not re.search(r"<[a-z][^>]*\sstyle=", html, re.IGNORECASE), page
+        assert "<style" not in html.lower(), page
+
+
 def test_console_exposes_internal_canon_governance_controls():
     root = CanonStore().root
     app_js = (root / "console" / "app.js").read_text(encoding="utf-8")
