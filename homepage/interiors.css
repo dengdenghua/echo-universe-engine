@@ -296,8 +296,16 @@
 }
 @media (max-width: 800px) {
   .echo-interior :is(.novel-header, .dev-header) { height: 74px; }
-  .echo-interior :is(.universe-nav, .dev-nav) { display: none; }
-  .echo-interior .dev-header { grid-template-columns: 1fr auto; }
+  .echo-interior .universe-nav { display: none; }
+  /* Developers keeps its section nav on phones: brand + actions on top, the section links on a
+     second row that scrolls sideways. The hero and section anchors clear the taller header. */
+  .developer-edition .dev-header { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; height: auto; padding-top: 8px; }
+  .developer-edition .dev-nav { grid-row: 2; grid-column: 1 / -1; justify-content: flex-start; gap: 22px; overflow-x: auto; scrollbar-width: none; }
+  .developer-edition .dev-nav::-webkit-scrollbar { display: none; }
+  .developer-edition .dev-nav a { flex: none; }
+  .developer-edition .dev-nav a::after { bottom: 9px; }
+  .developer-edition .dev-nav a:focus-visible { outline-offset: -4px; }
+  .developer-edition section[id] { scroll-margin-top: 122px; }
   .archive-edition .novel-hero { padding: 146px 0 56px; }
   .archive-coordinate { top: 102px; font-size: 8px; }
   .archive-coordinate span:nth-child(2) { display: none; }
@@ -325,7 +333,7 @@
   .reader-edition .reader-rail { position: static; }
   .reader-edition .reader-rail :is(.rail-index, dl, .rail-spine) { display: none; }
   .reader-edition .reader-breadcrumb { margin-top: 28px; }
-  .developer-edition .dev-hero { grid-template-columns: 1fr; padding-top: 125px; gap: 38px; }
+  .developer-edition .dev-hero { grid-template-columns: 1fr; padding-top: 149px; gap: 38px; }
   .dev-wordmark { font-size: clamp(34px, 6.5vw, 48px); }
   .developer-edition .lead { max-width: 600px; }
   .api-observatory { max-width: 560px; width: 100%; }
@@ -388,7 +396,7 @@
   .reader-edition .chapter-illustration figcaption { grid-template-columns: 1fr; gap: 9px; }
   .reader-edition .preview-end { padding: 30px 22px; }
   .reader-edition .preview-end h2 { font-size: 27px; }
-  .developer-edition .dev-hero { padding-top: 118px; }
+  .developer-edition .dev-hero { padding-top: 142px; }
   .dev-wordmark { font-size: clamp(26px, 7.4vw, 34px); }
   .api-observatory { padding: 18px; }
   .api-orbit { height: 230px; }

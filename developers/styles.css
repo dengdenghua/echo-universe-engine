@@ -137,7 +137,6 @@ main { width: min(calc(100% - var(--gutter) * 2), var(--content)); margin: 0 aut
   .dev-header { grid-template-columns: auto auto; row-gap: 8px; height: auto; padding: 12px var(--gutter); }
   .dev-nav { grid-column: 1 / -1; order: 3; gap: 20px; overflow-x: auto; scrollbar-width: none; }
   .dev-nav::-webkit-scrollbar { display: none; }
-  .back-echo { display: none; }
   /* 两排表头的高度取决于导航行高，而导航行高只在 pointer: coarse 下才是 44px，
      所以窄屏细指针（缩窄的桌面窗口）与触摸屏要分别给值，否则一边会空出一截。 */
   main { padding-top: 100px; }
@@ -164,6 +163,11 @@ main { width: min(calc(100% - var(--gutter) * 2), var(--content)); margin: 0 aut
   #endpoint-filter, #play-endpoint { min-height: 44px; }
   .dev-footer nav { gap: 4px; }
   .dev-footer nav a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 10px; }
+}
+
+/* 最窄的手机上让出产品名，保证「回到宇宙」和语言切换都留在首行。 */
+@media (max-width: 359px) {
+  .dev-brand .echo-lockup-product { display: none; }
 }
 
 @media (pointer: coarse) and (max-width: 720px) {

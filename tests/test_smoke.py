@@ -343,6 +343,15 @@ def test_sound_invite_follows_the_header_and_closes_on_escape():
     assert "soundSwitch?.focus(" in experience
 
 
+def test_developers_phone_header_keeps_section_nav_and_back_link():
+    root = CanonStore().root
+    interiors = (root / "homepage" / "interiors.css").read_text(encoding="utf-8")
+    dev_styles = (root / "developers" / "styles.css").read_text(encoding="utf-8")
+    assert ".developer-edition .dev-nav { grid-row: 2;" in interiors
+    assert not re.search(r"\.dev-nav\)? \{ display: none; \}", interiors + dev_styles)
+    assert ".back-echo { display: none; }" not in dev_styles
+
+
 def test_universe_page_exposes_canon_media_and_bilingual_controls():
     root = CanonStore().root
     html = (root / "universe" / "index.html").read_text(encoding="utf-8")

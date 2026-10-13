@@ -324,7 +324,19 @@ const sections = navLinks
   .map((link) => document.querySelector(link.getAttribute("href")))
   .filter(Boolean);
 
+// On phones the section nav is a sideways-scrolling row; keep the highlighted section in view.
+function revealNavLink(link) {
+  const nav = link?.parentElement;
+  if (!nav || nav.scrollWidth <= nav.clientWidth) return;
+  const navBox = nav.getBoundingClientRect();
+  const linkBox = link.getBoundingClientRect();
+  if (linkBox.left >= navBox.left && linkBox.right <= navBox.right) return;
+  const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+  nav.scrollBy({ left: linkBox.left - navBox.left - (navBox.width - linkBox.width) / 2, behavior });
+}
+
 let scrollQueued = false;
+let activeNavIndex = -1;
 function onScroll() {
   if (scrollQueued) return;
   scrollQueued = true;
@@ -337,6 +349,10 @@ function onScroll() {
       if (section.offsetTop <= probe) activeIndex = index;
     });
     navLinks.forEach((link, index) => link.classList.toggle("active", index === activeIndex));
+    if (activeIndex !== activeNavIndex) {
+      activeNavIndex = activeIndex;
+      revealNavLink(navLinks[activeIndex]);
+    }
   });
 }
 
