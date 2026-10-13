@@ -98,6 +98,9 @@ function openWindow(name) {
     item.classList.toggle("active", item.dataset.window === name);
     item.setAttribute("aria-pressed", String(item.dataset.window === name));
   });
+  // Windows stack below the fold on most screens: bring the summoned one into view.
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  panel.scrollIntoView({ block: "nearest", behavior: still ? "auto" : "smooth" });
 }
 
 function closeWindow(panel) {

@@ -1430,7 +1430,7 @@ button {
   padding: 0 16px 16px;
 }
 
-.law-strip span {
+.law-strip > span {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -2574,3 +2574,10 @@ pre {
 .locale-switch button { min-height: 28px; padding: 0 8px; border: 1px solid var(--line-soft); border-radius: var(--echo-radius-sm); background: transparent; color: var(--muted); font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.04em; cursor: pointer; transition: color var(--echo-duration-fast) var(--ease-out), background-color var(--echo-duration-fast) var(--ease-out); }
 .locale-switch button:hover { color: var(--text); }
 .locale-switch button[aria-pressed="true"] { border-color: var(--line); background: var(--echo-line); color: var(--text); }
+
+/* A window brought into view from the dock clears the fixed system bar (and the phone dock). */
+.window { scroll-margin: 58px 0 24px; }
+@media (max-width: 960px) { .window { scroll-margin: 132px 0 86px; } }
+
+/* Brand type floor: Chinese never renders below the 12px caption size. */
+:root[lang^="zh"] :is(.boot-sub, .locale-switch button, .system-chip, .window-kicker, .window-badge, .window-actions button, .core-label span, .metric span, .asset-links a, .stream li strong, .candidate-head > span, .candidate-meta span, .candidate-meta a, .candidate-actions button) { font-size: 12px; }
