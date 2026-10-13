@@ -336,6 +336,13 @@ def test_homepage_exposes_bilingual_locale_controls():
     assert "Station" in html
 
 
+def test_sound_invite_follows_the_header_and_closes_on_escape():
+    experience = (CanonStore().root / "homepage" / "experience.js").read_text(encoding="utf-8")
+    assert "header.after(invite)" in experience
+    assert 'event.key === "Escape" && invite' in experience
+    assert "soundSwitch?.focus(" in experience
+
+
 def test_universe_page_exposes_canon_media_and_bilingual_controls():
     root = CanonStore().root
     html = (root / "universe" / "index.html").read_text(encoding="utf-8")

@@ -127,18 +127,27 @@
     fill();
     invite.fill = fill;
     accept.addEventListener("click", () => setSound(true));
-    decline.addEventListener("click", () => {
-      audio.setMusic(false);
-      closeInvite();
-    });
-    body.append(invite);
-    requestAnimationFrame(() => requestAnimationFrame(() => invite.classList.add("show")));
+    decline.addEventListener("click", declineInvite);
+    // Right after the header, so the invite follows the sound switch in the Tab order
+    // instead of trailing the whole page.
+    const header = soundSwitch.closest("header");
+    if (header) header.after(invite);
+    else body.append(invite);
+    requestAnimationFrame(() => requestAnimationFrame(() => invite?.classList.add("show")));
+  }
+
+  function declineInvite() {
+    audio.setMusic(false);
+    closeInvite();
   }
 
   function closeInvite() {
     if (!invite) return;
     const leaving = invite;
     invite = null;
+    // Focus would drop to <body> with the invite; the sound switch offers the same choice.
+    if (leaving.contains(document.activeElement)) soundSwitch?.focus({ preventScroll: true });
+    leaving.inert = true;
     leaving.classList.remove("show");
     setTimeout(() => leaving.remove(), 600);
   }
@@ -158,6 +167,11 @@
       if ((event.key || "").toLowerCase() !== "m" || event.ctrlKey || event.metaKey || event.altKey || event.repeat) return;
       if (event.target.closest?.("input, textarea, select, [contenteditable]")) return;
       setSound(!audio.music || !audio.running);
+    });
+
+    // Escape dismisses the invite from anywhere, like its "stay silent" button.
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && invite && !event.defaultPrevented) declineInvite();
     });
 
     // Each new chapter of the dive rings a soft chime (only when sound is on).
