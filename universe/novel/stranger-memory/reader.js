@@ -1,10 +1,10 @@
 const readerCopy = {
   zh: {
-    readingSettings: "阅读设置", languageSelector: "语言", fontDown: "减小字号", fontUp: "增大字号", toggleTheme: "切换阅读主题",
+    readingSettings: "阅读设置", languageSelector: "语言", fontDown: "减小字号", fontUp: "增大字号", fontSizeNow: "字号 {size}px", fontSizeMin: "已是最小字号 · {size}px", fontSizeMax: "已是最大字号 · {size}px", toggleTheme: "切换阅读主题",
     backCatalog: "小说目录", chapterTitle: "陌生记忆", themeLabel: "纸色", themePaper: "纸色", themeNight: "深色", railStatus: "状态", candidateStatus: "候选精修中", railLocation: "地点", railViewpoint: "视角", railReading: "阅读", fiveMinutes: "约 5 分钟", candidateBanner: "候选试读 · 非最终正典。内容可能在连续性审核后调整。", chapterLogline: "她从未学过外科，却用一个死者留下的双手救活了孩子。", editionLabel: "候选试读版", revisionDate: "依据 2026.08.22 编辑核对", englishNotice: "当前候选试读以中文原文呈现；英文文学版本正在编辑翻译中。", savedAt: "上次读到", resumeReading: "继续上次进度", restartReading: "从头阅读", loadingChapter: "正在打开记忆档案……", loadError: "试读内容暂时无法载入，请稍后重试。", previewEndTitle: "第一道封锁线落下之后，白幽灵小队才会抵达。", previewEndBody: "后续精修将进入白幽灵调查、可撤回的同步同意程序，以及 ECHO 网络中尚未命名的信号。本次停在已经通过设定核对的公开边界。", backDirectory: "返回章节目录", saveSerial: "收藏连载", savedSerial: "已收藏", notCanon: "尚未晋升正典", savedToast: "已收藏在当前设备", removedToast: "已取消收藏", pageTitle: "第一章：陌生记忆 · ECHO NOVEL", pageDescription: "《回响纪元》第一章《陌生记忆》候选试读：她从未学过外科，却用一个死者留下的双手救活了孩子。"
   },
   en: {
-    readingSettings: "Reading settings", languageSelector: "Language", fontDown: "Decrease font size", fontUp: "Increase font size", toggleTheme: "Switch reading theme",
+    readingSettings: "Reading settings", languageSelector: "Language", fontDown: "Decrease font size", fontUp: "Increase font size", fontSizeNow: "Font size {size}px", fontSizeMin: "Smallest font size · {size}px", fontSizeMax: "Largest font size · {size}px", toggleTheme: "Switch reading theme",
     backCatalog: "Novel index", chapterTitle: "Stranger Memory", themeLabel: "Paper", themePaper: "Paper", themeNight: "Night", railStatus: "Status", candidateStatus: "Candidate revision", railLocation: "Location", railViewpoint: "Viewpoint", railReading: "Reading", fiveMinutes: "About 5 minutes", candidateBanner: "Candidate preview · Not final canon. Text may change after continuity review.", chapterLogline: "She never studied surgery, yet saves a child with the hands a dead doctor left behind.", editionLabel: "Candidate preview edition", revisionDate: "Based on the 2026.08.22 editorial review", englishNotice: "This candidate preview is currently presented in its Chinese original. The English literary edition is in editorial translation.", savedAt: "Last position", resumeReading: "Resume", restartReading: "Start over", loadingChapter: "Opening memory archive…", loadError: "The preview could not be loaded. Please try again shortly.", previewEndTitle: "White Ghost Team arrives after the first containment line falls.", previewEndBody: "The revision continues into the White Ghost investigation, a revocable memory-sync consent procedure and an unnamed signal inside ECHO. This preview stops at the boundary already cleared for public reading.", backDirectory: "Back to chapters", saveSerial: "Save serial", savedSerial: "Saved", notCanon: "Not promoted to canon", savedToast: "Saved on this device", removedToast: "Removed from saved", pageTitle: "Chapter 01: Stranger Memory · ECHO NOVEL", pageDescription: "Candidate preview of Stranger Memory, Chapter One of ECHO: Echo Age."
   }
 };
@@ -78,6 +78,8 @@ const themeKey = "echo.novel.reader.theme";
 let locale = "zh";
 let savedProgress = 0;
 let fontSize = 19;
+const minFontSize = 17;
+const maxFontSize = 25;
 let theme = "night";
 let chapterLoaded = false;
 
@@ -121,13 +123,21 @@ function syncThemeControl() {
 }
 
 function applyReaderPreferences() {
-  fontSize = Math.max(17, Math.min(25, getStoredNumber(sizeKey, 19)));
+  fontSize = Math.max(minFontSize, Math.min(maxFontSize, getStoredNumber(sizeKey, 19)));
   try { theme = localStorage.getItem(themeKey) === "paper" ? "paper" : "night"; } catch (_) { theme = "night"; }
   document.documentElement.style.setProperty("--reader-size", `${fontSize}px`); document.body.dataset.theme = theme; document.body.dataset.echoTheme = theme === "paper" ? "snow" : "graphite";
-  syncThemeControl();
+  syncThemeControl(); syncFontControls();
 }
 
-function setFontSize(value) { fontSize = Math.max(17, Math.min(25, value)); document.documentElement.style.setProperty("--reader-size", `${fontSize}px`); try { localStorage.setItem(sizeKey, String(fontSize)); } catch (_) {} }
+function setFontSize(value) { fontSize = Math.max(minFontSize, Math.min(maxFontSize, value)); document.documentElement.style.setProperty("--reader-size", `${fontSize}px`); try { localStorage.setItem(sizeKey, String(fontSize)); } catch (_) {} syncFontControls(true); }
+
+// At either limit the button stays focusable but reads as unavailable (aria-disabled), and every
+// press announces the size through the status toast, so the 17px and 25px ends are never dead clicks.
+function syncFontControls(announce = false) {
+  const atMin = fontSize <= minFontSize; const atMax = fontSize >= maxFontSize;
+  [["#font-down", atMin], ["#font-up", atMax]].forEach(([selector, atLimit]) => { const button = document.querySelector(selector); if (!button) return; if (atLimit) button.setAttribute("aria-disabled", "true"); else button.removeAttribute("aria-disabled"); });
+  if (announce) showToast(readerCopy[locale][atMax ? "fontSizeMax" : atMin ? "fontSizeMin" : "fontSizeNow"].replace("{size}", String(fontSize)));
+}
 
 function createChapterIllustration(illustration, index) {
   const figure = document.createElement("figure");

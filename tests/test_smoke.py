@@ -399,6 +399,10 @@ def test_novel_serial_exposes_candidate_preview_reader_and_local_preferences():
     assert "stranger-memory.zh.md" in reader_js
     assert "echo.novel.reader.size" in reader_js
     assert "echo.novel.reader.theme" in reader_js
+    # The font-size buttons report their 17px/25px limits instead of going silent.
+    assert 'button.setAttribute("aria-disabled", "true")' in reader_js
+    assert reader_js.count("fontSizeMax:") == 2
+    assert '.reader-actions > button[aria-disabled="true"]' in styles
     assert 'id="governance-protocol"' in catalog
     assert 'data-resonance-choice="support"' in catalog
     assert 'data-resonance-choice="revise"' in catalog
