@@ -252,7 +252,8 @@ def test_api_serves_public_homepage_local_console_and_characters():
     assert "ACROSS MEDIA" in universe.text
     console = client.get("/console/")
     assert console.status_code == 200
-    assert "ECHO OS · Internal Console" in console.text
+    assert "<title>ECHO OS · CONSOLE</title>" in console.text
+    assert ">OS · CONSOLE</span>" in console.text
     response = client.get("/api/canon/characters")
     assert response.status_code == 200
     assert len(response.json()) >= 8
