@@ -102,7 +102,7 @@
 .archive-edition .chapter-state :is(span, i) { color: var(--echo-ink-muted); font-size: 10px; }
 .archive-edition .chapter-state i { color: var(--echo-core); font-size: 25px; }
 .archive-edition .badge { border-radius: var(--echo-radius-xs); padding: 6px 8px; background: transparent; border-color: var(--line-strong); color: var(--muted); font: 500 10px var(--mono); letter-spacing: .08em; }
-.archive-edition .badge.candidate { background: rgba(169, 199, 255, .1); border-color: transparent; color: var(--echo-signal); }
+.archive-edition .badge.candidate { color: var(--echo-ink); } /* neutral; the dashed candidate line comes from universe/styles.css */
 .archive-edition .chapter-planned { opacity: .8; }
 .archive-edition .editorial-section { background: linear-gradient(var(--echo-surface), var(--echo-ground)); }
 .archive-edition .editorial-layout { gap: 60px; }

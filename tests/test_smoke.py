@@ -370,6 +370,22 @@ def test_site_lockups_and_owner_lines_read_echo():
     assert not (root / "homepage" / "assets" / "echo-age-logo.svg").exists()
 
 
+def test_category_badges_are_neutral_and_only_canon_carries_core():
+    # Badges are told apart by label and a line marker; state colours stay for states.
+    root = CanonStore().root
+    rules = [
+        (selector.strip(), body)
+        for name in ("universe/styles.css", "homepage/future.css", "homepage/interiors.css")
+        for selector, body in re.findall(r"([^{}]+)\{([^{}]*)\}", (root / name).read_text(encoding="utf-8"))
+        if re.search(r"\.badge|\.status[-:\s.]", selector) and ".status-grid" not in selector
+    ]
+    assert len(rules) >= 10
+    for selector, body in rules:
+        assert "--echo-signal" not in body and "--echo-resonance" not in body, selector
+        if "--echo-core" in body:
+            assert ".canon" in selector and ".available" not in selector, selector
+
+
 def test_developers_phone_header_keeps_section_nav_and_back_link():
     root = CanonStore().root
     interiors = (root / "homepage" / "interiors.css").read_text(encoding="utf-8")

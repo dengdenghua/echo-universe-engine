@@ -136,11 +136,16 @@
 .future-site .product-role { color: var(--echo-ink-muted); }
 .future-site .product-copy > p:last-child, .future-site .agent-card > p, .future-site .capability-card p, .future-site .roadmap-stages p { color: var(--echo-ink-muted); }
 .future-site .product-index, .future-site .product-signal { color: var(--echo-ink-muted); }
-/* Status tags: like a nameplate on an instrument. Colour only where it encodes a state. */
-.future-site .status { border-radius: var(--echo-radius-xs); background: transparent; border-color: var(--echo-line-strong); color: var(--echo-ink-muted); font-family: var(--echo-font-telemetry); font-weight: 500; letter-spacing: .08em; }
-.future-site .status-beta { color: var(--echo-core); background: var(--echo-core-soft); border-color: transparent; }
-.future-site .status-private { color: var(--echo-signal); border-color: rgba(169, 199, 255, .28); }
-.future-site .status-concept { color: var(--echo-ink-muted); border-style: dashed; }
+/* Status tags: like a nameplate on an instrument. Release stages are neutral and told apart by their
+   label and a short line, never by colour: beta solid, preview dashed, private dotted, concept a dashed frame. */
+.future-site .status { gap: 7px; border-radius: var(--echo-radius-xs); background: transparent; border-color: var(--echo-line-strong); color: var(--echo-ink-muted); font-family: var(--echo-font-telemetry); font-weight: 500; letter-spacing: .08em; }
+.future-site .status::before { content: ""; flex: none; width: 10px; height: 2px; background: currentColor; }
+.future-site .status-beta { color: var(--echo-ink); }
+.future-site .status-preview::before { background: linear-gradient(90deg, currentColor 0 4px, transparent 4px 6px, currentColor 6px); }
+.future-site .status-private::before { background: repeating-linear-gradient(90deg, currentColor 0 2px, transparent 2px 4px); }
+.future-site .status-concept { border-style: dashed; }
+.future-site .status-concept::before { content: none; }
+:root[lang^="zh"] .future-site .status { letter-spacing: 0; }
 .future-site .product-backplane { background: var(--echo-surface); }
 .future-site .product-backplane b, .future-site .product-backplane span { color: var(--echo-ink-muted); }
 .future-site .capability-core, .future-site .capability-identity { background: var(--echo-surface); }

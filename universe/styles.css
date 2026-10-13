@@ -67,11 +67,17 @@ main { position: relative; overflow: hidden; isolation: isolate; }
 .section-heading h2, .atlas-copy h2, .community-copy h2, .canon-notes h2 { margin: 0; font-size: clamp(36px,4.2vw,58px); font-weight: 240; line-height: 1.08; letter-spacing: -.035em; }
 .heading-copy { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
 .badge { width: max-content; min-height: 22px; padding: 0 8px; display: inline-flex; align-items: center; border: 1px solid var(--echo-line-strong); border-radius: var(--echo-radius-xs); color: var(--echo-ink-muted); background: transparent; font: 500 10px var(--echo-font-telemetry); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
-.badge.canon { color: var(--echo-core); border-color: transparent; background: var(--echo-core-soft); }
-.badge.candidate { color: var(--echo-signal); border-color: transparent; background: rgba(169, 199, 255, .1); }
-.badge.personal { color: var(--echo-resonance); border-color: transparent; background: rgba(244, 166, 200, .1); }
-.badge.development { color: var(--echo-ink-muted); border-color: var(--echo-line-strong); background: transparent; }
-.badge.available { color: var(--echo-core); border-color: transparent; background: var(--echo-core-soft); }
+/* Content classes are neutral badges told apart by their label and a short line, never by colour:
+   canon solid (the only badge allowed the Echo Core accent), candidate dashed, personal dotted. */
+.badge:is(.canon, .candidate, .personal) { gap: 6px; color: var(--echo-ink); }
+.protocol-list b { display: flex; align-items: center; gap: 8px; }
+.badge:is(.canon, .candidate, .personal)::before, .protocol-list b::before { content: ""; flex: none; width: 10px; height: 2px; background: currentColor; }
+.badge.canon::before, .protocol-list .canon::before { background: var(--echo-core); }
+.badge.candidate::before, .protocol-list .candidate::before { background: linear-gradient(90deg, currentColor 0 4px, transparent 4px 6px, currentColor 6px); }
+.badge.personal::before, .protocol-list .personal::before { background: repeating-linear-gradient(90deg, currentColor 0 2px, transparent 2px 4px); }
+/* Production states stay plain: available reads brighter, in development muted, concept dashed. */
+.badge.available { color: var(--echo-ink); }
+.badge.development { color: var(--echo-ink-muted); }
 .badge.concept { color: var(--echo-ink-muted); border-style: dashed; }
 
 .story-section { min-height: 900px; padding: 104px 0 112px; background: radial-gradient(circle at 73% 55%, rgba(104, 118, 137, .09), transparent 31%), rgba(9, 10, 12, .48); }
