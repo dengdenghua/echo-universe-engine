@@ -286,6 +286,8 @@ def test_reviewer_portal_is_separate_and_requires_a_reviewer_token():
     assert "echo.reviewer.token" in javascript
     assert "/api/canon/governance/candidates" in javascript
     assert "expected_revision_sha256" in javascript
+    assert javascript.count("pageTitle:") == 2
+    assert 'document.title = text("pageTitle")' in javascript
 
 
 def test_homepage_exposes_bilingual_locale_controls():

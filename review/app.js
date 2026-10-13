@@ -1,5 +1,6 @@
 const copy = {
   zh: {
+    pageTitle: "ECHO REVIEW · 正典审核台",
     protocolLabel: "正典晋升流程", protocolContinuity: "连续性审校", protocolCommittee: "委员会审核", protocolCanon: "正典晋升",
     reviewDesk: "正典审核台", logout: "退出", title: "让每一次正典晋升，都能被追溯。",
     subtitle: "每位委员只能操作自己的席位。社区共鸣提供参考，不代替连续性审校与委员会决定。",
@@ -13,6 +14,7 @@ const copy = {
     confirmVeto: "连续性否决必须通过新版本才能解除，确认提交？",
   },
   en: {
+    pageTitle: "ECHO REVIEW · Canon Review",
     protocolLabel: "Canon promotion protocol", protocolContinuity: "Continuity review", protocolCommittee: "Committee review", protocolCanon: "Canon promotion",
     reviewDesk: "Canon Review", logout: "Sign out", title: "Make every canon promotion traceable.",
     subtitle: "Each reviewer controls one seat only. Community resonance informs priority; it never replaces continuity or committee review.",
@@ -141,6 +143,7 @@ function renderCard(row) {
 
 function render() {
   document.documentElement.lang = locale === "zh" ? "zh-CN" : "en";
+  document.title = text("pageTitle");
   document.querySelectorAll("[data-copy]").forEach((node) => { node.textContent = text(node.dataset.copy); });
   document.querySelectorAll("[data-copy-aria]").forEach((node) => { node.setAttribute("aria-label", text(node.dataset.copyAria)); });
   $("#lang-toggle").textContent = locale === "zh" ? "EN" : "中文";
