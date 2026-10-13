@@ -211,7 +211,7 @@ function renderAtlas() {
   const detailBody = spoilersVisible && item.spoiler ? `${item.body} ${item.spoiler}` : item.body;
   document.querySelector("#atlas-detail").innerHTML = `<div class="detail-status"><b class="badge canon">CANON</b><b class="badge available">AVAILABLE</b></div><span class="detail-type">${item.type}</span><h3>${item.name}</h3><p>${detailBody}</p><small>SOURCE · ${item.source}</small>`;
   document.querySelectorAll("[data-atlas]").forEach((button) => button.classList.toggle("active", button.dataset.atlas === currentAtlas));
-  document.querySelectorAll("[data-atlas-index]").forEach((button) => button.addEventListener("click", () => { currentAtlasIndex = Number(button.dataset.atlasIndex); renderAtlas(); }));
+  document.querySelectorAll("[data-atlas-index]").forEach((button) => button.addEventListener("click", () => { currentAtlasIndex = Number(button.dataset.atlasIndex); renderAtlas(); document.querySelector(`[data-atlas-index="${currentAtlasIndex}"]`)?.focus(); }));
 }
 
 function renderMedia() {

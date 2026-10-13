@@ -228,7 +228,9 @@
 .developer-edition .endpoint-table .method { color: var(--echo-core); background: var(--echo-core-soft); border-color: transparent; border-radius: var(--echo-radius-xs); }
 .developer-edition .send-btn { min-height: 48px; color: var(--echo-on-action); background: var(--echo-action); border: 1px solid var(--echo-action); border-radius: var(--echo-radius-sm); font-size: 12px; font-weight: 500; }
 .developer-edition .send-btn:hover { background: var(--echo-action); opacity: .88; }
-.developer-edition .result-status { color: var(--accent); }
+.developer-edition .result-status { color: var(--muted); }
+.developer-edition .result-status.ok { color: var(--accent); }
+.developer-edition .result-status.err { color: var(--echo-breach); }
 .developer-edition .limit-list li { border-color: var(--line); }
 .developer-edition .limit-list b { color: var(--text); }
 .developer-edition .spec-link { border-radius: var(--echo-radius-md); background: var(--panel); border-color: var(--line); color: var(--muted); padding: 22px; }
@@ -426,3 +428,10 @@
   html:has(.echo-interior) { scroll-behavior: auto; }
   .echo-interior *, .echo-interior *::before, .echo-interior *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Brand type floor: Chinese never renders below the 12px caption size. */
+:root[lang^="zh"] .echo-interior :is(.locale-switch button, .universe-nav a, .dev-nav a, .back-echo, .reader-back b) { font-size: 12px; }
+:root[lang^="zh"] .archive-edition :is(.governance-detail header p, .resonance-actions button span, .resonance-split small, .novel-metadata small, .novel-metadata b[data-i18n], .cover-caption span, .cover-caption b, .status-grid small, .status-grid strong, .chapter-state span, .governance-step p, .governance-step > i, .governance-boundary, .editorial-note p, .novel-footer span) { font-size: 12px; }
+:root[lang^="zh"] .reader-edition :is(.reader-rail dt, .reader-rail dd, .candidate-banner p, .chapter-byline span, .chapter-illustration figcaption p, .preview-actions a, .preview-actions button, .chapter-footnote b) { font-size: 12px; }
+:root[lang^="zh"] .developer-edition :is(.observatory-bottom span, .hero-facts small, .copy-btn, .tier-card code, .endpoint-table th, .result-status, .dev-footer nav a) { font-size: 12px; }
+:root[lang^="zh"] .review-edition :is(.seal-steps b, footer a) { font-size: 12px; }

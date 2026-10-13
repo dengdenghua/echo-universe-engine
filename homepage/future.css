@@ -279,9 +279,13 @@
   .universe-edition .future-hero { min-height: 960px; }
   .universe-edition .future-secondary { max-width: 130px; }
 }
+/* With the sound switch in the header, "进入 ECHO" no longer fits beside it below ~410px:
+   it wrapped onto two lines and pushed the switch against the wordmark. */
+@media (max-width: 410px) {
+  .future-site .header-actions .enter-link { display: none; }
+}
 @media (max-width: 370px) {
   .future-site { --gutter: 17px; }
-  .future-site .header-actions .enter-link { display: none; }
   .future-hero-actions { gap: 12px; }
   .future-primary { min-width: 151px; font-size: 10px; }
   .future-site .echo-wordmark > span { left: calc(100% + 9px); }
