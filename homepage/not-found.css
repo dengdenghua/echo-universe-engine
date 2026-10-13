@@ -1,0 +1,95 @@
+/* Designed 404 for every site folder (homepage/404.html). Graphite page, one Echo Core, no colour beyond it. */
+:root { color-scheme: dark; }
+* { box-sizing: border-box; }
+
+.not-found {
+  min-height: 100vh;
+  min-height: 100svh;
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: radial-gradient(circle at 50% 42%, rgba(238, 241, 244, .05), transparent 46%), var(--echo-ground);
+  color: var(--echo-ink);
+  font-family: var(--echo-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.not-found a { color: inherit; text-decoration: none; }
+.not-found a:focus-visible { outline: 2px solid var(--echo-focus); outline-offset: 3px; border-radius: var(--echo-radius-xs); }
+
+.nf-header,
+.nf-footer {
+  width: min(1180px, calc(100% - 32px));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.nf-header { min-height: 76px; border-bottom: 1px solid var(--echo-line); }
+.nf-brand { min-height: 44px; }
+.nf-header-code { color: var(--echo-ink-faint); }
+
+.nf-main {
+  width: min(620px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 64px 0 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* The mark sits inside two hairline orbits, like a beacon that found nothing to answer. */
+.nf-signal { position: relative; width: 168px; height: 168px; display: grid; place-items: center; margin-bottom: 36px; }
+.nf-ring { position: absolute; inset: 0; border: 1px solid var(--echo-line-strong); border-radius: 50%; }
+.nf-ring-inner { inset: 30px; border-style: dashed; }
+.nf-mark { position: relative; width: 56px; height: 56px; color: var(--echo-ink); }
+
+.nf-status { margin: 0; display: inline-flex; align-items: center; gap: 10px; color: var(--echo-ink-muted); }
+.nf-status span:first-child { color: var(--echo-ink); }
+.nf-status i { width: 16px; height: 1px; background: var(--echo-line-strong); }
+
+.not-found h1 { margin: 20px 0 0; font-size: clamp(30px, 5vw, 44px); font-weight: 300; line-height: 1.2; letter-spacing: 0; }
+.nf-body { max-width: 34em; margin: 18px 0 0; color: var(--echo-ink-muted); font-size: 15px; line-height: 1.8; text-wrap: balance; }
+.nf-body-en { margin-top: 8px; color: var(--echo-ink-faint); font-size: 13px; line-height: 1.7; }
+
+.nf-actions { margin-top: 36px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.nf-actions a {
+  min-height: 48px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--echo-line-strong);
+  border-radius: var(--echo-radius-sm);
+  font-size: 14px;
+  transition: background-color var(--echo-duration-fast) var(--echo-ease), border-color var(--echo-duration-fast) var(--echo-ease);
+}
+.nf-actions small { font: 500 11px/1 var(--echo-font-mono); letter-spacing: .14em; opacity: .64; }
+.nf-actions b { font-weight: 400; }
+.nf-primary { background: var(--echo-action); border-color: var(--echo-action); color: var(--echo-on-action); }
+.not-found .nf-primary { color: var(--echo-on-action); }
+.nf-primary:hover { background: var(--echo-ink-muted); border-color: var(--echo-ink-muted); }
+.nf-secondary:hover { border-color: var(--echo-ink-muted); background: rgba(238, 241, 244, .04); }
+
+.nf-footer { min-height: 64px; border-top: 1px solid var(--echo-line); color: var(--echo-ink-faint); }
+.nf-footer small { font-size: 12px; }
+.nf-footer .echo-telemetry { color: var(--echo-ink-faint); }
+
+@media (max-width: 600px) {
+  .nf-header { min-height: 64px; }
+  .nf-main { padding: 44px 0 56px; }
+  .nf-signal { width: 136px; height: 136px; margin-bottom: 28px; }
+  .nf-ring-inner { inset: 24px; }
+  .nf-mark { width: 48px; height: 48px; }
+  .nf-body:not(.nf-body-en) { font-size: 14px; }
+  .nf-actions { width: 100%; flex-direction: column; }
+  .nf-actions a { justify-content: center; }
+  .nf-footer { flex-direction: column; justify-content: center; gap: 4px; padding: 14px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nf-actions a { transition: none; }
+}

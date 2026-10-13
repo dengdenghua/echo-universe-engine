@@ -259,6 +259,25 @@ def test_api_serves_public_homepage_local_console_and_characters():
     assert len(response.json()) >= 8
 
 
+def test_unknown_site_pages_get_the_designed_404():
+    client = TestClient(app)
+    for path in ("/universe/does-not-exist", "/universe/novel/missing/", "/home/nope", "/developers/x/y", "/review/zzz"):
+        response = client.get(path)
+        assert response.status_code == 404, path
+        assert response.headers["content-type"].startswith("text/html"), path
+        assert response.headers["cache-control"] == "no-cache", path
+        assert "NO ECHO AT THIS ADDRESS" in response.text, path
+        assert 'href="/universe/"' in response.text and 'href="/"' in response.text, path
+    # Missing assets stay plain 404s, and real pages are untouched.
+    assert client.get("/home/missing.css").headers["content-type"] == "application/json"
+    assert client.get("/universe/").status_code == 200
+    page = (CanonStore().root / "homepage" / "404.html").read_text(encoding="utf-8")
+    assert not re.search(r'(href|src)="(?!/|#)', page), "the 404 page is served at any depth"
+    nginx = (CanonStore().root / "deploy" / "universe.echo-age.com.static.nginx.conf").read_text(encoding="utf-8")
+    assert nginx.count("error_page 404 /home/404.html;") == 4
+    assert "/universe/index.html;" not in nginx
+
+
 def test_delivery_includes_public_sites_and_never_falls_back_to_internal_console(
     tmp_path,
     monkeypatch,

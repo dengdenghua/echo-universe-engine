@@ -6,15 +6,17 @@ import hmac
 import os
 import re
 import secrets
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Literal
 
 import yaml
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import AliasChoices, BaseModel, Field
+from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.types import Scope
 
 from echo_engine.auth import JWTError, decode_hs256
 from echo_engine.bindings import (
@@ -110,6 +112,35 @@ class RenamedStaticFiles(StaticFiles):
             if renamed != list(parts):
                 return super().lookup_path(str(Path(*renamed)))
         return full_path, stat_result
+
+
+_PAGE_SUFFIXES = {"", ".html", ".htm"}
+
+
+class SiteStaticFiles(StaticFiles):
+    """站点目录（/home、/universe、/developers、/review、/console）共用的静态挂载。
+
+    这些目录都没有前端路由，未知页面应当是真正的 404，而不是回退到某个 index。
+    找不到页面时统一返回设计过的 homepage/404.html（状态码 404、no-cache）；页面里
+    的资源全部用绝对路径，挂在任何深度的 URL 下都能正常渲染。缺失的 CSS/JS/图片
+    仍是普通 404，不为每张缺图下发一整页 HTML。生产 nginx 的对应 error_page 见
+    deploy/universe.echo-age.com.static.nginx.conf。
+    """
+
+    async def get_response(self, path: str, scope: Scope) -> Response:
+        try:
+            response = await super().get_response(path, scope)
+        except StarletteHTTPException as exc:
+            if exc.status_code != 404:
+                raise
+        else:
+            # html=True 时 Starlette 会自己找挂载目录里的 404.html（只有 /home 有），这里统一接管。
+            if response.status_code != 404:
+                return response
+        not_found_page = homepage_dir / "404.html"
+        if PurePosixPath(path).suffix.lower() not in _PAGE_SUFFIXES or not not_found_page.is_file():
+            raise StarletteHTTPException(status_code=404)
+        return FileResponse(not_found_page, status_code=404, headers={"Cache-Control": "no-cache"})
 
 
 app = FastAPI(title="ECHO Universe Engine", version="0.1.0")
@@ -425,19 +456,19 @@ async def production_api_guard(request: Request, call_next):
 
 console_dir = Path("console")
 if console_dir.exists():
-    app.mount("/console", StaticFiles(directory=console_dir, html=True), name="console")
+    app.mount("/console", SiteStaticFiles(directory=console_dir, html=True), name="console")
 homepage_dir = Path("homepage")
 if homepage_dir.exists():
-    app.mount("/home", StaticFiles(directory=homepage_dir, html=True), name="homepage")
+    app.mount("/home", SiteStaticFiles(directory=homepage_dir, html=True), name="homepage")
 universe_dir = Path("universe")
 if universe_dir.exists():
-    app.mount("/universe", StaticFiles(directory=universe_dir, html=True), name="universe")
+    app.mount("/universe", SiteStaticFiles(directory=universe_dir, html=True), name="universe")
 developers_dir = Path("developers")
 if developers_dir.exists():
-    app.mount("/developers", StaticFiles(directory=developers_dir, html=True), name="developers")
+    app.mount("/developers", SiteStaticFiles(directory=developers_dir, html=True), name="developers")
 review_dir = Path("review")
 if review_dir.exists():
-    app.mount("/review", StaticFiles(directory=review_dir, html=True), name="review")
+    app.mount("/review", SiteStaticFiles(directory=review_dir, html=True), name="review")
 assets_dir = Path("assets")
 if assets_dir.exists():
     app.mount("/assets", RenamedStaticFiles(directory=assets_dir), name="assets")
