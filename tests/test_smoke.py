@@ -240,7 +240,7 @@ def test_api_serves_public_homepage_local_console_and_characters():
     client = TestClient(app)
     homepage = client.get("/")
     assert homepage.status_code == 200
-    assert "<title>ECHO AGE" in homepage.text
+    assert "<title>ECHO · 回响纪元" in homepage.text
     assert client.get("/home/future.css").status_code == 200
     assert client.get("/home/scene.js").status_code == 200
     assert "ECHO STATION" in homepage.text
