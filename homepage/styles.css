@@ -336,8 +336,9 @@ body.motion-paused main *, body.motion-paused main *::before, body.motion-paused
 .enter-panel > a:hover { border-color: rgba(238, 241, 244, .4); background: rgba(44, 51, 59, .22); }
 .enter-panel > a i { color: var(--echo-ink-muted); font-size: 12px; font-style: normal; }
 .site-footer { position: absolute; z-index: 4; left: var(--gutter); right: var(--gutter); bottom: 0; height: 64px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; border-top: 1px solid rgba(238, 241, 244, .08); }
-.footer-brand img { display: block; width: 176px; height: auto; opacity: .85; transition: opacity .25s ease; }
-.footer-brand:hover img { opacity: 1; filter: saturate(1); }
+.footer-brand { min-height: 44px; color: var(--echo-ink); }
+.footer-brand .echo-wordmark-svg { width: auto; height: 17px; opacity: .85; transition: opacity .25s ease; }
+.footer-brand:hover .echo-wordmark-svg { opacity: 1; }
 .site-footer nav { display: flex; align-items: center; gap: 30px; }.site-footer nav a { color: var(--echo-ink-muted); font-size: 9px; letter-spacing: .08em; }.site-footer nav a:hover { color: var(--echo-ink); }
 .site-footer small { justify-self: end; color: var(--echo-ink-faint); font-size: 8px; }
 

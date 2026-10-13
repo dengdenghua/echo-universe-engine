@@ -318,7 +318,7 @@ def test_homepage_exposes_bilingual_locale_controls():
     assert "ECHO HEALTH" in html
     assert "BEYOND" in html
     assert "MEMORY SEA" in html
-    assert "echo-age-logo.svg" in html
+    assert 'class="footer-brand"' in html
     assert "action-flow" in html
     assert 'id="echo-singularity"' in html
     assert "/home/scene.js" in html
@@ -343,6 +343,30 @@ def test_sound_invite_follows_the_header_and_closes_on_escape():
     assert "header.after(invite)" in experience
     assert 'event.key === "Escape" && invite' in experience
     assert "soundSwitch?.focus(" in experience
+
+
+def test_site_lockups_and_owner_lines_read_echo():
+    # 回响纪元 / ECHO AGE names the era in copy; logos, footers and owner lines say ECHO.
+    root = CanonStore().root
+    files = [
+        path
+        for folder in ("homepage", "universe", "developers", "review", "console")
+        for pattern in ("*.html", "*.js")
+        for path in sorted((root / folder).rglob(pattern))
+    ]
+    assert len(files) >= 16
+    for path in files:
+        text = path.read_text(encoding="utf-8")
+        for retired in (
+            "© 2026 ECHO AGE",
+            "ECHO: ECHO AGE",
+            "ECHO: Echo Age",
+            "ECHO AGE · CANON PROTOCOL",
+            "2147 / Echo Age",
+            "echo-age-logo",
+        ):
+            assert retired not in text, (path, retired)
+    assert not (root / "homepage" / "assets" / "echo-age-logo.svg").exists()
 
 
 def test_developers_phone_header_keeps_section_nav_and_back_link():

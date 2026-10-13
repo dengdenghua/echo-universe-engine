@@ -818,7 +818,7 @@
     "If memory can be copied, what is a human?",
     "If consciousness can be uploaded, what is death?",
     "If a perfect copy of you exists, which one is real?",
-    "回响纪元 · ECHO: Echo Age",
+    "回响纪元 · The Echo Age",
     "幽灵觉醒 · Ghost Awakening",
     "identity registry · checksum mismatch",
     "memory afterimage detected · sector 7",
