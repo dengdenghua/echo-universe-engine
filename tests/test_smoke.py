@@ -365,6 +365,26 @@ def test_sound_invite_follows_the_header_and_closes_on_escape():
     assert "soundSwitch?.focus(" in experience
 
 
+def test_homepage_static_copy_matches_the_javascript_chinese_default():
+    # No-JS visitors and crawlers read the HTML; it must say what app.js shows by default.
+    root = CanonStore().root
+    html = (root / "homepage" / "index.html").read_text(encoding="utf-8")
+    javascript = (root / "homepage" / "app.js").read_text(encoding="utf-8")
+    zh_block = javascript[javascript.index("  zh: {") : javascript.index("  en: {")]
+    zh = dict(re.findall(r'(?m)^\s+(\w+): "(.*)",$', zh_block))
+    checked = 0
+    for key, inner in re.findall(r'<(?:p|span|h[1-6]|strong|small|div|a)\b[^>]*\sdata-i18n="([^"]+)"[^>]*>(.*?)</', html):
+        assert re.sub(r"<[^>]+>", "", inner).strip() == zh[key], key
+        checked += 1
+    assert checked >= 60
+    meta_block = javascript[javascript.index("const localeMetadata") :]
+    description = re.search(r'description: "(.*)",', meta_block).group(1)
+    social = re.search(r'socialDescription: "(.*)",', meta_block).group(1)
+    assert f'<meta name="description" content="{description}" />' in html
+    assert f'<meta property="og:description" content="{social}" />' in html
+    assert f'<meta name="twitter:description" content="{social}" />' in html
+
+
 def test_site_lockups_and_owner_lines_read_echo():
     # 回响纪元 / ECHO AGE names the era in copy; logos, footers and owner lines say ECHO.
     root = CanonStore().root
