@@ -278,6 +278,20 @@ def test_unknown_site_pages_get_the_designed_404():
     assert "/universe/index.html;" not in nginx
 
 
+def test_every_static_location_that_sets_headers_repeats_the_security_headers():
+    # nginx drops server-level add_header lines inside any location that sets its own.
+    nginx = (CanonStore().root / "deploy" / "universe.echo-age.com.static.nginx.conf").read_text(encoding="utf-8")
+    blocks = re.findall(r"\n    location ([^{]+)\{(.*?)\n    \}", nginx, flags=re.S)
+    checked = 0
+    for name, body in blocks:
+        if "add_header" not in body or "proxy_pass" in body or "Content-Security-Policy" not in body:
+            continue
+        checked += 1
+        for header in ("Strict-Transport-Security", "X-Content-Type-Options", "X-Frame-Options", "Referrer-Policy"):
+            assert header in body, f"{name.strip()} is missing {header}"
+    assert checked >= 6
+
+
 def test_delivery_includes_public_sites_and_never_falls_back_to_internal_console(
     tmp_path,
     monkeypatch,
