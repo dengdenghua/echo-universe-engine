@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="/home/assets/echo-tokens.css?v=20261013-brand" />
     <link rel="stylesheet" href="/home/assets/echo-brand.css?v=20261013-brand" />
     <link rel="stylesheet" href="/universe/styles.css?v=20261013-walk" />
-    <link rel="stylesheet" href="/home/future.css?v=20261013-walk" />
+    <link rel="stylesheet" href="/home/future.css?v=20261013-walk2" />
     <link rel="stylesheet" href="/home/type.css?v=20261013-walk" />
     <link rel="stylesheet" href="/home/experience.css?v=20261013-brand" />
   </head>
@@ -94,12 +94,12 @@
             <div class="heading-copy"><p data-i18n="storyIntro">白幽灵小队从一场陌生记忆事件出发，逐步发现 ECHO 正在成为新的生命。</p><button class="spoiler-toggle" id="spoiler-toggle" type="button" aria-pressed="false"><span data-i18n="spoilerOff">无剧透</span><i></i></button></div>
           </header>
           <div class="season-layout">
-            <div class="season-rail" role="tablist" aria-label="故事季度">
-              <button class="season-tab active" type="button" data-season="s1" role="tab" aria-selected="true"><span>S1</span><strong data-i18n="seasonOneShort">幽灵觉醒</strong><small><b class="badge canon">CANON</b><b class="badge development" data-i18n="inDevelopment">开发中</b></small></button>
-              <button class="season-tab" type="button" data-season="s2" role="tab" aria-selected="false"><span>S2</span><strong data-i18n="seasonTwoShort">神之碎片</strong><small><b class="badge canon">CANON</b><b class="badge concept" data-i18n="concept">概念</b></small></button>
-              <button class="season-tab" type="button" data-season="s3" role="tab" aria-selected="false"><span>S3</span><strong data-i18n="seasonThreeShort">新神降临</strong><small><b class="badge canon">CANON</b><b class="badge concept" data-i18n="concept">概念</b></small></button>
+            <div class="season-rail" role="tablist" aria-label="故事季度" aria-orientation="vertical">
+              <button class="season-tab active" type="button" data-season="s1" role="tab" id="season-tab-s1" aria-controls="season-focus" aria-selected="true"><span>S1</span><strong data-i18n="seasonOneShort">幽灵觉醒</strong><small><b class="badge canon">CANON</b><b class="badge development" data-i18n="inDevelopment">开发中</b></small></button>
+              <button class="season-tab" type="button" data-season="s2" role="tab" id="season-tab-s2" aria-controls="season-focus" aria-selected="false"><span>S2</span><strong data-i18n="seasonTwoShort">神之碎片</strong><small><b class="badge canon">CANON</b><b class="badge concept" data-i18n="concept">概念</b></small></button>
+              <button class="season-tab" type="button" data-season="s3" role="tab" id="season-tab-s3" aria-controls="season-focus" aria-selected="false"><span>S3</span><strong data-i18n="seasonThreeShort">新神降临</strong><small><b class="badge canon">CANON</b><b class="badge concept" data-i18n="concept">概念</b></small></button>
             </div>
-            <article class="season-focus" aria-live="polite">
+            <article class="season-focus" id="season-focus" role="tabpanel" aria-labelledby="season-tab-s1" tabindex="0">
               <div class="season-index" id="season-index">SEASON 01 · 16 EPISODES</div>
               <h3 id="season-title">Ghost Awakening<br /><span>幽灵觉醒</span></h3>
               <p id="season-summary"></p>
@@ -116,14 +116,14 @@
             <p class="kicker">WORLD ATLAS</p><h2 data-i18n="atlasTitle">不是背景设定，<br />是一个正在运转的世界。</h2>
             <p data-i18n="atlasIntro">人物、势力、城市和技术都服从同一套正典规则。选择一个节点，进入它在记忆海中的位置。</p>
             <div class="atlas-tabs" role="tablist" aria-label="世界图谱分类">
-              <button class="atlas-tab active" type="button" data-atlas="characters" data-i18n="atlasCharacters">人物</button>
-              <button class="atlas-tab" type="button" data-atlas="factions" data-i18n="atlasFactions">势力</button>
-              <button class="atlas-tab" type="button" data-atlas="locations" data-i18n="atlasLocations">地点</button>
-              <button class="atlas-tab" type="button" data-atlas="technology" data-i18n="atlasTechnology">技术</button>
-              <button class="atlas-tab" type="button" data-atlas="timeline" data-i18n="atlasTimeline">时间线</button>
+              <button class="atlas-tab active" type="button" data-atlas="characters" role="tab" id="atlas-tab-characters" aria-controls="atlas-board" aria-selected="true" data-i18n="atlasCharacters">人物</button>
+              <button class="atlas-tab" type="button" data-atlas="factions" role="tab" id="atlas-tab-factions" aria-controls="atlas-board" aria-selected="false" data-i18n="atlasFactions">势力</button>
+              <button class="atlas-tab" type="button" data-atlas="locations" role="tab" id="atlas-tab-locations" aria-controls="atlas-board" aria-selected="false" data-i18n="atlasLocations">地点</button>
+              <button class="atlas-tab" type="button" data-atlas="technology" role="tab" id="atlas-tab-technology" aria-controls="atlas-board" aria-selected="false" data-i18n="atlasTechnology">技术</button>
+              <button class="atlas-tab" type="button" data-atlas="timeline" role="tab" id="atlas-tab-timeline" aria-controls="atlas-board" aria-selected="false" data-i18n="atlasTimeline">时间线</button>
             </div>
           </div>
-          <div class="atlas-board">
+          <div class="atlas-board" id="atlas-board" role="tabpanel" aria-labelledby="atlas-tab-characters">
             <div class="atlas-network" id="atlas-network" aria-label="可交互世界节点"></div>
             <article class="atlas-detail" id="atlas-detail" aria-live="polite"></article>
           </div>
@@ -137,14 +137,14 @@
             <p class="heading-copy" data-i18n="mediaIntro">每一种媒介共享正典，但拥有独立制作进度。没有成品的内容不会伪装成已经上线。</p>
           </header>
           <div class="media-switcher" role="tablist" aria-label="内容媒介">
-            <button class="media-tab active" type="button" data-media="story" data-i18n="mediaStory">故事线</button>
-            <button class="media-tab" type="button" data-media="novel" data-i18n="mediaNovel">小说</button>
-            <button class="media-tab" type="button" data-media="community" data-i18n="mediaCommunity">社区</button>
-            <button class="media-tab" type="button" data-media="comic" data-i18n="mediaComic">漫画</button>
-            <button class="media-tab" type="button" data-media="motion" data-i18n="mediaMotion">漫剧</button>
-            <button class="media-tab" type="button" data-media="screen" data-i18n="mediaScreen">影视</button>
+            <button class="media-tab active" type="button" data-media="story" role="tab" id="media-tab-story" aria-controls="media-focus" aria-selected="true" data-i18n="mediaStory">故事线</button>
+            <button class="media-tab" type="button" data-media="novel" role="tab" id="media-tab-novel" aria-controls="media-focus" aria-selected="false" data-i18n="mediaNovel">小说</button>
+            <button class="media-tab" type="button" data-media="community" role="tab" id="media-tab-community" aria-controls="media-focus" aria-selected="false" data-i18n="mediaCommunity">社区</button>
+            <button class="media-tab" type="button" data-media="comic" role="tab" id="media-tab-comic" aria-controls="media-focus" aria-selected="false" data-i18n="mediaComic">漫画</button>
+            <button class="media-tab" type="button" data-media="motion" role="tab" id="media-tab-motion" aria-controls="media-focus" aria-selected="false" data-i18n="mediaMotion">漫剧</button>
+            <button class="media-tab" type="button" data-media="screen" role="tab" id="media-tab-screen" aria-controls="media-focus" aria-selected="false" data-i18n="mediaScreen">影视</button>
           </div>
-          <article class="media-focus" id="media-focus" aria-live="polite">
+          <article class="media-focus" id="media-focus" role="tabpanel" aria-labelledby="media-tab-story">
             <div class="media-number" id="media-number">01</div>
             <div class="media-copy"><div class="dual-status" id="media-status"></div><p class="media-kicker" id="media-kicker"></p><h3 id="media-name"></h3><p id="media-description"></p><a id="media-action" href="#story"></a></div>
             <div class="media-visual" aria-hidden="true"><div class="format-frame"><span id="media-symbol">STORY</span><i></i><b></b></div></div>
@@ -183,7 +183,7 @@
     <script src="/home/soundtrack.js?v=20261008-3"></script>
     <script src="/home/scene.js?v=20261013-brand"></script>
     <script src="/home/dive.js?v=20261013-brand"></script>
-    <script src="/universe/app.js?v=20261013-walk"></script>
+    <script src="/universe/app.js?v=20261013-walk2"></script>
     <script src="/home/experience.js?v=20261013-brand"></script>
   </body>
 </html>

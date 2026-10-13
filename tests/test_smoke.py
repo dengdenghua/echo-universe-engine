@@ -360,6 +360,14 @@ def test_universe_page_exposes_canon_media_and_bilingual_controls():
     assert 'meta[property="og:locale"]' in javascript
     assert "echo.universe.spoilers" in javascript
     assert "prefers-reduced-motion" in styles
+    # Season, atlas and media switchers follow the tabs pattern end to end.
+    assert html.count('role="tablist"') == 3
+    assert html.count('role="tab"') == 3 + 5 + 6
+    for panel in set(re.findall(r'aria-controls="([^"]+)"', html)):
+        assert f'id="{panel}" role="tabpanel"' in html, panel
+    assert "tab.tabIndex = selected ? 0 : -1" in javascript
+    for key in ("ArrowRight", "ArrowLeft", '"Home"', '"End"'):
+        assert key in javascript, key
 
 
 def test_novel_serial_exposes_candidate_preview_reader_and_local_preferences():

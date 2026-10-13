@@ -191,6 +191,38 @@ function initialLocale() {
   return navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
 }
 
+// Tabs follow the WAI-ARIA tabs pattern: one tab stop per tablist (roving tabindex),
+// and the shared panel is labelled by whichever tab is selected.
+function syncTabs(selector, isSelected) {
+  document.querySelectorAll(selector).forEach((tab) => {
+    const selected = isSelected(tab);
+    tab.classList.toggle("active", selected);
+    tab.setAttribute("aria-selected", String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+    if (selected) document.getElementById(tab.getAttribute("aria-controls"))?.setAttribute("aria-labelledby", tab.id);
+  });
+}
+
+// Arrow keys move between tabs and select them (Up/Down too on a vertical rail); Home/End jump to the ends.
+function installTabKeys(tablist) {
+  const vertical = tablist.getAttribute("aria-orientation") === "vertical";
+  tablist.addEventListener("keydown", (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+    const index = tabs.indexOf(event.target.closest('[role="tab"]'));
+    if (index < 0) return;
+    const steps = { ArrowRight: 1, ArrowLeft: -1, ...(vertical ? { ArrowDown: 1, ArrowUp: -1 } : {}) };
+    let next;
+    if (event.key in steps) next = (index + steps[event.key] + tabs.length) % tabs.length;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = tabs.length - 1;
+    else return;
+    event.preventDefault();
+    tabs[next].focus();
+    tabs[next].click();
+  });
+}
+
 function renderSeason() {
   const data = seasons[currentLocale][currentSeason];
   document.querySelector("#season-index").textContent = data.index;
@@ -200,7 +232,7 @@ function renderSeason() {
   document.querySelector("#story-beats").innerHTML = beats.map((beat, index) => `<article><span>0${index + 1}</span><strong>${beat}</strong></article>`).join("");
   document.querySelector("#season-location").textContent = data.location;
   document.querySelector("#season-state").textContent = data.state;
-  document.querySelectorAll("[data-season]").forEach((button) => { const active = button.dataset.season === currentSeason; button.classList.toggle("active", active); button.setAttribute("aria-selected", String(active)); });
+  syncTabs("[data-season]", (tab) => tab.dataset.season === currentSeason);
 }
 
 function renderAtlas() {
@@ -210,7 +242,7 @@ function renderAtlas() {
   const item = items[currentAtlasIndex];
   const detailBody = spoilersVisible && item.spoiler ? `${item.body} ${item.spoiler}` : item.body;
   document.querySelector("#atlas-detail").innerHTML = `<div class="detail-status"><b class="badge canon">CANON</b><b class="badge available">AVAILABLE</b></div><span class="detail-type">${item.type}</span><h3>${item.name}</h3><p>${detailBody}</p><small>SOURCE · ${item.source}</small>`;
-  document.querySelectorAll("[data-atlas]").forEach((button) => button.classList.toggle("active", button.dataset.atlas === currentAtlas));
+  syncTabs("[data-atlas]", (tab) => tab.dataset.atlas === currentAtlas);
   document.querySelectorAll("[data-atlas-index]").forEach((button) => button.addEventListener("click", () => { currentAtlasIndex = Number(button.dataset.atlasIndex); renderAtlas(); document.querySelector(`[data-atlas-index="${currentAtlasIndex}"]`)?.focus(); }));
 }
 
@@ -224,7 +256,7 @@ function renderMedia() {
   document.querySelector("#media-status").innerHTML = `<b class="badge ${item.contentClass}">${item.content}</b><b class="badge ${item.productionClass}">${item.production}</b>`;
   const action = document.querySelector("#media-action"); action.textContent = item.action; action.href = item.href.startsWith("/") ? `${item.href}?lang=${currentLocale}` : item.href;
   if (item.enabled) action.removeAttribute("aria-disabled"); else action.setAttribute("aria-disabled", "true");
-  document.querySelectorAll("[data-media]").forEach((button) => { const active = button.dataset.media === currentMedia; button.classList.toggle("active", active); button.setAttribute("aria-selected", String(active)); });
+  syncTabs("[data-media]", (tab) => tab.dataset.media === currentMedia);
 }
 
 function applyUniverseLocale(locale, updateUrl = true) {
@@ -256,6 +288,7 @@ document.querySelectorAll("[data-locale]").forEach((button) => button.addEventLi
 document.querySelectorAll("[data-season]").forEach((button) => button.addEventListener("click", () => { currentSeason = button.dataset.season; renderSeason(); }));
 document.querySelectorAll("[data-atlas]").forEach((button) => button.addEventListener("click", () => { currentAtlas = button.dataset.atlas; currentAtlasIndex = 0; renderAtlas(); }));
 document.querySelectorAll("[data-media]").forEach((button) => button.addEventListener("click", () => { currentMedia = button.dataset.media; renderMedia(); }));
+document.querySelectorAll('[role="tablist"]').forEach(installTabKeys);
 document.querySelector("#spoiler-toggle")?.addEventListener("click", () => { spoilersVisible = !spoilersVisible; try { localStorage.setItem("echo.universe.spoilers", String(spoilersVisible)); } catch (_) {} syncSpoilerButton(); renderSeason(); renderAtlas(); });
 try { spoilersVisible = localStorage.getItem("echo.universe.spoilers") === "true"; } catch (_) {}
 

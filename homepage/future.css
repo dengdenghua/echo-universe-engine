@@ -172,6 +172,7 @@
 .universe-edition .season-focus, .universe-edition .atlas-board, .universe-edition .media-focus { border-radius: var(--echo-radius-lg); }
 .universe-edition .season-focus { position: relative; }
 .universe-edition .season-focus::before { opacity: .25; }
+.universe-edition [role="tabpanel"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
 .universe-edition .season-tab { border-radius: var(--echo-radius-md); }
 .universe-edition .atlas-tab, .universe-edition .media-tab { border-radius: var(--echo-radius-sm); }
 .universe-edition .season-tab.active, .universe-edition .atlas-tab.active, .universe-edition .media-tab.active { color: var(--echo-ink); border-color: var(--echo-line-strong); background: var(--echo-surface-raised); }
