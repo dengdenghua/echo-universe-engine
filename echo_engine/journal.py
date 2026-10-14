@@ -61,7 +61,8 @@ class JSONLJournal:
             events.append(event)
 
         if limit is not None and limit >= 0:
-            return events[-limit:]
+            # limit=0 语义为"取 0 条"；events[-0:] 会退化成全量，需单独处理。
+            return events[-limit:] if limit > 0 else []
         return events
 
 
