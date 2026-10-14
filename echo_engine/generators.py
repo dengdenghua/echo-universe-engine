@@ -30,7 +30,9 @@ def _write_output(
     filename = f"{stamp}-{_slugify(title)}.md"
     path = out_dir / filename
     path.write_text(content, encoding="utf-8")
-    output_path = str(path.relative_to(base))
+    # as_posix:journal 里存的 output_path 必须跨平台一致。str(relative_to) 在
+    # Windows 产出反斜杠,那份候选记录拿到 Linux 上 promotion 就解析不了。
+    output_path = path.relative_to(base).as_posix()
     _record_candidate(mode, title, content, output_path, root, canon_risks, metadata)
     return output_path
 
