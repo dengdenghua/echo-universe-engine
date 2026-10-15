@@ -26,20 +26,20 @@
     <link rel="stylesheet" href="/home/assets/echo-brand.css?v=20261013-brand" />
     <link rel="stylesheet" href="/universe/styles.css?v=20261015-s95" />
     <link rel="stylesheet" href="/universe/novel/styles.css?v=20261013-walk2" />
-    <link rel="stylesheet" href="/home/interiors.css?v=20261013-brand2" />
+    <link rel="stylesheet" href="/home/interiors.css?v=20261015-s95" />
   </head>
   <body class="novel-site echo-interior archive-edition">
     <header class="universe-header novel-header">
-      <a class="universe-brand echo-lockup" href="/universe/" aria-label="返回 ECHO 宇宙">
+      <a class="universe-brand echo-lockup" href="/universe/" aria-label="返回 ECHO 宇宙" data-i18n-aria="ariaBackUniverse">
         <svg class="echo-wordmark-svg" viewBox="14 14 174 36" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="6"><path d="M50 17H24a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26"/><path d="M93 17H67a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26"/><path d="M104 14v36M137 14v36M104 32h33"/><rect x="152" y="17" width="33" height="30" rx="7"/></g><circle class="echo-mark-core" cx="38" cy="32" r="5" fill="currentColor"/></svg><span class="echo-lockup-product">NOVEL</span>
       </a>
-      <nav class="universe-nav" aria-label="小说导航">
+      <nav class="universe-nav" aria-label="小说导航" data-i18n-aria="ariaNovelNav">
         <a href="#serial" data-i18n="navSerial">连载</a>
         <a href="#chapters" data-i18n="navChapters">章节</a>
         <a href="#editorial" data-i18n="navEditorial">编辑说明</a>
       </nav>
       <div class="universe-actions">
-        <div class="locale-switch" role="group" aria-label="语言">
+        <div class="locale-switch" role="group" aria-label="语言" data-i18n-aria="ariaLanguage">
           <button type="button" data-locale="zh" aria-pressed="true">中</button><span>/</span><button type="button" data-locale="en" aria-pressed="false">EN</button>
         </div>
         <a class="back-echo" href="/universe/" data-i18n="backUniverse">返回宇宙</a>
@@ -53,20 +53,20 @@
           <div class="novel-hero-copy">
             <div class="novel-path"><a href="/universe/">ECHO UNIVERSE</a><i>／</i><span>FICTION ARCHIVE</span></div>
             <p class="eyebrow">SERIAL FICTION · CANDIDATE PREVIEW</p>
-            <h1><span>ECHO<br />AGE.</span><strong data-i18n="workTitle">回响纪元</strong></h1>
+            <h1><span>ECHO<br />AGE.</span><strong lang="zh-CN">回响纪元</strong></h1>
             <p class="novel-deck" data-i18n="heroSummary">2147 年的白港，一场轨道事故让普通保险审计员林乔突然拥有了死去外科医生的双手。记忆究竟是遗产、生命，还是入侵？</p>
             <div class="novel-hero-actions">
               <a class="primary-action" data-reader-link href="/universe/novel/stranger-memory/?lang=zh"><span data-i18n="startReading">开始试读</span><b>↘</b></a>
               <button class="follow-button" id="follow-button" type="button" aria-pressed="false"><span data-i18n="followWork">收藏连载</span><i>＋</i></button>
             </div>
-            <div class="novel-metadata" aria-label="作品信息">
+            <div class="novel-metadata" role="group" aria-label="作品信息" data-i18n-aria="ariaWorkInfo">
               <span><small data-i18n="metaSeason">系列</small><b>SEASON 1 · GHOST AWAKENING</b></span>
               <span><small data-i18n="metaStatus">状态</small><b data-i18n="candidateRevision">候选精修中</b></span>
               <span><small data-i18n="metaProgress">可读内容</small><b data-i18n="previewLength">5 分钟试读</b></span>
             </div>
           </div>
 
-          <div class="novel-cover-stage" aria-label="《回响纪元：陌生记忆》封面意象">
+          <div class="novel-cover-stage" role="group" aria-label="《回响纪元：陌生记忆》封面意象" data-i18n-aria="ariaCover">
             <div class="archive-rings" aria-hidden="true"><i></i><i></i><i></i></div>
             <article class="novel-cover">
               <img class="archive-cover-art" src="/universe/novel/assets/illustration-white-harbor-agnes-v2.png" alt="" fetchpriority="high" />
@@ -80,7 +80,7 @@
         </div>
       </section>
 
-      <section class="serial-state" aria-label="连载状态">
+      <section class="serial-state" aria-label="连载状态" data-i18n-aria="ariaSerialState">
         <div class="novel-inner status-grid">
           <article><span>01</span><div><small data-i18n="availableNow">当前可读</small><strong data-i18n="onePreview">1 篇候选试读</strong></div></article>
           <article><span>16</span><div><small data-i18n="seasonBlueprint">季纲</small><strong data-i18n="sixteenEpisodes">16 集故事蓝图</strong></div></article>
@@ -152,6 +152,6 @@
       <a href="/universe/">ECHO UNIVERSE</a><span data-i18n="footerLine">记忆成为身份，故事保存改变。</span><small>© 2026 ECHO</small>
     </footer>
     <div class="novel-toast" id="novel-toast" role="status" aria-live="polite"></div>
-    <script src="/universe/novel/app.js?v=20261013-brand2"></script>
+    <script src="/universe/novel/app.js?v=20261015-s95"></script>
   </body>
 </html>

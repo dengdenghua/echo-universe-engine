@@ -294,9 +294,19 @@
   .developer-edition .dev-hero { gap: 34px; }
   .review-edition .intro { gap: 40px; }
 }
+/* The novel catalogue keeps its section nav on narrow screens, like developers: brand + actions on
+   top, the three section links on a second row that scrolls sideways if it ever has to. From 900px
+   down this replaces the fixed bar universe/styles.css gives the universe page. */
+@media (max-width: 900px) {
+  .echo-interior.archive-edition .novel-header { grid-template-columns: minmax(0, 1fr) auto; row-gap: 0; height: auto; padding-top: 8px; }
+  .archive-edition .novel-header .universe-nav { position: static; grid-row: 2; grid-column: 1 / -1; height: auto; padding: 0; justify-content: flex-start; gap: 26px; overflow-x: auto; scrollbar-width: none; background: none; border-block: 0; }
+  .archive-edition .novel-header .universe-nav::-webkit-scrollbar { display: none; }
+  .archive-edition .novel-header .universe-nav a { flex: none; }
+  .archive-edition .novel-header .universe-nav a:focus-visible { outline-offset: -4px; }
+  .archive-edition section[id] { scroll-margin-top: 122px; }
+}
 @media (max-width: 800px) {
   .echo-interior :is(.novel-header, .dev-header) { height: 74px; }
-  .echo-interior .universe-nav { display: none; }
   /* Developers keeps its section nav on phones: brand + actions on top, the section links on a
      second row that scrolls sideways. The hero and section anchors clear the taller header. */
   .developer-edition .dev-header { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; height: auto; padding-top: 8px; }
@@ -306,8 +316,8 @@
   .developer-edition .dev-nav a::after { bottom: 9px; }
   .developer-edition .dev-nav a:focus-visible { outline-offset: -4px; }
   .developer-edition section[id] { scroll-margin-top: 122px; }
-  .archive-edition .novel-hero { padding: 146px 0 56px; }
-  .archive-coordinate { top: 102px; font-size: 8px; }
+  .archive-edition .novel-hero { padding: 162px 0 56px; }
+  .archive-coordinate { top: 114px; font-size: 8px; }
   .archive-coordinate span:nth-child(2) { display: none; }
   .archive-edition .novel-hero-grid { grid-template-columns: 1fr; gap: 40px; }
   .archive-edition .novel-hero-copy h1 span { font-size: clamp(42px, 9vw, 64px); }

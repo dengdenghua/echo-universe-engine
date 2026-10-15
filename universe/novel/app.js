@@ -1,6 +1,7 @@
 const novelCopy = {
   zh: {
-    navSerial: "连载", navChapters: "章节", navEditorial: "编辑说明", backUniverse: "返回宇宙", workTitle: "回响纪元",
+    navSerial: "连载", navChapters: "章节", navEditorial: "编辑说明", backUniverse: "返回宇宙",
+    ariaBackUniverse: "返回 ECHO 宇宙", ariaNovelNav: "小说导航", ariaLanguage: "语言", ariaWorkInfo: "作品信息", ariaCover: "《回响纪元：陌生记忆》封面意象", ariaSerialState: "连载状态",
     heroSummary: "2147 年的白港，一场轨道事故让普通保险审计员林乔突然拥有了死去外科医生的双手。记忆究竟是遗产、生命，还是入侵？",
     startReading: "开始试读", continueReading: "继续阅读", followWork: "收藏连载", followingWork: "已收藏", metaSeason: "系列", metaStatus: "状态", metaProgress: "可读内容", candidateRevision: "候选精修中", previewLength: "5 分钟试读", chapterLabel: "第一章", chapterState: "候选试读 · 非最终正典",
     availableNow: "当前可读", onePreview: "1 篇候选试读", seasonBlueprint: "季纲", sixteenEpisodes: "16 集故事蓝图", editorialPass: "编辑阶段", consentRevision: "姓名与同意权精修", yourProgress: "你的进度", deviceSaved: "保存在当前设备",
@@ -9,7 +10,8 @@ const novelCopy = {
     pageTitle: "ECHO NOVEL · 回响纪元", pageDescription: "《回响纪元》小说连载与候选试读：从白港的一场陌生记忆开始。"
   },
   en: {
-    navSerial: "Serial", navChapters: "Chapters", navEditorial: "Editorial", backUniverse: "Universe", workTitle: "ECHO AGE",
+    navSerial: "Serial", navChapters: "Chapters", navEditorial: "Editorial", backUniverse: "Universe",
+    ariaBackUniverse: "Back to the ECHO universe", ariaNovelNav: "Novel sections", ariaLanguage: "Language", ariaWorkInfo: "About this work", ariaCover: "Cover art for Echo Age: Stranger Memory", ariaSerialState: "Serial status",
     heroSummary: "White Harbor, 2147. A transit disaster leaves ordinary insurance auditor Lin Qiao with the hands of a dead surgeon. Is memory inheritance, life—or intrusion?",
     startReading: "Read preview", continueReading: "Continue", followWork: "Save serial", followingWork: "Saved", metaSeason: "Series", metaStatus: "Status", metaProgress: "Available", candidateRevision: "Candidate revision", previewLength: "5-minute preview", chapterLabel: "Chapter One", chapterState: "Candidate preview · Not final canon",
     availableNow: "Available now", onePreview: "1 candidate preview", seasonBlueprint: "Season blueprint", sixteenEpisodes: "16 story episodes", editorialPass: "Editorial pass", consentRevision: "Names & consent revision", yourProgress: "Your progress", deviceSaved: "Saved on this device",

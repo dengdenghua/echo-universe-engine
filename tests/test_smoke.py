@@ -473,6 +473,24 @@ def test_developers_phone_header_keeps_section_nav_and_back_link():
     assert ".back-echo { display: none; }" not in dev_styles
 
 
+def test_novel_catalogue_keeps_its_section_nav_on_narrow_screens():
+    # Same two-row phone header as developers: the three section links stay reachable below 900px.
+    interiors = (CanonStore().root / "homepage" / "interiors.css").read_text(encoding="utf-8")
+    assert ".archive-edition .novel-header .universe-nav { position: static; grid-row: 2;" in interiors
+    assert not re.search(r"\.universe-nav\)? \{ display: none; \}", interiors)
+
+
+def test_novel_and_reader_name_their_groups_in_both_languages():
+    root = CanonStore().root / "universe" / "novel"
+    for page, script in (("index.html", "app.js"), ("stranger-memory/index.html", "stranger-memory/reader.js")):
+        html = (root / page).read_text(encoding="utf-8")
+        javascript = (root / script).read_text(encoding="utf-8")
+        for tag in re.findall(r"<[^>]*\saria-label=\"[^\"]*[一-鿿][^>]*>", html):
+            assert "data-i18n-aria=" in tag, tag
+        for key in re.findall(r'data-i18n(?:-aria)?="([^"]+)"', html):
+            assert len(re.findall(rf"\b{key}: ", javascript)) == 2, (page, key)
+
+
 def test_universe_page_exposes_canon_media_and_bilingual_controls():
     root = CanonStore().root
     html = (root / "universe" / "index.html").read_text(encoding="utf-8")
