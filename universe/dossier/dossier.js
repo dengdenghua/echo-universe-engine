@@ -679,7 +679,7 @@
     ctx.fillText(`${who.codename} · ${id} · ${who.role}`, x + 6, y + 44);
     mono(12, 500);
     ctx.fillStyle = `rgba(238, 246, 248, ${0.6 * seg(t, 0.6, 1.2)})`;
-    ctx.fillText("ECHO: 回响纪元 · SEASON 01 · GHOST AWAKENING", x + 6, y + 72);
+    ctx.fillText("回响纪元 · SEASON 01 · GHOST AWAKENING", x + 6, y + 72);
     // ECHO mark.
     const m = seg(t, 0.8, 1.6);
     if (m > 0) {

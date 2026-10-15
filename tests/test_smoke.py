@@ -440,6 +440,7 @@ def test_site_lockups_and_owner_lines_read_echo():
             "© 2026 ECHO AGE",
             "ECHO: ECHO AGE",
             "ECHO: Echo Age",
+            "ECHO: 回响纪元",
             "ECHO AGE · CANON PROTOCOL",
             "2147 / Echo Age",
             "echo-age-logo",
