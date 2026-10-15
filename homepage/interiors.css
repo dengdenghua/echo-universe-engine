@@ -299,9 +299,9 @@
    down this replaces the fixed bar universe/styles.css gives the universe page. */
 @media (max-width: 900px) {
   .echo-interior.archive-edition .novel-header { grid-template-columns: minmax(0, 1fr) auto; row-gap: 0; height: auto; padding-top: 8px; }
-  .archive-edition .novel-header .universe-nav { position: static; grid-row: 2; grid-column: 1 / -1; height: auto; padding: 0; justify-content: flex-start; gap: 26px; overflow-x: auto; scrollbar-width: none; background: none; border-block: 0; }
+  .archive-edition .novel-header .universe-nav { position: static; grid-row: 2; grid-column: 1 / -1; height: auto; margin-left: -10px; padding: 0; justify-content: flex-start; gap: 6px; overflow-x: auto; scrollbar-width: none; background: none; border-block: 0; }
   .archive-edition .novel-header .universe-nav::-webkit-scrollbar { display: none; }
-  .archive-edition .novel-header .universe-nav a { flex: none; }
+  .archive-edition .novel-header .universe-nav a { flex: none; min-width: 44px; padding-inline: 10px; justify-content: center; }
   .archive-edition .novel-header .universe-nav a:focus-visible { outline-offset: -4px; }
   .archive-edition section[id] { scroll-margin-top: 122px; }
 }
