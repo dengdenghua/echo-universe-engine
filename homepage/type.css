@@ -137,5 +137,7 @@
 
 /* Brand type floor: Chinese never renders below the 12px caption size.
    The universe edition and the shared header controls still used 8-11px labels. */
-:root[lang^="zh"] .future-site :is(.locale-switch button, .sound-switch .sound-word, .sound-invite-kicker) { font-size: 12px; }
+:root[lang^="zh"] .future-site :is(.locale-switch button, .sound-switch .sound-word, .sound-invite-kicker, .sound-invite-actions button, .echo-toast) { font-size: 12px; }
+/* The "中" switch is Chinese on the English page too. */
+.future-site .locale-switch button[data-locale="zh"] { font-size: 12px; }
 :root[lang^="zh"] .universe-edition :is(.universe-nav a, .back-echo, .canon-rule span, .spoiler-toggle span, .badge, .story-beats strong, .atlas-tab, .atlas-node strong, .detail-type, .atlas-detail p, .media-tab, .media-copy > a, .governance-flow p, .protocol-list p, .final-universe a, .canon-notes footer a) { font-size: 12px; }

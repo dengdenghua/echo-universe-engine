@@ -473,6 +473,21 @@ def test_developers_phone_header_keeps_section_nav_and_back_link():
     assert ".back-echo { display: none; }" not in dev_styles
 
 
+def test_chinese_type_floor_covers_toasts_invite_buttons_and_language_switches():
+    # Chinese never renders below 12px: the sound invite buttons and toasts only appear on
+    # interaction, and "中" / "中文" sit on the English pages, so the zh-only floors missed them.
+    root = CanonStore().root
+    type_css = (root / "homepage" / "type.css").read_text(encoding="utf-8")
+    interiors = (root / "homepage" / "interiors.css").read_text(encoding="utf-8")
+    console = (root / "console" / "styles.css").read_text(encoding="utf-8")
+    assert ".sound-invite-actions button, .echo-toast) { font-size: 12px; }" in type_css
+    assert '.future-site .locale-switch button[data-locale="zh"] { font-size: 12px; }' in type_css
+    assert '.echo-interior .locale-switch button[data-locale="zh"], .review-edition #lang-toggle { font-size: 12px; }' in interiors
+    assert ':root[lang^="zh"] :is(.boot-sub, .echo-toast,' in console
+    developers = (root / "developers" / "index.html").read_text(encoding="utf-8")
+    assert "<code>无</code>" not in developers
+
+
 def test_novel_catalogue_keeps_its_section_nav_on_narrow_screens():
     # Same two-row phone header as developers: the three section links stay reachable below 900px.
     interiors = (CanonStore().root / "homepage" / "interiors.css").read_text(encoding="utf-8")

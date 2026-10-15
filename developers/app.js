@@ -48,6 +48,7 @@ const enCopy = {
   authBody:
     "Endpoints are split by visibility. Anything past the public layer needs credentials in production; with no credentials configured the service returns 503 rather than quietly falling open.",
   tierPublicName: "Public read",
+  tierPublicCredential: "None",
   tierPublicBody: "World content, canon status, economy products and identity tiers. No credentials.",
   tierUserName: "User",
   tierUserBody: "Bindings, balance and the universe feed. Needs a user JWT, and only reaches your own data.",

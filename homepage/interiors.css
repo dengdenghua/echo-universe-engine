@@ -448,7 +448,9 @@
 }
 
 /* Brand type floor: Chinese never renders below the 12px caption size. */
-:root[lang^="zh"] .echo-interior :is(.locale-switch button, .universe-nav a, .dev-nav a, .back-echo, .reader-back b) { font-size: 12px; }
+:root[lang^="zh"] .echo-interior :is(.locale-switch button, .universe-nav a, .dev-nav a, .back-echo, .reader-back b, .quiet) { font-size: 12px; }
+/* The language switches name Chinese ("中", "中文") on the English pages too. */
+.echo-interior .locale-switch button[data-locale="zh"], .review-edition #lang-toggle { font-size: 12px; }
 :root[lang^="zh"] .archive-edition :is(.governance-detail header p, .resonance-actions button span, .resonance-split small, .novel-metadata small, .novel-metadata b[data-i18n], .cover-caption span, .cover-caption b, .status-grid small, .status-grid strong, .chapter-state span, .governance-step p, .governance-step > i, .governance-boundary, .editorial-note p, .novel-footer span) { font-size: 12px; }
 :root[lang^="zh"] .reader-edition :is(.reader-rail dt, .reader-rail dd, .candidate-banner p, .chapter-byline span, .chapter-illustration figcaption p, .preview-actions a, .preview-actions button, .chapter-footnote b) { font-size: 12px; }
 :root[lang^="zh"] .developer-edition :is(.observatory-bottom span, .hero-facts small, .copy-btn, .tier-card code, .endpoint-table th, .result-status, .dev-footer nav a) { font-size: 12px; }

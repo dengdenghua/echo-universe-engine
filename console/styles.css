@@ -2586,4 +2586,4 @@ pre {
 @media (max-width: 960px) { .window { scroll-margin: 132px 0 86px; } }
 
 /* Brand type floor: Chinese never renders below the 12px caption size. */
-:root[lang^="zh"] :is(.boot-sub, .locale-switch button, .system-chip, .window-kicker, .window-badge, .window-actions button, .core-label span, .metric span, .asset-links a, .stream li strong, .candidate-head > span, .candidate-meta span, .candidate-meta a, .candidate-actions button) { font-size: 12px; }
+:root[lang^="zh"] :is(.boot-sub, .echo-toast, .locale-switch button, .system-chip, .window-kicker, .window-badge, .window-actions button, .core-label span, .metric span, .asset-links a, .stream li strong, .candidate-head > span, .candidate-meta span, .candidate-meta a, .candidate-actions button) { font-size: 12px; }
