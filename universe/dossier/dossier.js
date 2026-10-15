@@ -28,7 +28,7 @@
     "006": { dir: "006_shion", name: "SHION", codename: "VIRUS QUEEN", role: "HACKER", rank: "A", core: "NANO SWARM", shell: "WHITE / VIOLET NANOLIGHT", accent: "#c693ff", accent2: "#f5a8ca", line: "The supply chain is a stage." },
     "007": { dir: "007_noah", name: "NOAH", codename: "PROBABILITY", role: "STRATEGIST", rank: "A", core: "PROBABILITY ENGINE", shell: "WHITE FIELD COAT / AMBER", accent: "#f3c873", accent2: "#f4f9fb", line: "The odds are a language." },
     "008": { dir: "008_luna", name: "LUNA", codename: "DREAM WALKER", role: "DREAM WALKER", rank: "A", core: "DREAM DIVE", shell: "WHITE SUIT / LUNAR PINK", accent: "#ffb6d3", accent2: "#d9d0ff", line: "Dreams leave residue." },
-    "009": { dir: "009_mira_voss", name: "MIRA VOSS", codename: "GLASS VEIN", role: "FORENSIC MEDIC", rank: "A", core: "MEMORY SUTURING", shell: "GLASS / PALE TELEMETRY", accent: "#a8dcff", accent2: "#f4f9fb", line: "Every repair leaves a seam.", face: [0.4, 0.07, 0.61, 0.29], faceScale: 0.56 },
+    "009": { dir: "009_mira_voss", name: "MIRA VOSS", codename: "GLASS VEIN", role: "FORENSIC MEDIC", rank: "A", core: "MEMORY SUTURING", shell: "GLASS / PALE TELEMETRY", accent: "#a8dcff", accent2: "#f4f9fb", line: "Every repair leaves a seam." },
   };
   const TICKER = [
     "ECHO CORE SYNC 99.2%",

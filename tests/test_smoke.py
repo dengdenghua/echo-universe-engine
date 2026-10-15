@@ -645,6 +645,23 @@ def test_white_ghost_visual_assets_are_copied():
             assert (refs / filename).exists()
 
 
+def test_dossier_head_shots_frame_the_face_for_subject_shots():
+    # The dossier's SUBJECT shot locks onto the face in head.webp (or the
+    # avatar); Mira Voss's avatar is a full-body figure, so she ships a head
+    # crop framed like the others and needs no per-character face box.
+    dossier = CanonStore().root / "universe" / "dossier"
+    script = (dossier / "dossier.js").read_text(encoding="utf-8")
+    folders = re.findall(r'dir: "(\d{3}_[a-z_]+)"', script)
+    assert "009_mira_voss" in folders
+    for folder in folders:
+        for sheet in ["front", "side", "back", "avatar"]:
+            assert (dossier / "assets" / folder / f"{sheet}.webp").exists()
+    head = (dossier / "assets" / "009_mira_voss" / "head.webp").read_bytes()
+    assert head[:4] == b"RIFF" and head[8:12] == b"WEBP"
+    mira = next(line for line in script.splitlines() if '"009": {' in line)
+    assert "face:" not in mira and "faceScale" not in mira
+
+
 def test_api_serves_character_visual_assets():
     client = TestClient(app)
     response = client.get("/api/assets/characters")
