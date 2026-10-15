@@ -160,4 +160,10 @@ main { position: relative; overflow: hidden; isolation: isolate; }
   .atlas-tab, .media-tab, .season-tab, .spoiler-toggle, .back-echo { min-height: 44px; }
 }
 
+/* Not-found view (app.js, any path under /universe/ other than the index): the hero carries the 404 copy and nothing else shows. */
+body.is-not-found :is(.skip-link, .universe-nav, .future-scroll, .dive-gauge, .memory-dive), body.is-not-found main > section:not(.universe-hero), body.is-not-found .universe-hero > .future-hero-copy:not(.universe-not-found) { display: none; }
+body.is-not-found .universe-header { grid-template-columns: 1fr auto; }
+/* Phones draw the ring under the first line of the hero; here that line is the 404 title. */
+@media (max-width: 600px) { body.is-not-found .universe-not-found .future-hero-title { margin-bottom: 312px; } }
+
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *,*::before,*::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; } }

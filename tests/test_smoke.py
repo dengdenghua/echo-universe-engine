@@ -260,22 +260,47 @@ def test_api_serves_public_homepage_local_console_and_characters():
 
 
 def test_unknown_site_pages_get_the_designed_404():
+    # Every served site folder ships its own designed 404 (links back to 首页 and 宇宙); the app and
+    # the production nginx template both answer unknown pages with the folder's page and status 404.
+    root = CanonStore().root
     client = TestClient(app)
-    for path in ("/universe/does-not-exist", "/universe/novel/missing/", "/home/nope", "/developers/x/y", "/review/zzz"):
+    for path, title in (
+        ("/universe/does-not-exist", "ECHO UNIVERSE · 404"),
+        ("/universe/novel/missing/", "ECHO UNIVERSE · 404"),
+        ("/home/nope", "ECHO · 404"),
+        ("/developers/x/y", "ECHO DEVELOPERS · 404"),
+        ("/review/zzz", "ECHO REVIEW · 404"),
+        ("/console/nope", "ECHO · 404"),
+    ):
         response = client.get(path)
         assert response.status_code == 404, path
         assert response.headers["content-type"].startswith("text/html"), path
         assert response.headers["cache-control"] == "no-cache", path
+        assert f"<title>{title}" in response.text, path
         assert "NO ECHO AT THIS ADDRESS" in response.text, path
         assert 'href="/universe/"' in response.text and 'href="/"' in response.text, path
     # Missing assets stay plain 404s, and real pages are untouched.
     assert client.get("/home/missing.css").headers["content-type"] == "application/json"
+    assert client.get("/universe/missing.png").headers["content-type"] == "application/json"
     assert client.get("/universe/").status_code == 200
-    page = (CanonStore().root / "homepage" / "404.html").read_text(encoding="utf-8")
-    assert not re.search(r'(href|src)="(?!/|#)', page), "the 404 page is served at any depth"
-    nginx = (CanonStore().root / "deploy" / "universe.echo-age.com.static.nginx.conf").read_text(encoding="utf-8")
-    assert nginx.count("error_page 404 /home/404.html;") == 4
-    assert "/universe/index.html;" not in nginx
+    nginx = (root / "deploy" / "universe.echo-age.com.static.nginx.conf").read_text(encoding="utf-8")
+    for folder, served_as in (("homepage", "home"), ("universe", "universe"), ("developers", "developers"), ("review", "review")):
+        page = (root / folder / "404.html").read_text(encoding="utf-8")
+        assert not re.search(r'(href|src)="(?!/|#)', page), f"{folder}/404.html is served at any depth"
+        assert 'name="robots" content="noindex' in page, folder
+        block = re.search(rf"\n    location /{served_as}/ \{{(.*?)\n    \}}", nginx, flags=re.S).group(1)
+        assert "try_files $uri $uri/ =404;" in block, served_as
+        assert f"error_page 404 /{served_as}/404.html;" in block, served_as
+    assert "/index.html;" not in nginx.replace("try_files /index.html =404;", "")
+    # If an old server still answers an unknown /universe/* path with the index, the page itself
+    # swaps in a not-found view (noindex) instead of posing as the universe index.
+    javascript = (root / "universe" / "app.js").read_text(encoding="utf-8")
+    assert "const unknownRoute = !/^\\/universe\\/(?:index\\.html)?$/.test(location.pathname);" in javascript
+    assert "if (unknownRoute) mountNotFound();" in javascript
+    assert 'robots.content = "noindex"' in javascript
+    for key in ("notFoundPageTitle", "notFoundTitle", "notFoundBody", "notFoundUniverse", "notFoundHome"):
+        assert len(re.findall(rf"\b{key}: \"", javascript)) == 2, key
+    assert "body.is-not-found" in (root / "universe" / "styles.css").read_text(encoding="utf-8")
 
 
 def test_every_static_location_that_sets_headers_repeats_the_security_headers():

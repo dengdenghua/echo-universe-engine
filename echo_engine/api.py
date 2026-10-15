@@ -121,9 +121,10 @@ class SiteStaticFiles(StaticFiles):
     """站点目录（/home、/universe、/developers、/review、/console）共用的静态挂载。
 
     这些目录都没有前端路由，未知页面应当是真正的 404，而不是回退到某个 index。
-    找不到页面时统一返回设计过的 homepage/404.html（状态码 404、no-cache）；页面里
-    的资源全部用绝对路径，挂在任何深度的 URL 下都能正常渲染。缺失的 CSS/JS/图片
-    仍是普通 404，不为每张缺图下发一整页 HTML。生产 nginx 的对应 error_page 见
+    找不到页面时返回该目录自己设计的 404.html（universe、developers、review 各有一份，
+    其余目录用 homepage/404.html），状态码 404、no-cache；页面里的资源全部用绝对路径，
+    挂在任何深度的 URL 下都能正常渲染。缺失的 CSS/JS/图片仍是普通 404，不为每张缺图
+    下发一整页 HTML。生产 nginx 的对应 error_page 见
     deploy/universe.echo-age.com.static.nginx.conf。
     """
 
@@ -134,10 +135,11 @@ class SiteStaticFiles(StaticFiles):
             if exc.status_code != 404:
                 raise
         else:
-            # html=True 时 Starlette 会自己找挂载目录里的 404.html（只有 /home 有），这里统一接管。
+            # html=True 时 Starlette 会自己把挂载目录里的 404.html 发给任何缺失路径（包括缺图），这里统一接管。
             if response.status_code != 404:
                 return response
-        not_found_page = homepage_dir / "404.html"
+        own_page = Path(str(self.directory)) / "404.html"
+        not_found_page = own_page if own_page.is_file() else homepage_dir / "404.html"
         if PurePosixPath(path).suffix.lower() not in _PAGE_SUFFIXES or not not_found_page.is_file():
             raise StarletteHTTPException(status_code=404)
         return FileResponse(not_found_page, status_code=404, headers={"Cache-Control": "no-cache"})

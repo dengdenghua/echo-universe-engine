@@ -19,6 +19,7 @@ const universeCopy = {
     protocolTitle: "宇宙会生长，但不会失去记忆。", protocolCanon: "已经进入主世界或 Realm 的正式设定。", protocolCandidate: "创作与社区提交的候选内容，需要审查后晋升。", protocolPersonal: "属于个人 Ghost 与私人实例，不自动改变公共世界。",
     finalUniverseTitle: "你在这里留下的，不只是故事。", startMainline: "开始主线", readNovel: "阅读小说", returnEcosystem: "返回 ECHO 生态",
     ariaHome: "ECHO 宇宙首页", ariaNav: "宇宙导航", ariaLanguage: "语言", ariaSeasons: "故事季度", ariaAtlas: "世界图谱分类", ariaAtlasNodes: "可交互世界节点", ariaMedia: "内容媒介",
+    notFoundPageTitle: "ECHO UNIVERSE · 404 · 图谱上没有这个坐标", notFoundTitle: "图谱上没有这个坐标。", notFoundBody: "它可能已经移动、尚未公开，或地址输入有误。回到宇宙继续探索，或返回 ECHO 首页。", notFoundUniverse: "回到 ECHO 宇宙", notFoundHome: "返回首页",
   },
   en: {
     futureTitle: "If memory lives on, where does life end?",
@@ -40,6 +41,7 @@ const universeCopy = {
     protocolTitle: "The universe grows without losing its memory.", protocolCanon: "Formal material accepted into the main world or a governed Realm.", protocolCandidate: "Creative and community submissions awaiting review and promotion.", protocolPersonal: "Material belonging to a personal Ghost or private instance; it does not rewrite the public world.",
     finalUniverseTitle: "What you leave here is more than a story.", startMainline: "Begin the mainline", readNovel: "Read the novel", returnEcosystem: "Back to ECHO ecosystem",
     ariaHome: "ECHO Universe home", ariaNav: "Universe navigation", ariaLanguage: "Language", ariaSeasons: "Story seasons", ariaAtlas: "World atlas categories", ariaAtlasNodes: "Interactive world nodes", ariaMedia: "Media formats",
+    notFoundPageTitle: "ECHO UNIVERSE · 404 · Not on the atlas", notFoundTitle: "This coordinate is not on the atlas.", notFoundBody: "It may have moved, may not be public yet, or the address may be mistyped. Return to the universe, or head back to the ECHO home page.", notFoundUniverse: "Back to the ECHO universe", notFoundHome: "ECHO home",
   },
 };
 
@@ -184,6 +186,7 @@ let currentAtlas = "characters";
 let currentAtlasIndex = 0;
 let currentMedia = "story";
 let spoilersVisible = false;
+const unknownRoute = !/^\/universe\/(?:index\.html)?$/.test(location.pathname);
 
 function initialLocale() {
   const requested = new URLSearchParams(location.search).get("lang")?.toLowerCase();
@@ -268,7 +271,7 @@ function applyUniverseLocale(locale, updateUrl = true) {
   document.querySelectorAll("[data-i18n]").forEach((element) => { const value = universeCopy[currentLocale][element.dataset.i18n]; if (value !== undefined) element.textContent = value; });
   document.querySelectorAll("[data-i18n-aria]").forEach((element) => { const value = universeCopy[currentLocale][element.dataset.i18nAria]; if (value !== undefined) element.setAttribute("aria-label", value); });
   document.querySelectorAll("[data-locale]").forEach((button) => { const active = button.dataset.locale === currentLocale; button.classList.toggle("active", active); button.setAttribute("aria-pressed", String(active)); });
-  const pageTitle = currentLocale === "en" ? "ECHO UNIVERSE — Echo Age" : "ECHO UNIVERSE · 回响宇宙";
+  const pageTitle = unknownRoute ? universeCopy[currentLocale].notFoundPageTitle : currentLocale === "en" ? "ECHO UNIVERSE — Echo Age" : "ECHO UNIVERSE · 回响宇宙";
   const pageDescription = currentLocale === "en" ? "Enter ECHO Universe: a 2147 AI Soulpunk world of memory, identity and digital life across stories and media." : "进入 ECHO 宇宙：一个关于记忆、身份与数字生命的 2147 AI Soulpunk 世界。";
   document.title = pageTitle;
   document.querySelector('meta[name="description"]')?.setAttribute("content", pageDescription);
@@ -306,4 +309,24 @@ function syncChrome() {
 }
 window.addEventListener("scroll", () => { if (!chromeFrame) chromeFrame = requestAnimationFrame(syncChrome); }, { passive: true });
 window.addEventListener("resize", syncChrome, { passive: true });
+// This page lives at /universe/ only. Production nginx used to answer every unknown /universe/* path
+// with it (status 200), which silently showed the index; such a path now gets a not-found view in the
+// hero instead: the other sections, section nav and dive gauge are hidden and the page is noindex.
+function mountNotFound() {
+  const hero = document.querySelector(".universe-hero");
+  const copy = hero?.querySelector(".future-hero-copy");
+  if (!copy) return;
+  const view = document.createElement("div");
+  view.className = "future-hero-copy universe-not-found";
+  view.id = "not-found";
+  view.innerHTML = `<p class="signal-eyebrow"><i aria-hidden="true"></i>ERR 404 · NO ECHO AT THIS ADDRESS</p>${copy.querySelector(".echo-wordmark")?.outerHTML || ""}<h1 id="not-found-title" class="future-hero-title"><span class="visually-hidden">404 · </span><span data-i18n="notFoundTitle"></span></h1><p class="future-hero-description" data-i18n="notFoundBody"></p><div class="future-hero-actions"><a class="future-primary" href="/universe/"><span data-i18n="notFoundUniverse"></span><b aria-hidden="true">↗</b></a><a class="future-secondary" href="/"><span data-i18n="notFoundHome"></span><span aria-hidden="true">↗</span></a></div>`;
+  copy.after(view);
+  hero.setAttribute("aria-labelledby", "not-found-title");
+  document.body.classList.add("is-not-found");
+  const robots = document.createElement("meta");
+  robots.name = "robots";
+  robots.content = "noindex";
+  document.head.append(robots);
+}
+if (unknownRoute) mountNotFound();
 applyUniverseLocale(initialLocale(), false); syncChrome();
