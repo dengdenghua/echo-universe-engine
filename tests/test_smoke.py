@@ -645,21 +645,34 @@ def test_white_ghost_visual_assets_are_copied():
             assert (refs / filename).exists()
 
 
+def _webp_size(data: bytes) -> tuple[int, int]:
+    assert data[:4] == b"RIFF" and data[8:12] == b"WEBP"
+    chunk = data[12:16]
+    if chunk == b"VP8X":
+        return 1 + int.from_bytes(data[24:27], "little"), 1 + int.from_bytes(data[27:30], "little")
+    if chunk == b"VP8L":
+        bits = int.from_bytes(data[21:25], "little")
+        return 1 + (bits & 0x3FFF), 1 + ((bits >> 14) & 0x3FFF)
+    assert chunk == b"VP8 "
+    return int.from_bytes(data[26:28], "little") & 0x3FFF, int.from_bytes(data[28:30], "little") & 0x3FFF
+
+
 def test_dossier_head_shots_frame_the_face_for_subject_shots():
-    # The dossier's SUBJECT shot locks onto the face in head.webp (or the
-    # avatar); Mira Voss's avatar is a full-body figure, so she ships a head
-    # crop framed like the others and needs no per-character face box.
+    # The dossier's SUBJECT shot and ticket backdrop use head.webp, framed like
+    # 001/003 (eyes near the middle of the default face box); every character
+    # ships one, so no dossier load 404s and none needs a per-character face box.
     dossier = CanonStore().root / "universe" / "dossier"
     script = (dossier / "dossier.js").read_text(encoding="utf-8")
     folders = re.findall(r'dir: "(\d{3}_[a-z_]+)"', script)
-    assert "009_mira_voss" in folders
+    assert len(folders) == 9
     for folder in folders:
         for sheet in ["front", "side", "back", "avatar"]:
             assert (dossier / "assets" / folder / f"{sheet}.webp").exists()
-    head = (dossier / "assets" / "009_mira_voss" / "head.webp").read_bytes()
-    assert head[:4] == b"RIFF" and head[8:12] == b"WEBP"
-    mira = next(line for line in script.splitlines() if '"009": {' in line)
-    assert "face:" not in mira and "faceScale" not in mira
+        width, height = _webp_size((dossier / "assets" / folder / "head.webp").read_bytes())
+        assert width == height >= 512, folder
+    for line in script.splitlines():
+        if re.search(r'^\s+"\d{3}": \{ dir:', line):
+            assert "face:" not in line and "faceScale" not in line, line
 
 
 def test_api_serves_character_visual_assets():
