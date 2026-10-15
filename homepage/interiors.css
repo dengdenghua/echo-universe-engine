@@ -83,7 +83,7 @@
 .archive-edition .novel-cover footer { margin-top: 0; }
 .archive-edition .cover-caption { bottom: 1%; left: -3%; border-radius: var(--echo-radius-md); background: var(--echo-glass); backdrop-filter: blur(var(--echo-blur-glass)) saturate(140%); border-color: var(--line); padding: 15px 22px; }
 .archive-edition .cover-caption span { font-size: 10px; color: var(--muted); }
-.archive-edition .cover-caption b { color: var(--echo-signal); font-size: 11px; }
+.archive-edition .cover-caption b { color: var(--echo-ink); font-size: 11px; font-weight: 500; }
 .archive-edition .serial-state { background: var(--echo-surface); }
 .archive-edition .status-grid article { gap: 18px; padding: 26px 18px; min-height: 128px; }
 .archive-edition .status-grid article > span { color: var(--echo-ink); font-family: var(--echo-font-mono); font-size: 30px; font-weight: 400; letter-spacing: -.02em; }

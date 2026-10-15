@@ -463,6 +463,9 @@ def test_category_badges_are_neutral_and_only_canon_carries_core():
         assert "--echo-signal" not in body and "--echo-resonance" not in body, selector
         if "--echo-core" in body:
             assert ".canon" in selector and ".available" not in selector, selector
+    # The novel cover's candidate caption is a category too, not a signal-blue state.
+    interiors = (root / "homepage" / "interiors.css").read_text(encoding="utf-8")
+    assert "--echo-signal" not in interiors
 
 
 def test_developers_phone_header_keeps_section_nav_and_back_link():
