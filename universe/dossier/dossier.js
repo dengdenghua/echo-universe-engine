@@ -907,9 +907,11 @@
     return withDuration(new Blob(chunks, { type: recorder.mimeType || "video/webm" }), DURATION * 1000);
   }
 
-  let playing = true;
+  // Reduced motion: hold the finished title card until the visitor presses play.
+  const STILL = DURATION - 0.1;
+  let playing = !matchMedia("(prefers-reduced-motion: reduce)").matches;
   let recording = false;
-  let clock = 0;
+  let clock = playing ? 0 : STILL;
   let last = 0;
   function loop(now) {
     if (playing) clock = (clock + (last ? (now - last) / 1000 : 0)) % DURATION;
@@ -990,6 +992,7 @@
     select.addEventListener("change", () => {
       location.search = `?id=${select.value}`;
     });
+    toggle.textContent = playing ? "暂停 Pause" : "播放 Play";
     toggle.addEventListener("click", () => {
       playing = !playing;
       toggle.textContent = playing ? "暂停 Pause" : "播放 Play";

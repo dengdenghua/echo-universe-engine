@@ -953,3 +953,9 @@ def test_cli_promote_candidate_requires_accepted_event(tmp_path):
     )
     assert result.returncode != 0
     assert "candidate event not found" in result.stderr
+
+
+def test_dossier_holds_a_still_frame_for_reduced_motion():
+    script = (CanonStore().root / "universe" / "dossier" / "dossier.js").read_text(encoding="utf-8")
+    assert 'let playing = !matchMedia("(prefers-reduced-motion: reduce)").matches;' in script
+    assert 'toggle.textContent = playing ? "暂停 Pause" : "播放 Play";' in script
