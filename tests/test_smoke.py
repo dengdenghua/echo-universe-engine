@@ -959,3 +959,12 @@ def test_dossier_holds_a_still_frame_for_reduced_motion():
     script = (CanonStore().root / "universe" / "dossier" / "dossier.js").read_text(encoding="utf-8")
     assert 'let playing = !matchMedia("(prefers-reduced-motion: reduce)").matches;' in script
     assert 'toggle.textContent = playing ? "暂停 Pause" : "播放 Play";' in script
+
+
+def test_dossier_title_card_draws_the_brand_mark():
+    # The title card used an open ring + outside dot (the retired ring logo); it now strokes the
+    # brand-kit frame with the Echo Core inside it.
+    script = (CanonStore().root / "universe" / "dossier" / "dossier.js").read_text(encoding="utf-8")
+    assert 'new Path2D("M50 17H24a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26")' in script
+    assert "ctx.arc(38, 32, 5, 0, Math.PI * 2);" in script
+    assert "ctx.arc(0, 0, 18, 0.5" not in script

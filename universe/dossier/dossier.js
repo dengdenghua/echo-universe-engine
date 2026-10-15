@@ -17,6 +17,10 @@
   const DURATION = 15;
   const MONO = "Consolas, 'SFMono-Regular', 'Liberation Mono', monospace";
   const DISPLAY = "Inter, 'Segoe UI', sans-serif";
+  // The ECHO mark from the brand kit (64-unit grid): open frame + Echo Core (graphite core colour).
+  const MARK_FRAME = new Path2D("M50 17H24a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26");
+  const MARK_LENGTH = 92;
+  const ECHO_CORE = "#6fe3f0";
 
   // Canon facts from characters/*.md and colours from bible/visual_system_v1.md.
   const CHARACTERS = {
@@ -680,19 +684,20 @@
     mono(12, 500);
     ctx.fillStyle = `rgba(238, 246, 248, ${0.6 * seg(t, 0.6, 1.2)})`;
     ctx.fillText("回响纪元 · SEASON 01 · GHOST AWAKENING", x + 6, y + 72);
-    // ECHO mark.
+    // ECHO mark (brand-kit geometry): the open frame draws itself in, then the Echo Core lights.
     const m = seg(t, 0.8, 1.6);
     if (m > 0) {
       ctx.save();
-      ctx.translate(x + 26, BAR + 70);
+      ctx.translate(x + 4, BAR + 48);
+      ctx.scale(0.7, 0.7);
       ctx.strokeStyle = `rgba(244, 249, 251, ${m})`;
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 6;
+      ctx.setLineDash([MARK_LENGTH * m, MARK_LENGTH]);
+      ctx.stroke(MARK_FRAME);
+      ctx.setLineDash([]);
+      ctx.fillStyle = rgba(ECHO_CORE, seg(t, 1.2, 1.6));
       ctx.beginPath();
-      ctx.arc(0, 0, 18, 0.5, 0.5 + Math.PI * 1.6 * m);
-      ctx.stroke();
-      ctx.fillStyle = rgba(who.accent, m);
-      ctx.beginPath();
-      ctx.arc(22, 0, 3.5, 0, Math.PI * 2);
+      ctx.arc(38, 32, 5, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
