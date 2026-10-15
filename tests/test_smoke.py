@@ -424,6 +424,26 @@ def test_homepage_static_copy_matches_the_javascript_chinese_default():
     assert f'<meta name="twitter:description" content="{social}" />' in html
 
 
+def test_static_copy_matches_the_chinese_default_on_the_other_pages():
+    # Same rule as the homepage for the universe, novel and console pages: the HTML carries the zh
+    # default that the page's dictionary would swap in (line breaks aside).
+    root = CanonStore().root
+    for page, script, start, end in (
+        ("universe/index.html", "universe/app.js", "  zh: {", "  en: {"),
+        ("universe/novel/index.html", "universe/novel/app.js", "  zh: {", "  en: {"),
+        ("console/index.html", "console/i18n.js", "    zh: {", "    en: {"),
+    ):
+        html = (root / page).read_text(encoding="utf-8")
+        javascript = (root / script).read_text(encoding="utf-8")
+        zh = dict(re.findall(r'(\w+): "([^"]*)"', javascript[javascript.index(start) : javascript.index(end)]))
+        checked = 0
+        for key, inner in re.findall(r'<(?:p|span|h[1-6]|strong|small|div|a|button|b)\b[^>]*\sdata-i18n="([^"]+)"[^>]*>(.*?)</', html):
+            if key in zh:
+                assert re.sub(r"<[^>]+>", "", inner).strip() == zh[key], (page, key)
+                checked += 1
+        assert checked >= 20, page
+
+
 def test_site_lockups_and_owner_lines_read_echo():
     # 回响纪元 / ECHO AGE names the era in copy; logos, footers and owner lines say ECHO.
     root = CanonStore().root
