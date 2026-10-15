@@ -480,6 +480,15 @@ def test_universe_page_exposes_canon_media_and_bilingual_controls():
     assert "tab.tabIndex = selected ? 0 : -1" in javascript
     for key in ("ArrowRight", "ArrowLeft", '"Home"', '"End"'):
         assert key in javascript, key
+    # Group names (tablists, atlas nodes, nav, language) are read out in the page language too;
+    # the motion toggle's label is kept in sync by scene.js.
+    for tag in re.findall(r"<[^>]*\saria-label=\"[^\"]*[一-鿿][^>]*>", html):
+        assert "data-i18n-aria=" in tag or 'id="motion-toggle"' in tag, tag
+    aria_keys = re.findall(r'data-i18n-aria="([^"]+)"', html)
+    assert len(aria_keys) >= 7
+    for key in aria_keys:
+        assert len(re.findall(rf"\b{key}: \"", javascript)) == 2, key
+    assert 'element.setAttribute("aria-label", value)' in javascript
 
 
 def test_novel_serial_exposes_candidate_preview_reader_and_local_preferences():

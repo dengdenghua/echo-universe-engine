@@ -18,6 +18,7 @@ const universeCopy = {
     submitEvent: "提交事件", submitEventBody: "先进入个人或候选正典，再由对应审查组判断。", canonReview: "正典审查", canonReviewBody: "积分可以买访问与工具，但不能购买主正典资格。",
     protocolTitle: "宇宙会生长，但不会失去记忆。", protocolCanon: "已经进入主世界或 Realm 的正式设定。", protocolCandidate: "创作与社区提交的候选内容，需要审查后晋升。", protocolPersonal: "属于个人 Ghost 与私人实例，不自动改变公共世界。",
     finalUniverseTitle: "你在这里留下的，不只是故事。", startMainline: "开始主线", readNovel: "阅读小说", returnEcosystem: "返回 ECHO 生态",
+    ariaHome: "ECHO 宇宙首页", ariaNav: "宇宙导航", ariaLanguage: "语言", ariaSeasons: "故事季度", ariaAtlas: "世界图谱分类", ariaAtlasNodes: "可交互世界节点", ariaMedia: "内容媒介",
   },
   en: {
     futureTitle: "If memory lives on, where does life end?",
@@ -38,6 +39,7 @@ const universeCopy = {
     submitEvent: "Submit an event", submitEventBody: "It begins as personal or candidate canon before the relevant review group decides.", canonReview: "Canon review", canonReviewBody: "Credits can buy access and tools. They cannot buy main-canon status.",
     protocolTitle: "The universe grows without losing its memory.", protocolCanon: "Formal material accepted into the main world or a governed Realm.", protocolCandidate: "Creative and community submissions awaiting review and promotion.", protocolPersonal: "Material belonging to a personal Ghost or private instance; it does not rewrite the public world.",
     finalUniverseTitle: "What you leave here is more than a story.", startMainline: "Begin the mainline", readNovel: "Read the novel", returnEcosystem: "Back to ECHO ecosystem",
+    ariaHome: "ECHO Universe home", ariaNav: "Universe navigation", ariaLanguage: "Language", ariaSeasons: "Story seasons", ariaAtlas: "World atlas categories", ariaAtlasNodes: "Interactive world nodes", ariaMedia: "Media formats",
   },
 };
 
@@ -264,6 +266,7 @@ function applyUniverseLocale(locale, updateUrl = true) {
   document.documentElement.lang = currentLocale === "en" ? "en" : "zh-CN";
   document.documentElement.dataset.locale = currentLocale;
   document.querySelectorAll("[data-i18n]").forEach((element) => { const value = universeCopy[currentLocale][element.dataset.i18n]; if (value !== undefined) element.textContent = value; });
+  document.querySelectorAll("[data-i18n-aria]").forEach((element) => { const value = universeCopy[currentLocale][element.dataset.i18nAria]; if (value !== undefined) element.setAttribute("aria-label", value); });
   document.querySelectorAll("[data-locale]").forEach((button) => { const active = button.dataset.locale === currentLocale; button.classList.toggle("active", active); button.setAttribute("aria-pressed", String(active)); });
   const pageTitle = currentLocale === "en" ? "ECHO UNIVERSE — Echo Age" : "ECHO UNIVERSE · 回响宇宙";
   const pageDescription = currentLocale === "en" ? "Enter ECHO Universe: a 2147 AI Soulpunk world of memory, identity and digital life across stories and media." : "进入 ECHO 宇宙：一个关于记忆、身份与数字生命的 2147 AI Soulpunk 世界。";

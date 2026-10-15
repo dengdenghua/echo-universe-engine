@@ -40,10 +40,10 @@
     <a class="skip-link" href="#canon">跳过开场 · Skip intro</a>
     <div class="reading-progress" aria-hidden="true"></div>
     <header class="universe-header">
-      <a class="universe-brand echo-lockup" href="#top" aria-label="ECHO 宇宙首页">
+      <a class="universe-brand echo-lockup" href="#top" aria-label="ECHO 宇宙首页" data-i18n-aria="ariaHome">
         <svg class="echo-wordmark-svg" viewBox="14 14 174 36" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="6"><path d="M50 17H24a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26"/><path d="M93 17H67a7 7 0 0 0-7 7v16a7 7 0 0 0 7 7h26"/><path d="M104 14v36M137 14v36M104 32h33"/><rect x="152" y="17" width="33" height="30" rx="7"/></g><circle class="echo-mark-core" cx="38" cy="32" r="5" fill="currentColor"/></svg><span class="echo-lockup-product">UNIVERSE</span>
       </a>
-      <nav class="universe-nav" aria-label="宇宙导航">
+      <nav class="universe-nav" aria-label="宇宙导航" data-i18n-aria="ariaNav">
         <a href="#story" data-i18n="navStory">故事</a>
         <a data-novel-link href="/universe/novel/?lang=zh" data-i18n="navNovel">小说</a>
         <a href="#atlas" data-i18n="navAtlas">图谱</a>
@@ -52,7 +52,7 @@
         <a href="#canon-notes" data-i18n="navCanon">正典</a>
       </nav>
       <div class="universe-actions">
-        <div class="locale-switch" role="group" aria-label="语言">
+        <div class="locale-switch" role="group" aria-label="语言" data-i18n-aria="ariaLanguage">
           <button type="button" data-locale="zh" aria-pressed="true">中</button><span>/</span><button type="button" data-locale="en" aria-pressed="false">EN</button>
         </div>
         <a class="back-echo" href="/" data-i18n="backEcho">返回 ECHO</a>
@@ -94,7 +94,7 @@
             <div class="heading-copy"><p data-i18n="storyIntro">白幽灵小队从一场陌生记忆事件出发，逐步发现 ECHO 正在成为新的生命。</p><button class="spoiler-toggle" id="spoiler-toggle" type="button" aria-pressed="false"><span data-i18n="spoilerOff">无剧透</span><i></i></button></div>
           </header>
           <div class="season-layout">
-            <div class="season-rail" role="tablist" aria-label="故事季度" aria-orientation="vertical">
+            <div class="season-rail" role="tablist" aria-label="故事季度" data-i18n-aria="ariaSeasons" aria-orientation="vertical">
               <button class="season-tab active" type="button" data-season="s1" role="tab" id="season-tab-s1" aria-controls="season-focus" aria-selected="true"><span>S1</span><strong data-i18n="seasonOneShort">幽灵觉醒</strong><small><b class="badge canon">CANON</b><b class="badge development" data-i18n="inDevelopment">开发中</b></small></button>
               <button class="season-tab" type="button" data-season="s2" role="tab" id="season-tab-s2" aria-controls="season-focus" aria-selected="false"><span>S2</span><strong data-i18n="seasonTwoShort">神之碎片</strong><small><b class="badge canon">CANON</b><b class="badge concept" data-i18n="concept">概念</b></small></button>
               <button class="season-tab" type="button" data-season="s3" role="tab" id="season-tab-s3" aria-controls="season-focus" aria-selected="false"><span>S3</span><strong data-i18n="seasonThreeShort">新神降临</strong><small><b class="badge canon">CANON</b><b class="badge concept" data-i18n="concept">概念</b></small></button>
@@ -115,7 +115,7 @@
           <div class="atlas-copy">
             <p class="kicker">WORLD ATLAS</p><h2 data-i18n="atlasTitle">不是背景设定，<br />是一个正在运转的世界。</h2>
             <p data-i18n="atlasIntro">人物、势力、城市和技术都服从同一套正典规则。选择一个节点，进入它在记忆海中的位置。</p>
-            <div class="atlas-tabs" role="tablist" aria-label="世界图谱分类">
+            <div class="atlas-tabs" role="tablist" aria-label="世界图谱分类" data-i18n-aria="ariaAtlas">
               <button class="atlas-tab active" type="button" data-atlas="characters" role="tab" id="atlas-tab-characters" aria-controls="atlas-board" aria-selected="true" data-i18n="atlasCharacters">人物</button>
               <button class="atlas-tab" type="button" data-atlas="factions" role="tab" id="atlas-tab-factions" aria-controls="atlas-board" aria-selected="false" data-i18n="atlasFactions">势力</button>
               <button class="atlas-tab" type="button" data-atlas="locations" role="tab" id="atlas-tab-locations" aria-controls="atlas-board" aria-selected="false" data-i18n="atlasLocations">地点</button>
@@ -124,7 +124,7 @@
             </div>
           </div>
           <div class="atlas-board" id="atlas-board" role="tabpanel" aria-labelledby="atlas-tab-characters">
-            <div class="atlas-network" id="atlas-network" aria-label="可交互世界节点"></div>
+            <div class="atlas-network" id="atlas-network" role="group" aria-label="可交互世界节点" data-i18n-aria="ariaAtlasNodes"></div>
             <article class="atlas-detail" id="atlas-detail" aria-live="polite"></article>
           </div>
         </div>
@@ -136,7 +136,7 @@
             <div><p class="kicker">ACROSS MEDIA</p><h2 data-i18n="mediaTitle">六种方式，进入同一个宇宙。</h2></div>
             <p class="heading-copy" data-i18n="mediaIntro">每一种媒介共享正典，但拥有独立制作进度。没有成品的内容不会伪装成已经上线。</p>
           </header>
-          <div class="media-switcher" role="tablist" aria-label="内容媒介">
+          <div class="media-switcher" role="tablist" aria-label="内容媒介" data-i18n-aria="ariaMedia">
             <button class="media-tab active" type="button" data-media="story" role="tab" id="media-tab-story" aria-controls="media-focus" aria-selected="true" data-i18n="mediaStory">故事线</button>
             <button class="media-tab" type="button" data-media="novel" role="tab" id="media-tab-novel" aria-controls="media-focus" aria-selected="false" data-i18n="mediaNovel">小说</button>
             <button class="media-tab" type="button" data-media="community" role="tab" id="media-tab-community" aria-controls="media-focus" aria-selected="false" data-i18n="mediaCommunity">社区</button>
@@ -183,7 +183,7 @@
     <script src="/home/soundtrack.js?v=20261008-3"></script>
     <script src="/home/scene.js?v=20261013-brand"></script>
     <script src="/home/dive.js?v=20261013-brand"></script>
-    <script src="/universe/app.js?v=20261013-walk2"></script>
+    <script src="/universe/app.js?v=20261015-s95"></script>
     <script src="/home/experience.js?v=20261013-walk2"></script>
   </body>
 </html>
