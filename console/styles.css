@@ -2587,3 +2587,5 @@ pre {
 
 /* Brand type floor: Chinese never renders below the 12px caption size. */
 :root[lang^="zh"] :is(.boot-sub, .echo-toast, .locale-switch button, .system-chip, .window-kicker, .window-badge, .window-actions button, .core-label span, .metric span, .asset-links a, .stream li strong, .candidate-head > span, .candidate-meta span, .candidate-meta a, .candidate-actions button) { font-size: 12px; }
+/* The "中文" switch reads Chinese on the English console too. */
+.locale-switch button[data-locale="zh"] { font-size: 12px; }

@@ -549,7 +549,8 @@ def test_chinese_type_floor_covers_toasts_invite_buttons_and_language_switches()
     assert '.future-site .locale-switch button[data-locale="zh"] { font-size: 12px; }' in type_css
     assert '.echo-interior .locale-switch button[data-locale="zh"], .review-edition #lang-toggle { font-size: 12px; }' in interiors
     assert ':root[lang^="zh"] :is(.boot-sub, .echo-toast,' in console
-    developers = (root / "developers" / "index.html").read_text(encoding="utf-8")
+    assert '.locale-switch button[data-locale="zh"] { font-size: 12px; }' in console
+    developers =(root / "developers" / "index.html").read_text(encoding="utf-8")
     assert "<code>无</code>" not in developers
 
 
