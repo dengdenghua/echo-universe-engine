@@ -571,6 +571,15 @@ def test_novel_and_reader_name_their_groups_in_both_languages():
             assert len(re.findall(rf"\b{key}: ", javascript)) == 2, (page, key)
 
 
+def test_decorative_glyphs_are_hidden_from_screen_readers():
+    # Separators and icon glyphs (／, ＋, →) are decoration; read aloud they turn a button's name into
+    # "收藏连载 加号" and a breadcrumb into "斜杠".
+    root = CanonStore().root
+    for page in ("universe/index.html", "universe/novel/index.html", "universe/novel/stranger-memory/index.html"):
+        html = (root / page).read_text(encoding="utf-8")
+        assert not re.findall(r"<i>[^<\s]+</i>", html), page
+
+
 def test_universe_page_exposes_canon_media_and_bilingual_controls():
     root = CanonStore().root
     html = (root / "universe" / "index.html").read_text(encoding="utf-8")
