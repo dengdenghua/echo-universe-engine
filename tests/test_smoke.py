@@ -610,6 +610,124 @@ def test_universe_page_exposes_canon_media_and_bilingual_controls():
     assert 'element.setAttribute("aria-label", value)' in javascript
 
 
+def _js_block(text: str, start: str, end: str) -> str:
+    begin = text.index(start)
+    return text[begin : text.index(end, begin + len(start))]
+
+
+def _js_fields(text: str) -> dict[str, str]:
+    return dict(re.findall(r'(\w+): "([^"]*)"', text))
+
+
+def _element_inner(html: str, element_id: str) -> str:
+    """Inner HTML of the element with this id, nested elements of the same tag included."""
+    start = re.search(rf'<(\w+)\b[^>]*\sid="{element_id}"[^>]*>', html)
+    assert start, element_id
+    tag, depth = start.group(1), 1
+    for match in re.finditer(rf"<(/?){tag}\b[^>]*>", html[start.end() :]):
+        depth += -1 if match.group(1) else 1
+        if depth == 0:
+            return html[start.end() : start.end() + match.start()]
+    raise AssertionError(f"unclosed #{element_id}")
+
+
+def test_universe_panels_ship_their_initial_state_for_visitors_without_javascript():
+    # Crawlers and no-JS visitors read the HTML: the season, atlas and media panels carry what
+    # app.js renders first (zh, season 1 without spoilers, the first atlas category, the first
+    # medium), built here from the same data and the same templates.
+    root = CanonStore().root
+    html = (root / "universe" / "index.html").read_text(encoding="utf-8")
+    javascript = (root / "universe" / "app.js").read_text(encoding="utf-8")
+    seasons = _js_block(_js_block(javascript, "const seasons = {", "const atlasData"), "  zh: {", "  en: {")
+    season = _js_block(seasons, "s1: {", "s2: {")
+    beats = re.findall(r'"([^"]*)"', re.search(r"safeBeats: \[([^\]]*)\]", season).group(1))
+    atlas = _js_block(_js_block(javascript, "const atlasData = {", "const mediaData"), "  zh: {", "  en: {")
+    characters = [_js_fields(item) for item in re.findall(r"\{([^{}]*)\}", _js_block(atlas, "characters: [", "factions: ["))]
+    media = _js_block(_js_block(javascript, "const mediaData = {", "let currentLocale"), "  zh: {", "  en: {")
+    assert re.match(r"\s*zh: \{\s*story: \{", media)
+    story = _js_fields(_js_block(media, "story: {", "novel: {"))
+    assert re.search(r'let currentSeason = "s1";\s+let currentAtlas = "characters";\s+let currentAtlasIndex = 0;\s+let currentMedia = "story";', javascript)
+    core = re.search(r'#atlas-network"\)\.innerHTML = `(<div class="atlas-core">.*?</div>)\$\{', javascript).group(1)
+    for template in (
+        "<article><span>0${index + 1}</span><strong>${beat}</strong></article>",
+        '<button class="atlas-node${index === currentAtlasIndex ? " active" : ""}" type="button" data-atlas-index="${index}"><small>${item.id}</small><strong>${item.name}</strong></button>',
+        '<div class="detail-status"><b class="badge canon">CANON</b><b class="badge available">AVAILABLE</b></div><span class="detail-type">${item.type}</span><h3>${item.name}</h3><p>${detailBody}</p><small>SOURCE · ${item.source}</small>',
+        '<b class="badge ${item.contentClass}">${item.content}</b><b class="badge ${item.productionClass}">${item.production}</b>',
+    ):
+        assert template in javascript, template
+    first = characters[0]
+    expected = {
+        "season-index": re.search(r'index: "([^"]*)"', season).group(1),
+        "season-summary": re.search(r'\bsafe: "([^"]*)"', season).group(1),
+        "story-beats": "".join(f"<article><span>0{i + 1}</span><strong>{beat}</strong></article>" for i, beat in enumerate(beats)),
+        "season-location": re.search(r'location: "([^"]*)"', season).group(1),
+        "season-state": re.search(r'state: "([^"]*)"', season).group(1),
+        "atlas-network": core + "".join(
+            f'<button class="atlas-node{" active" if i == 0 else ""}" type="button" data-atlas-index="{i}"><small>{item["id"]}</small><strong>{item["name"]}</strong></button>'
+            for i, item in enumerate(characters)
+        ),
+        "atlas-detail": f'<div class="detail-status"><b class="badge canon">CANON</b><b class="badge available">AVAILABLE</b></div><span class="detail-type">{first["type"]}</span><h3>{first["name"]}</h3><p>{first["body"]}</p><small>SOURCE · {first["source"]}</small>',
+        "media-number": story["number"],
+        "media-status": f'<b class="badge {story["contentClass"]}">{story["content"]}</b><b class="badge {story["productionClass"]}">{story["production"]}</b>',
+        "media-kicker": story["kicker"],
+        "media-name": story["name"],
+        "media-description": story["body"],
+        "media-action": story["action"],
+        "media-symbol": story["symbol"],
+    }
+    for element_id, markup in expected.items():
+        assert markup and _element_inner(html, element_id) == markup, element_id
+    assert f'<a id="media-action" href="{story["href"]}">' in html
+    assert len(beats) == 4 and len(characters) == 4
+
+
+def test_developer_endpoint_table_ships_its_rows_for_visitors_without_javascript():
+    # The endpoint table, the playground options and the endpoint count are in the HTML (zh) exactly
+    # as developers/app.js renders them; the script rebuilds them instead of appending duplicates.
+    root = CanonStore().root
+    html = (root / "developers" / "index.html").read_text(encoding="utf-8")
+    javascript = (root / "developers" / "app.js").read_text(encoding="utf-8")
+    endpoints = [
+        _js_fields(item)
+        for item in re.findall(r"(?m)^\s*\{ (method: .*) \},?\r?$", _js_block(javascript, "const endpoints = [", "];"))
+    ]
+    assert len(endpoints) >= 10
+    rows = "".join(
+        f'<tr><td><span class="method method-{item["method"].lower()}">{item["method"]}</span></td><td class="path">{item["path"]}</td><td class="desc">{item["zh"]}</td></tr>'
+        for item in endpoints
+    )
+    assert _element_inner(html, "endpoint-rows") == rows
+    options = "".join(
+        f'<option value="{item["path"]}">{item["path"]}</option>'
+        for item in endpoints
+        if item["method"] == "GET" and "{" not in item["path"]
+    )
+    assert _element_inner(html, "play-endpoint") == options
+    assert f'<b id="fact-endpoints">{len(endpoints)}</b>' in html
+    for fragment in (
+        "badge.className = `method method-${item.method.toLowerCase()}`;",
+        'path.className = "path";',
+        'desc.className = "desc";',
+        "desc.textContent = item[locale];",
+        "row.append(method, path, desc);",
+        "endpointRows.replaceChildren();",
+        "playSelect.replaceChildren(",
+        'item.method === "GET" && !item.path.includes("{")',
+        "endpointCount.textContent = String(endpoints.length);",
+    ):
+        assert fragment in javascript, fragment
+    assert "<noscript>" in html
+
+
+def test_reader_explains_itself_without_javascript_instead_of_loading_forever():
+    root = CanonStore().root
+    html = (root / "universe" / "novel" / "stranger-memory" / "index.html").read_text(encoding="utf-8")
+    javascript = (root / "universe" / "novel" / "stranger-memory" / "reader.js").read_text(encoding="utf-8")
+    assert '<p class="loading-copy" id="chapter-loading" data-i18n="loadingChapter" hidden>' in html
+    assert re.search(r'<noscript><p class="loading-copy">[^<]+<br /><a href="/universe/novel/">', html)
+    assert 'document.querySelector("#chapter-loading")?.removeAttribute("hidden");' in javascript
+
+
 def test_novel_serial_exposes_candidate_preview_reader_and_local_preferences():
     root = CanonStore().root
     catalog = (root / "universe" / "novel" / "index.html").read_text(encoding="utf-8")

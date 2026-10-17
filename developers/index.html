@@ -31,7 +31,7 @@
     <link rel="preload" href="/home/assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/home/assets/echo-tokens.css?v=20261013-brand" />
     <link rel="stylesheet" href="/home/assets/echo-brand.css?v=20261013-brand" />
-    <link rel="stylesheet" href="/developers/styles.css?v=20261013-walk2" />
+    <link rel="stylesheet" href="/developers/styles.css?v=20261017-s97" />
     <link rel="stylesheet" href="/home/interiors.css?v=20261015-s95" />
   </head>
   <body class="echo-interior developer-edition">
@@ -75,7 +75,7 @@
           <div class="observatory-bottom"><span data-i18n="apiDiagram">公开内容接口示意</span><span>JSON / UTF-8</span></div>
         </aside>
         <div class="hero-facts" role="list">
-          <span role="listitem"><b id="fact-endpoints">—</b><small data-i18n="factEndpoints">公开只读接口</small></span>
+          <span role="listitem"><b id="fact-endpoints">12</b><small data-i18n="factEndpoints">公开只读接口</small></span>
           <span role="listitem"><b id="fact-characters">—</b><small data-i18n="factCharacters">角色档案</small></span>
           <span role="listitem"><b data-i18n="factAuthValue">无需密钥</b><small data-i18n="factAuth">公开层调用</small></span>
         </div>
@@ -141,7 +141,7 @@
                 <th scope="col" data-i18n="thDesc">说明</th>
               </tr>
             </thead>
-            <tbody id="endpoint-rows"></tbody>
+            <tbody id="endpoint-rows"><tr><td><span class="method method-get">GET</span></td><td class="path">/api/canon/status</td><td class="desc">正典审核进度：已确认、候选与待审条目的数量。</td></tr><tr><td><span class="method method-get">GET</span></td><td class="path">/api/canon/characters</td><td class="desc">已通过连续性审核的角色档案。</td></tr><tr><td><span class="method method-get">GET</span></td><td class="path">/api/assets/characters</td><td class="desc">角色视觉资产索引：立绘、转身图与头像路径。</td></tr><tr><td><span class="method method-get">GET</span></td><td class="path">/api/realms</td><td class="desc">世界层级：记忆海各层的名称与设定。</td></tr><tr><td><span class="method method-get">GET</span></td><td class="path">/api/npcs</td><td class="desc">可交互角色列表及其所属阵营。</td></tr><tr><td><span class="method method-get">GET</span></td><td class="path">/api/journal/events</td><td class="desc">世界日志事件流：内容层的公开变更记录。</td></tr><tr><td><span class="method method-get">GET</span></td><td class="path">/api/economy/products</td><td class="desc">经济商品目录：定价与可售状态。</td></tr><tr><td><span class="method method-get">GET</span></td><td class="path">/api/identity/tiers</td><td class="desc">身份档位定义与各档权限。</td></tr><tr><td><span class="method method-get">GET</span></td><td class="path">/api/skins/policies</td><td class="desc">外观策略：可用皮肤与适用规则。</td></tr><tr><td><span class="method method-get">GET</span></td><td class="path">/api/health</td><td class="desc">健康检查。用于探活，不含业务数据。</td></tr><tr><td><span class="method method-get">GET</span></td><td class="path">/api/canon/candidates/{id}/governance</td><td class="desc">单个候选条目的治理状态与审核意见。</td></tr><tr><td><span class="method method-get">GET</span></td><td class="path">/openapi.json</td><td class="desc">OpenAPI 规范。字段权威来源，以此为准。</td></tr></tbody>
           </table>
         </div>
         <p class="empty-hint" id="endpoint-empty" hidden data-i18n="noMatch">没有匹配的接口。</p>
@@ -155,7 +155,7 @@
         </header>
         <div class="play-controls">
           <label class="sr-only" for="play-endpoint" data-i18n="playSelectLabel">选择接口</label>
-          <select id="play-endpoint"></select>
+          <select id="play-endpoint"><option value="/api/canon/status">/api/canon/status</option><option value="/api/canon/characters">/api/canon/characters</option><option value="/api/assets/characters">/api/assets/characters</option><option value="/api/realms">/api/realms</option><option value="/api/npcs">/api/npcs</option><option value="/api/journal/events">/api/journal/events</option><option value="/api/economy/products">/api/economy/products</option><option value="/api/identity/tiers">/api/identity/tiers</option><option value="/api/skins/policies">/api/skins/policies</option><option value="/api/health">/api/health</option><option value="/openapi.json">/openapi.json</option></select>
           <button type="button" id="play-send" class="send-btn" data-i18n="send">发送请求</button>
         </div>
         <div class="play-result">
@@ -165,6 +165,7 @@
           </div>
           <pre id="play-output" aria-live="polite" aria-atomic="true"><code data-i18n="playHint">选择一个接口并发送，响应会显示在这里。</code></pre>
         </div>
+        <noscript><p class="note">试调需要启用 JavaScript。不用脚本也可以直接在浏览器或 curl 里请求上面清单中的 GET 路径，例如 <a href="/api/canon/status">/api/canon/status</a>。</p></noscript>
       </section>
       <section class="dev-section" id="limits">
         <header class="section-head">
@@ -211,6 +212,6 @@
       </footer>
     </main>
 
-    <script src="/developers/app.js?v=20261015-s95"></script>
+    <script src="/developers/app.js?v=20261017-s97"></script>
   </body>
 </html>

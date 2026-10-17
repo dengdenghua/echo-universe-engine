@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/home/assets/echo-tokens.css?v=20261013-brand" />
     <link rel="stylesheet" href="/home/assets/echo-brand.css?v=20261013-brand" />
     <link rel="stylesheet" href="/universe/styles.css?v=20261017-s97" />
-    <link rel="stylesheet" href="/universe/novel/styles.css?v=20261017-s97" />
+    <link rel="stylesheet" href="/universe/novel/styles.css?v=20261017-s97b" />
     <link rel="stylesheet" href="/home/interiors.css?v=20261015-s95" />
   </head>
   <body class="novel-site reader-site echo-interior reader-edition" data-theme="night" data-echo-theme="graphite">
@@ -74,7 +74,8 @@
         </div>
 
         <div class="chapter-body" id="chapter-content" aria-live="polite">
-          <p class="loading-copy" data-i18n="loadingChapter">正在打开记忆档案……</p>
+          <p class="loading-copy" id="chapter-loading" data-i18n="loadingChapter" hidden>正在打开记忆档案……</p>
+          <noscript><p class="loading-copy">试读正文由脚本载入，请启用 JavaScript 后阅读。<br /><a href="/universe/novel/">返回小说目录</a></p></noscript>
         </div>
 
         <section class="preview-end">
@@ -91,6 +92,6 @@
     </main>
 
     <div class="novel-toast" id="novel-toast" role="status" aria-live="polite"></div>
-    <script src="/universe/novel/stranger-memory/reader.js?v=20261017-s97"></script>
+    <script src="/universe/novel/stranger-memory/reader.js?v=20261017-s97b"></script>
   </body>
 </html>

@@ -217,16 +217,20 @@ function renderEndpoints() {
 endpointFilter?.addEventListener("input", renderEndpoints);
 
 /* 试调只列可直接 GET 的端点，带路径参数的候选治理接口需要具体 id，放进去只会 404。 */
+/* 表格行、试调选项与接口计数在 HTML 里各有一份静态初稿（无脚本访客与爬虫读到的就是它），
+   tests/test_smoke.py 保证它与这里的 endpoints 一致；脚本运行后整体重建，不会重复。 */
 const playSelect = document.getElementById("play-endpoint");
 if (playSelect) {
-  endpoints
-    .filter((item) => item.method === "GET" && !item.path.includes("{"))
-    .forEach((item) => {
-      const option = document.createElement("option");
-      option.value = item.path;
-      option.textContent = item.path;
-      playSelect.append(option);
-    });
+  playSelect.replaceChildren(
+    ...endpoints
+      .filter((item) => item.method === "GET" && !item.path.includes("{"))
+      .map((item) => {
+        const option = document.createElement("option");
+        option.value = item.path;
+        option.textContent = item.path;
+        return option;
+      }),
+  );
 }
 
 const playSend = document.getElementById("play-send");

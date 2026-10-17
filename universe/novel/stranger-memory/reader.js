@@ -207,7 +207,9 @@ function buildChapter(text) {
   syncChapterIllustrations();
 }
 
+// The loading line ships hidden so visitors without JavaScript see the <noscript> note instead of a spinner that never ends.
 async function loadChapter() {
+  document.querySelector("#chapter-loading")?.removeAttribute("hidden");
   try { const response = await fetch("/universe/novel/content/stranger-memory.zh.md", { cache: "no-store" }); if (!response.ok) throw new Error(String(response.status)); buildChapter(await response.text()); chapterLoaded = true; requestAnimationFrame(syncProgress); }
   catch (_) { document.querySelector("#chapter-content").innerHTML = `<p class="loading-copy">${readerCopy[locale].loadError}</p>`; }
 }

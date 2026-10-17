@@ -63,6 +63,7 @@ main { width: min(calc(100% - var(--gutter) * 2), var(--content)); margin: 0 aut
 .section-body { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.76; }
 .note { margin: 22px 0 0; padding: 15px 18px; border-left: 2px solid var(--line-strong); color: var(--muted); font-size: 12.5px; line-height: 1.7; background: rgba(9, 10, 12, .5); border-radius: 0 8px 8px 0; }
 .note.warn { border-left-color: var(--amber); }
+.note a { color: var(--echo-ink); text-decoration: underline; text-underline-offset: .25em; }
 
 .code-block { border: 1px solid var(--line); border-radius: 12px; background: rgba(9, 10, 12, .82); overflow: hidden; }
 .code-top { padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); color: var(--dim); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
