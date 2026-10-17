@@ -121,6 +121,11 @@ assert read('governance.json')
 PY
 code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 http://127.0.0.1:8010/api/canon/governance/candidates)
 [[ $code == 401 || $code == 403 ]]
+# A browser opening an unknown root-level page gets the designed 404 page; unknown API paths keep the guard.
+code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 -H 'Accept: text/html' http://127.0.0.1:8010/does-not-exist)
+[[ $code == 404 ]]
+code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 -H 'Accept: text/html' http://127.0.0.1:8010/api/does-not-exist)
+[[ $code == 401 ]]
 trap - ERR
-echo "Backend health, governance, resonance routes and admin boundary verified."
+echo "Backend health, governance, resonance routes, admin boundary and root 404 page verified."
 echo "Rollback: bash $release/rollout-backend.sh rollback $release"

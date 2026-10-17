@@ -81,6 +81,76 @@ def test_production_guard_keeps_catalog_public_and_protects_state(monkeypatch):
         get_settings.cache_clear()
 
 
+_BROWSER = {"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
+
+
+def test_unknown_root_pages_get_the_designed_404_and_every_real_route_keeps_its_guard(monkeypatch):
+    # Production nginx proxies every root-level path it does not serve to the app. A browser opening
+    # one that has no route gets homepage/404.html; nothing with a route behind it changes.
+    monkeypatch.setenv("ECHO_ADMIN_API_KEY", "test-admin-key")
+    get_settings.cache_clear()
+    try:
+        client = TestClient(app)
+        for path in ("/does-not-exist", "/deep/unknown/path/", "/index.html", "/docs/nope", "/wp-login.php"):
+            for method in (client.get, client.head):
+                response = method(path, headers=_BROWSER)
+                assert response.status_code == 404, (method, path)
+                assert response.headers["content-type"].startswith("text/html"), path
+                assert response.headers["cache-control"] == "no-cache", path
+                assert "default-src 'none'" in response.headers["content-security-policy"], path
+            page = client.get(path, headers=_BROWSER).text
+            assert "<title>ECHO · 404" in page and "NO ECHO AT THIS ADDRESS" in page, path
+
+        # Machine requests to an unknown path, and every /api path, keep the guard's answer.
+        unknown_json = client.get("/does-not-exist")
+        assert unknown_json.status_code == 401
+        assert unknown_json.json() == {"detail": "ECHO Universe authorization required"}
+        assert client.get("/does-not-exist", headers={"Accept": "application/json"}).status_code == 401
+        assert client.post("/does-not-exist", headers=_BROWSER).status_code == 401
+        for path in ("/api", "/api/x", "/api/does/not/exist"):
+            response = client.get(path, headers=_BROWSER)
+            assert response.status_code == 401, path
+            assert response.headers["content-type"] == "application/json", path
+
+        # Protected routes and mounts stay protected for browsers too.
+        for path in ("/console", "/console/", "/console/styles.css", "/console/nope", "/outputs/x", "/assets/x"):
+            response = client.get(path, headers=_BROWSER, follow_redirects=False)
+            assert response.status_code == 401, path
+            assert response.headers["content-type"] == "application/json", path
+        assert client.get("/api/bindings", headers=_BROWSER).status_code == 401
+        assert client.post("/api/economy/wallet/grant", headers=_BROWSER, json={"user_id": "x", "amount": 1}).status_code == 401
+        assert client.get("/console/", headers={**_BROWSER, "Authorization": "Bearer test-admin-key"}).status_code == 200
+
+        # Public routes are unchanged; the bare site folders only redirect to their slash form.
+        assert client.get("/", headers=_BROWSER).status_code == 200
+        assert client.get("/docs", headers=_BROWSER).status_code == 200
+        assert client.get("/openapi.json", headers=_BROWSER).status_code == 200
+        assert client.get("/api/health", headers=_BROWSER).status_code == 200
+        for folder in ("home", "universe", "developers", "review"):
+            response = client.get(f"/{folder}", headers=_BROWSER, follow_redirects=False)
+            assert response.status_code in {307, 308}, folder
+            assert response.headers["location"].endswith(f"/{folder}/"), folder
+            assert client.get(f"/{folder}/", headers=_BROWSER).status_code == 200, folder
+    finally:
+        get_settings.cache_clear()
+
+
+def test_unknown_root_pages_get_the_404_page_without_an_admin_key_too(monkeypatch):
+    monkeypatch.delenv("ECHO_ADMIN_API_KEY", raising=False)
+    monkeypatch.delenv("ECHO_ADMIN_API_KEY_FILE", raising=False)
+    monkeypatch.setenv("ECHO_ENVIRONMENT", "production")
+    get_settings.cache_clear()
+    try:
+        client = TestClient(app)
+        assert client.get("/does-not-exist", headers=_BROWSER).status_code == 404
+        # An unconfigured production server still refuses everything else.
+        assert client.get("/does-not-exist").status_code == 503
+        assert client.get("/api/x", headers=_BROWSER).status_code == 503
+        assert client.get("/console/", headers=_BROWSER).status_code == 503
+    finally:
+        get_settings.cache_clear()
+
+
 def test_user_jwt_is_self_scoped_and_cannot_call_admin_routes(monkeypatch):
     monkeypatch.setenv("ECHO_ADMIN_API_KEY", "test-admin-key")
     monkeypatch.setenv("ECHO_USER_JWT_SECRET", "test-user-secret")

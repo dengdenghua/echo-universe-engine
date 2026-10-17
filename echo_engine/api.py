@@ -16,6 +16,7 @@ from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import AliasChoices, BaseModel, Field
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.routing import Match
 from starlette.types import Scope
 
 from echo_engine.auth import JWTError, decode_hs256
@@ -153,7 +154,10 @@ app.add_middleware(GZipMiddleware, minimum_size=1024, compresslevel=6)
 
 _PUBLIC_EXACT_PATHS = {
     "/",
+    # 公开站点目录不带斜杠的地址只会被路由重定向到 "/<目录>/"，不返回任何内容。
+    "/home",
     "/universe",
+    "/review",
     "/docs",
     "/docs/oauth2-redirect",
     "/openapi.json",
@@ -414,9 +418,53 @@ async def static_cache_headers(request: Request, call_next):
     return response
 
 
+# 生产 nginx 把自己不托管的根路径（例如 /does-not-exist）都转发给本应用，这类地址原先会撞上
+# 下面的 API 守卫，浏览器看到的是 401 JSON。现在浏览器打开的未知页面直接得到设计过的
+# homepage/404.html（状态 404）。判定刻意收得很窄：只有 GET/HEAD、Accept 含 text/html、
+# 不在 /api 下、且（连同路由器的斜杠重定向在内）匹配不到任何路由或挂载的请求才算。
+# 没有路由就没有可保护的东西，所有真实路由、挂载（/console、/outputs……）与 /api 路径的
+# 鉴权和响应保持原样。这份响应经 nginx 的 location / 反代出去，那里不加 CSP，所以由应用自己带上
+# 与静态站点相同的策略。
+_SITE_CSP = (
+    "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; "
+    "connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'"
+)
+
+
+def _matches_a_route(scope: Scope) -> bool:
+    path = scope["path"]
+    candidates = [path]
+    if path != "/":
+        candidates.append(path.rstrip("/") if path.endswith("/") else path + "/")
+    return any(
+        route.matches({**scope, "path": candidate})[0] != Match.NONE
+        for candidate in candidates
+        for route in app.router.routes
+    )
+
+
+def _is_unknown_page_request(request: Request) -> bool:
+    if request.method not in {"GET", "HEAD"}:
+        return False
+    path = request.url.path
+    if path == "/api" or path.startswith("/api/"):
+        return False
+    if "text/html" not in request.headers.get("accept", "").lower():
+        return False
+    return not _matches_a_route(request.scope)
+
+
 @app.middleware("http")
 async def production_api_guard(request: Request, call_next):
     """Protect user state and all mutations when a production admin key is configured."""
+    if _is_unknown_page_request(request):
+        not_found_page = homepage_dir / "404.html"
+        if not_found_page.is_file():
+            return FileResponse(
+                not_found_page,
+                status_code=404,
+                headers={"Cache-Control": "no-cache", "Content-Security-Policy": _SITE_CSP},
+            )
     expected = _admin_api_key()
     if _is_public_read(request) or _is_public_mutation(request):
         return await call_next(request)
