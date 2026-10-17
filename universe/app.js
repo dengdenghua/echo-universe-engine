@@ -9,14 +9,14 @@ const universeCopy = {
     canonRule: "没有魔法，没有超自然；一切力量都必须来自可以解释的技术。",
     storyTitle: "一条主线，三次觉醒。", storyIntro: "白幽灵小队从一场陌生记忆事件出发，逐步发现 ECHO 正在成为新的生命。",
     spoilerOff: "无剧透模式", spoilerOn: "已显示剧透", seasonOneShort: "幽灵觉醒", seasonTwoShort: "神之碎片", seasonThreeShort: "新神降临",
-    atlasTitle: "不是背景设定，是一个正在运转的世界。", atlasIntro: "人物、势力、城市和技术都服从同一套正典规则。选择一个节点，进入它在记忆海中的位置。",
+    atlasTitle: "不是背景设定，\n是一个正在运转的世界。", atlasIntro: "人物、势力、城市和技术都服从同一套正典规则。选择一个节点，进入它在记忆海中的位置。",
     atlasCharacters: "人物", atlasFactions: "势力", atlasLocations: "地点", atlasTechnology: "技术", atlasTimeline: "时间线",
     mediaTitle: "六种方式，进入同一个宇宙。", mediaIntro: "每一种媒介共享正典，但拥有独立制作进度。没有成品的内容不会伪装成已经上线。",
     mediaStory: "故事线", mediaNovel: "小说", mediaCommunity: "社区", mediaComic: "漫画", mediaMotion: "漫剧", mediaScreen: "影视",
-    communityTitle: "社区不是旁观席，但参与不等于改写正典。", communityIntro: "每位用户可以绑定自己的 Ghost、进入 Realm，并提交个人事件。主世界仍由可追踪的审查链维护。",
+    communityTitle: "社区不是旁观席，\n但参与不等于改写正典。", communityIntro: "每位用户可以绑定自己的 Ghost、进入 Realm，并提交个人事件。主世界仍由可追踪的审查链维护。",
     inDevelopment: "开发中", concept: "概念", bindGhost: "绑定 Ghost", bindGhostBody: "建立属于你的连续身份与私人记忆。", enterRealm: "进入 Realm", enterRealmBody: "在城市、故事弧或个人实例中生活。",
     submitEvent: "提交事件", submitEventBody: "先进入个人或候选正典，再由对应审查组判断。", canonReview: "正典审查", canonReviewBody: "积分可以买访问与工具，但不能购买主正典资格。",
-    protocolTitle: "宇宙会生长，但不会失去记忆。", protocolCanon: "已经进入主世界或 Realm 的正式设定。", protocolCandidate: "创作与社区提交的候选内容，需要审查后晋升。", protocolPersonal: "属于个人 Ghost 与私人实例，不自动改变公共世界。",
+    protocolTitle: "宇宙会生长，\n但不会失去记忆。", protocolCanon: "已经进入主世界或 Realm 的正式设定。", protocolCandidate: "创作与社区提交的候选内容，需要审查后晋升。", protocolPersonal: "属于个人 Ghost 与私人实例，不自动改变公共世界。",
     finalUniverseTitle: "你在这里留下的，不只是故事。", startMainline: "开始主线", readNovel: "阅读小说", returnEcosystem: "返回 ECHO 生态",
     ariaHome: "ECHO 宇宙首页", ariaNav: "宇宙导航", ariaLanguage: "语言", ariaSeasons: "故事季度", ariaAtlas: "世界图谱分类", ariaAtlasNodes: "可交互世界节点", ariaMedia: "内容媒介",
     notFoundPageTitle: "ECHO UNIVERSE · 404 · 图谱上没有这个坐标", notFoundTitle: "图谱上没有这个坐标。", notFoundBody: "它可能已经移动、尚未公开，或地址输入有误。回到宇宙继续探索，或返回 ECHO 首页。", notFoundUniverse: "回到 ECHO 宇宙", notFoundHome: "返回首页",
@@ -31,14 +31,14 @@ const universeCopy = {
     canonRule: "No magic. No supernatural power. Every ability must come from explainable technology.",
     storyTitle: "One mainline. Three awakenings.", storyIntro: "White Ghost Team follows a stranger-memory incident toward the discovery that ECHO is becoming a new form of life.",
     spoilerOff: "Spoiler-safe mode", spoilerOn: "Spoilers shown", seasonOneShort: "Ghost Awakening", seasonTwoShort: "Fragments of God", seasonThreeShort: "New God",
-    atlasTitle: "Not a backdrop. A world in motion.", atlasIntro: "Characters, factions, cities and technologies share one canon protocol. Choose a node to locate it inside the Memory Sea.",
+    atlasTitle: "Not a backdrop.\nA world in motion.", atlasIntro: "Characters, factions, cities and technologies share one canon protocol. Choose a node to locate it inside the Memory Sea.",
     atlasCharacters: "People", atlasFactions: "Factions", atlasLocations: "Places", atlasTechnology: "Technology", atlasTimeline: "Timeline",
     mediaTitle: "Six ways into one universe.", mediaIntro: "Every medium shares canon while keeping its own production status. Nothing unfinished is presented as released.",
     mediaStory: "Storyline", mediaNovel: "Novel", mediaCommunity: "Community", mediaComic: "Comics", mediaMotion: "Motion Comic", mediaScreen: "Film & TV",
-    communityTitle: "Community is not the audience, but participation is not canon control.", communityIntro: "Every user can bind a Ghost, enter a Realm and submit personal events. The shared world remains protected by a traceable review chain.",
+    communityTitle: "Community is not the audience,\nbut participation is not canon control.", communityIntro: "Every user can bind a Ghost, enter a Realm and submit personal events. The shared world remains protected by a traceable review chain.",
     inDevelopment: "In development", concept: "Concept", bindGhost: "Bind a Ghost", bindGhostBody: "Establish your continuous identity and private memory.", enterRealm: "Enter a Realm", enterRealmBody: "Live inside a city, story arc or personal instance.",
     submitEvent: "Submit an event", submitEventBody: "It begins as personal or candidate canon before the relevant review group decides.", canonReview: "Canon review", canonReviewBody: "Credits can buy access and tools. They cannot buy main-canon status.",
-    protocolTitle: "The universe grows without losing its memory.", protocolCanon: "Formal material accepted into the main world or a governed Realm.", protocolCandidate: "Creative and community submissions awaiting review and promotion.", protocolPersonal: "Material belonging to a personal Ghost or private instance; it does not rewrite the public world.",
+    protocolTitle: "The universe grows\nwithout losing its memory.", protocolCanon: "Formal material accepted into the main world or a governed Realm.", protocolCandidate: "Creative and community submissions awaiting review and promotion.", protocolPersonal: "Material belonging to a personal Ghost or private instance; it does not rewrite the public world.",
     finalUniverseTitle: "What you leave here is more than a story.", startMainline: "Begin the mainline", readNovel: "Read the novel", returnEcosystem: "Back to ECHO ecosystem",
     ariaHome: "ECHO Universe home", ariaNav: "Universe navigation", ariaLanguage: "Language", ariaSeasons: "Story seasons", ariaAtlas: "World atlas categories", ariaAtlasNodes: "Interactive world nodes", ariaMedia: "Media formats",
     notFoundPageTitle: "ECHO UNIVERSE · 404 · Not on the atlas", notFoundTitle: "This coordinate is not on the atlas.", notFoundBody: "It may have moved, may not be public yet, or the address may be mistyped. Return to the universe, or head back to the ECHO home page.", notFoundUniverse: "Back to the ECHO universe", notFoundHome: "ECHO home",
@@ -196,6 +196,15 @@ function initialLocale() {
   return navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
 }
 
+// A heading designed with a line break carries it as "\n" in the copy. Each designed line becomes a
+// block-level .copy-line span, the markup the static HTML has, so the break survives a language
+// switch and a line too long for its column wraps evenly instead of leaving an orphan.
+function setCopy(element, value) {
+  const lines = value.split("\n");
+  if (lines.length === 1) { element.textContent = value; return; }
+  element.replaceChildren(...lines.map((line) => { const span = document.createElement("span"); span.className = "copy-line"; span.textContent = line; return span; }));
+}
+
 // Tabs follow the WAI-ARIA tabs pattern: one tab stop per tablist (roving tabindex),
 // and the shared panel is labelled by whichever tab is selected.
 function syncTabs(selector, isSelected) {
@@ -268,7 +277,7 @@ function applyUniverseLocale(locale, updateUrl = true) {
   currentLocale = locale === "en" ? "en" : "zh";
   document.documentElement.lang = currentLocale === "en" ? "en" : "zh-CN";
   document.documentElement.dataset.locale = currentLocale;
-  document.querySelectorAll("[data-i18n]").forEach((element) => { const value = universeCopy[currentLocale][element.dataset.i18n]; if (value !== undefined) element.textContent = value; });
+  document.querySelectorAll("[data-i18n]").forEach((element) => { const value = universeCopy[currentLocale][element.dataset.i18n]; if (value !== undefined) setCopy(element, value); });
   document.querySelectorAll("[data-i18n-aria]").forEach((element) => { const value = universeCopy[currentLocale][element.dataset.i18nAria]; if (value !== undefined) element.setAttribute("aria-label", value); });
   document.querySelectorAll("[data-locale]").forEach((button) => { const active = button.dataset.locale === currentLocale; button.classList.toggle("active", active); button.setAttribute("aria-pressed", String(active)); });
   const pageTitle = unknownRoute ? universeCopy[currentLocale].notFoundPageTitle : currentLocale === "en" ? "ECHO UNIVERSE — Echo Age" : "ECHO UNIVERSE · 回响宇宙";

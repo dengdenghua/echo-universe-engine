@@ -160,6 +160,14 @@ main { position: relative; overflow: hidden; isolation: isolate; }
   .atlas-tab, .media-tab, .season-tab, .spoiler-toggle, .back-echo { min-height: 44px; }
 }
 
+/* Headings designed with a line break (universe, novel and reader pages): each designed line is a .copy-line
+   span in the HTML and in what the language switch writes; a line too long for its column wraps evenly. */
+.copy-line { display: block; text-wrap: balance; }
+/* English takes more width per line than Chinese at the same size; in the side columns its designed lines
+   would otherwise break after a word or two ("The universe / grows"). One column below 1000/900px. */
+@media (min-width: 1001px) { html[lang="en"] :is(.atlas-copy, .community-copy) h2 { font-size: clamp(32px, 3.3vw, 48px); } }
+@media (min-width: 901px) { html[lang="en"] .canon-notes h2 { font-size: clamp(32px, 3.3vw, 48px); } }
+
 /* Not-found view (app.js, any path under /universe/ other than the index): the hero carries the 404 copy and nothing else shows. */
 body.is-not-found :is(.skip-link, .universe-nav, .future-scroll, .dive-gauge, .memory-dive), body.is-not-found main > section:not(.universe-hero), body.is-not-found .universe-hero > .future-hero-copy:not(.universe-not-found) { display: none; }
 body.is-not-found .universe-header { grid-template-columns: 1fr auto; }

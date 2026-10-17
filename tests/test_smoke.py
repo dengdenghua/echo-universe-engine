@@ -425,23 +425,60 @@ def test_homepage_static_copy_matches_the_javascript_chinese_default():
 
 
 def test_static_copy_matches_the_chinese_default_on_the_other_pages():
-    # Same rule as the homepage for the universe, novel and console pages: the HTML carries the zh
-    # default that the page's dictionary would swap in (line breaks aside).
+    # Same rule as the homepage for the universe, novel, reader and console pages: the HTML carries
+    # the zh default that the page's dictionary would swap in, designed line breaks included (each
+    # .copy-line span in the HTML is a line of the dictionary value, joined with "\n").
     root = CanonStore().root
-    for page, script, start, end in (
-        ("universe/index.html", "universe/app.js", "  zh: {", "  en: {"),
-        ("universe/novel/index.html", "universe/novel/app.js", "  zh: {", "  en: {"),
-        ("console/index.html", "console/i18n.js", "    zh: {", "    en: {"),
+    for page, script, start, end, minimum in (
+        ("universe/index.html", "universe/app.js", "  zh: {", "  en: {", 20),
+        ("universe/novel/index.html", "universe/novel/app.js", "  zh: {", "  en: {", 20),
+        ("universe/novel/stranger-memory/index.html", "universe/novel/stranger-memory/reader.js", "  zh: {", "  en: {", 15),
+        ("console/index.html", "console/i18n.js", "    zh: {", "    en: {", 20),
     ):
         html = (root / page).read_text(encoding="utf-8")
         javascript = (root / script).read_text(encoding="utf-8")
         zh = dict(re.findall(r'(\w+): "([^"]*)"', javascript[javascript.index(start) : javascript.index(end)]))
         checked = 0
-        for key, inner in re.findall(r'<(?:p|span|h[1-6]|strong|small|div|a|button|b)\b[^>]*\sdata-i18n="([^"]+)"[^>]*>(.*?)</', html):
+        for _tag, key, inner in re.findall(r'<(p|span|h[1-6]|strong|small|div|a|button|b|dt|dd)\b[^>]*\sdata-i18n="([^"]+)"[^>]*>(.*?)</\1>', html):
             if key in zh:
-                assert re.sub(r"<[^>]+>", "", inner).strip() == zh[key], (page, key)
+                text = inner.replace('</span><span class="copy-line">', "\\n")
+                assert re.sub(r"<[^>]+>", "", text).strip() == zh[key], (page, key)
                 checked += 1
-        assert checked >= 20, page
+        assert checked >= minimum, page
+
+
+def test_designed_heading_breaks_survive_the_language_switch():
+    # A heading designed with a line break keeps it in both languages: the break is a "\n" in the zh
+    # and en copy, the HTML carries one .copy-line span per line, and the swap rebuilds those spans
+    # instead of flattening the heading with textContent. No data-i18n element uses a bare <br />.
+    root = CanonStore().root
+    assert ".copy-line { display: block; text-wrap: balance; }" in (root / "universe" / "styles.css").read_text(encoding="utf-8")
+    broken_pages = 0
+    for page, script in (
+        ("homepage/index.html", "homepage/app.js"),
+        ("universe/index.html", "universe/app.js"),
+        ("universe/novel/index.html", "universe/novel/app.js"),
+        ("universe/novel/stranger-memory/index.html", "universe/novel/stranger-memory/reader.js"),
+        ("developers/index.html", "developers/app.js"),
+        ("console/index.html", "console/i18n.js"),
+        ("review/index.html", "review/app.js"),
+    ):
+        html = (root / page).read_text(encoding="utf-8")
+        javascript = (root / script).read_text(encoding="utf-8")
+        elements = re.findall(r'<(p|span|h[1-6]|strong|small|div|a|button|b)\b[^>]*\sdata-i18n="([^"]+)"[^>]*>(.*?)</\1>', html)
+        assert not [key for _tag, key, inner in elements if "<br" in inner], page
+        broken = {key: inner.count('class="copy-line"') for _tag, key, inner in elements if "copy-line" in inner}
+        if not broken:
+            continue
+        broken_pages += 1
+        for key, lines in broken.items():
+            values = re.findall(rf'\b{key}: "([^"]*)"', javascript)
+            assert len(values) == 2, (page, key)
+            assert all(value.count("\\n") == lines - 1 >= 1 for value in values), (page, key)
+        assert 'span.className = "copy-line"' in javascript, script
+        assert re.search(r'\[data-i18n\]"\)\.forEach\([^\n]*setCopy\(element, ', javascript), script
+        assert not re.search(r'\[data-i18n\]"\)\.forEach\([^\n]*\.textContent = ', javascript), script
+    assert broken_pages == 3
 
 
 def test_site_lockups_and_owner_lines_read_echo():
