@@ -148,6 +148,8 @@ main { width: min(calc(100% - var(--gutter) * 2), var(--content)); margin: 0 aut
   .filter-row { flex-wrap: wrap; }
   #endpoint-filter { flex: 1 1 100%; }
   .play-controls { flex-direction: column; align-items: stretch; }
+  /* In the column layout the 360px flex-basis would become the select's height. */
+  #play-endpoint { flex: none; }
   .send-btn { width: 100%; }
   .dev-footer { flex-direction: column; align-items: flex-start; }
 }

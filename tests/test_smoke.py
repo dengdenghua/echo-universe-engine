@@ -532,6 +532,10 @@ def test_developers_phone_header_keeps_section_nav_and_back_link():
     assert ".developer-edition .dev-nav { grid-row: 2;" in interiors
     assert not re.search(r"\.dev-nav\)? \{ display: none; \}", interiors + dev_styles)
     assert ".back-echo { display: none; }" not in dev_styles
+    # Phones stack the playground controls; the select's 360px flex-basis must not become its height.
+    phone = dev_styles[dev_styles.index("@media (max-width: 720px)") :]
+    phone = phone[: phone.index("\n}")]
+    assert ".play-controls { flex-direction: column;" in phone and "#play-endpoint { flex: none; }" in phone
 
 
 def test_chinese_type_floor_covers_toasts_invite_buttons_and_language_switches():
